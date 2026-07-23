@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="Christian Canonica">
 <meta name="company" content="Spazio Ireos soc. Cooperativa Sociale">
-<meta name="version" content="ver91 — Nuovo pulsante “Residui” dopo l’ultima annualita’: apre una schermata di riepilogo dei residui a fine progetto, aggregati per VOCE (Personale raggruppato per ruolo, Beni per voce), con speso, residuo in euro e stato (Esaurito / Sforato / Disponibile). Sola lettura: nessun calcolo modificato.">
+<meta name="version" content="ver92 — Vista mesi: le colonne dei mesi della tabella PERSONALE e di quella BENI/MATERIALI sono ora graficamente incolonnate (stesse posizioni e larghezze, layout a colonne fisse). Solo grafica: nessun calcolo toccato.">
 <title>USOINT — Rendicontazione Interna</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
@@ -64,7 +64,7 @@ function fbSync(uid){return fbDb.collection("users").doc(uid).collection("kv").g
 function fbPush(uid){var batch=fbDb.batch();var n=0;for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(k&&k.indexOf("usoint")===0){batch.set(fbDb.collection("users").doc(uid).collection("kv").doc(k),{v:localStorage.getItem(k)});n++}}if(n>0)return batch.commit().then(function(){return n});return Promise.resolve(0)}
 const MESI=["GEN","FEB","MAR","APR","MAG","GIU","LUG","AGO","SET","OTT","NOV","DIC"];
 const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
-const VER="ver91";
+const VER="ver92";
 function nomeFile(base,ext){var mm=["gen","feb","mar","apr","mag","giu","lug","ago","set","ott","nov","dic"];var d=new Date();var o={};try{new Intl.DateTimeFormat("en-GB",{timeZone:"Europe/Rome",year:"2-digit",month:"numeric",day:"2-digit",hour:"2-digit",minute:"2-digit",hour12:false}).formatToParts(d).forEach(function(p){o[p.type]=p.value})}catch(e){o={day:("0"+d.getDate()).slice(-2),month:String(d.getMonth()+1),year:String(d.getFullYear()).slice(-2),hour:("0"+d.getHours()).slice(-2),minute:("0"+d.getMinutes()).slice(-2)}}var gg=("0"+o.day).slice(-2),mmm=mm[(+o.month)-1]||"",aa=o.year,HH=("0"+o.hour).slice(-2),MM=("0"+o.minute).slice(-2);if(HH==="24")HH="00";return base+" "+gg+mmm+aa+" - "+VER+" - "+HH+"."+MM+"."+ext}
 const calcCY=(s,e)=>{if(!s||!e)return[];const sd=new Date(s),ed=new Date(e);if(isNaN(sd)||isNaN(ed)||ed<=sd)return[];const r=[];for(let y=sd.getFullYear();y<=ed.getFullYear();y++){const fm=y===sd.getFullYear()?sd.getMonth():0,lm=y===ed.getFullYear()?ed.getMonth():11,ms=[];for(let m=0;m<12;m++){ms.push({month:m,label:MESI[m],disabled:m<fm||m>lm})}r.push({year:y,months:ms,n:lm-fm+1,partial:(lm-fm+1)<12,fm:fm,lm:lm})}return r};
 const mkP=n=>({nome:"",voce:"",inq:"",oreT:0,eur:0,cofin:0,aOre:Array(n).fill(0),aElim:Array(n).fill(0),cessato:"",subentro:"",eurA:Array(n).fill(0),ricevute:0,budgetRic:0,recBlk:[],md:Array.from({length:n},()=>Array(12).fill(0))});
@@ -630,10 +630,10 @@ function PV({pid,onBack}){
     {/* === VISTA MESI APERTA === */}
     {mo&&cyr&&<div>
       <div style={{background:"#fff",borderRadius:6,border:"1px solid #e2e8f0",marginTop:4,overflowX:"auto"}}>
-        <table style={{borderCollapse:"collapse",fontSize:10,width:"100%",border:"1px solid #94a3b8",fontFamily:"'Nunito','Segoe UI',sans-serif"}}><thead>
+        <table style={{borderCollapse:"collapse",fontSize:10,width:"100%",tableLayout:"fixed",border:"1px solid #94a3b8",fontFamily:"'Nunito','Segoe UI',sans-serif"}}><colgroup><col style={{width:200}}/><col style={{width:52}}/><col style={{width:56}}/><col style={{width:56}}/><col style={{width:52}}/><col style={{width:48}}/>{cyr.months.map(function(m){return <col key={m.month} style={{width:70}}/>})}<col style={{width:52}}/><col style={{width:68}}/><col style={{width:68}}/><col style={{width:68}}/><col style={{width:64}}/><col style={{width:44}}/></colgroup><thead>
           <tr style={{background:YCH[aYI%8]}}>
             <th style={thF}>Nominativo / Ruolo</th><th style={thF}>Ore tot.</th><th style={thF}>€/ora prev.</th><th style={{...thF,color:"#d97706"}}>€/ora eff.</th><th style={{...thF,color:"#0891b2"}}>Ore max</th><th style={thF}>Alloc.</th>
-            {cyr.months.map(function(m){return<th key={m.month} style={{...thF,textAlign:"center",color:YCT[aYI%8],minWidth:56,...sepM(m.month,data.cadMesi||0,YCT[aYI%8])}}>{m.label}</th>})}
+            {cyr.months.map(function(m){return<th key={m.month} style={{...thF,textAlign:"center",color:YCT[aYI%8],minWidth:70,...sepM(m.month,data.cadMesi||0,YCT[aYI%8])}}>{m.label}</th>})}
             <th style={thF}>Tot.ore</th><th style={thF}>Tot.€</th><th style={{...thF,color:"#000080",background:"#e9eda5",borderRadius:3}}>€ fin.</th><th style={{...thF,color:"#c71585",background:"#fff3e0",borderRadius:3}}>€ cof.</th><th style={thF}>Res.€</th><th style={thF}>Stato</th>
           </tr>
         </thead><tbody>
@@ -684,7 +684,7 @@ function PV({pid,onBack}){
       </div>
 
       <div style={{background:"#fff",borderRadius:6,border:"1px solid #e2e8f0",marginTop:4,overflowX:"auto"}}>
-        <table style={{borderCollapse:"collapse",fontSize:10,width:"100%",fontFamily:"'Nunito','Segoe UI',sans-serif"}}><thead>
+        <table style={{borderCollapse:"collapse",fontSize:10,width:"100%",tableLayout:"fixed",fontFamily:"'Nunito','Segoe UI',sans-serif"}}><colgroup><col style={{width:300}}/><col style={{width:88}}/><col style={{width:76}}/>{cyr.months.map(function(m){return <col key={m.month} style={{width:70}}/>})}<col style={{width:88}}/><col style={{width:88}}/><col style={{width:78}}/><col style={{width:66}}/><col style={{width:44}}/></colgroup><thead>
           <tr style={{background:YCH[aYI%8]}}>
             <th style={thF}>Voce di spesa</th><th style={thF}>Imp.prev.</th><th style={thF}>Alloc.</th>
             {cyr.months.map(function(m){return<th key={m.month} style={{...thF,textAlign:"center",color:YCT[aYI%8],minWidth:70,...sepM(m.month,data.cadMesi||0,YCT[aYI%8])}}>{"€ "+m.label}</th>})}
