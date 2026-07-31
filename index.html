@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="Christian Canonica">
 <meta name="company" content="Spazio Ireos soc. Cooperativa Sociale">
-<meta name="version" content="ver109 — Nella schermata 📊 Residui aggiunto il riquadro CONSUNTIVO FINALE (metodo % sul totale, come il Committente): mostra speso complessivo, la quota di cofinanziamento promessa a preventivo sul totale del progetto (personale+beni), il finanziato che spetta (speso × (1−quota%)), il già fatturato e soprattutto quanto RIMANE DA FATTURARE. Sola lettura: usa i dati già calcolati (spesoTot, pctCof, cofRich, fatture); il motore per-voce resta invariato.">
+<meta name="version" content="ver110 — Riassegnazione residui operatori cessati: quando il residuo da trasferire è a zero (già assegnato o nulla da spostare), il pulsante Trasferisci diventa grigio, non cliccabile, con scritta ✓ Trasferito. Vale per progetti liberi (o.saldoImp) e vincolati (a.resImp), personale e beni. Motore e logica di trasferimento invariati.">
 <title>USOINT — Rendicontazione Interna</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
@@ -64,7 +64,7 @@ function fbSync(uid){return fbDb.collection("users").doc(uid).collection("kv").g
 function fbPush(uid){var batch=fbDb.batch();var n=0;for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(k&&k.indexOf("usoint")===0){batch.set(fbDb.collection("users").doc(uid).collection("kv").doc(k),{v:localStorage.getItem(k)});n++}}if(n>0)return batch.commit().then(function(){return n});return Promise.resolve(0)}
 const MESI=["GEN","FEB","MAR","APR","MAG","GIU","LUG","AGO","SET","OTT","NOV","DIC"];
 const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
-const VER="ver109";
+const VER="ver110";
 function nomeFile(base,ext){var mm=["gen","feb","mar","apr","mag","giu","lug","ago","set","ott","nov","dic"];var d=new Date();var o={};try{new Intl.DateTimeFormat("en-GB",{timeZone:"Europe/Rome",year:"2-digit",month:"numeric",day:"2-digit",hour:"2-digit",minute:"2-digit",hour12:false}).formatToParts(d).forEach(function(p){o[p.type]=p.value})}catch(e){o={day:("0"+d.getDate()).slice(-2),month:String(d.getMonth()+1),year:String(d.getFullYear()).slice(-2),hour:("0"+d.getHours()).slice(-2),minute:("0"+d.getMinutes()).slice(-2)}}var gg=("0"+o.day).slice(-2),mmm=mm[(+o.month)-1]||"",aa=o.year,HH=("0"+o.hour).slice(-2),MM=("0"+o.minute).slice(-2);if(HH==="24")HH="00";return base+" "+gg+mmm+aa+" - "+VER+" - "+HH+"."+MM+"."+ext}
 const calcCY=(s,e)=>{if(!s||!e)return[];const sd=new Date(s),ed=new Date(e);if(isNaN(sd)||isNaN(ed)||ed<=sd)return[];const r=[];for(let y=sd.getFullYear();y<=ed.getFullYear();y++){const fm=y===sd.getFullYear()?sd.getMonth():0,lm=y===ed.getFullYear()?ed.getMonth():11,ms=[];for(let m=0;m<12;m++){ms.push({month:m,label:MESI[m],disabled:m<fm||m>lm})}r.push({year:y,months:ms,n:lm-fm+1,partial:(lm-fm+1)<12,fm:fm,lm:lm})}return r};
 const mkP=n=>({nome:"",voce:"",inq:"",oreT:0,eur:0,cofin:0,aOre:Array(n).fill(0),aElim:Array(n).fill(0),cessato:"",subentro:"",eurA:Array(n).fill(0),ricevute:0,budgetRic:0,recBlk:[],md:Array.from({length:n},()=>Array(12).fill(0))});
@@ -880,7 +880,7 @@ function PV({pid,onBack}){
                         if(window.confirm("Trasferire "+fmtE(a.resImp)+" di residuo da "+(p.nome||"Op."+(i+1))+" a "+toName+" (anno "+a.year+").\n"+toName+" potrà lavorare "+fO(cedo)+" ore alla sua tariffa ("+fmtE(rRate)+"/h). Procedere?")){
                           trasferisciOre(i,toIdx,a.yi,cedo,a.consumato);
                         }
-                      }} style={{background:"#16a34a",color:"#fff",border:"none",padding:"3px 10px",borderRadius:4,cursor:"pointer",fontSize:9,fontWeight:700}}>Trasferisci {a.year}</button>
+                      }} style={{background:(a.resImp<=0.001?"#e2e8f0":"#16a34a"),color:(a.resImp<=0.001?"#94a3b8":"#fff"),border:"none",padding:"3px 10px",borderRadius:4,cursor:(a.resImp<=0.001?"default":"pointer"),pointerEvents:(a.resImp<=0.001?"none":"auto"),fontSize:9,fontWeight:700}}>{a.resImp<=0.001?"✓ Trasferito":"Trasferisci "+a.year}</button>
                     </div>);
                   })
                 :
@@ -901,7 +901,7 @@ function PV({pid,onBack}){
                         if(window.confirm("Trasferire l'intero residuo "+fmtE(o.saldoImp)+" da "+(p.nome||"Op."+(i+1))+" a "+toName+" sulla prima annualità ("+(cy[0]?cy[0].year:"")+").\n"+toName+" potrà lavorare "+fO(cedo)+" ore alla sua tariffa ("+fmtE(rRate)+"/h). Procedere?")){
                           trasferisciLibero(i,toIdx,0,o.saldoOre,cedo,o.residui,o.saldoImp);
                         }
-                      }} style={{background:"#16a34a",color:"#fff",border:"none",padding:"3px 10px",borderRadius:4,cursor:"pointer",fontSize:9,fontWeight:700}}>Trasferisci su prima annualità ({cy[0]?cy[0].year:""})</button>
+                      }} style={{background:(o.saldoImp<=0.001?"#e2e8f0":"#16a34a"),color:(o.saldoImp<=0.001?"#94a3b8":"#fff"),border:"none",padding:"3px 10px",borderRadius:4,cursor:(o.saldoImp<=0.001?"default":"pointer"),pointerEvents:(o.saldoImp<=0.001?"none":"auto"),fontSize:9,fontWeight:700}}>{o.saldoImp<=0.001?"✓ Trasferito":"Trasferisci su prima annualità ("+(cy[0]?cy[0].year:"")+")"}</button>
                     </div>);
                   })()}
               </div>);
@@ -954,7 +954,7 @@ function PV({pid,onBack}){
                         if(window.confirm("Trasferire l'avanzo "+fmtE(a.resImp)+" dalla voce \""+(b.voce||"Voce "+(i+1))+"\" a \""+toName+"\" per l'anno "+a.year+"?")){
                           trasferisciBeneAnno(i,toIdx,a.yi,a.resImp,a.speso);
                         }
-                      }} style={{background:"#1d4ed8",color:"#fff",border:"none",padding:"3px 10px",borderRadius:4,cursor:"pointer",fontSize:9,fontWeight:700}}>Trasferisci {a.year}</button>
+                      }} style={{background:(a.resImp<=0.001?"#e2e8f0":"#1d4ed8"),color:(a.resImp<=0.001?"#94a3b8":"#fff"),border:"none",padding:"3px 10px",borderRadius:4,cursor:(a.resImp<=0.001?"default":"pointer"),pointerEvents:(a.resImp<=0.001?"none":"auto"),fontSize:9,fontWeight:700}}>{a.resImp<=0.001?"✓ Trasferito":"Trasferisci "+a.year}</button>
                     </div>);
                   })
                 :
@@ -973,7 +973,7 @@ function PV({pid,onBack}){
                         if(window.confirm("Trasferire l'intero avanzo "+fmtE(o.saldoImp)+" dalla voce \""+(b.voce||"Voce "+(i+1))+"\" a \""+toName+"\" sulla PRIMA annualità ("+(cy[0]?cy[0].year:"")+")?")){
                           trasferisciBeneLibero(i,toIdx,0,o.saldoImp,o.avanzi);
                         }
-                      }} style={{background:"#1d4ed8",color:"#fff",border:"none",padding:"3px 10px",borderRadius:4,cursor:"pointer",fontSize:9,fontWeight:700}}>Trasferisci su prima annualità ({cy[0]?cy[0].year:""})</button>
+                      }} style={{background:(o.saldoImp<=0.001?"#e2e8f0":"#1d4ed8"),color:(o.saldoImp<=0.001?"#94a3b8":"#fff"),border:"none",padding:"3px 10px",borderRadius:4,cursor:(o.saldoImp<=0.001?"default":"pointer"),pointerEvents:(o.saldoImp<=0.001?"none":"auto"),fontSize:9,fontWeight:700}}>{o.saldoImp<=0.001?"✓ Trasferito":"Trasferisci su prima annualità ("+(cy[0]?cy[0].year:"")+")"}</button>
                     </div>);
                   })()}
               </div>);
