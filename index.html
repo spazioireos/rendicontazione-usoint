@@ -65,13 +65,13 @@
     width:100%;height:100%;border:0;display:block;
   }
 
-  /* Su schermi piccoli: titolo più corto e pulsanti a tutta larghezza */
-  @media (max-width:560px){
-    :root{--barra-h:112px;}
+  /* Su schermi piccoli: titolo su una riga, pulsanti a tutta larghezza */
+  @media (max-width:720px){
+    :root{--barra-h:150px;}
     .barra{flex-wrap:wrap;align-content:center;padding:8px 12px;gap:8px;}
     .titolo{font-size:15px;width:100%;}
     .pulsanti{width:100%;}
-    .btn{flex:1 1 0;justify-content:center;font-size:14px;padding:10px 8px;}
+    .btn{flex:1 1 40%;justify-content:center;font-size:14px;padding:10px 8px;}
   }
 </style>
 </head>
@@ -79,28 +79,32 @@
   <header class="barra">
     <div class="titolo"><span class="pallino"></span>SPAZIO IREOS · Gestionale integrato</div>
     <nav class="pulsanti">
+      <button class="btn" id="btn-collaboratori" type="button" onclick="apri('collaboratori')">
+        <span class="ico">👥</span> Collaboratori
+      </button>
+      <button class="btn" id="btn-dipendenti" type="button" onclick="apri('dipendenti')">
+        <span class="ico">🧑‍💼</span> Dipendenti
+      </button>
       <button class="btn" id="btn-rendicontazione" type="button" onclick="apri('rendicontazione')">
         <span class="ico">📊</span> Rendicontazione progetti
-      </button>
-      <button class="btn" id="btn-compensi" type="button" onclick="apri('compensi')">
-        <span class="ico">👥</span> Compensi collaboratori
       </button>
     </nav>
   </header>
 
   <main class="area">
-    <iframe id="app" title="Applicazione" src="rendicontazione.html"></iframe>
+    <iframe id="app" title="Applicazione" src="collaboratori.html"></iframe>
   </main>
 
 <script>
   var SEZIONI = {
-    rendicontazione: { file:'rendicontazione.html', btn:'btn-rendicontazione', titolo:'Rendicontazione progetti' },
-    compensi:        { file:'compensi.html',        btn:'btn-compensi',        titolo:'Compensi collaboratori' }
+    collaboratori:   { file:'collaboratori.html',   btn:'btn-collaboratori',   titolo:'Collaboratori' },
+    dipendenti:      { file:'dipendenti.html',      btn:'btn-dipendenti',      titolo:'Dipendenti' },
+    rendicontazione: { file:'rendicontazione.html', btn:'btn-rendicontazione', titolo:'Rendicontazione progetti' }
   };
   var CHIAVE = 'spazioireos_integrato_tab';
 
   function apri(nome){
-    var s = SEZIONI[nome] || SEZIONI.rendicontazione;
+    var s = SEZIONI[nome] || SEZIONI.collaboratori;
     var frame = document.getElementById('app');
     // Cambia pagina solo se diversa, per non ricaricare inutilmente
     if (frame.getAttribute('data-sezione') !== nome){
@@ -117,9 +121,9 @@
     document.title = 'Spazio Ireos – ' + s.titolo;
   }
 
-  // All'avvio riapre l'ultima sezione usata (default: rendicontazione)
+  // All'avvio riapre l'ultima sezione usata (default: Collaboratori)
   (function(){
-    var iniziale = 'rendicontazione';
+    var iniziale = 'collaboratori';
     try {
       var salvata = localStorage.getItem(CHIAVE);
       if (salvata && SEZIONI[salvata]) iniziale = salvata;
