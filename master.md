@@ -40,7 +40,7 @@ toccare): leggere quello prima di lavorarci.
 ## 3. L'APP INTEGRATA — attiva
 
 - **Link unico:** `https://spazioireos.github.io/rendicontazione-usoint/integrata/`
-- File `integrata/index.html` in questo repo, su `main`. **Revisione attuale: `rev 2 · 29ott26`.**
+- File `integrata/index.html` in questo repo, su `main`. **Revisione attuale: `rev 3 · 29ott26`.**
 - **Quattro pulsanti**: 👥 Collaboratori · 🧑‍💼 Dipendenti · 📊 Rendicontazione progetti · 📋 Fogli ore.
 - **Apre i LINK LIVE** delle app, non copie: quando si aggiorna una app, la pagina integrata
   mostra la versione nuova **da sola**. Non va MAI aggiornata per questo motivo.
@@ -56,7 +56,7 @@ in cache (problema realmente capitato).
 
 | App | Numero attuale | Dove si vede | Da dove viene |
 |---|---|---|---|
-| App integrata | `rev 2 · 29ott26` | barra in alto | scritto nel file |
+| App integrata | `rev 3 · 29ott26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 1 · 29ott26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
 | Dipendenti | `ver61 · 29ott26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver118 · 29ott26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
