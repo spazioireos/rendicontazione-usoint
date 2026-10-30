@@ -60,7 +60,7 @@ in cache (problema realmente capitato).
 | Collaboratori | `rev 1 · 29ott26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
 | Dipendenti | `ver61 · 29ott26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver118 · 29ott26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
-| Fogli ore | `rev 1 · 29ott26` | angolo in basso a destra, ogni schermata | scritto nel file |
+| Fogli ore | `rev 2 · 30ott26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
 **Criterio:** dove l'app aveva già una numerazione (USOINT `ver`, Dipendenti `APP_VER`) si usa e
 si incrementa **quella**; dove non c'era si è partiti da `rev 1`. **Mai due numerazioni nella
@@ -244,6 +244,12 @@ codici in `CODICI`/`CODE_SET`). Totale mese = `totOfRec(rec,y,m)`.
    mese (`locks`) e ruolo `disabled` non imposti dal database, creazione libera dei documenti
    `lightsheets`.
 4. Le funzioni nuove **non sono provate su dati veri**: le prove di Christian sono quelle che contano.
+5. **Fogli ore su telefono/tablet**: con la rev 2 del 30/10/2026 la colonna del giorno resta ferma
+   mentre si scorre di lato e lo zoom con due dita è tornato possibile. Restano **non risolti**:
+   la tabella del mese è larga 906px con 36 colonne (su un telefono se ne vede meno della metà);
+   116 scritte sono sotto i 12px e 406 bersagli da toccare sono sotto i 32px; bloccare in alto
+   tutto il capo-tabella non è possibile senza cambiare come scorre la pagina (provato con
+   l'emulatore e fallito).
 
 ---
 
