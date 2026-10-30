@@ -233,12 +233,14 @@ codici in `CODICI`/`CODE_SET`). Totale mese = `totOfRec(rec,y,m)`.
    servono.
 2. **Abbinamento solo per nome**: non c'è un codice fiscale condiviso; i nomi devono essere scritti
    uguali (maiuscole e spazi non contano). Dove differiscono, l'abbinamento salta **in silenzio**.
-3. **Sicurezza del progetto degli esterni — VERIFICATA il 30/10/2026**: la registrazione è
-   aperta e i dati stanno in collection globali, quindi tutto dipende dalle regole Firestore.
-   Le regole allora pubblicate avevano **due falle dimostrate** con l'emulatore ufficiale: un
-   operatore poteva scrivere (e per quella via leggere) il foglio ore di un collega, e chiunque
-   si registrasse poteva crearsi il documento utente con `role:"admin"`. Testo corretto, prova
-   automatica da 39 controlli e cronaca completa in **`regole-firestore/`** del repo
+3. **Sicurezza del progetto degli esterni — VERIFICATA e RISOLTA il 30/10/2026**: la
+   registrazione è aperta e i dati stanno in collection globali, quindi tutto dipende dalle
+   regole Firestore. Le regole fino a quel giorno avevano **due falle dimostrate** con
+   l'emulatore ufficiale: un operatore poteva scrivere (e per quella via leggere) il foglio ore
+   di un collega, e chiunque si registrasse poteva crearsi il documento utente con
+   `role:"admin"`. **Christian ha pubblicato il testo corretto in console il 30/10/2026**, ed è
+   stato verificato rileggendo le regole in vigore: entrambe le falle sono chiuse. Testo,
+   prova automatica da 39 controlli e cronaca completa in **`regole-firestore/`** del repo
    `spazioireos-foglio-ore`. **Le regole si pubblicano a mano in console Firebase**: Claude non
    ha accesso, quindi quel passaggio è sempre di Christian. Restano aperte per scelta: blocco
    mese (`locks`) e ruolo `disabled` non imposti dal database, creazione libera dei documenti
