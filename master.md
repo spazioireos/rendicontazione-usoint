@@ -189,6 +189,12 @@ peggio di non averla.
   presente solo come **scorciatoia** (quarto pulsante).
 - La pagina integrata **apre link live**, non copie.
 - Avanzo a zero = **grigio**.
+- **La pagina integrata resta dentro il repo `rendicontazione-usoint`** (decisione di Christian del
+  30/10/2026). Spostarla in un repository suo cambierebbe l'indirizzo usato ogni giorno: idea
+  **scartata**, non riproporla. L'hub NON è l'app USOINT: è `integrata/`, una stanza separata
+  dentro lo stesso magazzino.
+- **Punti di ripristino**: in ogni repository c'è il ramo `stabile-30ott26` con la versione buona
+  del 30/10/2026 (le etichette di versione "tag" sono rifiutate da GitHub a Claude: errore 403).
 
 ---
 
