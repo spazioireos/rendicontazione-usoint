@@ -221,11 +221,22 @@ codici in `CODICI`/`CODE_SET`). Totale mese = `totOfRec(rec,y,m)`.
 
 1. **Permessi Firestore**: i collegamenti tra app leggono dati di un altro ambito. Se le regole
    non consentono la lettura all'account admin, compare solo una nota ("non disponibile
-   (permessi)") e nulla si rompe: serve una modifica nella console Firebase.
+   (permessi)") e nulla si rompe: serve una modifica nella console Firebase. **Verificato il
+   30/10/2026 con l'emulatore ufficiale**: l'account admin PUÒ leggere `users` e `timesheets`
+   anche con le query a elenco, quindi il confronto Dipendenti ↔ Fogli ore ha i permessi che gli
+   servono.
 2. **Abbinamento solo per nome**: non c'è un codice fiscale condiviso; i nomi devono essere scritti
    uguali (maiuscole e spazi non contano). Dove differiscono, l'abbinamento salta **in silenzio**.
-3. **Sicurezza (da verificare, fuori ambito)**: sul progetto degli esterni la registrazione è
-   aperta e i dati stanno in collection globali; chi vede cosa dipende dalle regole Firestore.
+3. **Sicurezza del progetto degli esterni — VERIFICATA il 30/10/2026**: la registrazione è
+   aperta e i dati stanno in collection globali, quindi tutto dipende dalle regole Firestore.
+   Le regole allora pubblicate avevano **due falle dimostrate** con l'emulatore ufficiale: un
+   operatore poteva scrivere (e per quella via leggere) il foglio ore di un collega, e chiunque
+   si registrasse poteva crearsi il documento utente con `role:"admin"`. Testo corretto, prova
+   automatica da 39 controlli e cronaca completa in **`regole-firestore/`** del repo
+   `spazioireos-foglio-ore`. **Le regole si pubblicano a mano in console Firebase**: Claude non
+   ha accesso, quindi quel passaggio è sempre di Christian. Restano aperte per scelta: blocco
+   mese (`locks`) e ruolo `disabled` non imposti dal database, creazione libera dei documenti
+   `lightsheets`.
 4. Le funzioni nuove **non sono provate su dati veri**: le prove di Christian sono quelle che contano.
 
 ---
@@ -258,6 +269,9 @@ codici in `CODICI`/`CODE_SET`). Totale mese = `totOfRec(rec,y,m)`.
 > dirlo; si lavora su ramo di prova e si va su `main` solo al "porta su main"; ogni modifica
 > aggiorna numero di revisione, `CLAUDE.md` e `master.md`. Preferenze: rispondere in chat, non
 > narrare i passaggi, Nu* prima di costruire.
+> SICUREZZA: le regole Firestore del progetto degli esterni e la loro prova automatica stanno in
+> `regole-firestore/` del repo `spazioireos-foglio-ore`; due falle trovate e corrette il
+> 30/10/2026, da pubblicare in console (lo fa Christian, Claude non ha accesso).
 > COMANDO PERMANENTE del 30/10/2026: sta nel §10 di ogni `CLAUDE.md` (ruolo da ingegnere senior
 > responsabile di qualità e stabilità, modifiche circoscritte, caccia alle regressioni, sicurezza
 > e recuperabilità dei dati, nulla osta con anteprima, divieto di consegnare una versione non
