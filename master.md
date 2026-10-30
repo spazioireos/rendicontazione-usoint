@@ -154,6 +154,17 @@ ricordato da Christian.
 La knowledge di progetto su claude.ai (knp) serve invece per le chat normali, dove Claude non ha
 accesso ai repository: lì va messo questo `master.md`.
 
+**Dal 30/10/2026 ogni `CLAUDE.md` contiene anche il §10 "COMANDO PERMANENTE DI CHRISTIAN"**: il
+comando dato in chat quel giorno, scritto identico in tutti e quattro i repository. In sintesi:
+lavorare da ingegnere senior responsabile della qualità e della stabilità; modifiche circoscritte
+a ciò che è stato chiesto, nessun miglioramento non richiesto; caccia attiva alle regressioni con
+test ripetuti anche sulle parti preesistenti; salvataggio solo manuale e dati sempre
+recuperabili (backup JSON con versione di schema, conferme sulle eliminazioni, nessun dato
+personale su Pages senza protezione); nulla osta e anteprima PNG prima di consegnare;
+distinguere sempre test superato / test fallito / test non eseguito / verifica solo teorica e
+non dichiarare stabile una versione non verificata. Il testo integrale è nel §10 di ciascun
+`CLAUDE.md`.
+
 ---
 
 ## 9. REGOLA ANTI-DOCUMENTI-VECCHI
@@ -236,7 +247,7 @@ codici in `CODICI`/`CODE_SET`). Totale mese = `totOfRec(rec,y,m)`.
 > contenuto: verificare il `<title>`. In ogni repo c'è un `CLAUDE.md` con le istruzioni di quella
 > app, e in `rendicontazione-usoint` c'è `master.md` (questo documento): leggerli prima di agire.
 > ATTIVO: pagina integrata `integrata/index.html` (link
-> `https://spazioireos.github.io/rendicontazione-usoint/integrata/`, rev 2) con quattro pulsanti che
+> `https://spazioireos.github.io/rendicontazione-usoint/integrata/`, rev 3) con quattro pulsanti che
 > aprono i LINK LIVE; nei Dipendenti la targhetta ORE MESE e l'avviso di confronto con Fogli ore;
 > numero di revisione visibile in tutte le app.
 > DA PROVARE sul ramo `claude/integrated-app-feasibility-8d1wg0`: in USOINT l'import automatico in
@@ -247,3 +258,7 @@ codici in `CODICI`/`CODE_SET`). Totale mese = `totOfRec(rec,y,m)`.
 > dirlo; si lavora su ramo di prova e si va su `main` solo al "porta su main"; ogni modifica
 > aggiorna numero di revisione, `CLAUDE.md` e `master.md`. Preferenze: rispondere in chat, non
 > narrare i passaggi, Nu* prima di costruire.
+> COMANDO PERMANENTE del 30/10/2026: sta nel §10 di ogni `CLAUDE.md` (ruolo da ingegnere senior
+> responsabile di qualità e stabilità, modifiche circoscritte, caccia alle regressioni, sicurezza
+> e recuperabilità dei dati, nulla osta con anteprima, divieto di consegnare una versione non
+> verificata).
