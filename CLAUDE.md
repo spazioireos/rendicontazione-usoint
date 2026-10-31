@@ -17,12 +17,23 @@ USOINT sta per **"uso interno"**.
   (specchio di localStorage). Chiavi: `usoint-idx`, `usoint-p-<id>`, `usoint-orelav`,
   `usoint-tariffe`, `usoint-simul`. Accesso mail+password.
 - **Numero di revisione**: costante `const VER` (riga ~67), mostrata in **tre punti** (Home,
-  scheda progetto, Riepilogo operatori). **Attuale: ver118 · 29ott26.** `VER` finisce anche nei
+  scheda progetto, Riepilogo operatori). **Attuale: ver119 · 31ott26.** `VER` finisce anche nei
   nomi dei file esportati: incrementarla, non affiancarle un secondo numero.
 - **Strutture utili**: `usoint-orelav` = `{ [norm(nome)]: { [anno]: [12 numeri] } }` (ore
   lavorate, indice 0 = gennaio; `norm` = minuscolo, trim, spazi singoli).
   Ore rendicontate: `agg.data[k].years[anno][mese]` (totale) e
   `agg.data[k].prjM[titoloProgetto][anno][mese]` (per progetto), indice mese 0-based.
+- **Cofinanziamento in percentuale** (da ver119, 31/10/2026): sopra la griglia del budget c'è una
+  riga di scelta — *diverso per ogni voce* (com'era prima: si scrive l'importo finanziato voce per
+  voce) oppure *unico per tutte le voci* con una **percentuale a carico di Spazio Ireos**. Il
+  pulsante **"Applica a tutte le voci"** riscrive `cofin` di tutte le voci di `personnel` e `beni`
+  come `importo × %/100` (per il personale `importo = oreT × eur`, per i beni `forf`), previa
+  **conferma** che dice quante voci cambieranno. In modalità *unico*, cambiando `oreT`/`eur` di una
+  voce di personale o `forf` di una voce di beni il suo `cofin` **si ricalcola da sé** (innesto
+  dentro `uP`/`uB`). Nuovi campi nel progetto: **`cofinMode`** ("voce" o "pct") e **`cofinPct`**.
+  Il motore di rendicontazione **non è stato toccato**: cambia solo *chi scrive* `cofin`, che
+  resta un importo come prima. Funzioni: `cofR2`, `cofPctVal`, `cofAttiva`, `cofApplicaTutte`,
+  `cofQuanteVoci`, `cofChiediEApplica`.
 - **Funzioni presenti**: import automatico (SOLA LETTURA) delle ore lavorate dal database dei
   Dipendenti tramite una **seconda app Firebase** chiamata "dip"; tabella compatta della scheda
   operatore (Lavorate | una colonna per progetto | Tot. rendicontate | Avanzo).

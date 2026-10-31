@@ -59,7 +59,7 @@ in cache (problema realmente capitato).
 | App integrata | `rev 3 · 29ott26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 1 · 29ott26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
 | Dipendenti | `ver64 · 31ott26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
-| Rendicontazione USOINT | `ver118 · 29ott26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
+| Rendicontazione USOINT | `ver119 · 31ott26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 3 · 30ott26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
 **Criterio:** dove l'app aveva già una numerazione (USOINT `ver`, Dipendenti `APP_VER`) si usa e
