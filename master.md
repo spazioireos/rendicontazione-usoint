@@ -58,7 +58,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 3 · 29ott26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 1 · 29ott26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver62 · 31ott26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver64 · 31ott26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver118 · 29ott26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 3 · 30ott26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -251,11 +251,12 @@ codici in `CODICI`/`CODE_SET`). Totale mese = `totOfRec(rec,y,m)`.
    ora *Trasformaz./proroghe*, *Monte ore (anche temporaneo)*, *Mensilizzazione*, *Massimali
    annui*, *Colore*. Stessi campi di prima, **nessun calcolo toccato**. **Da verificare su dati
    veri**: che banca ore, massimali e monte ore mensile diano gli stessi numeri di prima.
-   **Aperti e non ancora risolti**, segnalati da Christian il 31/10: la casella "Ore dichiarate"
-   del report mensile **non compare per i dipendenti mensilizzati** (`{!dp.mensilizzato ? …}`),
-   e serve proprio a loro per il conguaglio quando il cedolino è stato fatto in via teorica; il
-   calcolo dello **straordinario** (riquadro "Ore in più / in meno") somma ferie, malattia e
-   permessi come ore fatte, e secondo Christian è sbagliato.
+   **Risolti il 31/10**: la casella **"Ore dichiarate"** ora si compila per tutti, mensilizzati
+   compresi (ver63) — la differenza fra dichiarato e calcolato si riporta da sola nei mesi
+   successivi finché non viene sistemata o il saldo azzerato; e lo **straordinario** (ver64) non
+   nasce più dalle assenze retribuite: ferie e malattia coprono le ore mancanti ma non generano
+   straordinario (`deltaStraoMese`). La **Banca ore** è rimasta con il conto di prima: Spazio
+   Ireos non la usa, risolve tutto dentro il mese.
 6. **Fogli ore su telefono/tablet** (rev 2 e rev 3 del 30/10/2026): la colonna del giorno resta
    ferma mentre si scorre di lato; lo zoom con due dita è tornato possibile; le caselle degli
    orari sono alte 40px e le tendine 36px, e i bersagli sotto i 32px nella tabella sono passati
