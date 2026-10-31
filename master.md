@@ -245,15 +245,15 @@ codici in `CODICI`/`CODE_SET`). Totale mese = `totOfRec(rec,y,m)`.
    ha accesso, quindi quel passaggio è sempre di Christian. Restano aperte per scelta: blocco
    mese (`locks`) e ruolo `disabled` non imposti dal database, creazione libera dei documenti
    `lightsheets`.
-4. **PUNTO APERTO (Dipendenti, dal 31/10/2026) — assenze non pagate contate come ore.** Nella
-   tabella dei codici ogni assenza ha il campo `pay` (pagata sì/no). Tre codici hanno
-   `pay:false`: **`MAL 0h`** (malattia non pagata), **`ASP 0h`** (aspettativa non pagata),
-   **`CASSA`** (cassa integrazione). `coverAbsHours()` e il riquadro "Ore in più / in meno"
-   però li contano **come ore lavorate**, perché escludono solo `--` e `AN` e **non guardano
-   `pay`**. Esempio: contratto 165 h, lavora 150 h e ha 2 giorni di aspettativa non pagata →
-   oggi risulta −2,31, mentre il vero scoperto è −15. Christian ha confermato il 31/10 che
-   quelle ore **non devono contribuire**, ma ha chiesto tempo per decidere: **non modificare
-   finché non lo dice lui.**
+4. **Assenze non pagate — CHIARITO il 31/10/2026, il comportamento attuale è CORRETTO.**
+   `MAL 0h` (malattia non pagata), `ASP 0h` (aspettativa non pagata) e `CASSA` (cassa
+   integrazione) hanno `pay:false` nella tabella dei codici, e `coverAbsHours()` le conta come
+   gli altri codici. **È giusto così**: regola di Christian — *quelle voci abbassano il monte ore
+   dovuto nel mese*. Sommarle alle ore rese equivale esattamente a sottrarle dal monte, quindi il
+   conto attuale realizza già la regola. Esempio: contratto 165 h, lavora 150 h, 2 giorni di
+   aspettativa → dovute 152,30, risultato −2,31 (corretto). La riduzione dello stipendio nasce
+   dai giorni non pagati e la fa il cedolino: il numero dell'app è un saldo di ORE, non una
+   trattenuta. ⚠️ **Non "correggere" questo comportamento**: sembra un difetto e non lo è.
 5. Le funzioni nuove **non sono provate su dati veri**: le prove di Christian sono quelle che contano.
 6. **Dipendenti, scheda del dipendente** (ver62, 31/10/2026): la finestrella "Modifica
    dipendente" è stata eliminata e tutto si gestisce dalla **scheda ANAGRAFICA**, che in fondo ha
