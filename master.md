@@ -254,6 +254,11 @@ codici in `CODICI`/`CODE_SET`). Totale mese = `totOfRec(rec,y,m)`.
    aspettativa → dovute 152,30, risultato −2,31 (corretto). La riduzione dello stipendio nasce
    dai giorni non pagati e la fa il cedolino: il numero dell'app è un saldo di ORE, non una
    trattenuta. ⚠️ **Non "correggere" questo comportamento**: sembra un difetto e non lo è.
+   Confermato di nuovo il 31/10 dopo averne esaminato le conseguenze: **quelle ore contribuiscono
+   a formare il monte ore**, punto. Conseguenza nota e accettata: chi si assenta senza paga e poi
+   recupera lavorando di più vede quelle ore diventare straordinario (170 h con 2 giorni di
+   aspettativa → +17,69 invece di +5). Non è un caso permesso, ma **si governa autorizzando o
+   meno lo straordinario**, non cambiando il calcolo. Il programma segnala, Christian decide.
 5. Le funzioni nuove **non sono provate su dati veri**: le prove di Christian sono quelle che contano.
 6. **Dipendenti, scheda del dipendente** (ver62, 31/10/2026): la finestrella "Modifica
    dipendente" è stata eliminata e tutto si gestisce dalla **scheda ANAGRAFICA**, che in fondo ha
