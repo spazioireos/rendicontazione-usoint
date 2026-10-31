@@ -9,7 +9,8 @@ USOINT sta per **"uso interno"**.
 - **In questo repo c'è anche la PAGINA INTEGRATA**: `integrata/index.html`, il link unico
   `https://spazioireos.github.io/rendicontazione-usoint/integrata/` con i quattro pulsanti
   (Collaboratori, Dipendenti, Rendicontazione progetti, Fogli ore). **Apre i LINK LIVE**, non
-  copie: ha un suo numero di revisione (attuale `rev 3 · 29ott26`) nella barra.
+  copie: ha un suo numero di revisione (attuale `rev 4 · 31ott26`) nella barra.
+  Dalla rev 4 titolo e pulsanti sono più grandi (16px, alti 48px) per la lettura comoda.
   Layout a colonna con flexbox e **nessuna altezza fissa**: la barra si adatta da sé se i
   pulsanti vanno a capo (con altezza fissa, su tablet la seconda riga di pulsanti finiva
   nascosta sotto l app).

@@ -57,10 +57,10 @@ in cache (problema realmente capitato).
 | App | Numero attuale | Dove si vede | Da dove viene |
 |---|---|---|---|
 | App integrata | `rev 3 · 29ott26` | barra in alto | scritto nel file |
-| Collaboratori | `rev 1 · 29ott26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver64 · 31ott26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Collaboratori | `rev 2 · 31ott26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
+| Dipendenti | `ver66 · 31ott26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver119 · 31ott26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
-| Fogli ore | `rev 3 · 30ott26` | angolo in basso a destra, ogni schermata | scritto nel file |
+| Fogli ore | `rev 4 · 31ott26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
 **Criterio:** dove l'app aveva già una numerazione (USOINT `ver`, Dipendenti `APP_VER`) si usa e
 si incrementa **quella**; dove non c'era si è partiti da `rev 1`. **Mai due numerazioni nella
@@ -299,7 +299,7 @@ codici in `CODICI`/`CODE_SET`). Totale mese = `totOfRec(rec,y,m)`.
 > contenuto: verificare il `<title>`. In ogni repo c'è un `CLAUDE.md` con le istruzioni di quella
 > app, e in `rendicontazione-usoint` c'è `master.md` (questo documento): leggerli prima di agire.
 > ATTIVO: pagina integrata `integrata/index.html` (link
-> `https://spazioireos.github.io/rendicontazione-usoint/integrata/`, rev 3) con quattro pulsanti che
+> `https://spazioireos.github.io/rendicontazione-usoint/integrata/`, rev 4) con quattro pulsanti che
 > aprono i LINK LIVE; nei Dipendenti la targhetta ORE MESE e l'avviso di confronto con Fogli ore;
 > numero di revisione visibile in tutte le app.
 > DA PROVARE sul ramo `claude/integrated-app-feasibility-8d1wg0`: in USOINT l'import automatico in
