@@ -2,7 +2,7 @@
 
 > Riepilogo generale del sistema. **Vive in questo repository** (`rendicontazione-usoint/master.md`)
 > e va aggiornato insieme al codice: vedi §9.
-> **Aggiornato: 29 ottobre 2026 (sera)** · Autore: Christian
+> **Aggiornato: 2 novembre 2026** · Autore: Christian
 
 ---
 
@@ -56,9 +56,9 @@ in cache (problema realmente capitato).
 
 | App | Numero attuale | Dove si vede | Da dove viene |
 |---|---|---|---|
-| App integrata | `rev 3 · 29ott26` | barra in alto | scritto nel file |
+| App integrata | `rev 4 · 31ott26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 2 · 31ott26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver66 · 31ott26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver68 · 01nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver119 · 31ott26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 4 · 31ott26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -131,6 +131,17 @@ dirlo**. All'inizio di ogni sessione Claude verifica se i rami sono rimasti indi
   sulla versione del 17/10, è stata **buttata e riscritta** sul codice nuovo.
 - **28/10** Dipendenti: un errore sul percorso dei dati (`snap.data().state` invece di
   `snap.data()`) era passato ai test e trovato solo **rileggendo il codice**.
+- **01/11** Dipendenti: nel file pubblico su GitHub Pages c'erano **dati personali veri**
+  (anagrafiche con codice fiscale, email e indirizzo, elenco dipendenti, ore di gennaio, note
+  con riferimenti a malattie). Rimossi in **ver67**. La regola ora è scritta nel `CLAUDE.md`
+  dell'app: **mai dati di persone dentro `index.html`**, nemmeno "solo come esempio".
+- **02/11** Christian ha **cancellato** i repository di Dipendenti, Fogli ore e Collaboratori
+  (dopo averne scaricato il contenuto), per far sparire la vecchia storia pubblica con i dati
+  personali. Conseguenza immediata: **le tre app sono rimaste offline** (GitHub Pages non serve
+  da un repository che non esiste) e **il ramo di lavoro con la ver68 esisteva solo nella copia
+  locale di Claude**. Ricreati e ricaricati lo stesso giorno. **Da ricordare**: cancellare un
+  repository spegne l'app pubblicata e butta i rami non ancora scaricati; se serve far sparire la
+  storia, si ricrea con un unico commit **senza cancellare il repository**.
 
 ### 7.5 Metodo di Claude
 1. Costruire sempre sul **ramo di prova**, mai direttamente su `main`.
@@ -193,8 +204,18 @@ peggio di non averla.
   30/10/2026). Spostarla in un repository suo cambierebbe l'indirizzo usato ogni giorno: idea
   **scartata**, non riproporla. L'hub NON è l'app USOINT: è `integrata/`, una stanza separata
   dentro lo stesso magazzino.
-- **Punti di ripristino**: in ogni repository c'è il ramo `stabile-30ott26` con la versione buona
-  del 30/10/2026 (le etichette di versione "tag" sono rifiutate da GitHub a Claude: errore 403).
+- **Punti di ripristino**: in Fogli ore, Collaboratori e USOINT c'è il ramo `stabile-30ott26` con
+  la versione buona del 30/10/2026 (le etichette di versione "tag" sono rifiutate da GitHub a
+  Claude: errore 403). In **Dipendenti** quel ramo non c'è più: dopo l'azzeramento della storia
+  (02/11/2026) il punto di ripristino è il ramo **`ripristino-ver67`**, un unico commit con la
+  ver67 — cioè la versione senza la compilazione veloce per giorni scelti.
+- **Storia dei repository dopo il 02/11/2026**: **Dipendenti** ha **un solo commit** su `main`
+  (ver68), senza passato: la vecchia storia con i dati personali non esiste più da nessuna parte.
+  **Fogli ore** (28 commit) e **Collaboratori** (24 commit) hanno conservato la cronologia, ma con
+  **identificativi di commit nuovi**: le copie di lavoro erano "shallow" (tronche), quindi la
+  storia è stata ri-radicata per poterla ricaricare. I contenuti sono **identici byte per byte**
+  alle versioni precedenti (verificato con md5 su `index.html`, `CLAUDE.md` e i file
+  `regole-firestore/`).
 
 ---
 
