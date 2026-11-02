@@ -58,7 +58,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 4 · 31ott26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 2 · 31ott26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver68 · 01nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver69 · 02nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver119 · 31ott26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 4 · 31ott26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -79,6 +79,16 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
     per COGNOME NOME, un riquadro ambra se le ore inserite a mano non combaciano con quelle
     compilate in Fogli ore ("tu: X h · Fogli ore: Y h") e l'elenco dei giorni con assenza
     discordante. Solo lettura, solo avviso, ignorabile.
+  - **ver69 (02/11/2026)**: tre cose, tutte in ANAGRAFICA. 1) *Data di avvio proroga* e *Data di
+    avvio trasformazione* non si scrivono più a mano: erano **salvate e mai usate** da nessuna
+    lettera e da nessun calcolo, ora sono di **sola lettura** e si ricavano da sole dal riquadro
+    *Trasformaz./proroghe* (giorno dopo la scadenza precedente; decorrenza dell'ultima
+    trasformazione). I vecchi valori restano nel database, non vengono cancellati; l'export Excel
+    tiene le due colonne al loro posto con il valore automatico. 2) Pulsante **"Mensilizza tutti
+    dal mese…"**: imposta la mensilizzazione su più persone in una volta, con conferma che elenca
+    i nomi e possibilità di escludere chi non deve esserlo (serve per la mensilizzazione di tutti
+    **dal 1° ottobre 2026**). 3) **Campi più vicini tra loro** nel modulo dell'anagrafica: modulo
+    da 3298 a 3171 px, stessi 53 campi, altezza delle caselle invariata.
 - **Numeri di revisione** in tutte le app (§4).
 - **`CLAUDE.md`** in tutti e quattro i repository (§8).
 
