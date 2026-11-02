@@ -58,7 +58,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 4 · 31ott26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 2 · 31ott26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver69 · 02nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver70 · 02nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver119 · 31ott26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 4 · 31ott26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -89,6 +89,14 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
     i nomi e possibilità di escludere chi non deve esserlo (serve per la mensilizzazione di tutti
     **dal 1° ottobre 2026**). 3) **Campi più vicini tra loro** nel modulo dell'anagrafica: modulo
     da 3298 a 3171 px, stessi 53 campi, altezza delle caselle invariata.
+  - **ver70 (02/11/2026)**: due cose. 1) Nei quattro riquadri in fondo alla scheda (proroghe,
+    trasformazioni, monte ore temporaneo, massimali) i pulsanti **"+ Aggiungi …" ora aprono le
+    caselle**, che prima stavano sempre a vista; poi **✔ Aggiungi** registra e **Annulla**
+    richiude svuotando. Quando il dato non basta, ora compare il **motivo** invece di non
+    succedere niente. 2) La **mensilizzazione è la condizione normale dal 01/10/2026**: un
+    dipendente nuovo nasce già mensilizzato da quella data e tutte le caselle di decorrenza
+    partono da lì; i dipendenti esistenti si sistemano col pulsante "Mensilizza tutti", che chiede
+    conferma. Scartata l'idea di considerarli mensilizzati per difetto senza il dato scritto.
 - **Numeri di revisione** in tutte le app (§4).
 - **`CLAUDE.md`** in tutti e quattro i repository (§8).
 
