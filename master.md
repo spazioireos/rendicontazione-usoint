@@ -58,7 +58,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 4 · 31ott26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 6 · 03nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver75 · 03nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver76 · 03nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver120 · 03nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 5 · 03nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -165,6 +165,14 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   funzioni che scrivono i numeri). Regola d'ora in poi, scritta nei quattro `CLAUDE.md`: **mai
   `Math.round(x*100)/100`, sempre `R2`**. ⚠️ Sui negativi l'arrotondamento è diventato
   **simmetrico** (commerciale) in tutte le app.
+- **Dipendenti ver76 (03/11/2026)**: la scheda **Costo orario** ha scritte **più grandi** e spazi
+  **più stretti** insieme (etichette 12→13px, tabelle 13,5→14,5px, titoli 15→16px; imbottiture
+  9/11→7/10px, righe delle tabelle 2→1px). Dentro la scheda non resta niente sotto i 12,5px e
+  l'altezza di caselle e pulsanti non è cambiata. Sugli schermi **da 1500px in su** i blocchi si
+  dispongono su **due sotto-colonne** (pagina da 1439 a 1299px a 1680); sotto i 1500px la
+  disposizione è quella di prima. Su **telefono** i campi stanno in due per riga e la tabellina
+  delle settimane non esce più di lato (difetto preesistente): pagina da 3756 a 3368px.
+  Nessuna dicitura cambiata, nessun calcolo toccato.
 - **Dipendenti ver75 (03/11/2026)**: la *% di ore supplementari stimate* del Costo orario si
   **spegne a vista** (etichetta grigia + «non in uso») quando le ore non sono «Teoriche», perché
   in quel caso non entra nei conti. Solo aspetto, nessun calcolo toccato.
