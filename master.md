@@ -58,7 +58,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 4 · 31ott26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 6 · 03nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver78 · 03nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver79 · 03nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver120 · 03nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 7 · 03nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -175,6 +175,18 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   **Deciso: si usa solo il nuovo.** Il modulo vecchio è stato tolto dalla scheda dell'operatore e
   sostituito da un rimando; ⚠️ i massimali già creati **restano visibili e cancellabili**,
   nessun dato è stato toccato.
+- **Dipendenti ver79 (03/11/2026) — sette correzioni ai criteri del costo orario.** Christian ha
+  visto un costo orario di **27,81 €/h** su un mese singolo invece di ~20: le **festività** erano
+  due numeri fissi annui (11 e 3) tolti per intero da qualunque periodo, anche da un mese solo.
+  Ora si **contano dal calendario** del periodo (goduta = in giorno lavorativo; non goduta = di
+  domenica, più il **4 novembre** sempre). Inoltre: **INPS 26,40 → 26,90%**; dal **TFR** si toglie
+  lo **0,50%** calcolato sulla base dei contributi (operazione neutra sul totale); le **festività
+  non godute escono dall'imponibile TFR**; **assistenza sanitaria** proporzionata ai mesi (11
+  €/mese, solo indeterminati); **formazione** 250 € per ogni anno iniziato; **Sant'Ambrogio (7
+  dicembre)** aggiunto ai festivi — e quindi, da ver77, quel giorno **non si compila più**.
+  Sull'anno intero il costo orario non si muove (19,65 → 19,68); sui periodi corti sì
+  (27,81 → 23,49 su un mese). ⚠️ I costi orari calcolati finora su periodi più corti dell'anno
+  erano sovrastimati.
 - **Il dipendente vede le ore che gli restano (03/11/2026) — Dipendenti ver78 + Fogli ore rev 7.**
   Dipendenti calcola quante ore restano del tetto annuo e, con il pulsante **📤 Pubblica i
   residui** (mai da solo, con conferma nome per nome), scrive un documentino per persona nella
