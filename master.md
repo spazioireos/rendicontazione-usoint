@@ -58,9 +58,9 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 4 · 31ott26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 6 · 03nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver77 · 03nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver78 · 03nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver120 · 03nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
-| Fogli ore | `rev 6 · 03nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
+| Fogli ore | `rev 7 · 03nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
 **Criterio:** dove l'app aveva già una numerazione (USOINT `ver`, Dipendenti `APP_VER`) si usa e
 si incrementa **quella**; dove non c'era si è partiti da `rev 1`. **Mai due numerazioni nella
@@ -175,6 +175,14 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   **Deciso: si usa solo il nuovo.** Il modulo vecchio è stato tolto dalla scheda dell'operatore e
   sostituito da un rimando; ⚠️ i massimali già creati **restano visibili e cancellabili**,
   nessun dato è stato toccato.
+- **Il dipendente vede le ore che gli restano (03/11/2026) — Dipendenti ver78 + Fogli ore rev 7.**
+  Dipendenti calcola quante ore restano del tetto annuo e, con il pulsante **📤 Pubblica i
+  residui** (mai da solo, con conferma nome per nome), scrive un documentino per persona nella
+  nuova collection **`residui`**: doc-id = uid dell'operatore, dentro **solo numeri**. In Fogli
+  ore ciascuno vede **solo il proprio**, in un riquadro nella sua pagina. ⚠️ **Serve che Christian
+  pubblichi in console le regole nuove** (`regole-firestore/regole-residui-03nov26.rules`, 51
+  controlli su 51 con l'emulatore ufficiale): finché non lo fa, il pulsante fallisce e lo dice,
+  e il riquadro non compare. È l'unica scrittura che Dipendenti fa fuori dal proprio documento.
 - **Dipendenti ver77 (03/11/2026) — giornate erosive e festivi bloccati.** Regola nuova decisa da
   Christian: un'assenza **consuma il massimale solo se quel giorno il servizio era aperto** (ferie
   a novembre sì, ferie a Natale no). Si segna con **un clic sul numerino sotto la cella**: in
