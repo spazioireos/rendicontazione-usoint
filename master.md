@@ -58,7 +58,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 4 · 31ott26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 2 · 31ott26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver70 · 02nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver71 · 03nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver119 · 31ott26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 4 · 31ott26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -97,6 +97,20 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
     dipendente nuovo nasce già mensilizzato da quella data e tutte le caselle di decorrenza
     partono da lì; i dipendenti esistenti si sistemano col pulsante "Mensilizza tutti", che chiede
     conferma. Scartata l'idea di considerarli mensilizzati per difetto senza il dato scritto.
+  - **ver71 (03/11/2026) — nuova sezione 💶 COSTO ORARIO**. Porta dentro l'app il foglio Excel
+    *Criteri orari* («Costo orario dipendenti»): per ogni dipendente, su un **periodo da-a**,
+    calcola il **costo totale** (mensilizzata, 13ª e 14ª, festività non godute, maternità, ore
+    aggiuntive, TFR e rivalutazione, INPS/FIS/INAIL/IRAP, assistenza sanitaria, paghe,
+    formazione, km) e il **costo orario = costo ÷ ore rendicontate**. Le **ore rendicontabili**
+    si prendono dai **Riepiloghi** (ore davvero lavorate del periodo), si scrivono **a mano**, o
+    si usano quelle **teoriche**. I valori uguali per tutti stanno in un riquadro **Valori
+    comuni**; la tendina del livello compila il **minimo tabellare** (Ott25/Ott24).
+    Export Excel della tabella di tutti. Verificata sui **5 casi del file di Christian**
+    (20,73 / 20,63 / 20,88 / 21,74 / 20,40 €/h): tornano al centesimo.
+    Decisioni: addizionale TD 1,40% + 0,5 a ogni proroga, 0 se diventa indeterminato;
+    assistenza sanitaria 132 € fissi solo per gli indeterminati; mesi contati interi.
+    **Deciso di NON fare una quinta app**: sta dentro Dipendenti, dove ci sono già le persone,
+    i contratti e le ore.
 - **Numeri di revisione** in tutte le app (§4).
 - **`CLAUDE.md`** in tutti e quattro i repository (§8).
 
