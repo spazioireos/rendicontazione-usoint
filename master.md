@@ -58,7 +58,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 4 · 31ott26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 6 · 03nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver76 · 03nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver77 · 03nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver120 · 03nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 6 · 03nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -175,6 +175,14 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   **Deciso: si usa solo il nuovo.** Il modulo vecchio è stato tolto dalla scheda dell'operatore e
   sostituito da un rimando; ⚠️ i massimali già creati **restano visibili e cancellabili**,
   nessun dato è stato toccato.
+- **Dipendenti ver77 (03/11/2026) — giornate erosive e festivi bloccati.** Regola nuova decisa da
+  Christian: un'assenza **consuma il massimale solo se quel giorno il servizio era aperto** (ferie
+  a novembre sì, ferie a Natale no). Si segna con **un clic sul numerino sotto la cella**: in
+  chiaro erode, barrato no. Agisce **solo sul Tetto annuo**; lo straordinario è rimasto identico.
+  Deciso di **non creare un secondo tipo di massimale per servizio**: si usa il Tetto annuo che
+  c'era già, per anno scolastico. ⚠️ Inoltre, su richiesta di Christian, i **giorni festivi e le
+  domeniche non si compilano più** (né ore né codici): chi lavora davvero a Natale non si può più
+  registrare, e le ore già scritte sui festivi non sono più correggibili.
 - **Dipendenti ver76 (03/11/2026)**: la scheda **Costo orario** ha scritte **più grandi** e spazi
   **più stretti** insieme (etichette 12→13px, tabelle 13,5→14,5px, titoli 15→16px; imbottiture
   9/11→7/10px, righe delle tabelle 2→1px). Dentro la scheda non resta niente sotto i 12,5px e
