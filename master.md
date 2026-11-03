@@ -58,7 +58,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 4 · 31ott26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 6 · 03nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver74 · 03nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver75 · 03nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver120 · 03nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 5 · 03nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -125,6 +125,19 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
     — con le **due caselle delle settimane scrivibili**: serve a **simulare** il costo di un
     periodo futuro («6 mesi del 2027, 18 settimane lavorate»). Accanto resta sempre il valore
     calcolato e un pulsante rimette tutto com'era. Finché non si preme 💾 non si salva niente.
+  - **ver75 (03/11/2026)**: Christian ha chiesto «se mettiamo le ore effettive prese dai TS,
+    perché dare una percentuale convenzionale di straordinari? non l'abbiamo già?». Risposta:
+    **sì, e l'app già si comportava così** — la *% di ore supplementari stimate* (10%, valore
+    comune) agisce **solo** sulle ore **«Teoriche»**; con le ore **dai Riepiloghi** o **a mano**
+    le supplementari si ricavano per differenza dal dato vero (ore rese − ore ordinarie attese,
+    queste ultime già al netto di ferie, permessi, festività e malattia presunta), e la
+    percentuale **non entra in nessun conto**. Il difetto era che il campo **non lo diceva**:
+    stava sempre a vista come se agisse. Ora, quando nessun dipendente usa le ore «Teoriche»,
+    l'etichetta diventa **grigia** e sotto compare «non in uso: serve solo con le ore
+    «Teoriche»». ⚠️ La casella **resta scrivibile e giallina** (spenta nei conti, non bloccata):
+    serve a impostarla prima di una simulazione. **Nessun calcolo toccato**: verificato in
+    esecuzione che con le ore dai Riepiloghi cambiare la % da 10 a 20 lascia il costo orario
+    identico (20,65 €/h), mentre con le «Teoriche» lo sposta (20,46 → 20,73 €/h).
 - **Collaboratori**, sul ramo: **rev 3 (03/11/2026)** — passata di *frontend-design*. La palette
   "Material" presa in prestito lascia il posto alla stessa scala blu di Dipendenti; sparisce il
   magenta della pulsantiera Contratti; il colore ora dice **che tipo di azione è** (blu = dati e
@@ -152,6 +165,9 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   funzioni che scrivono i numeri). Regola d'ora in poi, scritta nei quattro `CLAUDE.md`: **mai
   `Math.round(x*100)/100`, sempre `R2`**. ⚠️ Sui negativi l'arrotondamento è diventato
   **simmetrico** (commerciale) in tutte le app.
+- **Dipendenti ver75 (03/11/2026)**: la *% di ore supplementari stimate* del Costo orario si
+  **spegne a vista** (etichetta grigia + «non in uso») quando le ore non sono «Teoriche», perché
+  in quel caso non entra nei conti. Solo aspetto, nessun calcolo toccato.
 - **Collaboratori rev 6 (03/11/2026)**: le ore, le date e le tariffe **scritte a mano** erano a
   13px in tondo, più piccole del testo intorno; ora sono a **15px in neretto**, così si staccano
   dai numeri calcolati dall'app. Le righe non si sono alzate.
