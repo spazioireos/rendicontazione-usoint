@@ -59,7 +59,7 @@ in cache (problema realmente capitato).
 | App integrata | `rev 4 · 31ott26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 5 · 03nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
 | Dipendenti | `ver72 · 03nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
-| Rendicontazione USOINT | `ver119 · 31ott26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
+| Rendicontazione USOINT | `ver120 · 03nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 4 · 31ott26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
 **Criterio:** dove l'app aveva già una numerazione (USOINT `ver`, Dipendenti `APP_VER`) si usa e
@@ -132,6 +132,14 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   Righe più basse **solo dentro le tabelle** (caselle da 40 a 28px; fuori resta tutto a 40px) e
   nuovo pulsante **«⤢ Adatta larghezza»** che rimpicciolisce quanto basta, con «100%» per
   tornare indietro; la misura scelta viene ricordata. Scheda da 943 a 864px di altezza.
+- **USOINT ver120 (03/11/2026) — arrotondamento corretto**. Christian ha visto `67,5 × 22,99`
+  arrotondato per difetto. Causa: il computer tiene `1551,8249999999998` e il vecchio
+  `Math.round(x*100)/100` (e `toFixed`) buttavano giù a 1551,82 invece di 1551,83. Succede
+  **quando il terzo decimale è esattamente 5**. Introdotta **`R2`**, usata in **84 punti** e
+  dentro le funzioni che scrivono i numeri a schermo. ⚠️ Alcuni importi ora escono **un centesimo
+  più alti**; sui negativi l'arrotondamento è diventato **simmetrico** (commerciale). Il motore di
+  rendicontazione non è stato toccato. **Lo stesso difetto è nelle altre tre app** (Dipendenti 11
+  punti, Fogli ore 11, Collaboratori 3 + 8): non ancora corrette, in attesa di Christian.
 - **Numeri di revisione** in tutte le app (§4).
 - **`CLAUDE.md`** in tutti e quattro i repository (§8).
 

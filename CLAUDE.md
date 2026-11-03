@@ -18,7 +18,7 @@ USOINT sta per **"uso interno"**.
   (specchio di localStorage). Chiavi: `usoint-idx`, `usoint-p-<id>`, `usoint-orelav`,
   `usoint-tariffe`, `usoint-simul`. Accesso mail+password.
 - **Numero di revisione**: costante `const VER` (riga ~67), mostrata in **tre punti** (Home,
-  scheda progetto, Riepilogo operatori). **Attuale: ver119 · 31ott26.** `VER` finisce anche nei
+  scheda progetto, Riepilogo operatori). **Attuale: ver120 · 03nov26.** `VER` finisce anche nei
   nomi dei file esportati: incrementarla, non affiancarle un secondo numero.
 - **Strutture utili**: `usoint-orelav` = `{ [norm(nome)]: { [anno]: [12 numeri] } }` (ore
   lavorate, indice 0 = gennaio; `norm` = minuscolo, trim, spazi singoli).
@@ -35,6 +35,22 @@ USOINT sta per **"uso interno"**.
   Il motore di rendicontazione **non è stato toccato**: cambia solo *chi scrive* `cofin`, che
   resta un importo come prima. Funzioni: `cofR2`, `cofPctVal`, `cofAttiva`, `cofApplicaTutte`,
   `cofQuanteVoci`, `cofChiediEApplica`.
+- 🔢 **ARROTONDAMENTO: usare SEMPRE `R2`, mai `Math.round(x*100)/100`** (da ver120, 03/11/2026,
+  segnalato da Christian con un caso vero). Il computer non tiene i decimali in modo esatto:
+  `67,5 × 22,99` vale **1551,8249999999998**, e il vecchio `Math.round(x*100)/100` — come pure
+  `toFixed(2)` — lo buttava **giù** a `1551,82` invece di `1551,83`. Succede ogni volta che il
+  terzo decimale è esattamente 5 (altri casi provati: 162,5×22,99 → 3.735,87 invece di 3.735,88;
+  0,615 → 0,61; 2,675 → 2,67).
+  **`R2(v,dec)`** (accanto a `grp`) ripulisce con `toPrecision(12)` prima di arrotondare. È stata
+  messa in **84 punti** (tutti i `Math.round(...*100)/100` del file) e dentro **`grp`** e **`fP`**,
+  che prima formattavano con `toFixed` sul numero sporco.
+  ⚠️ **Due conseguenze da sapere**: alcuni importi ora escono **un centesimo più alti** di prima
+  (è il valore giusto, ma uno stampato vecchio e uno nuovo possono differire); e sui **negativi**
+  l'arrotondamento è ora **simmetrico** (−1551,825 → −1551,83; prima dava −1551,82), cioè
+  arrotondamento commerciale, lo stesso dei positivi.
+  Il **motore di rendicontazione non è stato toccato**: cambia solo *come si arrotonda*, non
+  *cosa si calcola*. Lo stesso difetto esiste nelle altre tre app (Dipendenti 11 punti, Fogli ore
+  11, Collaboratori 3 + 8 `toFixed`): **non ancora corrette**, in attesa di Christian.
 - **Funzioni presenti**: import automatico (SOLA LETTURA) delle ore lavorate dal database dei
   Dipendenti tramite una **seconda app Firebase** chiamata "dip"; tabella compatta della scheda
   operatore (Lavorate | una colonna per progetto | Tot. rendicontate | Avanzo).
