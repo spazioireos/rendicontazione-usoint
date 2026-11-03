@@ -57,7 +57,7 @@ in cache (problema realmente capitato).
 | App | Numero attuale | Dove si vede | Da dove viene |
 |---|---|---|---|
 | App integrata | `rev 4 · 31ott26` | barra in alto | scritto nel file |
-| Collaboratori | `rev 4 · 03nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
+| Collaboratori | `rev 5 · 03nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
 | Dipendenti | `ver72 · 03nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver119 · 31ott26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 4 · 31ott26` | angolo in basso a destra, ogni schermata | scritto nel file |
@@ -128,6 +128,10 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
 - **Collaboratori rev 4 (03/11/2026)**: zeri delle caselle vuote leggibili (da `#c8ced6` a
   `#64748b`) e **rosso solo dove c'è un pericolo** — titolo dell'anno e fasce di sezione passano
   al blu, il rosso resta su *Elimina*, *Azzera credito residuo* e l'allarme «operatore a debito».
+- **Collaboratori rev 5 (03/11/2026)**: dentro la scheda l'anno non entrava più in una schermata.
+  Righe più basse **solo dentro le tabelle** (caselle da 40 a 28px; fuori resta tutto a 40px) e
+  nuovo pulsante **«⤢ Adatta larghezza»** che rimpicciolisce quanto basta, con «100%» per
+  tornare indietro; la misura scelta viene ricordata. Scheda da 943 a 864px di altezza.
 - **Numeri di revisione** in tutte le app (§4).
 - **`CLAUDE.md`** in tutti e quattro i repository (§8).
 
