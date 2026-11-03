@@ -57,7 +57,7 @@ in cache (problema realmente capitato).
 | App | Numero attuale | Dove si vede | Da dove viene |
 |---|---|---|---|
 | App integrata | `rev 4 · 31ott26` | barra in alto | scritto nel file |
-| Collaboratori | `rev 3 · 03nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
+| Collaboratori | `rev 4 · 03nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
 | Dipendenti | `ver72 · 03nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver119 · 31ott26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 4 · 31ott26` | angolo in basso a destra, ogni schermata | scritto nel file |
@@ -125,6 +125,9 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   contratti, verde = report, grigio = anagrafiche, **rosso solo per cancellare**); via le scritte
   tutte maiuscole dalle etichette; spaziature strette. Non toccate le targhette della cadenza di
   pagamento: sono **valori salvati nei dati**.
+- **Collaboratori rev 4 (03/11/2026)**: zeri delle caselle vuote leggibili (da `#c8ced6` a
+  `#64748b`) e **rosso solo dove c'è un pericolo** — titolo dell'anno e fasce di sezione passano
+  al blu, il rosso resta su *Elimina*, *Azzera credito residuo* e l'allarme «operatore a debito».
 - **Numeri di revisione** in tutte le app (§4).
 - **`CLAUDE.md`** in tutti e quattro i repository (§8).
 
