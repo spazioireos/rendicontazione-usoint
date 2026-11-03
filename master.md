@@ -60,7 +60,7 @@ in cache (problema realmente capitato).
 | Collaboratori | `rev 6 · 03nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
 | Dipendenti | `ver76 · 03nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver120 · 03nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
-| Fogli ore | `rev 5 · 03nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
+| Fogli ore | `rev 6 · 03nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
 **Criterio:** dove l'app aveva già una numerazione (USOINT `ver`, Dipendenti `APP_VER`) si usa e
 si incrementa **quella**; dove non c'era si è partiti da `rev 1`. **Mai due numerazioni nella
@@ -165,6 +165,16 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   funzioni che scrivono i numeri). Regola d'ora in poi, scritta nei quattro `CLAUDE.md`: **mai
   `Math.round(x*100)/100`, sempre `R2`**. ⚠️ Sui negativi l'arrotondamento è diventato
   **simmetrico** (commerciale) in tutte le app.
+- **Fogli ore rev 6 (03/11/2026) — un solo sistema di massimali**. Christian aveva messo a un
+  operatore un tetto di 408 h sull'a.s. 2026/27 e risultava «0 ore consumate» pur essendoci le
+  ore. Causa: in Fogli ore c'erano **due** sistemi. Quello vecchio (nella scheda dell'operatore)
+  riconosceva le ore solo se coincidevano **mansione + sede + via + comune + alunno**, e i tre
+  campi liberi nel modulo partivano **vuoti**: se nel foglio ore erano scritti, il tetto non
+  trovava niente e mostrava zero **senza avvisare**. Quello nuovo (menù *Attribuzioni*, pulsante
+  *METTI UN TETTO*) è agganciato alla riga del servizio e non confronta nessuna scritta.
+  **Deciso: si usa solo il nuovo.** Il modulo vecchio è stato tolto dalla scheda dell'operatore e
+  sostituito da un rimando; ⚠️ i massimali già creati **restano visibili e cancellabili**,
+  nessun dato è stato toccato.
 - **Dipendenti ver76 (03/11/2026)**: la scheda **Costo orario** ha scritte **più grandi** e spazi
   **più stretti** insieme (etichette 12→13px, tabelle 13,5→14,5px, titoli 15→16px; imbottiture
   9/11→7/10px, righe delle tabelle 2→1px). Dentro la scheda non resta niente sotto i 12,5px e
