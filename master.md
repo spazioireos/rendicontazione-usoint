@@ -58,7 +58,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 4 · 31ott26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 5 · 03nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver72 · 03nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver73 · 03nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver120 · 03nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 4 · 31ott26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -119,6 +119,12 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
     risultato è **una frazione** (costo sopra, ore sotto, €/ora in grande). **Regola permanente
     nuova**: *spaziature compatte sempre*, scritta in tutti e quattro i `CLAUDE.md` — si stringono
     gli spazi, non l'altezza di caselle e pulsanti.
+  - **ver73 (03/11/2026)**: nel Costo orario il **rimborso km comune è 0** (chi ce l'ha se lo
+    scrive nella propria scheda) e sotto le tre scelte delle ore c'è la **tabellina del foglio
+    Excel** — settimane del periodo, settimane davvero lavorabili, ore settimanali, ore lavorabili
+    — con le **due caselle delle settimane scrivibili**: serve a **simulare** il costo di un
+    periodo futuro («6 mesi del 2027, 18 settimane lavorate»). Accanto resta sempre il valore
+    calcolato e un pulsante rimette tutto com'era. Finché non si preme 💾 non si salva niente.
 - **Collaboratori**, sul ramo: **rev 3 (03/11/2026)** — passata di *frontend-design*. La palette
   "Material" presa in prestito lascia il posto alla stessa scala blu di Dipendenti; sparisce il
   magenta della pulsantiera Contratti; il colore ora dice **che tipo di azione è** (blu = dati e
