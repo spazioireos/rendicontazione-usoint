@@ -58,7 +58,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 4 · 31ott26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 2 · 31ott26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver71 · 03nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver72 · 03nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver119 · 31ott26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 4 · 31ott26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -111,6 +111,14 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
     assistenza sanitaria 132 € fissi solo per gli indeterminati; mesi contati interi.
     **Deciso di NON fare una quinta app**: sta dentro Dipendenti, dove ci sono già le persone,
     i contratti e le ore.
+  - **ver72 (03/11/2026) — colore e densità**. Su richiesta di Christian il **rosa `#DE4C8A`
+    sparisce da Dipendenti** (43 punti) e lascia il posto a una scala ricavata da **`#5a9ce2`**:
+    `#2f6fae` sotto le scritte bianche, `#1f4e82` per il testo blu su bianco, `#5a9ce2` per bordi
+    e accenti, `#eef5fc`/`#b9d5f1` per le velature. Le altre tre app non sono toccate: il rosa era
+    solo lì. La sezione *Costo orario* è stata ridisegnata in **tre blocchi con un titolo** e il
+    risultato è **una frazione** (costo sopra, ore sotto, €/ora in grande). **Regola permanente
+    nuova**: *spaziature compatte sempre*, scritta in tutti e quattro i `CLAUDE.md` — si stringono
+    gli spazi, non l'altezza di caselle e pulsanti.
 - **Numeri di revisione** in tutte le app (§4).
 - **`CLAUDE.md`** in tutti e quattro i repository (§8).
 
