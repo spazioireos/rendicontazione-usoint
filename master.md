@@ -57,10 +57,10 @@ in cache (problema realmente capitato).
 | App | Numero attuale | Dove si vede | Da dove viene |
 |---|---|---|---|
 | App integrata | `rev 4 · 31ott26` | barra in alto | scritto nel file |
-| Collaboratori | `rev 5 · 03nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver73 · 03nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Collaboratori | `rev 6 · 03nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
+| Dipendenti | `ver74 · 03nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver120 · 03nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
-| Fogli ore | `rev 4 · 31ott26` | angolo in basso a destra, ogni schermata | scritto nel file |
+| Fogli ore | `rev 5 · 03nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
 **Criterio:** dove l'app aveva già una numerazione (USOINT `ver`, Dipendenti `APP_VER`) si usa e
 si incrementa **quella**; dove non c'era si è partiti da `rev 1`. **Mai due numerazioni nella
@@ -146,6 +146,15 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   più alti**; sui negativi l'arrotondamento è diventato **simmetrico** (commerciale). Il motore di
   rendicontazione non è stato toccato. **Lo stesso difetto è nelle altre tre app** (Dipendenti 11
   punti, Fogli ore 11, Collaboratori 3 + 8): non ancora corrette, in attesa di Christian.
+- **Arrotondamento corretto in TUTTE le app (03/11/2026)**: dopo USOINT ver120, la stessa
+  funzione **`R2`** è stata messa anche in **Dipendenti ver74** (32 punti + `fmt2`/`fmt3`),
+  **Fogli ore rev 5** (14 punti + `fmtDec`) e **Collaboratori rev 6** (4 punti + tutte le
+  funzioni che scrivono i numeri). Regola d'ora in poi, scritta nei quattro `CLAUDE.md`: **mai
+  `Math.round(x*100)/100`, sempre `R2`**. ⚠️ Sui negativi l'arrotondamento è diventato
+  **simmetrico** (commerciale) in tutte le app.
+- **Collaboratori rev 6 (03/11/2026)**: le ore, le date e le tariffe **scritte a mano** erano a
+  13px in tondo, più piccole del testo intorno; ora sono a **15px in neretto**, così si staccano
+  dai numeri calcolati dall'app. Le righe non si sono alzate.
 - **Numeri di revisione** in tutte le app (§4).
 - **`CLAUDE.md`** in tutti e quattro i repository (§8).
 
