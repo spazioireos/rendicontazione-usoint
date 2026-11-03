@@ -57,7 +57,7 @@ in cache (problema realmente capitato).
 | App | Numero attuale | Dove si vede | Da dove viene |
 |---|---|---|---|
 | App integrata | `rev 4 · 31ott26` | barra in alto | scritto nel file |
-| Collaboratori | `rev 2 · 31ott26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
+| Collaboratori | `rev 3 · 03nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
 | Dipendenti | `ver72 · 03nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver119 · 31ott26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 4 · 31ott26` | angolo in basso a destra, ogni schermata | scritto nel file |
@@ -119,6 +119,12 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
     risultato è **una frazione** (costo sopra, ore sotto, €/ora in grande). **Regola permanente
     nuova**: *spaziature compatte sempre*, scritta in tutti e quattro i `CLAUDE.md` — si stringono
     gli spazi, non l'altezza di caselle e pulsanti.
+- **Collaboratori**, sul ramo: **rev 3 (03/11/2026)** — passata di *frontend-design*. La palette
+  "Material" presa in prestito lascia il posto alla stessa scala blu di Dipendenti; sparisce il
+  magenta della pulsantiera Contratti; il colore ora dice **che tipo di azione è** (blu = dati e
+  contratti, verde = report, grigio = anagrafiche, **rosso solo per cancellare**); via le scritte
+  tutte maiuscole dalle etichette; spaziature strette. Non toccate le targhette della cadenza di
+  pagamento: sono **valori salvati nei dati**.
 - **Numeri di revisione** in tutte le app (§4).
 - **`CLAUDE.md`** in tutti e quattro i repository (§8).
 
