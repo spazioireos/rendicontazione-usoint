@@ -58,7 +58,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 4 · 31ott26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 6 · 03nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver88 · 04nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver89 · 04nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver121 · 04nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 7 · 03nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -175,6 +175,12 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   **Deciso: si usa solo il nuovo.** Il modulo vecchio è stato tolto dalla scheda dell'operatore e
   sostituito da un rimando; ⚠️ i massimali già creati **restano visibili e cancellabili**,
   nessun dato è stato toccato.
+- **Dipendenti ver89 (04/11/2026) — il colore della persona vale ovunque.** La cornice della
+  scheda del mese passa da 3 a **8px** nel colore scelto per quel dipendente, e lo stesso colore
+  diventa una **barretta a sinistra del nome** in Riepiloghi, Anagrafica, Costo orario e Query
+  personale. ⚠️ Barretta e non sfondo pieno: i colori della tavolozza sono chiari e come sfondo
+  renderebbero i numeri meno leggibili. Export Excel e PDF **non toccati** (decisione in sospeso).
+
 - **Dipendenti ver88 (04/11/2026) — i colori del risultato del mese.** Scelti da Christian:
   **rosso** se il mese è sopra la base (straordinario), **verde acqua** se è sotto, **verde** se
   è in pari. ⚠️ È l'unico punto in cui il rosso non vuol dire «pericolo»: l'ha chiesto lui.
