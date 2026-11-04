@@ -58,7 +58,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 4 · 31ott26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 6 · 03nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver80 · 04nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver81 · 04nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver120 · 03nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 7 · 03nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -180,7 +180,9 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   non c'è rimborso. Aggiunta la tendina **al mese / secco**, perché in alcuni casi il rimborso è
   mensile e in altri una tantum. ⚠️ Il rimborso **non entra in nessun imponibile**: è esente da
   imposte e contributi, finisce solo nel totale. Inoltre il pulsante «Valori comuni» si chiama
-  ora **«Aliquote e costi fissi validi per tutti»** (dicitura scelta da Christian).
+  ora **«Aliquote e costi fissi validi per tutti»** (dicitura scelta da Christian), e
+  l'etichetta del rimborso è **«Rimborso km €»** (ver81): «€/mese» era falso con la tendina su
+  *secco*.
 - **Dipendenti ver79 (03/11/2026) — sette correzioni ai criteri del costo orario.** Christian ha
   visto un costo orario di **27,81 €/h** su un mese singolo invece di ~20: le **festività** erano
   due numeri fissi annui (11 e 3) tolti per intero da qualunque periodo, anche da un mese solo.
