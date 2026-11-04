@@ -58,7 +58,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 4 · 31ott26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 6 · 03nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver87 · 04nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver88 · 04nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver121 · 04nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 7 · 03nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -175,6 +175,10 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   **Deciso: si usa solo il nuovo.** Il modulo vecchio è stato tolto dalla scheda dell'operatore e
   sostituito da un rimando; ⚠️ i massimali già creati **restano visibili e cancellabili**,
   nessun dato è stato toccato.
+- **Dipendenti ver88 (04/11/2026) — i colori del risultato del mese.** Scelti da Christian:
+  **rosso** se il mese è sopra la base (straordinario), **verde acqua** se è sotto, **verde** se
+  è in pari. ⚠️ È l'unico punto in cui il rosso non vuol dire «pericolo»: l'ha chiesto lui.
+
 - **Dipendenti ver87 (04/11/2026) — il PDF A4 torna a dire le ore.** Richiesta di Christian: nel
   PDF le ore si scrivono **ORE,MINUTI** (5,30 = cinque ore e mezza, 5,45 = cinque ore e tre
   quarti), non più «5 h e 30 min», e per i **mensilizzati** si leggono le ore al posto della «P»
