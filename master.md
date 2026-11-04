@@ -58,7 +58,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 4 · 31ott26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 6 · 03nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver83 · 04nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver84 · 04nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver120 · 03nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 7 · 03nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -175,6 +175,16 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   **Deciso: si usa solo il nuovo.** Il modulo vecchio è stato tolto dalla scheda dell'operatore e
   sostituito da un rimando; ⚠️ i massimali già creati **restano visibili e cancellabili**,
   nessun dato è stato toccato.
+- **Dipendenti ver84 (04/11/2026) — il periodo si taglia da solo in blocchi.** Christian dà un
+  periodo unico e l'app lo divide dove cambia qualcosa (livello, ore settimanali, tipo di
+  contratto, entrata in vigore di una proroga); ogni pezzo si calcola con i suoi parametri e poi
+  si somma: **costo orario = Σcosti ÷ Σore**. ⚠️ La **formazione** è contata **una volta sola**
+  sul periodo (altrimenti due blocchi = 500 € invece di 250). Le ore dai Riepiloghi e quelle
+  teoriche sono esatte per blocco; quelle scritte a mano si ripartiscono in proporzione. Se ci
+  sono valori scritti a mano o conteggi in mesi non ripartibili (maternità, mesi tolti) il conto
+  resta **su un pezzo solo**, con un avviso giallo che lo spiega. Esempio verificato: promozione
+  D1→D2 a giugno con due proroghe → 4 blocchi, **20,27 €/h** contro i 20,76 di prima. Su chi non
+  ha cambiamenti i numeri sono **identici al centesimo**.
 - **Dipendenti ver83 (04/11/2026)**: stessa famiglia del difetto sul livello. L'**addizionale
   tempo determinato** contava **tutte** le proroghe scritte in scheda, anche quelle che partivano
   **dopo** il periodo calcolato. Ora conta solo quelle **già decorse** entro la fine del periodo
