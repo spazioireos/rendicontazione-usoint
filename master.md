@@ -58,7 +58,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 4 · 31ott26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 6 · 03nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver85 · 04nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver86 · 04nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver121 · 04nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 7 · 03nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -175,6 +175,24 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   **Deciso: si usa solo il nuovo.** Il modulo vecchio è stato tolto dalla scheda dell'operatore e
   sostituito da un rimando; ⚠️ i massimali già creati **restano visibili e cancellabili**,
   nessun dato è stato toccato.
+- **Dipendenti ver86 (04/11/2026) — si legge meglio il foglio del mese.** Christian: «la vista
+  mi si confonde» e «il risultato del mese evidenzialo bene». Le righe della griglia passano da
+  1px quasi invisibile a 2px di grigio medio, la casella in cui si scrive da 2 a 3px, il
+  **risultato del mese** diventa un badge pieno e grande, e **TOT calcolato** si legge da lontano.
+  Inoltre la riga di confronto con **Fogli ore** dice ora anche **quante giornate di ferie,
+  malattia e altre assenze** ha segnato l'operatore, e **compare sempre** (sobria quando tutto
+  combacia, arancione quando qualcosa non torna). ⚠️ Nessuna dicitura e nessun calcolo toccati;
+  Fogli ore resta in sola lettura.
+- **Gennaio e febbraio 2025 erano vuoti in Dipendenti (04/11/2026).** Confronto cella per cella
+  fra il backup dell'app e l'Excel *Report ore gen25-dic25*: da marzo a dicembre tutto quadrava
+  al centesimo, ma **gennaio e febbraio non avevano nessuna ora** (al loro posto le annotazioni
+  dell'Excel, «3h e 45 min»): quei due fogli hanno una riga in meno degli altri e l'importazione
+  di allora aveva letto la riga sbagliata. Mancavano **1.762,49 ore**. Rimesse con un file JSON
+  che tocca **solo** quei due mesi. Registrate anche le **ore settimanali cambiate nel 2025** di
+  CHIODI (9,5 → 12 → 18 → 12), DEL MASTRO (21 → 17) e PANSERA (16 → 15), come trasformazioni
+  dal 01/01/2025 in poi: ⚠️ **prima del 2025 non cambia niente**, perché il valore di base è
+  rimasto quello che c'era.
+
 - **Dipendenti ver85 (04/11/2026) — si vede quante ore sono le «ore aggiuntive».** Christian
   chiede di vedere, nel Costo orario, **quante ore** finiscono nelle aggiuntive: il numero era
   già nei conti ma a video c'era solo l'importo in euro. Ora la tabellina del dettaglio mostra le
