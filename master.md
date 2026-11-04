@@ -58,7 +58,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 4 · 31ott26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 6 · 03nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver89 · 04nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver90 · 04nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver121 · 04nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 7 · 03nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -180,6 +180,8 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   diventa una **barretta a sinistra del nome** in Riepiloghi, Anagrafica, Costo orario e Query
   personale. ⚠️ Barretta e non sfondo pieno: i colori della tavolozza sono chiari e come sfondo
   renderebbero i numeri meno leggibili. Export Excel e PDF **non toccati** (decisione in sospeso).
+- **Dipendenti ver90 (04/11/2026)** — corretto un difetto che c'era da sempre: nella vista
+  *Query personale* la fascia in alto scriveva «📅 undefined 2026». Ora dice «🔎 Query personale».
 
 - **Dipendenti ver88 (04/11/2026) — i colori del risultato del mese.** Scelti da Christian:
   **rosso** se il mese è sopra la base (straordinario), **verde acqua** se è sotto, **verde** se
