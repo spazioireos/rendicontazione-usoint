@@ -54,6 +54,17 @@ USOINT sta per **"uso interno"**.
 - **Funzioni presenti**: import automatico (SOLA LETTURA) delle ore lavorate dal database dei
   Dipendenti tramite una **seconda app Firebase** chiamata "dip"; tabella compatta della scheda
   operatore (Lavorate | una colonna per progetto | Tot. rendicontate | Avanzo).
+- 🔴 **DIFETTO APERTO — «📂 Ripristina backup» non tiene** (trovato il 04/11/2026 leggendo il
+  codice, **non ancora corretto**). USOINT **ha** il backup: due pulsanti nella Home,
+  «💾 Backup dati» (scarica in un JSON tutte le chiavi `usoint*` di `localStorage`) e
+  «📂 Ripristina backup» (le riscrive e ricarica la pagina). ⚠️ Ma alla ricarica
+  `fbAuth.onAuthStateChanged` chiama **`fbSync(uid)`**, che **scarica dal cloud e sovrascrive
+  `localStorage`**: il ripristino appena fatto viene cancellato senza dire niente. Il file
+  scaricato è una copia buona; è **rimetterlo dentro** che non funziona finché il cloud ha dati.
+  La funzione che servirebbe — **`fbPush(uid)`**, che spinge il locale nel cloud — **esiste già
+  nel file ma non è richiamata da nessuna parte** (una sola occorrenza: la definizione).
+  Correzione proposta e non ancora autorizzata: dopo il ripristino chiedere conferma esplicita
+  («sostituisci i dati nel cloud con quelli del file?») e poi `fbPush` **prima** del reload.
 - **Verifica prima del commit**: compilare l'intero blocco `<script type="text/babel">` con
   Babel preset-react e fare `node --check` sull'output.
 - **Non toccare senza richiesta esplicita**: il motore di rendicontazione (avanzi, residui,

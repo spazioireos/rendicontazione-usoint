@@ -253,6 +253,21 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
 
 ---
 
+## 5-bis. DIFETTO APERTO: il ripristino del backup di USOINT non tiene (04/11/2026)
+
+⚠️ **Correzione di un'informazione sbagliata**: era stato scritto che USOINT non aveva il backup
+JSON. **Non è vero**: nella Home ci sono «💾 Backup dati» e «📂 Ripristina backup».
+
+⚠️ **Però il ripristino non funziona.** «Ripristina backup» riscrive le chiavi in `localStorage`
+e ricarica la pagina; alla ricarica l'app rifà l'accesso e **`fbSync` scarica dal cloud
+sovrascrivendo tutto**, cancellando in silenzio il ripristino appena fatto. Il file scaricato è
+una copia buona: è il rimetterlo dentro che non funziona.
+
+La funzione che servirebbe (`fbPush`, spinge il locale nel cloud) **c'è già nel file e non viene
+mai chiamata**. Correzione proposta, **non ancora autorizzata**: dopo il ripristino chiedere
+conferma e poi `fbPush` prima del reload. Trovato **leggendo il codice**, non ancora provato in
+esecuzione con Firebase vero.
+
 ## 6. DA PROVARE — pronto sul ramo di prova
 
 Ramo usato in tutti i repo: **`claude/integrated-app-feasibility-8d1wg0`**
