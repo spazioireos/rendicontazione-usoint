@@ -64,7 +64,7 @@ function fbSync(uid){return fbDb.collection("users").doc(uid).collection("kv").g
 function fbPush(uid){var batch=fbDb.batch();var n=0;for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(k&&k.indexOf("usoint")===0){batch.set(fbDb.collection("users").doc(uid).collection("kv").doc(k),{v:localStorage.getItem(k)});n++}}if(n>0)return batch.commit().then(function(){return n});return Promise.resolve(0)}
 const MESI=["GEN","FEB","MAR","APR","MAG","GIU","LUG","AGO","SET","OTT","NOV","DIC"];
 const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
-const VER="ver120";
+const VER="ver121";
 function nomeFile(base,ext){var mm=["gen","feb","mar","apr","mag","giu","lug","ago","set","ott","nov","dic"];var d=new Date();var o={};try{new Intl.DateTimeFormat("en-GB",{timeZone:"Europe/Rome",year:"2-digit",month:"numeric",day:"2-digit",hour:"2-digit",minute:"2-digit",hour12:false}).formatToParts(d).forEach(function(p){o[p.type]=p.value})}catch(e){o={day:("0"+d.getDate()).slice(-2),month:String(d.getMonth()+1),year:String(d.getFullYear()).slice(-2),hour:("0"+d.getHours()).slice(-2),minute:("0"+d.getMinutes()).slice(-2)}}var gg=("0"+o.day).slice(-2),mmm=mm[(+o.month)-1]||"",aa=o.year,HH=("0"+o.hour).slice(-2),MM=("0"+o.minute).slice(-2);if(HH==="24")HH="00";return base+" "+gg+mmm+aa+" - "+VER+" - "+HH+"."+MM+"."+ext}
 function markSaved(ok){try{var t=document.getElementById("usoint-savetoast");if(!t){t=document.createElement("div");t.id="usoint-savetoast";t.style.cssText="position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:999999;background:#dc2626;color:#fff;padding:12px 20px;border-radius:10px;font-family:'Nunito','Segoe UI',sans-serif;font-weight:800;font-size:14px;line-height:1.35;box-shadow:0 6px 22px rgba(220,38,38,.5);max-width:92vw;text-align:center;cursor:pointer";t.onclick=function(){t.style.display="none"};document.body.appendChild(t)}if(ok){t.style.display="none"}else{t.textContent="⚠ SALVATAGGIO NON RIUSCITO — memoria piena o disattivata (es. navigazione privata). I dati NON sono stati salvati. (clic per chiudere)";t.style.display="block"}}catch(e){if(!ok){try{alert("SALVATAGGIO NON RIUSCITO: i dati NON sono stati salvati (memoria piena o navigazione privata).")}catch(_e){}}}return ok}
 const calcCY=(s,e)=>{if(!s||!e)return[];const sd=new Date(s),ed=new Date(e);if(isNaN(sd)||isNaN(ed)||ed<=sd)return[];const r=[];for(let y=sd.getFullYear();y<=ed.getFullYear();y++){const fm=y===sd.getFullYear()?sd.getMonth():0,lm=y===ed.getFullYear()?ed.getMonth():11,ms=[];for(let m=0;m<12;m++){ms.push({month:m,label:MESI[m],disabled:m<fm||m>lm})}r.push({year:y,months:ms,n:lm-fm+1,partial:(lm-fm+1)<12,fm:fm,lm:lm})}return r};
@@ -217,11 +217,26 @@ function Dash({projects,onCreate,onOpen,onDup,onDel,onEditDates,onTariffario,onR
             inp.onchange=function(e){
               var f=e.target.files[0];if(!f)return;
               var rd=new FileReader();rd.onload=function(ev){
-                try{
-                  var d=JSON.parse(ev.target.result);var n=0;
-                  for(var k in d){if(k.indexOf("usoint")===0){localStorage.setItem(k,d[k]);n++}}
-                  alert("Ripristinati "+n+" elementi. La pagina si ricaricherà.");location.reload();
-                }catch(ex){alert("File non valido: "+ex.message)}
+                /* ver121: PRIMA si controlla il file, POI si sovrascrive. E dopo aver riscritto il
+                   browser si spinge tutto nel cloud con fbPush: senza, alla ricarica fbSync
+                   riscaricava dal cloud e cancellava il ripristino senza dire niente. */
+                var d;
+                try{ d=JSON.parse(ev.target.result); }
+                catch(ex){ alert("File non valido: "+ex.message); return; }
+                if(!d || typeof d!=="object"){ alert("File non valido: non contiene dati."); return; }
+                var chiavi=[];
+                for(var k in d){ if(k.indexOf("usoint")===0 && typeof d[k]==="string") chiavi.push(k); }
+                if(!chiavi.length){ alert("In questo file non c'è nessun dato di USOINT.\n\nNON ho toccato niente."); return; }
+                if(!confirm("Stai per rimettere "+chiavi.length+" elementi presi dal file.\n\nI dati di adesso — anche quelli nel cloud — verranno SOSTITUITI.\nQuello che c'è adesso e non è nel file resta dov'è: non viene cancellato.\n\nVuoi procedere?")) return;
+                for(var i2=0;i2<chiavi.length;i2++){ localStorage.setItem(chiavi[i2], d[chiavi[i2]]); }
+                if(!fbUid){ alert("Rimessi "+chiavi.length+" elementi. La pagina si ricaricherà."); location.reload(); return; }
+                fbPush(fbUid).then(function(n2){
+                  alert("Rimessi "+chiavi.length+" elementi e scritti nel cloud ("+n2+").\nLa pagina si ricaricherà.");
+                  location.reload();
+                }).catch(function(err){
+                  console.error("Ripristino: scrittura nel cloud non riuscita", err);
+                  alert("ATTENZIONE: i dati sono stati rimessi nel browser ma NON scritti nel cloud ("+((err&&err.message)||"errore")+").\n\nNON ricarico la pagina: se la ricarichi adesso, il cloud sovrascrive il ripristino e lo perdi.\n\nControlla il collegamento e riprova.");
+                });
               };rd.readAsText(f);
             };inp.click();
           }} style={{...bSec,flex:1,fontSize:11}}>📂 Ripristina backup</button>

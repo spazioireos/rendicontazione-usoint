@@ -59,7 +59,7 @@ in cache (problema realmente capitato).
 | App integrata | `rev 4 · 31ott26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 6 · 03nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
 | Dipendenti | `ver84 · 04nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
-| Rendicontazione USOINT | `ver120 · 03nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
+| Rendicontazione USOINT | `ver121 · 04nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 7 · 03nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
 **Criterio:** dove l'app aveva già una numerazione (USOINT `ver`, Dipendenti `APP_VER`) si usa e
@@ -253,20 +253,22 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
 
 ---
 
-## 5-bis. DIFETTO APERTO: il ripristino del backup di USOINT non tiene (04/11/2026)
+## 5-bis. Il ripristino del backup di USOINT: difetto trovato e corretto (04/11/2026)
 
 ⚠️ **Correzione di un'informazione sbagliata**: era stato scritto che USOINT non aveva il backup
 JSON. **Non è vero**: nella Home ci sono «💾 Backup dati» e «📂 Ripristina backup».
 
-⚠️ **Però il ripristino non funziona.** «Ripristina backup» riscrive le chiavi in `localStorage`
-e ricarica la pagina; alla ricarica l'app rifà l'accesso e **`fbSync` scarica dal cloud
-sovrascrivendo tutto**, cancellando in silenzio il ripristino appena fatto. Il file scaricato è
-una copia buona: è il rimetterlo dentro che non funziona.
+**Il difetto** (ver120 e precedenti): il ripristino riscriveva i dati nel browser e ricaricava la
+pagina; alla ricarica l'app rifà l'accesso e `fbSync` **scaricava dal cloud sovrascrivendo
+tutto**, cancellando in silenzio il ripristino. L'avviso «Ripristinati N elementi» era una bugia.
+Dimostrato in esecuzione con un finto Firebase.
 
-La funzione che servirebbe (`fbPush`, spinge il locale nel cloud) **c'è già nel file e non viene
-mai chiamata**. Correzione proposta, **non ancora autorizzata**: dopo il ripristino chiedere
-conferma e poi `fbPush` prima del reload. Trovato **leggendo il codice**, non ancora provato in
-esecuzione con Firebase vero.
+**Corretto in ver121**: dopo aver riscritto il browser si **spinge tutto nel cloud** (`fbPush`,
+funzione che era già nel file e non veniva mai chiamata) e solo dopo si ricarica. Se la scrittura
+nel cloud fallisce, **la pagina non si ricarica** e l'avviso lo spiega. Inoltre: prima si
+controlla il file (non JSON, vuoto, o senza chiavi `usoint*` → non si tocca niente) e poi si
+chiede **conferma esplicita**. ⚠️ Limite: quello che c'è adesso e non è nel file **non viene
+cancellato**; è scritto nella conferma.
 
 ## 6. DA PROVARE — pronto sul ramo di prova
 

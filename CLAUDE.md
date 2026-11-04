@@ -18,7 +18,7 @@ USOINT sta per **"uso interno"**.
   (specchio di localStorage). Chiavi: `usoint-idx`, `usoint-p-<id>`, `usoint-orelav`,
   `usoint-tariffe`, `usoint-simul`. Accesso mail+password.
 - **Numero di revisione**: costante `const VER` (riga ~67), mostrata in **tre punti** (Home,
-  scheda progetto, Riepilogo operatori). **Attuale: ver120 · 03nov26.** `VER` finisce anche nei
+  scheda progetto, Riepilogo operatori). **Attuale: ver121 · 04nov26.** `VER` finisce anche nei
   nomi dei file esportati: incrementarla, non affiancarle un secondo numero.
 - **Strutture utili**: `usoint-orelav` = `{ [norm(nome)]: { [anno]: [12 numeri] } }` (ore
   lavorate, indice 0 = gennaio; `norm` = minuscolo, trim, spazi singoli).
@@ -54,17 +54,27 @@ USOINT sta per **"uso interno"**.
 - **Funzioni presenti**: import automatico (SOLA LETTURA) delle ore lavorate dal database dei
   Dipendenti tramite una **seconda app Firebase** chiamata "dip"; tabella compatta della scheda
   operatore (Lavorate | una colonna per progetto | Tot. rendicontate | Avanzo).
-- 🔴 **DIFETTO APERTO — «📂 Ripristina backup» non tiene** (trovato il 04/11/2026 leggendo il
-  codice, **non ancora corretto**). USOINT **ha** il backup: due pulsanti nella Home,
+- 🔁 **«📂 Ripristina backup»: CORRETTO** (ver121, 04/11/2026). USOINT ha due pulsanti nella Home,
   «💾 Backup dati» (scarica in un JSON tutte le chiavi `usoint*` di `localStorage`) e
-  «📂 Ripristina backup» (le riscrive e ricarica la pagina). ⚠️ Ma alla ricarica
-  `fbAuth.onAuthStateChanged` chiama **`fbSync(uid)`**, che **scarica dal cloud e sovrascrive
-  `localStorage`**: il ripristino appena fatto viene cancellato senza dire niente. Il file
-  scaricato è una copia buona; è **rimetterlo dentro** che non funziona finché il cloud ha dati.
-  La funzione che servirebbe — **`fbPush(uid)`**, che spinge il locale nel cloud — **esiste già
-  nel file ma non è richiamata da nessuna parte** (una sola occorrenza: la definizione).
-  Correzione proposta e non ancora autorizzata: dopo il ripristino chiedere conferma esplicita
-  («sostituisci i dati nel cloud con quelli del file?») e poi `fbPush` **prima** del reload.
+  «📂 Ripristina backup».
+  - **Il difetto (dimostrato in esecuzione, non solo letto)**: il ripristino riscriveva
+    `localStorage` e ricaricava la pagina; alla ricarica `fbAuth.onAuthStateChanged` chiamava
+    **`fbSync(uid)`**, che **scarica dal cloud e sovrascrive `localStorage`**. Il ripristino
+    spariva **senza dire niente**, e l'avviso «Ripristinati N elementi» era una bugia.
+    Provato con un finto Firebase (cloud persistente in `sessionStorage`): file con *PROGETTO DEL
+    FILE*, cloud con *PROGETTO DEL CLOUD* → dopo il ripristino **restava quello del cloud**.
+  - **La correzione**: dopo aver riscritto `localStorage` si chiama **`fbPush(fbUid)`** — che era
+    **già nel file e non veniva mai richiamata** — e solo **dopo** si ricarica. Stessa prova:
+    ora dopo il ripristino cloud e browser hanno entrambi *PROGETTO DEL FILE*. ✔
+  - ⚠️ **Se la scrittura nel cloud fallisce, la pagina NON si ricarica** e l'avviso lo dice:
+    ricaricare in quel momento farebbe perdere il ripristino.
+  - **Prima si controlla, poi si sovrascrive** (regola 10.1): file non JSON, file vuoto o file
+    senza chiavi `usoint*` → messaggio e **niente viene toccato** (provati tutti e tre).
+    Poi una **conferma esplicita** che dice quanti elementi arrivano e che i dati di adesso —
+    cloud compreso — verranno sostituiti.
+  - ⚠️ **Limite dichiarato**: `fbPush` spinge le chiavi `usoint*` **presenti ora**; quello che
+    c'è adesso e **non** è nel file **non viene cancellato**. È scritto nella conferma.
+  - Se non si è collegati (`fbUid` nullo) il comportamento è quello di prima: riscrive e ricarica.
 - **Verifica prima del commit**: compilare l'intero blocco `<script type="text/babel">` con
   Babel preset-react e fare `node --check` sull'output.
 - **Non toccare senza richiesta esplicita**: il motore di rendicontazione (avanzi, residui,
