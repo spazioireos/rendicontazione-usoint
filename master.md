@@ -58,7 +58,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 4 · 31ott26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 6 · 03nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver84 · 04nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver85 · 04nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver121 · 04nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 7 · 03nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -175,6 +175,16 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   **Deciso: si usa solo il nuovo.** Il modulo vecchio è stato tolto dalla scheda dell'operatore e
   sostituito da un rimando; ⚠️ i massimali già creati **restano visibili e cancellabili**,
   nessun dato è stato toccato.
+- **Dipendenti ver85 (04/11/2026) — si vede quante ore sono le «ore aggiuntive».** Christian
+  chiede di vedere, nel Costo orario, **quante ore** finiscono nelle aggiuntive: il numero era
+  già nei conti ma a video c'era solo l'importo in euro. Ora la tabellina del dettaglio mostra le
+  ore **al mese** e **sul periodo**, una nota dice **da dove vengono** (dal dato vero: ore
+  dichiarate meno ore ordinarie lavorabili; oppure stimate con la % quando le ore sono
+  *Teoriche*) e **con che maggiorazione** si pagano (15% sul minimo a 38 h/sett., altrimenti
+  27%); nella tabella dei blocchi c'è una colonna con le aggiuntive di ciascun pezzo.
+  ⚠️ **Nessun calcolo toccato**: provato su quattro casi, ore, costo e €/h **identici** alla
+  ver84. Effetto collaterale buono: a 1280px la scheda **non scorre più di lato**.
+
 - **Dipendenti ver84 (04/11/2026) — il periodo si taglia da solo in blocchi.** Christian dà un
   periodo unico e l'app lo divide dove cambia qualcosa (livello, ore settimanali, tipo di
   contratto, entrata in vigore di una proroga); ogni pezzo si calcola con i suoi parametri e poi
