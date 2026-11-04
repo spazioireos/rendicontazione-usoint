@@ -179,7 +179,8 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   scheda del mese passa da 3 a **8px** nel colore scelto per quel dipendente, e lo stesso colore
   diventa una **barretta a sinistra del nome** in Riepiloghi, Anagrafica, Costo orario e Query
   personale. ⚠️ Barretta e non sfondo pieno: i colori della tavolozza sono chiari e come sfondo
-  renderebbero i numeri meno leggibili. Export Excel e PDF **non toccati** (decisione in sospeso).
+  renderebbero i numeri meno leggibili. ⚠️ **Export Excel e PDF: no, deciso da Christian il
+  04/11/2026** — il colore resta solo a video. Idea scartata, non riproporla.
 - **Dipendenti ver90 (04/11/2026)** — corretto un difetto che c'era da sempre: nella vista
   *Query personale* la fascia in alto scriveva «📅 undefined 2026». Ora dice «🔎 Query personale».
 
