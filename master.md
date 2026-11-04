@@ -58,7 +58,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 4 · 31ott26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 6 · 03nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver79 · 03nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver80 · 04nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver120 · 03nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 7 · 03nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -175,6 +175,12 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   **Deciso: si usa solo il nuovo.** Il modulo vecchio è stato tolto dalla scheda dell'operatore e
   sostituito da un rimando; ⚠️ i massimali già creati **restano visibili e cancellabili**,
   nessun dato è stato toccato.
+- **Dipendenti ver80 (04/11/2026)**: nel Costo orario la casella del **rimborso km** non si
+  riusciva a compilare (conteneva uno «0», scrivendo 50 diventava «050»): ora è **vuota** quando
+  non c'è rimborso. Aggiunta la tendina **al mese / secco**, perché in alcuni casi il rimborso è
+  mensile e in altri una tantum. ⚠️ Il rimborso **non entra in nessun imponibile**: è esente da
+  imposte e contributi, finisce solo nel totale. Inoltre il pulsante «Valori comuni» si chiama
+  ora **«Aliquote e costi fissi validi per tutti»** (dicitura scelta da Christian).
 - **Dipendenti ver79 (03/11/2026) — sette correzioni ai criteri del costo orario.** Christian ha
   visto un costo orario di **27,81 €/h** su un mese singolo invece di ~20: le **festività** erano
   due numeri fissi annui (11 e 3) tolti per intero da qualunque periodo, anche da un mese solo.
