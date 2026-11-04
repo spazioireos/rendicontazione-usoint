@@ -58,7 +58,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 4 · 31ott26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 6 · 03nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver82 · 04nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver83 · 04nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver120 · 03nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 7 · 03nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -175,6 +175,12 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   **Deciso: si usa solo il nuovo.** Il modulo vecchio è stato tolto dalla scheda dell'operatore e
   sostituito da un rimando; ⚠️ i massimali già creati **restano visibili e cancellabili**,
   nessun dato è stato toccato.
+- **Dipendenti ver83 (04/11/2026)**: stessa famiglia del difetto sul livello. L'**addizionale
+  tempo determinato** contava **tutte** le proroghe scritte in scheda, anche quelle che partivano
+  **dopo** il periodo calcolato. Ora conta solo quelle **già decorse** entro la fine del periodo
+  (una proroga parte il giorno dopo la scadenza precedente), e l'aiutino sotto la casella mostra
+  il numero davvero usato. Provato: con proroghe al 30/06 e al 31/12, il periodo gen→mag 2026
+  passa da **2,40%** a **1,90%**; gen→dic resta 2,40%.
 - **Dipendenti ver82 (04/11/2026)**: nel **Costo orario** il livello non seguiva le
   **trasformazioni**: chi era stato assunto a D1 e poi promosso restava a D1, con il minimo
   tabellare sbagliato (segnalato da Christian su un caso vero). Ora il livello è quello
