@@ -58,7 +58,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 4 · 31ott26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 6 · 03nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver86 · 04nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver87 · 04nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver121 · 04nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 7 · 03nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -175,6 +175,12 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   **Deciso: si usa solo il nuovo.** Il modulo vecchio è stato tolto dalla scheda dell'operatore e
   sostituito da un rimando; ⚠️ i massimali già creati **restano visibili e cancellabili**,
   nessun dato è stato toccato.
+- **Dipendenti ver87 (04/11/2026) — il PDF A4 torna a dire le ore.** Richiesta di Christian: nel
+  PDF le ore si scrivono **ORE,MINUTI** (5,30 = cinque ore e mezza, 5,45 = cinque ore e tre
+  quarti), non più «5 h e 30 min», e per i **mensilizzati** si leggono le ore al posto della «P»
+  di presenza. ⚠️ Il **totale finale resta in centesimi** (numero decimale vero): sono due misure
+  diverse nella stessa tabella, ed è voluto.
+
 - **Dipendenti ver86 (04/11/2026) — si legge meglio il foglio del mese.** Christian: «la vista
   mi si confonde» e «il risultato del mese evidenzialo bene». Le righe della griglia passano da
   1px quasi invisibile a 2px di grigio medio, la casella in cui si scrive da 2 a 3px, il
