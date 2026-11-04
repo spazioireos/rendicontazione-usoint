@@ -58,7 +58,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 4 · 31ott26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 6 · 03nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver81 · 04nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver82 · 04nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver120 · 03nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 7 · 03nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -175,6 +175,13 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   **Deciso: si usa solo il nuovo.** Il modulo vecchio è stato tolto dalla scheda dell'operatore e
   sostituito da un rimando; ⚠️ i massimali già creati **restano visibili e cancellabili**,
   nessun dato è stato toccato.
+- **Dipendenti ver82 (04/11/2026)**: nel **Costo orario** il livello non seguiva le
+  **trasformazioni**: chi era stato assunto a D1 e poi promosso restava a D1, con il minimo
+  tabellare sbagliato (segnalato da Christian su un caso vero). Ora il livello è quello
+  dell'**ultimo mese del periodo**, letto dalle trasformazioni registrate nella scheda.
+  Provato: assunta D1 e promossa D2 → prima 19,65 €/h con minimo 1.637,57, ora **20,71 €/h** con
+  minimo 1.727,83. ⚠️ Se il livello cambia a metà periodo si applica quello finale a tutto il
+  periodo (come già per le ore settimanali): per un conto esatto si spezza il periodo in due.
 - **Dipendenti ver80 (04/11/2026)**: nel Costo orario la casella del **rimborso km** non si
   riusciva a compilare (conteneva uno «0», scrivendo 50 diventava «050»): ora è **vuota** quando
   non c'è rimborso. Aggiunta la tendina **al mese / secco**, perché in alcuni casi il rimborso è
