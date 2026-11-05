@@ -65,7 +65,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 5 · 05nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 7 · 05nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver103 · 05nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver104 · 05nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver121 · 04nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 7 · 03nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -182,6 +182,15 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   **Deciso: si usa solo il nuovo.** Il modulo vecchio è stato tolto dalla scheda dell'operatore e
   sostituito da un rimando; ⚠️ i massimali già creati **restano visibili e cancellabili**,
   nessun dato è stato toccato.
+- **Dipendenti ver104 (05/11/2026) — due conteggi dei mesi: i giorni veri e i ratei.** Regola
+  definitiva di Christian: «la retribuzione è tarata sui gg veri, tutto il resto è proporzionato,
+  ma ferie, 13ma e 14ma maturano solo se ci sono almeno 15gg». Quindi: **retribuzione e tutto il
+  resto** (contributi, TFR, premi, settimane, assistenza sanitaria, paghe, rimborso) seguono i
+  **mesi proporzionati ai giorni veri** (16/31 = 0,516); **ferie, tredicesima e quattordicesima**
+  seguono i **mesi interi con almeno 15 giorni**. Misurato: assunta il 16/01 → 12.474,12 € e
+  20,48 €/h, con 13ª e 14ª **piene**; assunta il 20/01 → 12.121,59 € e 20,20 €/h, con 13ª e 14ª
+  su 11 mesi. ⚠️ Per chi lavora mesi interi **non cambia nulla**. Supera la ver103, che per un
+  giorno in meno azzerava il mese intero e non è mai arrivata su `main`.
 - **Dipendenti ver103 (05/11/2026) — il mese parziale non vale più un mese intero.** Christian:
   «se uno cessa prima della fine del mese o inizia durante un mese, la retribuzione non è quella
   completa mensile». Nel Costo orario bastava **un giorno** di contratto perché il mese valesse
