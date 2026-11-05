@@ -65,7 +65,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 5 · 05nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 6 · 03nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver93 · 05nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver94 · 05nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver121 · 04nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 7 · 03nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -182,6 +182,10 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   **Deciso: si usa solo il nuovo.** Il modulo vecchio è stato tolto dalla scheda dell'operatore e
   sostituito da un rimando; ⚠️ i massimali già creati **restano visibili e cancellabili**,
   nessun dato è stato toccato.
+- **Dipendenti ver94 (05/11/2026)** — nel Tabellone, sulla barra colorata di ogni persona e a
+  destra, compare il **mese di riferimento** («Novembre 2026») grande come il nome: scorrendo un
+  mese lungo la fascia in cima esce dallo schermo e non si sapeva più che mese si guardava.
+
 - **Dipendenti ver93 (05/11/2026) — i permessi finalmente contano, e il Report si legge.**
   Christian si accorge che un permesso orario non muoveva nessun numero. Ora le ore di permesso
   **retribuite** contano nel **Risultato del mese** come un giorno di ferie (numero confermato da
