@@ -65,7 +65,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 5 · 05nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 7 · 05nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver99 · 05nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver100 · 05nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver121 · 04nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 7 · 03nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -182,6 +182,17 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   **Deciso: si usa solo il nuovo.** Il modulo vecchio è stato tolto dalla scheda dell'operatore e
   sostituito da un rimando; ⚠️ i massimali già creati **restano visibili e cancellabili**,
   nessun dato è stato toccato.
+- **Dipendenti ver100 (05/11/2026) — il massimale si scrive servizio per servizio.** Richiesta di
+  Christian: un massimale che **derivi dalla somma** di più celle, una per servizio. Ora in
+  «Massimali annui» si possono aggiungere righe *nome del servizio + ore*: l'app ne fa la somma,
+  che diventa il tetto dell'anno, e il dettaglio si legge sia nella scheda sia nel riquadro
+  🎯 Tetto annuo del mese. ⚠️ Il dettaglio vale **solo per l'assegnazione**: quante ore ha
+  consumato ciascun servizio l'app non lo sa, perché nel Tabellone il giorno è un numero solo e
+  non porta il servizio. Nessun calcolo toccato: il tetto resta un numero unico.
+- 🧭 **Divisione dei massimali fra le app (decisione di Christian, 05/11/2026)**: in **Fogli ore**
+  i massimali si mettono **solo ai collaboratori esterni** (per servizio), in **Dipendenti** si
+  mette il **massimale complessivo** del dipendente; pubblicando i residui, il dipendente vede
+  **solo il totale**.
 - **Dipendenti ver99 (05/11/2026) — anche il permesso può essere non erosivo.** Christian:
   «potrebbe essere di un giorno durante le vacanze natalizie in luogo del giorno di ferie, quindi
   è erosivo o non erosivo anche esso». Nella finestra del permesso c'è ora la spunta **«Quel
