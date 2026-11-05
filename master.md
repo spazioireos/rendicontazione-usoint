@@ -65,7 +65,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 5 · 05nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 7 · 05nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver100 · 05nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver101 · 05nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver121 · 04nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 7 · 03nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -182,6 +182,14 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   **Deciso: si usa solo il nuovo.** Il modulo vecchio è stato tolto dalla scheda dell'operatore e
   sostituito da un rimando; ⚠️ i massimali già creati **restano visibili e cancellabili**,
   nessun dato è stato toccato.
+- **Dipendenti ver101 (05/11/2026) — le scritte non riconosciute nel Tabellone si vedono.**
+  Difetto che c'era da sempre, trovato controllando le formule: in una cella si poteva scrivere
+  qualunque cosa («MALATTIA» per esteso invece del codice `MAL`, «pippo», un appunto); quel
+  giorno valeva **0 ore**, non contava come assenza e **nessuno lo diceva**. Ora la casella
+  diventa **rossa** e sopra la griglia compare una **fascia** che elenca i giorni e cosa c'è
+  scritto. ⚠️ La scrittura **non viene rifiutata** (battendo «FERIE» si passa per «FER»): il
+  rosso compare solo quando si esce dalla cella. Nessun calcolo toccato; il registro dei
+  controlli sulle formule è stato rieseguito e dà gli stessi numeri.
 - **Dipendenti ver100 (05/11/2026) — il massimale si scrive servizio per servizio.** Richiesta di
   Christian: un massimale che **derivi dalla somma** di più celle, una per servizio. Ora in
   «Massimali annui» si possono aggiungere righe *nome del servizio + ore*: l'app ne fa la somma,
