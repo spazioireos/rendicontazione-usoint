@@ -65,7 +65,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 5 · 05nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 7 · 05nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver109 · 05nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver110 · 05nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver121 · 04nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 7 · 03nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -182,6 +182,15 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   **Deciso: si usa solo il nuovo.** Il modulo vecchio è stato tolto dalla scheda dell'operatore e
   sostituito da un rimando; ⚠️ i massimali già creati **restano visibili e cancellabili**,
   nessun dato è stato toccato.
+- **Dipendenti ver110 (05/11/2026) — un mese tutto «AN» vuol dire che non c'era rapporto.**
+  Decisione di Christian. Un mese in cui **tutti** i giorni compilabili portano il codice `AN`
+  non viene più pagato nel Costo orario: niente stipendio, niente ratei, niente cedolino, e le
+  sue festività non si contano. Basta una cella diversa e il mese torna a contare. Nella scheda
+  compare la riga «Mesi senza rapporto». Misurato (luglio e agosto tutti AN): mesi da 12,00 a
+  **10,00**, retribuzione da 7.756,91 a **6.464,09 €**, costo da 14.291,98 a **14.026,86 €**,
+  €/h da 19,85 a **19,48**. ⚠️ Il Tabellone non cambia: `AN` resta 0 ore e non consuma il Tetto.
+  Nella stessa versione l'**addizionale tempo determinato** si ferma alla **fine del rapporto**
+  invece che alla fine del periodo guardato (la casella mostrava 2,40% invece di 1,90%).
 - **Dipendenti ver109 (05/11/2026) — le festività si contano solo quando il contratto è in
   piedi.** Christian: «non ti sembra che vada fatta una considerazione analoga a quella fatta per
   chi cessa prima della fine del mese o inizia durante il mese?». Prima si contavano tutte quelle
