@@ -65,7 +65,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 5 · 05nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 7 · 05nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver107 · 05nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver108 · 05nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver121 · 04nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 7 · 03nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -182,6 +182,12 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   **Deciso: si usa solo il nuovo.** Il modulo vecchio è stato tolto dalla scheda dell'operatore e
   sostituito da un rimando; ⚠️ i massimali già creati **restano visibili e cancellabili**,
   nessun dato è stato toccato.
+- **Dipendenti ver108 (05/11/2026) — avviso giallo quando i mesi sono scritti a mano.** Chiesto
+  da Christian. Nel Costo orario, sotto la casella «Mesi di contratto», compare un riquadro
+  giallo quando il numero scritto a mano **non coincide** con quello calcolato sul periodo
+  scelto: dice quale numero sta usando l'app, quale risulterebbe dal periodo, che anche ferie,
+  13ª, 14ª, assistenza sanitaria e cedolini seguono il numero scritto, e che per tornare al
+  calcolo automatico basta **svuotare la casella**. Nessun calcolo cambiato.
 - **Dipendenti ver107 (05/11/2026) — verifica meticolosa di tutta l'app, e un difetto trovato.**
   Christian: «Vm* che tutto si aggiorni e funzioni». **55 controlli in esecuzione** (Playwright)
   su Tabellone, Costo orario, Anagrafica, Riepiloghi, Query personale, export Excel, Report PDF
