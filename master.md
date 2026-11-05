@@ -65,7 +65,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 5 · 05nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 7 · 05nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver105 · 05nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver106 · 05nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver121 · 04nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 7 · 03nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -182,6 +182,12 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   **Deciso: si usa solo il nuovo.** Il modulo vecchio è stato tolto dalla scheda dell'operatore e
   sostituito da un rimando; ⚠️ i massimali già creati **restano visibili e cancellabili**,
   nessun dato è stato toccato.
+- **Dipendenti ver106 (05/11/2026) — il cedolino esce comunque.** Christian: «paghe è fisso, se
+  fai 3 giorni o 30 il cedolino esce lo stesso e il costo c'è». *Paghe e dichiarazioni* si conta
+  ora sui **mesi con almeno un giorno** di contratto (terzo conteggio), non in proporzione:
+  assunta il 20/01 → **300,00 €** invece di 284,68. La **formazione non è stata toccata** (250 €
+  per ogni anno iniziato, almeno uno: «va fatta comunque»). Nella scheda si leggono ora tutti e
+  tre i conteggi: «in forza per 11,52 mesi · ratei su 12 mesi · 12 cedolini».
 - **Dipendenti ver105 (05/11/2026) — l'assistenza sanitaria sta coi ratei.** Christian:
   «assistenza sanitaria come ferie, permessi e ratei vari». Nella ver104 era proporzionata ai
   giorni veri; ora segue i **mesi con almeno 15 giorni**, come ferie, permessi, 13ª e 14ª.
