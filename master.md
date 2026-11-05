@@ -65,7 +65,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 5 · 05nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 7 · 05nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver102 · 05nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver103 · 05nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver121 · 04nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 7 · 03nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -182,6 +182,15 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   **Deciso: si usa solo il nuovo.** Il modulo vecchio è stato tolto dalla scheda dell'operatore e
   sostituito da un rimando; ⚠️ i massimali già creati **restano visibili e cancellabili**,
   nessun dato è stato toccato.
+- **Dipendenti ver103 (05/11/2026) — il mese parziale non vale più un mese intero.** Christian:
+  «se uno cessa prima della fine del mese o inizia durante un mese, la retribuzione non è quella
+  completa mensile». Nel Costo orario bastava **un giorno** di contratto perché il mese valesse
+  uno intero. Regola scelta da Christian: **il mese conta se il contratto copre almeno 15 giorni
+  di calendario, altrimenti zero** (la regola dei ratei della tredicesima; niente frazioni).
+  Misurato: assunta il 16/01 → numeri **identici** a chi c'è tutto l'anno; assunta il 20/01 →
+  costo da 13.080,54 a **12.969,02 €** e €/h da 20,19 a **20,01**. ⚠️ Le ore di quel mese contano
+  lo stesso, la retribuzione no: un mese sotto i 15 giorni abbassa il €/h. ⚠️ **I costi orari
+  calcolati finora su chi è stato assunto o è cessato a metà mese erano sovrastimati.**
 - **Dipendenti ver102 (05/11/2026) — le scritte non ammesse non entrano più.** Christian:
   «volevo dire *inibiamo*». Nella cella del Tabellone ora si può scrivere **solo** un numero di
   ore (al massimo due cifre, niente negativi) oppure **un codice dell'elenco**: un carattere non
