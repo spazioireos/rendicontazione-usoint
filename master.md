@@ -65,7 +65,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 5 · 05nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 7 · 05nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver106 · 05nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver107 · 05nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver121 · 04nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 7 · 03nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -182,6 +182,15 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   **Deciso: si usa solo il nuovo.** Il modulo vecchio è stato tolto dalla scheda dell'operatore e
   sostituito da un rimando; ⚠️ i massimali già creati **restano visibili e cancellabili**,
   nessun dato è stato toccato.
+- **Dipendenti ver107 (05/11/2026) — verifica meticolosa di tutta l'app, e un difetto trovato.**
+  Christian: «Vm* che tutto si aggiorni e funzioni». **55 controlli in esecuzione** (Playwright)
+  su Tabellone, Costo orario, Anagrafica, Riepiloghi, Query personale, export Excel, Report PDF
+  (con jsPDF finto), backup→import, salvataggio e telefono: **tutti superati, zero errori di
+  pagina**, registro delle formule rieseguito con gli stessi numeri. 🐞 Trovato e **corretto** un
+  difetto che c'era dalla ver73: il pulsante «↺ Rimetti i valori calcolati» del Costo orario
+  **non rimetteva niente** (due scritture di fila nello stato, la seconda cancellava la prima).
+  ℹ️ Due difetti **preesistenti** misurati e non corretti: a 390px l'Anagrafica scorre di lato
+  (724px, la riga dei pulsanti «Genera documento») e il Costo orario arriva a 429px.
 - **Dipendenti ver106 (05/11/2026) — il cedolino esce comunque.** Christian: «paghe è fisso, se
   fai 3 giorni o 30 il cedolino esce lo stesso e il costo c'è». *Paghe e dichiarazioni* si conta
   ora sui **mesi con almeno un giorno** di contratto (terzo conteggio), non in proporzione:
