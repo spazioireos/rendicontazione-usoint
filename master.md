@@ -65,7 +65,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 5 · 05nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 7 · 05nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver111 · 05nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver112 · 05nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver121 · 04nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 7 · 03nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -182,13 +182,23 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   **Deciso: si usa solo il nuovo.** Il modulo vecchio è stato tolto dalla scheda dell'operatore e
   sostituito da un rimando; ⚠️ i massimali già creati **restano visibili e cancellabili**,
   nessun dato è stato toccato.
-- **Dipendenti ver111 (05/11/2026) — il mese tutto «AN» si segnala, ma il rapporto va avanti.**
-  Christian, poche ore dopo la ver110: «Frutaz ma anche altri hanno magari AN su un mese ma il
-  rapporto va avanti, mica si ferma». Quindi un mese tutto AN **non toglie più niente** dai conti
-  (stipendio, ratei, cedolini e festività tornano come prima): resta solo la **riga che lo
-  segnala**, con l'invito a scrivere le date se il rapporto era davvero sospeso. Il codice
-  dell'esclusione è rimasto e si riattiva in quattro punti. La ver110 non è mai arrivata su
-  `main`.
+- **Dipendenti ver112 (05/11/2026) — il mese tutto «AN» non si paga, ma il rapporto va avanti.**
+  **Regola definitiva**, dopo tre passaggi nella stessa giornata: ver110 «se è tutto AN non c'è
+  rapporto» (escluso da tutto) → ver111 «il rapporto va avanti, mica si ferma» (solo segnalato) →
+  **ver112**, chiarimento di Christian: «il rapporto va avanti nel senso che riprenderanno a
+  lavorare, in quanto indeterminate», e alla domanda se in quei mesi prendono lo stipendio
+  **«NO, non sono pagati»**. È il **part-time verticale ciclico**: un mese in cui **tutti** i
+  giorni compilabili portano `AN` è un **mese non pagato** — niente stipendio, niente ratei
+  (ferie, 13ª, 14ª), niente cedolino, festività non contate — mentre il **rapporto resta
+  intatto**: contratto, livello, ore settimanali, proroghe e addizionale si leggono come prima e
+  le date della scheda non si toccano. Basta una cella diversa (un'ora o un altro codice) e il
+  mese torna a contare. A video la riga **«Mesi non pagati»**. Misurato (luglio e agosto tutti
+  AN, gen → dic): mesi da 12,00 a **10,00**, retribuzione da 7.756,91 a **6.464,09 €**, costo da
+  14.291,98 a **14.026,86 €**, €/h da 19,85 a **19,48**; con nessun mese AN i numeri sono
+  **identici** alla ver111. ⚠️ Il Tabellone non cambia: `AN` resta 0 ore e non consuma il Tetto.
+  ⚠️ **Conseguenza dichiarata**: con 10 mesi pagati scendono anche le ore ordinarie lavorabili,
+  quindi le **ore supplementari al +27%** salgono da 100,36 a 205,72 h; il costo totale scende
+  comunque, perché lo stipendio scende di più. Le ver110 e ver111 non sono mai arrivate su `main`.
   🔜 **Deciso la stessa sera e ancora da fare**: contare le **ore supplementari mese per mese**
   (niente compensazione fra un mese sopra e uno sotto) e far sì che **Tabellone e Costo orario
   usino le stesse ore del mese**.
