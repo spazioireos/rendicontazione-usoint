@@ -58,7 +58,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 4 · 31ott26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 6 · 03nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver92 · 05nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver93 · 05nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver121 · 04nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 7 · 03nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -175,6 +175,18 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   **Deciso: si usa solo il nuovo.** Il modulo vecchio è stato tolto dalla scheda dell'operatore e
   sostituito da un rimando; ⚠️ i massimali già creati **restano visibili e cancellabili**,
   nessun dato è stato toccato.
+- **Dipendenti ver93 (05/11/2026) — i permessi finalmente contano, e il Report si legge.**
+  Christian si accorge che un permesso orario non muoveva nessun numero. Ora le ore di permesso
+  **retribuite** contano nel **Risultato del mese** come un giorno di ferie (numero confermato da
+  lui: 120 h rese + 2 h EXF su base 130,263 → **−8,263**), ma restano **fuori dal TOT**, quindi
+  rendicontazione e costo orario non cambiano. La tendina tiene solo i cinque tipi retribuiti per
+  legge: **EXF, LUTTO, ELEZ, ESAMI, SIND**; un tipo scritto a mano non conta e l'app lo dice.
+  Nel **Report** i numeri passano da 7 a **9pt** (più grandi non si può: la tabella si
+  spezzerebbe su due pagine) e la cella col permesso dice «+ aggiunta come sotto ***».
+  🐞 Corretto un difetto che c'era da sempre: i controlli di fine pagina del Report usavano
+  l'altezza del foglio **verticale** (287mm) su un foglio **orizzontale** (210mm), quindi le note
+  in calce potevano finire fuori pagina e sparire.
+
 - **Dipendenti ver91 (05/11/2026) — i permessi orari si vedono, e due nomi nuovi.** Christian:
   «la questione dei permessi è poco chiara». Nel **TABELLONE** (così si chiama da ora la pagina
   del mese con le celle di tutti, e il titolo in cima lo dice: «Tabellone Novembre 2026») sotto
