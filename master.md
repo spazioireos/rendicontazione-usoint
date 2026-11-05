@@ -65,7 +65,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 5 · 05nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 6 · 03nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver95 · 05nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver96 · 05nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver121 · 04nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 7 · 03nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -182,6 +182,17 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   **Deciso: si usa solo il nuovo.** Il modulo vecchio è stato tolto dalla scheda dell'operatore e
   sostituito da un rimando; ⚠️ i massimali già creati **restano visibili e cancellabili**,
   nessun dato è stato toccato.
+- **Dipendenti ver96 (05/11/2026) — «non calcolabile» invece di un numero inventato.** Se nel
+  Costo orario si scelgono le ore «dai Riepiloghi» e in quel periodo non ce n'è nessuna, l'app
+  ricadeva in silenzio sulle ore **teoriche** e mostrava un costo orario su ore che non esistono
+  (anche nel foglio Excel). Ora scrive **«non calcolabile»**; il Costo totale resta.
+- ⚖️ **Costo orario sui periodi corti — limite noto e accettato (05/11/2026).** Indagando un caso
+  vero si è visto che su **un mese solo** il costo orario **sovrastima di circa il 10%**: l'app
+  toglie ogni mese la fetta presunta di ferie e malattia, e le ore in più diventano
+  «supplementari» al +27%. **Sull'anno intero il conto torna da solo** (misurato: 20,32 €/h con
+  0,03 h di supplementari). ⚠️ Christian ha deciso di **lasciare il calcolo com'è**: per il numero
+  vero si usa **l'anno intero o tutto il contratto**, mai un mese singolo.
+
 - **Dipendenti ver95 (05/11/2026)** — tolta la riga di legenda in fondo al Report, su richiesta
   di Christian. Restano titolo, recupero/ore nuove, note del mese, permessi orari e avvisi.
 
