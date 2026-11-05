@@ -65,7 +65,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 5 · 05nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 7 · 05nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver104 · 05nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver105 · 05nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver121 · 04nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 7 · 03nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -182,6 +182,11 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   **Deciso: si usa solo il nuovo.** Il modulo vecchio è stato tolto dalla scheda dell'operatore e
   sostituito da un rimando; ⚠️ i massimali già creati **restano visibili e cancellabili**,
   nessun dato è stato toccato.
+- **Dipendenti ver105 (05/11/2026) — l'assistenza sanitaria sta coi ratei.** Christian:
+  «assistenza sanitaria come ferie, permessi e ratei vari». Nella ver104 era proporzionata ai
+  giorni veri; ora segue i **mesi con almeno 15 giorni**, come ferie, permessi, 13ª e 14ª.
+  Misurato (132 €/anno): assunta il 16/01 → **132,00 €** invece di 126,68; assunta il 20/01 →
+  **121,00 €** invece di 125,26. Per chi c'è tutto l'anno non cambia nulla.
 - **Dipendenti ver104 (05/11/2026) — due conteggi dei mesi: i giorni veri e i ratei.** Regola
   definitiva di Christian: «la retribuzione è tarata sui gg veri, tutto il resto è proporzionato,
   ma ferie, 13ma e 14ma maturano solo se ci sono almeno 15gg». Quindi: **retribuzione e tutto il
