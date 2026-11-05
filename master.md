@@ -65,7 +65,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 5 · 05nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 7 · 05nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver108 · 05nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver109 · 05nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver121 · 04nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 7 · 03nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -182,6 +182,14 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   **Deciso: si usa solo il nuovo.** Il modulo vecchio è stato tolto dalla scheda dell'operatore e
   sostituito da un rimando; ⚠️ i massimali già creati **restano visibili e cancellabili**,
   nessun dato è stato toccato.
+- **Dipendenti ver109 (05/11/2026) — le festività si contano solo quando il contratto è in
+  piedi.** Christian: «non ti sembra che vada fatta una considerazione analoga a quella fatta per
+  chi cessa prima della fine del mese o inizia durante il mese?». Prima si contavano tutte quelle
+  del periodo scelto, anche se cadevano quando la persona non era assunta: il costo si gonfiava.
+  Misurato: contratto fino al 30/06 guardato su gennaio→dicembre, da **8.777,08 € e 20,32 €/h** a
+  **8.471,81 € e 19,61 €/h**, cioè lo stesso numero che dà il periodo gennaio→giugno — **il
+  periodo che si sceglie non cambia più il risultato**. Per chi è in forza tutto il periodo non
+  cambia nulla.
 - **Dipendenti ver108 (05/11/2026) — avviso giallo quando i mesi sono scritti a mano.** Chiesto
   da Christian. Nel Costo orario, sotto la casella «Mesi di contratto», compare un riquadro
   giallo quando il numero scritto a mano **non coincide** con quello calcolato sul periodo
