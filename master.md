@@ -64,7 +64,7 @@ in cache (problema realmente capitato).
 | App | Numero attuale | Dove si vede | Da dove viene |
 |---|---|---|---|
 | App integrata | `rev 5 · 05nov26` | barra in alto | scritto nel file |
-| Collaboratori | `rev 6 · 03nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
+| Collaboratori | `rev 7 · 05nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
 | Dipendenti | `ver97 · 05nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver121 · 04nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 7 · 03nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
@@ -182,6 +182,13 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   **Deciso: si usa solo il nuovo.** Il modulo vecchio è stato tolto dalla scheda dell'operatore e
   sostituito da un rimando; ⚠️ i massimali già creati **restano visibili e cancellabili**,
   nessun dato è stato toccato.
+- **Collaboratori rev 7 (05/11/2026) — righe più basse nelle due tabelle della scheda.**
+  Christian: «abbassa l'altezza righe delle liquidazioni e delle ore mensili effettuate almeno del
+  40%». A tenere le righe a 43px non erano le caselle (già a 28px dalla rev 5) ma il **pulsante**
+  nella prima colonna, che la regola generale teneva a 40px. Con una classe messa su **quelle due
+  tabelle soltanto** (`.tbl-dense`), lì dentro caselle e pulsanti scendono a 22px: righe da
+  **43 a 23px (−46,5%)**, scheda da 911 a **790px**. ⚠️ Fuori da quelle due tabelle **non cambia
+  niente**: i pulsanti restano alti 40px. Nessuna dicitura, nessun dato, nessun calcolo toccati.
 - **Dipendenti ver97 (05/11/2026) — il totale teorico nel Tabellone e il pulsante dei residui che
   si vede.** Due richieste di Christian. (1) Accanto alle ore **effettive** del mese ora si legge
   anche il **totale teorico**: ore fatte **più** le ore delle giornate di assenza **erosive**
