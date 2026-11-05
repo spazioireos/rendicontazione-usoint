@@ -58,7 +58,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 4 · 31ott26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 6 · 03nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver91 · 05nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver92 · 05nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver121 · 04nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 7 · 03nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -182,6 +182,8 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   da 11px. Nel **REPORT** (così si chiama da ora il PDF A4) il permesso è segnalato con **tre
   asterischi grossi** al posto di uno piccolo, e in calce si legge «NOME — giorno 10: Aggiungere
   2,00 ore di permesso (EXF)». ⚠️ Le ore di permesso continuano a NON entrare nel TOT.
+  In **ver92** il pulsante in testata si chiama **«🖨️ Report PDF A4»** (dicitura scelta da
+  Christian); il titolo del mese resta «Tabellone Novembre 2026», con l'iniziale maiuscola.
 
 - **Dipendenti ver89 (04/11/2026) — il colore della persona vale ovunque.** La cornice della
   scheda del mese passa da 3 a **8px** nel colore scelto per quel dipendente, e lo stesso colore
