@@ -58,7 +58,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 4 · 31ott26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 6 · 03nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver90 · 04nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver91 · 05nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver121 · 04nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 7 · 03nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -175,6 +175,14 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   **Deciso: si usa solo il nuovo.** Il modulo vecchio è stato tolto dalla scheda dell'operatore e
   sostituito da un rimando; ⚠️ i massimali già creati **restano visibili e cancellabili**,
   nessun dato è stato toccato.
+- **Dipendenti ver91 (05/11/2026) — i permessi orari si vedono, e due nomi nuovi.** Christian:
+  «la questione dei permessi è poco chiara». Nel **TABELLONE** (così si chiama da ora la pagina
+  del mese con le celle di tutti, e il titolo in cima lo dice: «Tabellone Novembre 2026») sotto
+  la cella compare una targhetta viola **«+2,00 h EXF»**: prima il permesso era solo un pallino
+  da 11px. Nel **REPORT** (così si chiama da ora il PDF A4) il permesso è segnalato con **tre
+  asterischi grossi** al posto di uno piccolo, e in calce si legge «NOME — giorno 10: Aggiungere
+  2,00 ore di permesso (EXF)». ⚠️ Le ore di permesso continuano a NON entrare nel TOT.
+
 - **Dipendenti ver89 (04/11/2026) — il colore della persona vale ovunque.** La cornice della
   scheda del mese passa da 3 a **8px** nel colore scelto per quel dipendente, e lo stesso colore
   diventa una **barretta a sinistra del nome** in Riepiloghi, Anagrafica, Costo orario e Query
