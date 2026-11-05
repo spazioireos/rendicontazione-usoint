@@ -9,7 +9,24 @@ USOINT sta per **"uso interno"**.
 - **In questo repo c'è anche la PAGINA INTEGRATA**: `integrata/index.html`, il link unico
   `https://spazioireos.github.io/rendicontazione-usoint/integrata/` con i quattro pulsanti
   (Collaboratori, Dipendenti, Rendicontazione progetti, Fogli ore). **Apre i LINK LIVE**, non
-  copie: ha un suo numero di revisione (attuale `rev 4 · 31ott26`) nella barra.
+  copie: ha un suo numero di revisione (attuale `rev 5 · 05nov26`) nella barra.
+  🔄 **L'app arriva sempre fresca** (rev 5, 05/11/2026, scelta **A** di Christian dopo che aveva
+  visto la ver90 quando su Pages c'era già la ver92). L'indirizzo dentro l'`iframe` era **sempre
+  identico**, quindi il browser serviva la **copia in memoria**: si vedevano versioni vecchie per
+  ore, e un semplice ricaricamento della pagina integrata non bastava. Ora `fresco(url)` aggiunge
+  **`?v=<orario>`**, diverso a ogni apertura.
+  - ⚠️ **L'indirizzo di base non cambia**, quindi accesso Firebase, PIN e `localStorage` delle app
+    **restano dove sono**: il parametro non cambia l'origine.
+  - ⚠️ **Si riscarica solo il file dell'app** (da 212 a 480 KB): React, Babel, Firebase e le altre
+    librerie hanno indirizzi fissi e restano in memoria.
+  - ⚠️ L'`iframe` parte da **`about:blank`** e non più dall'indirizzo di Collaboratori: con il
+    codice variabile l'app sarebbe stata scaricata **due volte** a ogni apertura (prima la copia
+    vecchia dell'indirizzo fisso, poi quella fresca). **Provato: una richiesta sola.**
+  - ⚠️ **Ripremere il pulsante della sezione già aperta NON ricarica niente**, com'era prima: in
+    quell'app potrebbero esserci modifiche non ancora salvate con il 💾. Per riprendere l'app
+    fresca si passa a un'altra sezione e si torna indietro.
+  - **Scartata l'opzione B** (un pulsante «↻ Ricarica l'app» e cache normale): Christian ha scelto
+    la A, «il senso della pagina integrata è non doverci pensare». Non riproporla.
   Dalla rev 4 titolo e pulsanti sono più grandi (16px, alti 48px) per la lettura comoda.
   Layout a colonna con flexbox e **nessuna altezza fissa**: la barra si adatta da sé se i
   pulsanti vanno a capo (con altezza fissa, su tablet la seconda riga di pulsanti finiva

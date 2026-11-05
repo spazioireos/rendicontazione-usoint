@@ -40,10 +40,17 @@ toccare): leggere quello prima di lavorarci.
 ## 3. L'APP INTEGRATA — attiva
 
 - **Link unico:** `https://spazioireos.github.io/rendicontazione-usoint/integrata/`
-- File `integrata/index.html` in questo repo, su `main`. **Revisione attuale: `rev 3 · 29ott26`.**
+- File `integrata/index.html` in questo repo, su `main`. **Revisione attuale: `rev 5 · 05nov26`.**
 - **Quattro pulsanti**: 👥 Collaboratori · 🧑‍💼 Dipendenti · 📊 Rendicontazione progetti · 📋 Fogli ore.
 - **Apre i LINK LIVE** delle app, non copie: quando si aggiorna una app, la pagina integrata
   mostra la versione nuova **da sola**. Non va MAI aggiornata per questo motivo.
+- 🔄 **Da rev 5 (05/11/2026) l'app arriva sempre fresca.** Prima l'indirizzo dentro la finestra
+  interna era sempre identico e il browser serviva la **copia in memoria**: il 05/11 Christian
+  vedeva ancora la ver90 mentre su Pages c'era la ver92, e ricaricare la pagina integrata non
+  bastava. Ora all'indirizzo si aggiunge un codice che cambia a ogni apertura.
+  ⚠️ Accesso Firebase, PIN e dati salvati nel browser **non cambiano** (l'indirizzo di base è lo
+  stesso); si riscarica solo il file dell'app, non le librerie. Ripremere il pulsante della
+  sezione già aperta **non ricarica**, per non perdere modifiche non salvate.
 - La radice `…/rendicontazione-usoint/` resta l'app Rendicontazione singola.
 - Il pulsante Fogli ore è solo una **scorciatoia per Christian**: per gli esterni non cambia nulla.
 
@@ -56,7 +63,7 @@ in cache (problema realmente capitato).
 
 | App | Numero attuale | Dove si vede | Da dove viene |
 |---|---|---|---|
-| App integrata | `rev 4 · 31ott26` | barra in alto | scritto nel file |
+| App integrata | `rev 5 · 05nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 6 · 03nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
 | Dipendenti | `ver93 · 05nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver121 · 04nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
@@ -575,7 +582,7 @@ codici in `CODICI`/`CODE_SET`). Totale mese = `totOfRec(rec,y,m)`.
 > contenuto: verificare il `<title>`. In ogni repo c'è un `CLAUDE.md` con le istruzioni di quella
 > app, e in `rendicontazione-usoint` c'è `master.md` (questo documento): leggerli prima di agire.
 > ATTIVO: pagina integrata `integrata/index.html` (link
-> `https://spazioireos.github.io/rendicontazione-usoint/integrata/`, rev 4) con quattro pulsanti che
+> `https://spazioireos.github.io/rendicontazione-usoint/integrata/`, rev 5) con quattro pulsanti che
 > aprono i LINK LIVE; nei Dipendenti la targhetta ORE MESE e l'avviso di confronto con Fogli ore;
 > numero di revisione visibile in tutte le app.
 > DA PROVARE sul ramo `claude/integrated-app-feasibility-8d1wg0`: in USOINT l'import automatico in

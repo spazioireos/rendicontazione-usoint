@@ -89,7 +89,7 @@
 <body>
   <header class="barra">
     <div class="titolo"><span class="pallino"></span>SPAZIO IREOS · Gestionale integrato</div>
-    <span class="rev" title="Revisione di questa pagina: serve a capire a colpo d'occhio se stai vedendo la versione aggiornata">rev 4 · 31ott26</span>
+    <span class="rev" title="Revisione di questa pagina: serve a capire a colpo d'occhio se stai vedendo la versione aggiornata">rev 5 · 05nov26</span>
     <nav class="pulsanti">
       <button class="btn" id="btn-collaboratori" type="button" onclick="apri('collaboratori')">
         <span class="ico">&#128101;</span> Collaboratori
@@ -107,7 +107,7 @@
   </header>
 
   <main class="area">
-    <iframe id="app" title="Applicazione" src="https://spazioireos.github.io/ore-e-importi-collaboratori/"></iframe>
+    <iframe id="app" title="Applicazione" src="about:blank"></iframe>
   </main>
 
 <script>
@@ -121,11 +121,24 @@
   };
   var CHIAVE = 'spazioireos_integrato_tab';
 
+  /* rev 5 (05/11/2026, scelta di Christian). Il browser teneva in memoria la copia dell'app
+     dentro la finestra interna, perche' l'indirizzo era sempre identico: si continuava a vedere
+     una versione vecchia anche quando sul server ce n'era una nuova. Ora all'indirizzo si
+     aggiunge un codice che cambia ogni volta, cosi' l'app arriva sempre fresca.
+     NB: l'indirizzo di base non cambia, quindi l'accesso a Firebase, il PIN e i dati salvati
+     nel browser restano dove sono. Le librerie esterne restano in memoria come prima: si
+     riscarica solo il file dell'app. */
+  function fresco(url){
+    return url + (url.indexOf('?') >= 0 ? '&' : '?') + 'v=' + Date.now();
+  }
+
   function apri(nome){
     var s = SEZIONI[nome] || SEZIONI.collaboratori;
     var frame = document.getElementById('app');
+    /* Se si ripreme il pulsante della sezione gia' aperta NON si ricarica niente: dentro
+       l'app potrebbero esserci modifiche non ancora salvate con il 💾. */
     if (frame.getAttribute('data-sezione') !== nome){
-      frame.src = s.url;
+      frame.src = fresco(s.url);
       frame.setAttribute('data-sezione', nome);
     }
     for (var k in SEZIONI){
