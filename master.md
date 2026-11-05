@@ -65,7 +65,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 5 · 05nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 7 · 05nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver110 · 05nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver111 · 05nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver121 · 04nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 7 · 03nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -182,6 +182,16 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   **Deciso: si usa solo il nuovo.** Il modulo vecchio è stato tolto dalla scheda dell'operatore e
   sostituito da un rimando; ⚠️ i massimali già creati **restano visibili e cancellabili**,
   nessun dato è stato toccato.
+- **Dipendenti ver111 (05/11/2026) — il mese tutto «AN» si segnala, ma il rapporto va avanti.**
+  Christian, poche ore dopo la ver110: «Frutaz ma anche altri hanno magari AN su un mese ma il
+  rapporto va avanti, mica si ferma». Quindi un mese tutto AN **non toglie più niente** dai conti
+  (stipendio, ratei, cedolini e festività tornano come prima): resta solo la **riga che lo
+  segnala**, con l'invito a scrivere le date se il rapporto era davvero sospeso. Il codice
+  dell'esclusione è rimasto e si riattiva in quattro punti. La ver110 non è mai arrivata su
+  `main`.
+  🔜 **Deciso la stessa sera e ancora da fare**: contare le **ore supplementari mese per mese**
+  (niente compensazione fra un mese sopra e uno sotto) e far sì che **Tabellone e Costo orario
+  usino le stesse ore del mese**.
 - **Dipendenti ver110 (05/11/2026) — un mese tutto «AN» vuol dire che non c'era rapporto.**
   Decisione di Christian. Un mese in cui **tutti** i giorni compilabili portano il codice `AN`
   non viene più pagato nel Costo orario: niente stipendio, niente ratei, niente cedolino, e le
