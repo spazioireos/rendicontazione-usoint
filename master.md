@@ -65,7 +65,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 5 · 05nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 6 · 03nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver96 · 05nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver97 · 05nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver121 · 04nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 7 · 03nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -182,6 +182,23 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   **Deciso: si usa solo il nuovo.** Il modulo vecchio è stato tolto dalla scheda dell'operatore e
   sostituito da un rimando; ⚠️ i massimali già creati **restano visibili e cancellabili**,
   nessun dato è stato toccato.
+- **Dipendenti ver97 (05/11/2026) — il totale teorico nel Tabellone e il pulsante dei residui che
+  si vede.** Due richieste di Christian. (1) Accanto alle ore **effettive** del mese ora si legge
+  anche il **totale teorico**: ore fatte **più** le ore delle giornate di assenza **erosive**
+  (quelle non spente col clic), cioè esattamente il numero che consuma il **Tetto annuo**. Sta in
+  due posti: dentro la cella TOT della griglia («teor. 112,02») e nella riga in fondo («TOT
+  teorico (con assenze retribuite erosive): 112,020»). ⚠️ I **permessi orari non ci entrano**, e
+  **nessun calcolo è stato toccato**: il Risultato del mese resta identico al millesimo.
+  (2) Il pulsante **📤 Pubblica i residui** era grigio fra altri pulsanti grigi: ora è **giallo
+  con la scritta in blu elettrico** (contrasto 5,45:1), dicitura invariata.
+  - 🚫 **Non è stato reso automatico** (Christian l'aveva ipotizzato): scrive nel progetto
+    condiviso con gli esterni, e il §10.1 vuole la pubblicazione **manuale e con conferma nome per
+    nome**. In attesa di una sua decisione.
+  - ⚠️ **Limite che Christian ha segnalato lo stesso giorno, ancora aperto**: un dipendente può
+    avere **certi servizi con un tetto e altri senza**, e il Tetto annuo **mescola i servizi**;
+    il numero che l'operatore vede in Fogli ore è quindi **complessivo** e, per chi lavora anche
+    fuori dal tetto, può risultare **non veritiero**. Oggi il pulsante pubblica **tutti** quelli
+    che hanno un tetto, senza poter scegliere chi.
 - **Dipendenti ver96 (05/11/2026) — «non calcolabile» invece di un numero inventato.** Se nel
   Costo orario si scelgono le ore «dai Riepiloghi» e in quel periodo non ce n'è nessuna, l'app
   ricadeva in silenzio sulle ore **teoriche** e mostrava un costo orario su ore che non esistono
