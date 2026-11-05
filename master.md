@@ -65,7 +65,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 5 · 05nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 7 · 05nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver98 · 05nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver99 · 05nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver121 · 04nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 7 · 03nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -182,6 +182,15 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   **Deciso: si usa solo il nuovo.** Il modulo vecchio è stato tolto dalla scheda dell'operatore e
   sostituito da un rimando; ⚠️ i massimali già creati **restano visibili e cancellabili**,
   nessun dato è stato toccato.
+- **Dipendenti ver99 (05/11/2026) — anche il permesso può essere non erosivo.** Christian:
+  «potrebbe essere di un giorno durante le vacanze natalizie in luogo del giorno di ferie, quindi
+  è erosivo o non erosivo anche esso». Nella finestra del permesso c'è ora la spunta **«Quel
+  giorno il servizio era chiuso»**: spuntata, quel permesso **non consuma** il Tetto annuo e la
+  targhetta viola nel Tabellone si vede **barrata**. Il contrassegno è quello del **giorno**, lo
+  stesso delle assenze: se quel giorno ha anche un'assenza, vale per entrambe.
+  ⚠️ Il **Risultato del mese non cambia**: lì i permessi retribuiti contano tutti, come lo
+  straordinario conta tutte le assenze. Misurato: tetto «Già usate» 474,020 → **472,020** con la
+  spunta su 2 h di EXF, e ritorno esatto togliendola.
 - **Dipendenti ver98 (05/11/2026) — il permesso retribuito consuma il Tetto annuo.** Decisione di
   Christian: «il permesso potrebbe essere anche per tutto il giorno, funzionando quindi come il
   giorno di ferie; e a mio avviso consuma certamente anche se è di un'ora». `prodottoMese` ora
