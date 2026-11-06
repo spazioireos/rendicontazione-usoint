@@ -201,6 +201,18 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   4 × 5,0101. Dipende da una cosa sola: **le festività contano come ore già coperte, come
   un'assenza retribuita, oppure no?** Serve la decisione di Christian; finché non arriva resta
   com'è.
+  ⚠️🔴 **SECONDA QUESTIONE APERTA, sollevata da Christian e misurata**: «se uno non fa mai ferie
+  in un anno magari mi tradisce il costo orario». **Ha ragione, ed è il 10%**: due persone
+  identiche, una che si prende le 30 giornate di ferie e una che non ne prende nessuna, danno
+  **18,08** e **16,29 €/h** (nella ver117, con le assenze presunte, lo scarto era solo −2,1%,
+  perché le ore in più inventate lo mascheravano a metà). Il costo è lo stesso, ma chi non va in
+  ferie **rende 190,4 ore in più** che sono un **debito**: o le godrà dopo, o vanno pagate.
+  Conto a mano: dividendo per le ore al netto di quelle non godute si torna a **18,09 €/h**.
+  Tre strade da decidere: **(1)** solo un avviso quando le ferie godute sono molto meno delle
+  maturate; **(2)** togliere dalle ore le ferie maturate e non godute (⚠️ cambia il numero usato
+  in rendicontazione); **(3)** tornare alle presunte (misurato: nasconde il problema solo a
+  metà e in cambio inventa ore in più a chi le ferie se le prende). **Nessuna fatta.**
+  ⚠️ **Nulla è pubblicato**: `main` porta ancora la ver116.
 - **Dipendenti ver117 (06/11/2026) — le ore in più si contano MESE PER MESE, sul monte
   contrattuale.** Chiude i due punti rimasti del 05/11 sera. Christian ha confermato («1 e 2
   confermo») e ha dato **lui** la definizione: «le ore lavorabili sono quelle **contrattuali**
