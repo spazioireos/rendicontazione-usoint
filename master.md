@@ -65,7 +65,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 5 · 05nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 7 · 05nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver119 · 06nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver120 · 06nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver121 · 04nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 9 · 06nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -182,6 +182,18 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   **Deciso: si usa solo il nuovo.** Il modulo vecchio è stato tolto dalla scheda dell'operatore e
   sostituito da un rimando; ⚠️ i massimali già creati **restano visibili e cancellabili**,
   nessun dato è stato toccato.
+- **Dipendenti ver120 (06/11/2026) — avviso: le ferie non godute sono un debito.** Fra le tre
+  strade proposte per il limite che aveva visto lui stesso, Christian ha scelto la **1: solo un
+  avviso**. Sotto il numero €/h compare un riquadro giallo quando le ferie godute nel periodo
+  sono meno di quelle maturate: dice quante ne risultano godute su quante maturate, il debito in
+  giornate e in ore, e di quanto il costo orario è più basso del vero. ⚠️ **Non cambia nessun
+  numero**: verificato, il €/h della ver119 e della ver120 è identico. Provato in esecuzione,
+  8 controlli su 8: chi si prende tutte le ferie non vede l'avviso, chi non ne fa nessuna legge
+  «0,00 su 30,00 maturate · 190,38 h · circa **9,90%**», chi ne fa metà «15,00 su 30,00 ·
+  95,19 h · 5,20%». ⚠️ Le giornate maturate vengono dal valore comune (30 gg), non da un monte
+  ferie per persona, che l'app non ha: un residuo degli anni prima non è compreso.
+  🚫 **Scartate** le altre due strade: togliere dalle ore le ferie non godute (cambierebbe il
+  numero usato in rendicontazione) e tornare alle assenze presunte.
 - **Dipendenti ver119 (06/11/2026) — la quota di una festività è «ore settimanali ÷ giorni a
   settimana».** Numero dato da Christian: «Ore mensili contrattuali 165, rese effettivamente 172
   e due festività godute nel mese: le ore da lavorare dovevano essere **152,333**, quindi lui ha
