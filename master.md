@@ -200,8 +200,13 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   **+32,333 h** da tutte e due, dove prima erano +7,000 e 32,33. ✅ E torna il numero di
   Christian: gennaio 2027 (2 festività godute), 172 h rese → **+19,667 h**, i suoi «19,6666 ore
   straordinarie». ⚠️ Lo straordinario cresce in **6 mesi su 12** del 2026: dalla ver121 i numeri
-  dei mesi con festività non sono confrontabili con quelli visti prima. ⚠️ Non toccati: il
-  **Tetto annuo** e `coverAbsHours` (le festività lì dentro verrebbero contate due volte).
+  dei mesi con festività non sono confrontabili con quelli visti prima. ⚠️ Non toccato `coverAbsHours` (le festività lì dentro verrebbero contate due
+  volte). 🚫 **Il Tetto annuo resta com'è**, deciso da Christian il 06/11/2026 («Lascia com'è»)
+  dopo che gli era stato chiesto con i numeri: le **festività godute non erodono il massimale**,
+  perché in una festività il servizio è chiuso e al progetto non arriva nessuna ora — è la sua
+  regola del 03/11 («se stai in ferie a Natale no»). Farle erodere avrebbe consumato **69,67 h
+  all'anno** a tempo pieno (il 17% di un tetto da 408 h), anche nel residuo che gli operatori
+  vedono in Fogli ore. **Non riproporlo.**
 - **Dipendenti ver120 (06/11/2026) — avviso: le ferie non godute sono un debito.** Fra le tre
   strade proposte per il limite che aveva visto lui stesso, Christian ha scelto la **1: solo un
   avviso**. Sotto il numero €/h compare un riquadro giallo quando le ferie godute nel periodo
