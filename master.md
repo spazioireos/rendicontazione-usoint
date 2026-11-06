@@ -67,7 +67,7 @@ in cache (problema realmente capitato).
 | Collaboratori | `rev 7 · 05nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
 | Dipendenti | `ver115 · 06nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver121 · 04nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
-| Fogli ore | `rev 7 · 03nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
+| Fogli ore | `rev 8 · 06nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
 **Criterio:** dove l'app aveva già una numerazione (USOINT `ver`, Dipendenti `APP_VER`) si usa e
 si incrementa **quella**; dove non c'era si è partiti da `rev 1`. **Mai due numerazioni nella
@@ -182,6 +182,15 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   **Deciso: si usa solo il nuovo.** Il modulo vecchio è stato tolto dalla scheda dell'operatore e
   sostituito da un rimando; ⚠️ i massimali già creati **restano visibili e cancellabili**,
   nessun dato è stato toccato.
+- **Fogli ore rev 8 (06/11/2026) — la chiusura del mese passa nella schermata «Operatori».**
+  Christian aveva chiesto come si chiude il mese per tutti; il pulsante stava **dentro la scheda
+  di un singolo operatore**, pur chiudendo il mese **per tutti** (un solo documento
+  `locks/<anno>_<mese>`), ed era facile fraintenderlo. Ora sta nella **home dell'admin**, sotto il
+  promemoria del backup, con le due tendine anno + mese. Nella scheda dell'operatore resta
+  **solo l'avviso** «è CHIUSO per tutti gli operatori — Si riapre dalla schermata Operatori».
+  ⚠️ **Diciture dei pulsanti invariate**, nessun calcolo e nessuna regola toccati. ⚠️ Il blocco
+  **resta imposto solo dall'app, non dal database**: scelta confermata da Christian («va bene
+  così»). Provato con una finta Firebase: 13 controlli su 13, zero errori di pagina.
 - **Dipendenti ver115 (06/11/2026) — «Anni per rivalutazione TFR» parte da 1 e dice a chi serve.**
   Christian ha fatto notare che quella casella non è un'aliquota ma un'anzianità, e che dalla
   ver114 serve **solo a chi non ha scritto il fondo TFR**. Ora la casella lo **dice**: «serve solo
