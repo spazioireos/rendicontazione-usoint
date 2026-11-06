@@ -65,7 +65,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 5 · 05nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 7 · 05nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver121 · 06nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver122 · 06nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver121 · 04nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 9 · 06nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -182,6 +182,13 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   **Deciso: si usa solo il nuovo.** Il modulo vecchio è stato tolto dalla scheda dell'operatore e
   sostituito da un rimando; ⚠️ i massimali già creati **restano visibili e cancellabili**,
   nessun dato è stato toccato.
+- **Dipendenti ver122 (06/11/2026) — una festività già scritta in cella non si conta due
+  volte.** Difetto **introdotto dalla ver121**, trovato controllando perché il Tabellone non
+  contasse le festività: fino alla ver77 i giorni rossi si potevano compilare e fra i codici c'è
+  anche `FEST`. Se nei dati vecchi un 1° gennaio porta `FEST`, quel giorno veniva contato sia
+  come assenza sia come festività. Misurato: gennaio 2027 con `FEST` scritto → ver121 **+26,013 h**,
+  ver122 **+19,679 h**; senza niente scritto tutte e due **+19,667 h**. La funzione nuova
+  `festGoduteMese` la usano **sia il Tabellone sia il Costo orario**, così non possono scostarsi.
 - **Dipendenti ver121 (06/11/2026) — anche il Tabellone conta le festività godute.**
   Christian: «Perché il tabellone non conteggia le festività godute?? Sono **assenze retribuite
   a tutti gli effetti**, come ferie, malattia eccetera. Solo le **non godute** sono un'eccezione
@@ -203,8 +210,11 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   numero**: verificato, il €/h della ver119 e della ver120 è identico. Provato in esecuzione,
   8 controlli su 8: chi si prende tutte le ferie non vede l'avviso, chi non ne fa nessuna legge
   «0,00 su 30,00 maturate · 190,38 h · circa **9,90%**», chi ne fa metà «15,00 su 30,00 ·
-  95,19 h · 5,20%». ⚠️ Le giornate maturate vengono dal valore comune (30 gg), non da un monte
-  ferie per persona, che l'app non ha: un residuo degli anni prima non è compreso.
+  95,19 h · 5,20%». ⚠️ Le giornate maturate vengono dal valore comune (30 gg), diviso 12 sui mesi
+  del periodo. ✅ Il **residuo degli anni prima non serve**, e l'avvertenza che avevo scritto era
+  sbagliata: l'ha corretta Christian («cosa ti cambia sapere quante ferie ha in tasca pregresse
+  se tu calcoli il costo basandoti su ogni singolo mese?»). Il conto è per periodo: maturato in
+  quel periodo contro goduto in quel periodo.
   🚫 **Scartate** le altre due strade: togliere dalle ore le ferie non godute (cambierebbe il
   numero usato in rendicontazione) e tornare alle assenze presunte.
 - **Dipendenti ver119 (06/11/2026) — la quota di una festività è «ore settimanali ÷ giorni a
