@@ -65,7 +65,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 5 · 05nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 7 · 05nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver120 · 06nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver121 · 06nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver121 · 04nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 9 · 06nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -182,6 +182,19 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   **Deciso: si usa solo il nuovo.** Il modulo vecchio è stato tolto dalla scheda dell'operatore e
   sostituito da un rimando; ⚠️ i massimali già creati **restano visibili e cancellabili**,
   nessun dato è stato toccato.
+- **Dipendenti ver121 (06/11/2026) — anche il Tabellone conta le festività godute.**
+  Christian: «Perché il tabellone non conteggia le festività godute?? Sono **assenze retribuite
+  a tutti gli effetti**, come ferie, malattia eccetera. Solo le **non godute** sono un'eccezione
+  che non rientra nel calcolo». Mancavano perché dalla ver77 i giorni rossi non si compilano,
+  quindi non hanno codice e non venivano visti; ora si contano dal calendario, come fa già il
+  Costo orario. Cambia il **Risultato del mese** del Tabellone (e lo Straordinario della Query
+  personale), con una pastiglia nuova «Festività godute: 2 gg = 12,667 h».
+  🔗 **Le due schermate ora dicono lo stesso numero**: dicembre 2026 (4 festività, 172 h rese)
+  **+32,333 h** da tutte e due, dove prima erano +7,000 e 32,33. ✅ E torna il numero di
+  Christian: gennaio 2027 (2 festività godute), 172 h rese → **+19,667 h**, i suoi «19,6666 ore
+  straordinarie». ⚠️ Lo straordinario cresce in **6 mesi su 12** del 2026: dalla ver121 i numeri
+  dei mesi con festività non sono confrontabili con quelli visti prima. ⚠️ Non toccati: il
+  **Tetto annuo** e `coverAbsHours` (le festività lì dentro verrebbero contate due volte).
 - **Dipendenti ver120 (06/11/2026) — avviso: le ferie non godute sono un debito.** Fra le tre
   strade proposte per il limite che aveva visto lui stesso, Christian ha scelto la **1: solo un
   avviso**. Sotto il numero €/h compare un riquadro giallo quando le ferie godute nel periodo
