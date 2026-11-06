@@ -65,7 +65,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 5 · 05nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 7 · 05nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver124 · 06nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver126 · 06nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver121 · 04nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 9 · 06nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -182,6 +182,39 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   **Deciso: si usa solo il nuovo.** Il modulo vecchio è stato tolto dalla scheda dell'operatore e
   sostituito da un rimando; ⚠️ i massimali già creati **restano visibili e cancellabili**,
   nessun dato è stato toccato.
+- **Dipendenti ver126 (06/11/2026) — le ferie non godute liquidate stanno nella base TFR.**
+  Christian aveva mandato tre cedolini veri proprio per sciogliere questo dubbio. In ver125 le
+  avevo messe **fuori** dalla base TFR per coerenza con le *Festività non godute*: era una
+  scelta, non una prova. Il terzo cedolino — un mese **normale** della **stessa persona**,
+  subito prima della cessazione — la chiude. Maggio: competenze 960,93 €, quota TFR del mese
+  **64,15 €**. Giugno: competenze 1.310,86 €, di cui **315,00 € di ferie e permessi non goduti**,
+  quota TFR **85,36 €**. La quota è salita di **21,21 €**: se le 315,00 fossero fuori sarebbe
+  salita di ~2,4 €, se sono dentro di ~24,2 €. **Sono dentro.** Modifica di **una riga**.
+  ⚠️ Le *festività non godute* restano fuori: sono un'altra cosa (domeniche e 4 novembre).
+  ⚠️ Conseguenza: nel periodo di cessazione TFR e costo totale salgono di circa
+  `importo liquidato ÷ 13,5`; **i costi orari della ver125 su quei periodi erano sottostimati**.
+  ⚠️ I primi due cedolini **non bastavano** (c'è di mezzo una trattenuta per fondo pensione che
+  divide il TFR): il metodo buono è il confronto fra due mesi della stessa persona.
+- **Dipendenti ver125 (06/11/2026) — le ferie non godute si liquidano alla cessazione.**
+  Buco segnalato da Christian: «in caso di licenziamento si liquidano ferie e quant'altro non
+  goduto. Come lo calcoli nel costo orario del mese?». Non lo calcolava: **non esisteva nessuna
+  voce**, c'era solo l'avviso giallo della ver120. Ora c'è la voce **gemella** di *Festività non
+  godute* — stesso conto `mensile fisso ÷ 26 × giornate`, dentro l'**imponibile I** (i contributi
+  la seguono) e — **dalla ver126** — anche **dentro la base TFR**. **Scatta solo se nel periodo cade la fine del rapporto**
+  (scelta di Christian: fuori da lì il debito può ancora essere goduto); vale anche per la
+  scadenza naturale di un tempo determinato. Le giornate sono il **debito del periodo**
+  (maturate − godute, dal Tabellone) più il **residuo degli anni precedenti**, che si scrive nella
+  casella nuova «Giornate di ferie residue da anni precedenti». Con i blocchi la liquidazione sta
+  tutta nell'**ultimo pezzo**, quindi usa il **mensile fisso finale** — giusto anche per legge.
+  Misurato: persona a 30 h/sett. cessata il 30/11/2026, mai in ferie, 1.674 h rese → voce
+  **1.367,40 €** (27,50 gg), costo **27.056,89 → 28.797,96 €**, **16,16 → 17,20 €/h**. La stessa
+  persona che si fosse goduta le ferie costa **17,31 €/h**: con la liquidazione dentro i due casi
+  tornano a dire la stessa cosa, ed è la prova che era quello il pezzo mancante. L'avviso giallo
+  della ver120 sparisce quando la liquidazione è contata, perché direbbe una cosa falsa.
+  ⚠️ **Non gestiti** (non richiesti): indennità di mancato preavviso e ROL separati. Il **TFR** è
+  già contato mese per mese, quindi erogarlo alla fine non è un costo in più.
+  ⚠️ La liquidazione finisce in **un mese solo**: il costo orario di quel mese schizza, e
+  Christian lo sa («ovvio e va bene»). Provato in esecuzione.
 - **Dipendenti ver124 (06/11/2026) — la domenica di Pasqua non è una festività.** Difetto
   **trovato da Christian** guardando un caso vero: nel periodo gennaio→ottobre 2026 di una
   dipendente comparivano **due** «festività non godute», il **5 aprile** e il **4 ottobre**.
