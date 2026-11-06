@@ -65,7 +65,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 5 · 05nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 7 · 05nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver122 · 06nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver123 · 06nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver121 · 04nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 9 · 06nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -182,6 +182,18 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   **Deciso: si usa solo il nuovo.** Il modulo vecchio è stato tolto dalla scheda dell'operatore e
   sostituito da un rimando; ⚠️ i massimali già creati **restano visibili e cancellabili**,
   nessun dato è stato toccato.
+- **Dipendenti ver123 (06/11/2026) — l'importo orario e le assenze spacchettate.** Due
+  richieste di Christian, **nessun calcolo toccato**: si fanno vedere numeri già calcolati.
+  (1) In fondo al blocco *La retribuzione* tre righe nuove: **Totale delle componenti**,
+  **Importo orario** (totale ÷ 165, a 4 decimali) e **Mensile fisso di questa persona**, con la
+  formula scritta sotto e la paga delle ore aggiuntive. ⚠️ Le componenti sono a tempo pieno:
+  l'importo orario non cambia col part-time, cambia il mensile fisso. (2) Nel riquadro
+  **«Le ore in più, mese per mese»** sotto la colonna *Assenze* compare l'elenco delle voci
+  («FERIE 15 gg · FEST 1 gg», «permessi 2,00 h») e c'è una **colonna nuova «Festività»**:
+  **Lavorabili = monte − Assenze − Festività**. Servono due colonne perché una festività può
+  stare in due posti: col codice scritto in cella sta fra le Assenze, senza codice la conta il
+  calendario. Provato: 7 controlli su 7 sul box della retribuzione, più la lettura del riquadro
+  su un caso con ferie, malattia e festività scritte in cella.
 - **Dipendenti ver122 (06/11/2026) — una festività già scritta in cella non si conta due
   volte.** Difetto **introdotto dalla ver121**, trovato controllando perché il Tabellone non
   contasse le festività: fino alla ver77 i giorni rossi si potevano compilare e fra i codici c'è
