@@ -65,7 +65,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 5 · 05nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 7 · 05nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver127 · 06nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver128 · 06nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver121 · 04nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 9 · 06nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -182,6 +182,26 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   **Deciso: si usa solo il nuovo.** Il modulo vecchio è stato tolto dalla scheda dell'operatore e
   sostituito da un rimando; ⚠️ i massimali già creati **restano visibili e cancellabili**,
   nessun dato è stato toccato.
+- **Dipendenti ver128 (06/11/2026) — il CCNL ha tre tranche e gli scatti si contano da soli.**
+  Segnalazione di Christian: «su periodi lunghi potrebbe essere cambiato l'importo da
+  corrispondere, per esempio per ccnl rinnovato». Era vero: la tabella CCNL era **una scelta
+  unica** per tutto il periodo e il taglio automatico in pezzi non la guardava. Ora `MINIMI_CCNL`
+  ha **tre tabelle** (Feb24 · Ott24 · Ott25) con **tutti i 13 livelli** (prima erano due tabelle
+  e sei livelli), ognuna con la sua decorrenza: il minimo si prende **mese per mese** e il
+  periodo **si taglia da solo** al rinnovo. ⚠️ Corretti due valori sbagliati di un centesimo
+  (B1 e E1 della tabella Ott25). Le tendine hanno ora «automatica (per data)» come predefinito.
+  Aggiunti anche gli **scatti di anzianità**: tabella per livello, uno ogni **24 mesi utili**
+  dall'assunzione, **massimo 5**, e un **mese tutto «AN» non è utile** e fa slittare la
+  maturazione. La casella si compila da sola; ce n'è una nuova, «Scatti già maturati al
+  31/12/2024», per chi è stato assunto prima dell'inizio dei dati.
+  Misurato: periodo marzo 2025 → novembre 2026 (a cavallo del rinnovo) **51.872,07 → 51.546,57 €**,
+  **16,25 → 16,15 €/h**; dentro un solo CCNL non cambia un centesimo.
+  ⚠️ **Gli scatti fanno salire il costo di chi ha anzianità** — fino a ~979 €/anno su un D1 a
+  30 h/sett. — e sui dati veri **15 dipendenti su 16 li avevano a zero**: non era un valore
+  giusto, era un valore mancante. Provato in esecuzione, 14 controlli su 14.
+  ⚠️ **Regola 10.1 estesa alla documentazione**: in `CLAUDE.md` erano finiti tre **cognomi di
+  dipendenti**; sono stati tolti. I file del repository sono **pubblici**: nessun nome di persona
+  reale, nemmeno nelle note. Toglierli ora non li toglie dai commit vecchi.
 - **Dipendenti ver127 (06/11/2026) — il saldo ferie si conta dall'assunzione, non dal periodo.**
   Christian, guardando la casella introdotta dalla ver125: «quindi perché farmi inserire per
   tutti le ferie residue? lo sai da te». Aveva ragione: il saldo ferie non è una cosa del
