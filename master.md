@@ -65,7 +65,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 5 · 05nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 7 · 05nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver114 · 06nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver115 · 06nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver121 · 04nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 7 · 03nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -182,6 +182,14 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   **Deciso: si usa solo il nuovo.** Il modulo vecchio è stato tolto dalla scheda dell'operatore e
   sostituito da un rimando; ⚠️ i massimali già creati **restano visibili e cancellabili**,
   nessun dato è stato toccato.
+- **Dipendenti ver115 (06/11/2026) — «Anni per rivalutazione TFR» parte da 1 e dice a chi serve.**
+  Christian ha fatto notare che quella casella non è un'aliquota ma un'anzianità, e che dalla
+  ver114 serve **solo a chi non ha scritto il fondo TFR**. Ora la casella lo **dice**: «serve solo
+  a chi non ha il fondo TFR scritto: 1 persona su 3», e quando **tutti** hanno il fondo l'etichetta
+  diventa grigia con «non in uso». ⚠️ **Non è stata bloccata**: spegnerla metterebbe a zero, in
+  silenzio, la rivalutazione di chi il fondo non ce l'ha. Il **valore di partenza passa da 2 a 1**
+  (scelta di Christian): per chi non ha il fondo la rivalutazione stimata si dimezza (45,99 →
+  23,00 €), per chi ce l'ha **non cambia nulla**. Provato in esecuzione: 10 controlli su 10.
 - **Dipendenti ver114 (06/11/2026) — la rivalutazione del TFR si calcola sul fondo vero.**
   Christian ha chiesto come si calcola e se era giusta, poi «il più veritiero?» fra tre strade, e
   ha dato Nu\* alla seconda. Per legge si rivaluta il **fondo TFR accantonato al 31/12 dell'anno
