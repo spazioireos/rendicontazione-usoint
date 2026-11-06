@@ -65,7 +65,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 5 · 05nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 7 · 05nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver113 · 06nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver114 · 06nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver121 · 04nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 7 · 03nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -182,6 +182,19 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   **Deciso: si usa solo il nuovo.** Il modulo vecchio è stato tolto dalla scheda dell'operatore e
   sostituito da un rimando; ⚠️ i massimali già creati **restano visibili e cancellabili**,
   nessun dato è stato toccato.
+- **Dipendenti ver114 (06/11/2026) — la rivalutazione del TFR si calcola sul fondo vero.**
+  Christian ha chiesto come si calcola e se era giusta, poi «il più veritiero?» fra tre strade, e
+  ha dato Nu\* alla seconda. Per legge si rivaluta il **fondo TFR accantonato al 31/12 dell'anno
+  prima** al **1,50% + 75% dell'ISTAT**: la percentuale nell'app era giusta, la **base no** —
+  rivalutava la quota del periodo moltiplicata per una manopola «Anni», e su un fondo da 8.000 €
+  metteva 46 € invece di 240. Ora nella scheda ci sono **«TFR accantonato al 31/12 €»** e
+  **«TFR accantonato — anno»**: col fondo scritto il conto è quello di legge, in proporzione ai
+  mesi di rapporto; **con la casella vuota non cambia niente** (verificato, numeri identici).
+  ⚠️ Il fondo si rivaluta **anche nei mesi non pagati** (i mesi tutti «AN»), perché il debito
+  resta. ⚠️ Se l'anno del fondo non è quello giusto l'app lo dice con un **avviso giallo**.
+  ⚠️ **Per chi ha anzianità il costo orario sale** (19,35 → 19,57 €/h nel caso provato): prima
+  era sottostimato. ⚠️ L'**ISTAT** resta un numero scritto a mano (oggi 2,00%) e **va controllato
+  ogni anno**. Provato in esecuzione: 12 controlli su 12, più tutta la regressione.
 - **Dipendenti ver113 (06/11/2026) — ogni voce del Costo orario dice la sua aliquota.**
   Richiesta di Christian: «indica aliquote e parametri di riferimento che consentono il calcolo a
   lato di ogni voce». Sotto il nome di ogni voce del dettaglio c'è ora una riga piccola grigia con
