@@ -65,7 +65,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 5 · 05nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 7 · 05nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver123 · 06nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver124 · 06nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver121 · 04nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 9 · 06nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -182,6 +182,21 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   **Deciso: si usa solo il nuovo.** Il modulo vecchio è stato tolto dalla scheda dell'operatore e
   sostituito da un rimando; ⚠️ i massimali già creati **restano visibili e cancellabili**,
   nessun dato è stato toccato.
+- **Dipendenti ver124 (06/11/2026) — la domenica di Pasqua non è una festività.** Difetto
+  **trovato da Christian** guardando un caso vero: nel periodo gennaio→ottobre 2026 di una
+  dipendente comparivano **due** «festività non godute», il **5 aprile** e il **4 ottobre**.
+  L'elenco delle festività (`festivitaSet`) conteneva **sia la domenica di Pasqua sia il Lunedì
+  dell'Angelo**, ma la Pasqua è una domenica per definizione: la festività da pagare è il lunedì,
+  che era già contato come **goduta**. Cadendo di domenica, la Pasqua finiva **ogni anno** fra le
+  non godute e faceva pagare **un 1/26 del mensile fisso non dovuto**, a ogni persona. **Tolta**
+  (il Lunedì dell'Angelo resta); il **4 ottobre, San Francesco, resta** — decisione di Christian:
+  «è festivo e va tenuto». ⚠️ Il **Tabellone non cambia di un millesimo**: il 5 aprile è domenica,
+  quindi era ed è rosso e non compilabile. Nel 2026 le non godute passano da **4 a 3**, le godute
+  restano **11**. Sui dati veri di una dipendente (gen→ott 2026): voce **62,96 → 31,48 €**, costo
+  totale **14.467,76 → 14.427,24 €**, **20,47 → 20,41 €/h** (scende di 40,52 €, più della voce,
+  perché le festività non godute stanno nell'imponibile I e si portano dietro i contributi).
+  ⚠️ **I costi orari calcolati finora erano sovrastimati di un 1/26 all'anno per persona.**
+  Provato in esecuzione, **8 controlli su 8**.
 - **Dipendenti ver123 (06/11/2026) — l'importo orario e le assenze spacchettate.** Due
   richieste di Christian, **nessun calcolo toccato**: si fanno vedere numeri già calcolati.
   (1) In fondo al blocco *La retribuzione* tre righe nuove: **Totale delle componenti**,
