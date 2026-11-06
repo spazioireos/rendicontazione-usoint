@@ -65,9 +65,9 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 5 · 05nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 7 · 05nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver116 · 06nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver117 · 06nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver121 · 04nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
-| Fogli ore | `rev 8 · 06nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
+| Fogli ore | `rev 9 · 06nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
 **Criterio:** dove l'app aveva già una numerazione (USOINT `ver`, Dipendenti `APP_VER`) si usa e
 si incrementa **quella**; dove non c'era si è partiti da `rev 1`. **Mai due numerazioni nella
@@ -182,6 +182,33 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   **Deciso: si usa solo il nuovo.** Il modulo vecchio è stato tolto dalla scheda dell'operatore e
   sostituito da un rimando; ⚠️ i massimali già creati **restano visibili e cancellabili**,
   nessun dato è stato toccato.
+- **Dipendenti ver117 (06/11/2026) — le ore in più si contano MESE PER MESE, sul monte
+  contrattuale.** Chiude i due punti rimasti del 05/11 sera. Christian ha confermato («1 e 2
+  confermo») e ha dato **lui** la definizione: «le ore lavorabili sono quelle **contrattuali**
+  (chi ha 38 ore settimanali deve fare 165 ore mensili; nel mese pago 165 ore considerando però
+  che ci stanno **2,166 gg di ferie**, **0,333 di permesso ex festività** e presuntivamente
+  **2 gg di malattia**)». Quindi: (1) niente più **compensazione** fra un mese sopra e uno sotto —
+  per ogni mese `max(0, rese − lavorabili)`, poi somma; (2) la base non è più «settimane × ore
+  settimanali» ma **`monteFissoMese`, lo stesso numero che il Tabellone mostra come ORE MESE**:
+  è così che le due schermate «si parlano». Le assenze presunte si tolgono in giorni × quota
+  giornaliera (monte ÷ 26) e sono quelle dei valori comuni: 2,50 gg fra ferie e permessi + 2 gg
+  di malattia; ⚠️ restano tolte anche le **festività godute** del mese, che Christian non ha
+  nominato ma che il conto vecchio già toglieva (**da chiedergli**: se non vanno tolte è una
+  riga). A video un riquadro nuovo **«Le ore in più, mese per mese»** con il confronto col conto
+  vecchio. Misurato su tre casi: 38 h/sett. con mesi altalenanti **230,26 → 280,48 h** (costo
+  34.370,72 → **35.144,04 €**, 19,09 → **19,52 €/h**); 15 h/sett. con 72 h in 10 mesi
+  205,72 → 206,46 h; con promozione e periodo a blocchi 260,73 → 262,50 h. ⚠️ **Il costo sale
+  solo dove i mesi sono disuguali.** ⚠️ Con le ore **a mano**, le ore **Teoriche** o un valore
+  strutturale scritto a mano i numeri sono **identici alla ver116** (24 controlli su 24).
+  Nella stessa versione, su richiesta di Christian («3, sistema»), sono stati chiusi i **due
+  sbordamenti a 390px** preesistenti: **Anagrafica 724 → 390px** (l'elenco delle persone va a
+  capo e i tre pulsanti «Genera documento» si impilano) e **Costo orario 429 → 390px** (la
+  tabella «Come si divide il periodo», sette colonne, ora scorre dentro il suo riquadro).
+- **Fogli ore rev 9 (06/11/2026) — la frase del Tetto annuo nomina anche i permessi.**
+  Christian: «4, completa». Nel riquadro «Le ore che ti restano quest'anno» si legge ora
+  «Comprende **le ore fatte, le assenze retribuite e i permessi retribuiti** dei giorni in cui il
+  servizio era aperto»: era rimasta indietro rispetto a Dipendenti, dove dalla ver98 i permessi
+  retribuiti consumano il tetto. Nessun calcolo, nessun dato, nessuna regola toccati.
 - **Fogli ore rev 8 (06/11/2026) — la chiusura del mese passa nella schermata «Operatori».**
   Christian aveva chiesto come si chiude il mese per tutti; il pulsante stava **dentro la scheda
   di un singolo operatore**, pur chiudendo il mese **per tutti** (un solo documento
@@ -253,9 +280,8 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   ⚠️ **Conseguenza dichiarata**: con 10 mesi pagati scendono anche le ore ordinarie lavorabili,
   quindi le **ore supplementari al +27%** salgono da 100,36 a 205,72 h; il costo totale scende
   comunque, perché lo stipendio scende di più. Le ver110 e ver111 non sono mai arrivate su `main`.
-  🔜 **Deciso la stessa sera e ancora da fare**: contare le **ore supplementari mese per mese**
-  (niente compensazione fra un mese sopra e uno sotto) e far sì che **Tabellone e Costo orario
-  usino le stesse ore del mese**.
+  ✅ **Fatto nella ver117 del 06/11/2026**: le ore supplementari si contano **mese per mese**
+  (niente compensazione) e la base è **il monte contrattuale del Tabellone**.
 - **Dipendenti ver110 (05/11/2026) — un mese tutto «AN» vuol dire che non c'era rapporto.**
   Decisione di Christian. Un mese in cui **tutti** i giorni compilabili portano il codice `AN`
   non viene più pagato nel Costo orario: niente stipendio, niente ratei, niente cedolino, e le
