@@ -192,9 +192,10 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   settimanali» ma **`monteFissoMese`, lo stesso numero che il Tabellone mostra come ORE MESE**:
   è così che le due schermate «si parlano». Le assenze presunte si tolgono in giorni × quota
   giornaliera (monte ÷ 26) e sono quelle dei valori comuni: 2,50 gg fra ferie e permessi + 2 gg
-  di malattia; ⚠️ restano tolte anche le **festività godute** del mese, che Christian non ha
-  nominato ma che il conto vecchio già toglieva (**da chiedergli**: se non vanno tolte è una
-  riga). A video un riquadro nuovo **«Le ore in più, mese per mese»** con il confronto col conto
+  di malattia; ✅ restano tolte anche le **festività godute** del mese: Christian non le aveva
+  nominate, e alla domanda ha risposto il 06/11/2026 **«il mio era un esempio per farti capire»**
+  — l'elenco era il principio, non la lista completa, quindi si toglie tutto ciò che è pagato e
+  non lavorato. **Deciso: non si cambia.** A video un riquadro nuovo **«Le ore in più, mese per mese»** con il confronto col conto
   vecchio. Misurato su tre casi: 38 h/sett. con mesi altalenanti **230,26 → 280,48 h** (costo
   34.370,72 → **35.144,04 €**, 19,09 → **19,52 €/h**); 15 h/sett. con 72 h in 10 mesi
   205,72 → 206,46 h; con promozione e periodo a blocchi 260,73 → 262,50 h. ⚠️ **Il costo sale
