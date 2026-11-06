@@ -65,7 +65,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 5 · 05nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 7 · 05nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver112 · 05nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver113 · 06nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver121 · 04nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 7 · 03nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -182,6 +182,20 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   **Deciso: si usa solo il nuovo.** Il modulo vecchio è stato tolto dalla scheda dell'operatore e
   sostituito da un rimando; ⚠️ i massimali già creati **restano visibili e cancellabili**,
   nessun dato è stato toccato.
+- **Dipendenti ver113 (06/11/2026) — ogni voce del Costo orario dice la sua aliquota.**
+  Richiesta di Christian: «indica aliquote e parametri di riferimento che consentono il calcolo a
+  lato di ogni voce». Sotto il nome di ogni voce del dettaglio c'è ora una riga piccola grigia con
+  il parametro usato davvero: «26,90% × 100,00% su imponibile II», «mensile fisso × 12/12 mesi di
+  ratei», «244,36 h sul periodo × 12,6045 €/h (maggiorazione 27%)», «25,00 € × 12 cedolini».
+  **Nessun calcolo è stato toccato**: gli importi della ver112 sono identici al centesimo.
+  Verificato ricalcolando **ogni voce dai numeri scritti nella nota** su tre casi — 60 controlli
+  su 60, zero errori di pagina. ⚠️ Le percentuali si scrivono per intero quando ne hanno più di
+  due decimali (il FIS è **0,53333%**) e la paga oraria delle ore aggiuntive ha **4 decimali**,
+  altrimenti il conto rifatto a mano non tornava. ⚠️ Previdenza complementare e IRAP escono a
+  zero perché la **quota a carico è 0%**: ora la riga lo dice. L'**Excel non è stato toccato**
+  (Christian: «lascia pure»), e la **maggiorazione delle ore aggiuntive resta com'è**: al suo
+  «fino al 30 settembre 26 le ore aggiuntive erano pagate tra le ordinarie» ha fatto seguire
+  «esisteva il criterio orario… lascia correre».
 - **Dipendenti ver112 (05/11/2026) — il mese tutto «AN» non si paga, ma il rapporto va avanti.**
   **Regola definitiva**, dopo tre passaggi nella stessa giornata: ver110 «se è tutto AN non c'è
   rapporto» (escluso da tutto) → ver111 «il rapporto va avanti, mica si ferma» (solo segnalato) →
