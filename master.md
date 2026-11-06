@@ -65,7 +65,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 5 · 05nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 7 · 05nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver118 · 06nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver119 · 06nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver121 · 04nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 9 · 06nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -182,6 +182,20 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   **Deciso: si usa solo il nuovo.** Il modulo vecchio è stato tolto dalla scheda dell'operatore e
   sostituito da un rimando; ⚠️ i massimali già creati **restano visibili e cancellabili**,
   nessun dato è stato toccato.
+- **Dipendenti ver119 (06/11/2026) — la quota di una festività è «ore settimanali ÷ giorni a
+  settimana».** Numero dato da Christian: «Ore mensili contrattuali 165, rese effettivamente 172
+  e due festività godute nel mese: le ore da lavorare dovevano essere **152,333**, quindi lui ha
+  fatto **19,6666 ore straordinarie**». La ver118 usava `monte/26` (6,3462) e dava 152,31 e
+  19,69; ora usa `oreSett/ggSett` (6,3333) e dà **esattamente i suoi numeri** (provato in
+  esecuzione su gennaio 2026). ⚠️ Restano **due quote giornaliere**, ed è voluto: le **assenze**
+  valgono `monte/26` (è il numero che lui stesso aveva confermato il 31/10: «2 giorni di ferie =
+  12,69 h»), le **festività** `oreSett/ggSett`; differenza 1,3 centesimi di ora al giorno.
+  ✅ Chiusa così la prima questione aperta della ver118: «le festività non possono che essere
+  dedotte in base al mese». ⚠️🔴 **Resta aperta la conseguenza sul Tabellone**: nella sua frase
+  quelle 19,6666 h sono «ore **straordinarie**», ma il Tabellone non toglie le festività —
+  misurato su dicembre 2026 (4 festività, 172 h rese): Tabellone **+7,000 h**, Costo orario
+  **+32,33 h**. Allinearlo è semplice, ma cambierebbe il numero che Christian guarda ogni mese
+  in **6 mesi su 12**: **da chiedergli**, non fatto.
 - **Dipendenti ver118 (06/11/2026) — le assenze sono quelle VERE del Tabellone.**
   Christian: «a meno che non ti risulti più comodo usare la realtà». Risulta più comodo: dalla
   ver117 non c'è più compensazione fra i mesi, quindi l'errore dei giorni **presunti** (2,5 di
