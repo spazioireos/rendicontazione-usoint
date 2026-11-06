@@ -65,7 +65,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 5 · 05nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 7 · 05nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver115 · 06nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver116 · 06nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver121 · 04nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 8 · 06nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -191,6 +191,16 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   ⚠️ **Diciture dei pulsanti invariate**, nessun calcolo e nessuna regola toccati. ⚠️ Il blocco
   **resta imposto solo dall'app, non dal database**: scelta confermata da Christian («va bene
   così»). Provato con una finta Firebase: 13 controlli su 13, zero errori di pagina.
+- **Dipendenti ver116 (06/11/2026) — l'ISTAT di partenza passa da 2 a 1,011.**
+  Christian ha riferito il dato di dicembre 2025 e confermato che è una **percentuale**. Il tasso
+  di rivalutazione del TFR diventa **1,50% + 75% × 1,011% = 2,25825%** (era 3,000%): su un fondo
+  da 8.000 € la rivalutazione scende da 240,00 a **180,66 €** e il costo orario da 19,57 a
+  **19,50 €/h**; sulla stima (chi non ha il fondo scritto) da 23,00 a **17,31 €**.
+  🐞 **Trappola chiusa nella stessa versione**: la casella avrebbe mostrato «1,01» mentre il conto
+  usava 1,011 — e salvando si sarebbe scritto 1,01 nei dati. Ora il valore di partenza si scrive
+  con tutti i suoi decimali. ⚠️ Se nei valori comuni c'è **già** un numero salvato prevale quello:
+  va cambiato a mano e salvato con 💾. ⚠️ È il dato di **dicembre 2025**, da riscrivere ogni
+  gennaio. Provato in esecuzione: 7 controlli su 7, più tutta la regressione.
 - **Dipendenti ver115 (06/11/2026) — «Anni per rivalutazione TFR» parte da 1 e dice a chi serve.**
   Christian ha fatto notare che quella casella non è un'aliquota ma un'anzianità, e che dalla
   ver114 serve **solo a chi non ha scritto il fondo TFR**. Ora la casella lo **dice**: «serve solo
