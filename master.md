@@ -65,7 +65,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 5 · 05nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 7 · 05nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver117 · 06nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver118 · 06nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver121 · 04nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 9 · 06nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -182,6 +182,25 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   **Deciso: si usa solo il nuovo.** Il modulo vecchio è stato tolto dalla scheda dell'operatore e
   sostituito da un rimando; ⚠️ i massimali già creati **restano visibili e cancellabili**,
   nessun dato è stato toccato.
+- **Dipendenti ver118 (06/11/2026) — le assenze sono quelle VERE del Tabellone.**
+  Christian: «a meno che non ti risulti più comodo usare la realtà». Risulta più comodo: dalla
+  ver117 non c'è più compensazione fra i mesi, quindi l'errore dei giorni **presunti** (2,5 di
+  ferie + 2 di malattia al mese) non si annulla più sull'anno, **si somma**. Ora le ore
+  lavorabili del mese tolgono le **assenze davvero segnate** (ferie, malattia e permessi
+  retribuiti) invece dei numeri presunti, e «ore in più del mese» diventa la **stessa formula
+  del Risultato del mese del Tabellone**, più la deduzione delle festività godute. Verificato:
+  novembre 2026 senza festività → Tabellone +14,767 h, Costo orario 14,77 h, **lo stesso
+  numero**. Misurato (ver117 → ver118): chi fa 140 h al mese su un contratto da 165 e **non si
+  assenta mai** passa da **112,50 a 0,39 h** di ore in più (costo 32.557,70 → **30.831,47 €**,
+  19,38 → **18,35 €/h**); con 25 giorni di ferie fra luglio e agosto da 99,04 a 0,39 h; un caso
+  con malattia e ferie sparse da 156,05 a **39,10 h** (20,07 → **18,62 €/h**). ⚠️ **Il costo
+  scende**: le ore in più che sparivano erano inventate dai numeri presunti.
+  ⚠️🔴 **DOMANDA APERTA**: nei mesi **con festività** le due schermate restano diverse, esattamente
+  delle festività. Dicembre 2026 (95 h rese, 5 gg di ferie, 4 festività godute): il **Tabellone**
+  dice **−10,213 h** (ore in meno), il **Costo orario** dice **+9,830 h**; differenza 20,043 h =
+  4 × 5,0101. Dipende da una cosa sola: **le festività contano come ore già coperte, come
+  un'assenza retribuita, oppure no?** Serve la decisione di Christian; finché non arriva resta
+  com'è.
 - **Dipendenti ver117 (06/11/2026) — le ore in più si contano MESE PER MESE, sul monte
   contrattuale.** Chiude i due punti rimasti del 05/11 sera. Christian ha confermato («1 e 2
   confermo») e ha dato **lui** la definizione: «le ore lavorabili sono quelle **contrattuali**
