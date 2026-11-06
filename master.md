@@ -65,7 +65,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 5 · 05nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 7 · 05nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver126 · 06nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver127 · 06nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver121 · 04nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 9 · 06nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -182,6 +182,19 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   **Deciso: si usa solo il nuovo.** Il modulo vecchio è stato tolto dalla scheda dell'operatore e
   sostituito da un rimando; ⚠️ i massimali già creati **restano visibili e cancellabili**,
   nessun dato è stato toccato.
+- **Dipendenti ver127 (06/11/2026) — il saldo ferie si conta dall'assunzione, non dal periodo.**
+  Christian, guardando la casella introdotta dalla ver125: «quindi perché farmi inserire per
+  tutti le ferie residue? lo sai da te». Aveva ragione: il saldo ferie non è una cosa del
+  periodo, è un conto che corre dall'assunzione. Ora la liquidazione conta maturate e godute
+  **dall'assunzione (o dal primo mese che l'app ha) fino alla cessazione**, qualunque periodo si
+  stia guardando. La casella compare **solo** per chi è stato assunto prima dell'inizio dei dati,
+  con l'aiutino che dice da sé la data («il residuo al 31/12/2024»); per chi manca la data di
+  assunzione c'è un avviso arancione. Sui dati veri: dei 16 dipendenti, **9** non hanno bisogno
+  di niente, **3** sì, **4** sono senza data di assunzione (e tutti e quattro hanno una
+  cessazione). ⚠️ La ver126, su un periodo corto, contava **metà** del saldo: 27,50 giornate
+  invece di 52,50 su un caso provato. ⚠️ Il €/h del **mese di cessazione** comprende tutta la
+  liquidazione e arriva a 41,52 contro i 17,35 di tutto il rapporto: **non si usa per
+  rendicontare**. Provato in esecuzione, 14 controlli su 14.
 - **Dipendenti ver126 (06/11/2026) — le ferie non godute liquidate stanno nella base TFR.**
   Christian aveva mandato tre cedolini veri proprio per sciogliere questo dubbio. In ver125 le
   avevo messe **fuori** dalla base TFR per coerenza con le *Festività non godute*: era una
