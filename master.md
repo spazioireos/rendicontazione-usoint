@@ -66,7 +66,7 @@ in cache (problema realmente capitato).
 | App integrata | `rev 5 · 05nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 8 · 07nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
 | Dipendenti | `ver131 · 07nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
-| Rendicontazione USOINT | `ver121 · 04nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
+| Rendicontazione USOINT | `ver122 · 07nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 10 · 07nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
 **Criterio:** dove l'app aveva già una numerazione (USOINT `ver`, Dipendenti `APP_VER`) si usa e
@@ -158,6 +158,17 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   Righe più basse **solo dentro le tabelle** (caselle da 40 a 28px; fuori resta tutto a 40px) e
   nuovo pulsante **«⤢ Adatta larghezza»** che rimpicciolisce quanto basta, con «100%» per
   tornare indietro; la misura scelta viene ricordata. Scheda da 943 a 864px di altezza.
+- 📱 **USOINT ver122 (07/11/2026) — la scheda progetto non scorre più di lato sul telefono.**
+  Dall'audit generale del gestionale, con il Nu\* di Christian. Difetti **preesistenti**, di solo
+  aspetto: (a) a 390px la scheda progetto misurava **885px**, e il responsabile era **uno solo**,
+  la barra in cima alla scheda che non andava a capo — la griglia del budget non c'entrava, sta
+  già dentro un riquadro che scorre da sé. Aggiunto **un solo `className="uso-topbar"`** nel JSX
+  di quella barra più una `@media (max-width:900px)`: ora **390px**; (b) restavano scritte sotto
+  i 12,5px (il titolo in home a 12px, *Logout* a 10px, la fascia «🔓 LIBERO — RICORDA…» a **8px**,
+  il Riepilogo operatori a 10,5-11,5px) → ora **zero**, con la griglia densa del budget esclusa.
+  In più la **targhetta diceva «03nov26» in tre punti** mentre la ver121 era del 04/11: la regola
+  9 chiede il numero **e** la data, ora dice **ver122 · 07nov26**. Nessuna dicitura, nessun dato,
+  nessun calcolo. Provato in esecuzione: G5 9/9, G11 13/13, G6 25/25, G7 20/20, G7b 24/24.
 - **USOINT ver120 (03/11/2026) — arrotondamento corretto**. Christian ha visto `67,5 × 22,99`
   arrotondato per difetto. Causa: il computer tiene `1551,8249999999998` e il vecchio
   `Math.round(x*100)/100` (e `toFixed`) buttavano giù a 1551,82 invece di 1551,83. Succede
