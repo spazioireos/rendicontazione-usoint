@@ -66,8 +66,12 @@ USOINT sta per **"uso interno"**.
   l'arrotondamento è ora **simmetrico** (−1551,825 → −1551,83; prima dava −1551,82), cioè
   arrotondamento commerciale, lo stesso dei positivi.
   Il **motore di rendicontazione non è stato toccato**: cambia solo *come si arrotonda*, non
-  *cosa si calcola*. Lo stesso difetto esiste nelle altre tre app (Dipendenti 11 punti, Fogli ore
-  11, Collaboratori 3 + 8 `toFixed`): **non ancora corrette**, in attesa di Christian.
+  *cosa si calcola*. ✅ **Lo stesso difetto è stato poi corretto anche nelle altre tre app** lo
+  stesso 03/11/2026: **Dipendenti ver74** (32 punti + `fmt2`/`fmt3`), **Fogli ore rev 5**
+  (14 punti + `fmtDec`), **Collaboratori rev 6** (4 punti + tutte le funzioni che scrivono i
+  numeri). ⚠️ Questa riga diceva «non ancora corrette»: **era rimasta indietro**, corretta con
+  l'audit generale del 07/11/2026 (verificato: `R2` è definita in tutte e quattro le app e non
+  resta nessun `Math.round(x*100)/100` su importi).
 - **Funzioni presenti**: import automatico (SOLA LETTURA) delle ore lavorate dal database dei
   Dipendenti tramite una **seconda app Firebase** chiamata "dip"; tabella compatta della scheda
   operatore (Lavorate | una colonna per progetto | Tot. rendicontate | Avanzo).
