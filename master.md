@@ -65,7 +65,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 5 · 05nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 7 · 05nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver128 · 06nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver130 · 07nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver121 · 04nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 9 · 06nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -182,6 +182,51 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   **Deciso: si usa solo il nuovo.** Il modulo vecchio è stato tolto dalla scheda dell'operatore e
   sostituito da un rimando; ⚠️ i massimali già creati **restano visibili e cancellabili**,
   nessun dato è stato toccato.
+- **Dipendenti ver130 (07/11/2026) — collaudo integrale dell'app e leggibilità a norma.**
+  Christian ha chiesto un **collaudo operativo completo**: provare in esecuzione ogni funzione, i
+  dati, gli errori, la grafica su telefono/tablet/desktop, le regressioni e i flussi dall'inizio
+  alla fine, correggendo quello che si trova. **Un solo scostamento vero trovato**, e
+  **preesistente**: la regola permanente §10.6 dice che nessuna scritta scende sotto i
+  **12,5px** fuori dalle griglie dense, e invece ce n'erano **209 nel Tabellone**, **79
+  nell'Anagrafica** e **18 nei Riepiloghi** (fra cui intestazioni a 10px) — identiche nella
+  ver128 e nella ver126 pubblicata. Corretto con un blocco CSS in fondo al `<style>` che le
+  porta tutte a 12,5px vincendo anche contro le misure scritte in riga dal JavaScript; **escluse
+  le griglie dense** (alzarle allarga la tabella, vietato) e le sette eccezioni già dichiarate
+  alla ver76 (targhetta della revisione, «Modalità LOCALE», barra «Zoom vista»). Dopo: **7
+  scritte piccole in tutte le viste, e sono esattamente quelle sette**; la **larghezza della
+  pagina è identica** alla ver129 in tutti i 25 casi misurati (5 larghezze × 5 viste), e la
+  pagina **non scorre mai di lato**. ⚠️ **Cambia solo la misura**: nessuna dicitura, nessun
+  colore, nessun calcolo, nessun dato. ⚠️ È una **modifica visiva al Tabellone non richiesta con
+  un Nu\***: sta solo sul ramo di lavoro. Corretta anche una **bugia nella documentazione**: le
+  ore giornaliere non sono sempre un numero (nei dati veri 1.862 interi, 1.006 decimali e 3.152
+  stringhe, fra cui numeri con la virgola come `"4,5"`), quindi si leggono con `parseHour` e non
+  con `Number()`. Tutto il resto del collaudo è passato: responsive 76/76, dati e cancellazioni,
+  casi limite 12/12, flusso completo sui dati veri, e soprattutto **ver128 e ver129 danno costo,
+  ore e €/h identici per tutte e 16 le persone su tre periodi**. **Non verificabili da qui, e
+  dichiarati**: il disegno vero del Report PDF e il collegamento a Firebase.
+- **Dipendenti ver129 (06/11/2026) — un solo motore delle ferie: 26 + 4 = 30 giornate.**
+  Difetto **trovato da Christian** («non torna il calcolo che fai per attribuzione ferie, sto
+  guardando il 2026»): nell'app c'erano **due motori diversi** delle ferie. Quello del
+  **Costo orario** (`ferieBilancio`, ver120/125/127) contava **30 giornate l'anno**, godute
+  **FERIE + EXF**, sui mesi di rateo; quello di **«Ferie da smaltire»** (fascia rossa di aprile
+  e Query personale) contava **26 giornate**, **solo le celle FERIE**, e **12 mesi d'ufficio** a
+  chi non ha la data di assunzione. Sul 2026 non potevano dare lo stesso numero.
+  La regola, data da Christian: «**exf e permessi ex festività sono la stessa cosa e possono
+  essere presi in ore o giorni: sono 4 gg annui e si sommano a 26 gg di ferie annui**». Ora il
+  criterio è **uno solo**: maturate = (ferie + altri permessi dei **valori comuni**, 26 + 4) ÷ 12
+  × mesi; godute = celle **FERIE** + celle **EXF** + **permessi orari di tipo EXF** convertiti in
+  giornate; i mesi che maturano sono quelli **con dati**, con almeno 15 giorni di contratto e
+  **non tutti «AN»**. ⚠️ I mesi si contano su quelli **con dati** perché in quella schermata
+  **si può scegliere solo l'anno** (osservazione di Christian): su un anno in corso i 12 mesi
+  d'ufficio gonfiavano il debito. Sui dati veri: sull'**anno chiuso** il residuo **sale**
+  (26 → 30 di base: 13,00 → **17,00** su chi ha lavorato 12 mesi), sull'**anno in corso scende**
+  (26,00 → **8,50** su chi ha 9 mesi compilati), e le **4 persone senza data di assunzione**
+  passano da **26,00 giornate di debito inventato** a **0,00**. ⚠️ **Il Costo orario non è stato
+  toccato**: è il motore vecchio che è stato portato sul nuovo. Due diciture cambiate, **entrambe
+  autorizzate da Christian**: la nota sopra la tabella e il sottotitolo dell'Excel, che dicevano
+  «26 GG annui = 2,1666 GG/mese». Provato in esecuzione: **11/11** + **10/10**, zero errori di
+  pagina, più le quattro parti della verifica meticolosa (**57 controlli**) e il resto del
+  registro.
 - **Dipendenti ver128 (06/11/2026) — il CCNL ha tre tranche e gli scatti si contano da soli.**
   Segnalazione di Christian: «su periodi lunghi potrebbe essere cambiato l'importo da
   corrispondere, per esempio per ccnl rinnovato». Era vero: la tabella CCNL era **una scelta
