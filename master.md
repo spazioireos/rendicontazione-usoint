@@ -64,10 +64,10 @@ in cache (problema realmente capitato).
 | App | Numero attuale | Dove si vede | Da dove viene |
 |---|---|---|---|
 | App integrata | `rev 5 · 05nov26` | barra in alto | scritto nel file |
-| Collaboratori | `rev 7 · 05nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
+| Collaboratori | `rev 8 · 07nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
 | Dipendenti | `ver131 · 07nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver121 · 04nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
-| Fogli ore | `rev 9 · 06nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
+| Fogli ore | `rev 10 · 07nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
 **Criterio:** dove l'app aveva già una numerazione (USOINT `ver`, Dipendenti `APP_VER`) si usa e
 si incrementa **quella**; dove non c'era si è partiti da `rev 1`. **Mai due numerazioni nella
@@ -451,6 +451,20 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   sbordamenti a 390px** preesistenti: **Anagrafica 724 → 390px** (l'elenco delle persone va a
   capo e i tre pulsanti «Genera documento» si impilano) e **Costo orario 429 → 390px** (la
   tabella «Come si divide il periodo», sette colonne, ora scorre dentro il suo riquadro).
+- 🔴 **Fogli ore rev 10 (07/11/2026) — «✓ Salvato!» non è più una bugia.** Trovato con l'audit
+  generale del gestionale e corretto con il Nu\* di Christian. **Difetto preesistente, il più
+  grave trovato finora.** Con il collegamento caduto il salvataggio automatico **falliva in
+  silenzio** e il pulsante 💾 diceva **«✓ Salvato!»** pur non avendo scritto niente; Fogli ore
+  **non tiene copia nel browser**, quindi chiudendo la pagina le ore erano perse. Causa: `saveTS`
+  ingoiava l'errore (`catch(e){console.error(e)}`), così il ramo «Errore!» di `manualSave` non
+  poteva scattare. Ora `saveTS` torna `true`/`false` (non lancia: i 19 punti che la chiamano
+  senza `await` sono invariati), i due salvataggi manuali entrano nel ramo d'errore che c'era
+  già, e compare la **banda rossa «⚠️ ORE NON SALVATE — … non chiudere la pagina»**, che sparisce
+  da sé al primo salvataggio riuscito. Provato in esecuzione con una Firebase finta che rifiuta
+  le scritture: **12 controlli su 12**. Nella stessa versione chiusa la leggibilità: il blocco
+  della rev 4 copriva 6-11px e si era dimenticato il **12px**, quindi 9 scritte restavano sotto
+  i 12,5px fuori dalla tabella del mese (Esci, Backup JSON, Chiudi \<mese\>, …): ora sono **0**,
+  e la tabella del mese resta **906px**, identica alla rev 9.
 - **Fogli ore rev 9 (06/11/2026) — la frase del Tetto annuo nomina anche i permessi.**
   Christian: «4, completa». Nel riquadro «Le ore che ti restano quest'anno» si legge ora
   «Comprende **le ore fatte, le assenze retribuite e i permessi retribuiti** dei giorni in cui il
@@ -635,6 +649,17 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   ⚠️ **Lo straordinario non cambia** (`coverAbsHours`/`bancaMeseA` invariati): il Risultato del
   mese resta identico al millesimo. ⚠️ **I residui già pubblicati sono vecchi**: va ripremuto
   📤 Pubblica i residui. Misurato: tetto «Già usate» da 472,020 a **474,020 h** con 2 h di EXF.
+- 📱 **Collaboratori rev 8 (07/11/2026) — la scheda non scorre più di lato sul telefono.**
+  Dall'audit generale, con il Nu\* di Christian. Due difetti **preesistenti** di solo aspetto:
+  (a) a 390px la scheda dell'operatore misurava **478px** per colpa della barra di navigazione,
+  che non andava a capo, e della tendina «Vai a operatore…» larga 160px → aggiunta la **prima
+  `@media (max-width:900px)`** dell'app, ora **390px**; (b) fuori dalle tabelle restavano
+  **40 scritte in copertina e 15 nella scheda** sotto i 12,5px (i pulsantini a 10px, `.os` e
+  `.drive-status` a 11px, le etichette `.kl`/`.sl` a 12px): il blocco della rev 2 le portava a
+  12px, cioè ancora sotto il minimo del §10.6, e non vedeva le regole di classe → ora sono
+  **zero**. ⚠️ Dentro le tabelle **non è stato toccato niente**: le righe delle due tabelle dense
+  restano **19-31px identiche alla rev 7** (il −40% chiesto da Christian) e i pulsanti fuori
+  dalle tabelle restano tutti ≥40px. Nessuna dicitura, nessun dato, nessun calcolo.
 - **Collaboratori rev 7 (05/11/2026) — righe più basse nelle due tabelle della scheda.**
   Christian: «abbassa l'altezza righe delle liquidazioni e delle ore mensili effettuate almeno del
   40%». A tenere le righe a 43px non erano le caselle (già a 28px dalla rev 5) ma il **pulsante**

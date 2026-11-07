@@ -35,7 +35,7 @@ USOINT sta per **"uso interno"**.
   (specchio di localStorage). Chiavi: `usoint-idx`, `usoint-p-<id>`, `usoint-orelav`,
   `usoint-tariffe`, `usoint-simul`. Accesso mail+password.
 - **Numero di revisione**: costante `const VER` (riga ~67), mostrata in **tre punti** (Home,
-  scheda progetto, Riepilogo operatori). **Attuale: ver121 · 04nov26.** `VER` finisce anche nei
+  scheda progetto, Riepilogo operatori). **Attuale: ver122 · 07nov26.** `VER` finisce anche nei
   nomi dei file esportati: incrementarla, non affiancarle un secondo numero.
 - **Strutture utili**: `usoint-orelav` = `{ [norm(nome)]: { [anno]: [12 numeri] } }` (ore
   lavorate, indice 0 = gennaio; `norm` = minuscolo, trim, spazi singoli).
@@ -71,6 +71,31 @@ USOINT sta per **"uso interno"**.
 - **Funzioni presenti**: import automatico (SOLA LETTURA) delle ore lavorate dal database dei
   Dipendenti tramite una **seconda app Firebase** chiamata "dip"; tabella compatta della scheda
   operatore (Lavorate | una colonna per progetto | Tot. rendicontate | Avanzo).
+- 📱 **A 390px LA SCHEDA PROGETTO NON SCORRE PIÙ DI LATO, E NIENTE RESTA SOTTO I 12,5px**
+  (ver122, 07/11/2026, trovati con l'**audit generale del gestionale** e corretti con il Nu\* di
+  Christian). **Difetti PREESISTENTI, di solo aspetto.**
+  - **A) La scheda progetto scorreva di lato sul telefono**: misurati **885px su 390**. Il
+    responsabile era **uno solo**: la **barra in cima alla scheda** (← · titolo · anno ·
+    📊 Residui · 💾 Salva · 📊 Excel · 📅 Proroga · BUDGET/PREVENTIVO), che **non andava a capo**.
+    ⚠️ **La griglia del budget non c'entrava**: sta già dentro un riquadro che scorre da sé
+    (`overflow:auto`, `zoom:0.9`) e resta com'era. Per agganciare il foglio di stile è stato
+    aggiunto **UN SOLO attributo `className="uso-topbar"`** nel JSX di quella barra (il `div`
+    marcato `{/* HEADER */}`), più una `@media (max-width:900px){.uso-topbar{flex-wrap:wrap}}`:
+    nessuna logica, nessun dato, nessuna dicitura toccati. **Misurato: 885 → 390px.**
+  - **B) Scritte sotto i 12,5px** (regola §10.6): in home il titolo a 12px, «Dati sincronizzati
+    nel cloud» a 11px, *Logout* a 10px, i due pulsanti di backup a 11px; nella scheda progetto
+    la fascia «🔓 LIBERO — RICORDA…» e «🧹 Riporta tutto sulla 1ª annualità» a **8px**; nel
+    Riepilogo operatori diverse scritte a 10,5-11,5px. Ora il minimo è 12,5px.
+    ⚠️ **La griglia densa del budget NON si tocca**: ogni regola esclude i discendenti del
+    riquadro che scorre (riconosciuto da `[style*="overflow: auto hidden"]`) e di `table`.
+    **Misurato: da 6 scritte in home, 17 nel Riepilogo e le 8px della scheda a ZERO.**
+  - ⚠️ **La targhetta diceva una data sbagliata**: `{VER} · 03nov26` in **tre punti**, mentre la
+    ver121 era del 04/11/2026. La regola 9 chiede di incrementare il numero **e la data**: ora
+    dice **ver122 · 07nov26** in tutti e tre.
+  - **Provato in esecuzione**: Babel + `node --check` superati; **G5** (import delle ore lavorate
+    da Dipendenti) **9/9**, **G11** (backup e ripristino, anche nel cloud) **13/13**, **G6**
+    (pagina integrata) **25/25**, **G7/G7b** (5 larghezze, home · scheda progetto · riepilogo)
+    tutti superati, **zero errori di pagina**.
 - 🔁 **«📂 Ripristina backup»: CORRETTO** (ver121, 04/11/2026). USOINT ha due pulsanti nella Home,
   «💾 Backup dati» (scarica in un JSON tutte le chiavi `usoint*` di `localStorage`) e
   «📂 Ripristina backup».
