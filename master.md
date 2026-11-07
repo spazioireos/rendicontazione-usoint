@@ -65,7 +65,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 5 · 05nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 7 · 05nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver130 · 07nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver131 · 07nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver121 · 04nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 9 · 06nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -182,6 +182,29 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   **Deciso: si usa solo il nuovo.** Il modulo vecchio è stato tolto dalla scheda dell'operatore e
   sostituito da un rimando; ⚠️ i massimali già creati **restano visibili e cancellabili**,
   nessun dato è stato toccato.
+- **Dipendenti ver131 (07/11/2026) — il superminimo segue le trasformazioni, e i colori sono 24.**
+  Due richieste di Christian. **Il superminimo**: una trasformazione portava livello, ore
+  settimanali e il passaggio a tempo indeterminato, ma **non il superminimo**, che era un numero
+  senza data applicato a tutti i mesi del periodo. Misurato sui dati veri (gen→ott 2026): un
+  superminimo di 100 €/mese pesa **806,05 €**; se fosse partito il 01/06 i mesi veri sarebbero 5
+  su 10, quindi l'app addebitava **403 € di troppo**, e a catena su 13ª, 14ª, festività, ferie
+  liquidate, TFR e contributi. Ora `valoriAt` tiene anche il superminimo (parte da zero, lo
+  cambiano le trasformazioni), ci sono `superminimoAt` e `superminimoPeriodo`, e **`firmaMese` lo
+  guarda: il periodo si taglia da solo** alla data del cambio — provato, da 2 a **3 pezzi**, con
+  il costo che cade in mezzo (14.113,92 € fra 13.699,70 e 14.505,75). Nel modulo delle
+  trasformazioni c'è la casella **«Nuovo superminimo €»** (lo **0** serve a togliere un
+  superminimo che c'era), la **lettera** lo nomina (dicitura autorizzata da Christian), e sotto
+  la casella del Costo orario compare un **avviso giallo** che dice **sempre** che il numero
+  scritto a mano vince su tutto, quale sarebbe l'automatico e che così il periodo non si taglia
+  più — richiesta esplicita di Christian. **I colori**: erano **10** e si assegnavano con
+  `PALETTE[numero % 10]`, quindi con 16 dipendenti dall'undicesimo si ricominciava da capo (13
+  colori distinti su 16 persone, tre usati da due persone ciascuno, e sei tinte che Christian si
+  era messo da sé che non comparivano nemmeno come selezionate). Ora sono **24**: i primi dieci
+  **al loro posto, nessuno cambia colore**, poi i sei suoi, poi otto nuovi chiari e spenti,
+  **nessun verde brillante** come ha chiesto. Provato: 20 persone senza colore → **20 colori
+  distinti**. ⚠️ **Nessun altro calcolo toccato**: sui dati veri ver130 e ver131 danno gli stessi
+  numeri. Provato in esecuzione: **20/20** + **14/14**, zero errori di pagina, più il registro
+  completo. ⚠️ Non verificato: il **.docx vero della lettera** (serve il modello Word).
 - **Dipendenti ver130 (07/11/2026) — collaudo integrale dell'app e leggibilità a norma.**
   Christian ha chiesto un **collaudo operativo completo**: provare in esecuzione ogni funzione, i
   dati, gli errori, la grafica su telefono/tablet/desktop, le regressioni e i flussi dall'inizio
