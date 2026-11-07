@@ -829,10 +829,11 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   Dipendenti calcola quante ore restano del tetto annuo e, con il pulsante **📤 Pubblica i
   residui** (mai da solo, con conferma nome per nome), scrive un documentino per persona nella
   nuova collection **`residui`**: doc-id = uid dell'operatore, dentro **solo numeri**. In Fogli
-  ore ciascuno vede **solo il proprio**, in un riquadro nella sua pagina. ⚠️ **Serve che Christian
-  pubblichi in console le regole nuove** (`regole-firestore/regole-residui-03nov26.rules`, 51
-  controlli su 51 con l'emulatore ufficiale): finché non lo fa, il pulsante fallisce e lo dice,
-  e il riquadro non compare. È l'unica scrittura che Dipendenti fa fuori dal proprio documento.
+  ore ciascuno vede **solo il proprio**, in un riquadro nella sua pagina. ✅ **Le regole sono
+  pubblicate**: verificato il **07/11/2026** confrontando il testo in vigore nella console con
+  `regole-firestore/regole-residui-03nov26.rules` — **identici carattere per carattere** — e
+  rieseguendo l'emulatore ufficiale su quel testo: **51 controlli su 51**. ⚠️ Prima di quella
+  pubblicazione il pulsante falliva (misurato: 4 controlli negati) e il riquadro non compariva. È l'unica scrittura che Dipendenti fa fuori dal proprio documento.
 - **Dipendenti ver77 (03/11/2026) — giornate erosive e festivi bloccati.** Regola nuova decisa da
   Christian: un'assenza **consuma il massimale solo se quel giorno il servizio era aperto** (ferie
   a novembre sì, ferie a Natale no). Si segna con **un clic sul numerino sotto la cella**: in
