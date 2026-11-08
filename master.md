@@ -65,7 +65,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 5 · 05nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 8 · 07nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver131 · 07nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver132 · 08nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver122 · 07nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 10 · 07nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -193,6 +193,24 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   **Deciso: si usa solo il nuovo.** Il modulo vecchio è stato tolto dalla scheda dell'operatore e
   sostituito da un rimando; ⚠️ i massimali già creati **restano visibili e cancellabili**,
   nessun dato è stato toccato.
+- 🎖️ **Dipendenti ver132 (08/11/2026) — gli scatti riconosciuti all'assunzione, e il mese in cui
+  maturano.** Da un caso vero: una persona a cui all'assunzione sono stati **regalati 4 scatti**
+  al livello D1, con il **quinto a febbraio 2027**. Due aggiunte al conteggio della ver128:
+  (a) **casella nuova «Scatti riconosciuti all'assunzione»** (`dp.costo.scattiAss`), che diventa
+  il punto di partenza e da lì l'app continua ad aggiungerne uno ogni 24 mesi utili — compare
+  solo dove **non** c'è quella del pregresso, così delle due se ne vede sempre una sola;
+  (b) chi è assunto **dopo il giorno 1** comincia a contare **dal mese successivo**, così i 24
+  mesi si chiudono all'anniversario e lo scatto parte dal mese dopo (per lei: **febbraio** 2027,
+  non gennaio). Verificato: con 4 riconosciuti il periodo si divide in **gen 2026→gen 2027
+  (4 = 82,64 €)** e **feb 2027→dic 2027 (5 = 103,30 €)**; sui **16 dipendenti veri**, periodo
+  gen→ott 2026, i costi sono **identici alla ver131**. ⚠️ Conseguenza della (b): per chi è
+  assunto dopo il giorno 1 ogni scatto matura un mese più tardi, quindi un periodo che
+  **contiene** quel mese costa un mese di scatto in meno — misurato su un caso vero: **−16,37 €**
+  su un anno. La tabella degli scatti è stata ricontrollata contro il CCNL Cooperative sociali
+  (art. 80 e tabella CNEL T151): **D1 20,66 €**, massimo 5, uno ogni biennio, tabella dal
+  01/10/2025; confermati anche A1, A2, B1, D2, F2. ⚠️ Sette livelli (C1, C2, C3, D3, E1, E2, F1)
+  **non** sono stati verificati uno per uno: la pagina con la tabella completa non è
+  raggiungibile dalla rete di questa sessione.
 - **Dipendenti ver131 (07/11/2026) — il superminimo segue le trasformazioni, e i colori sono 24.**
   Due richieste di Christian. **Il superminimo**: una trasformazione portava livello, ore
   settimanali e il passaggio a tempo indeterminato, ma **non il superminimo**, che era un numero
