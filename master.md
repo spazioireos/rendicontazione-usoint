@@ -65,7 +65,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 5 · 05nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 8 · 07nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver132 · 08nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver133 · 08nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver122 · 07nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 10 · 07nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -193,6 +193,20 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   **Deciso: si usa solo il nuovo.** Il modulo vecchio è stato tolto dalla scheda dell'operatore e
   sostituito da un rimando; ⚠️ i massimali già creati **restano visibili e cancellabili**,
   nessun dato è stato toccato.
+- ⚠️ **Dipendenti ver133 (08/11/2026) — le «settimane davvero lavorabili» dicono che non
+  servono.** Domanda di Christian: «la questione settimane davvero lavorabili in realtà ci serve?
+  Non calcoliamo tutto dalle ore reali da tabellone?». Ha ragione: con le ore **dai Riepiloghi**
+  o **a mano** quelle due caselle non contano le ore, ma scriverle **spegne** il conto delle ore
+  in più **mese per mese** (ver117) e il **taglio del periodo in pezzi** (ver84) — e l'app non lo
+  diceva. Ora sotto la tabellina compare un **avviso giallo** che lo spiega e rimanda al pulsante
+  **↺ Rimetti i valori calcolati**. ⚠️ **Nessun calcolo è stato toccato**: le caselle restano
+  scrivibili, l'avviso non cambia un centesimo (verificato: stesso costo della ver132 nello stesso
+  stato). 🔴 **Quanto pesava il silenzio, sui dati veri**: su una persona che ha quelle caselle
+  scritte, periodo gen→ott 2026, il costo passa da **12.456,45 €** (0 pezzi) a **13.108,55 €**
+  (12 pezzi) premendo ↺: **652,10 €**. Provato in esecuzione, **18 controlli su 18**, e tutto il
+  registro cumulativo rieseguito sulla ver133. ✅ **La tabella degli scatti CCNL è chiusa**:
+  Christian l'ha mandata per intero e **tutti e 13 i valori coincidono** con quelli già nel
+  codice — nessun valore cambiato.
 - 🎖️ **Dipendenti ver132 (08/11/2026) — gli scatti riconosciuti all'assunzione, e il mese in cui
   maturano.** Da un caso vero: una persona a cui all'assunzione sono stati **regalati 4 scatti**
   al livello D1, con il **quinto a febbraio 2027**. Due aggiunte al conteggio della ver128:
