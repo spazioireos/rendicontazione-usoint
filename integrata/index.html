@@ -84,12 +84,36 @@
     .pulsanti{width:100%;}
     .btn{flex:1 1 44%;font-size:15px;padding:12px 8px;min-height:50px;}
   }
+
+    /* ---- COMPATTAZIONE (rev 6 - 08nov26) ----
+       Richiesta di Christian dell'08/11/2026 (revisione grafica complessiva).
+       Si stringono SOLO gli spazi della barra: imbottitura, distanze fra i
+       pulsanti e imbottitura dei pulsanti.
+       ⚠️ NON si tocca: l'altezza minima dei pulsanti (48px, e 46/50px nelle
+       due media query) perché sua scelta dell'08/11 è che le altezze non si
+       riducono; la misura dei caratteri (19px il titolo, 16px i pulsanti,
+       scelte di leggibilità della rev 4); e il telaio che fa adattare la
+       barra quando i pulsanti vanno a capo — .barra{flex:0 0 auto},
+       flex-wrap:wrap, .area{min-height:0}, body{height:100dvh} — che era il
+       difetto corretto nella rev 4 su tablet. Nessuna altezza fissa aggiunta. */
+    .barra{ gap:6px 9px; padding:7px 11px; }
+    .pulsanti{ gap:6px; }
+    .btn{ padding:9px 15px; }
+    @media (max-width:1100px){
+      .btn{ padding:8px 10px; }
+    }
+    @media (max-width:640px){
+      .barra{ padding:6px 9px; gap:5px; }
+      .btn{ padding:10px 8px; }
+    }
+    /* ---- fine aggiunta rev 6 ---- */
+
 </style>
 </head>
 <body>
   <header class="barra">
     <div class="titolo"><span class="pallino"></span>SPAZIO IREOS · Gestionale integrato</div>
-    <span class="rev" title="Revisione di questa pagina: serve a capire a colpo d'occhio se stai vedendo la versione aggiornata">rev 5 · 05nov26</span>
+    <span class="rev" title="Revisione di questa pagina: serve a capire a colpo d'occhio se stai vedendo la versione aggiornata">rev 6 · 08nov26</span>
     <nav class="pulsanti">
       <button class="btn" id="btn-collaboratori" type="button" onclick="apri('collaboratori')">
         <span class="ico">&#128101;</span> Collaboratori

@@ -40,7 +40,7 @@ toccare): leggere quello prima di lavorarci.
 ## 3. L'APP INTEGRATA — attiva
 
 - **Link unico:** `https://spazioireos.github.io/rendicontazione-usoint/integrata/`
-- File `integrata/index.html` in questo repo, su `main`. **Revisione attuale: `rev 5 · 05nov26`.**
+- File `integrata/index.html` in questo repo, su `main`. **Revisione attuale: `rev 6 · 08nov26`.**
 - **Quattro pulsanti**: 👥 Collaboratori · 🧑‍💼 Dipendenti · 📊 Rendicontazione progetti · 📋 Fogli ore.
 - **Apre i LINK LIVE** delle app, non copie: quando si aggiorna una app, la pagina integrata
   mostra la versione nuova **da sola**. Non va MAI aggiornata per questo motivo.
@@ -63,11 +63,11 @@ in cache (problema realmente capitato).
 
 | App | Numero attuale | Dove si vede | Da dove viene |
 |---|---|---|---|
-| App integrata | `rev 5 · 05nov26` | barra in alto | scritto nel file |
-| Collaboratori | `rev 8 · 07nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver133 · 08nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
-| Rendicontazione USOINT | `ver122 · 07nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
-| Fogli ore | `rev 10 · 07nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
+| App integrata | `rev 6 · 08nov26` | barra in alto | scritto nel file |
+| Collaboratori | `rev 9 · 08nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
+| Dipendenti | `ver134 · 08nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Rendicontazione USOINT | `ver123 · 08nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
+| Fogli ore | `rev 11 · 08nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
 **Criterio:** dove l'app aveva già una numerazione (USOINT `ver`, Dipendenti `APP_VER`) si usa e
 si incrementa **quella**; dove non c'era si è partiti da `rev 1`. **Mai due numerazioni nella
@@ -193,6 +193,52 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   **Deciso: si usa solo il nuovo.** Il modulo vecchio è stato tolto dalla scheda dell'operatore e
   sostituito da un rimando; ⚠️ i massimali già creati **restano visibili e cancellabili**,
   nessun dato è stato toccato.
+- 📐 **TUTTO IL GESTIONALE (08/11/2026) — compattazione: più roba a schermo, stessi colori e
+  stesse altezze.** Richiesta di Christian: «REVISIONE GRAFICA COMPLESSIVA — l'interfaccia attuale
+  presenta spaziature eccessive». Intervento **di solo CSS** su tutte e quattro le app **e sulla
+  pagina integrata**: un blocco nuovo in fondo al `<style>` di ciascuna, **nessuna riga di
+  JavaScript, nessun attributo HTML, nessuna classe nuova**.
+  Revisioni: **Dipendenti ver134 · Fogli ore rev 11 · Collaboratori rev 9 · USOINT ver123 ·
+  integrata rev 6**.
+  - 🔑 **Tre scelte di Christian, prese con una domanda PRIMA di costruire**, perché la richiesta
+    conteneva due contraddizioni interne: **(1) niente verde** — la codifica a colori per
+    provenienza del dato non è ottenibile dal solo CSS, perché «parametro preassegnato» e
+    «compilazione manuale» nel DOM sono **la stessa casella**, e il contrassegno andrebbe messo nel
+    JavaScript, che il vincolo vietava («hai fatto bene a non fare»); **(2) i suoi colori vincono
+    sempre** — nessun colore è stato toccato in nessuna app; **(3) le altezze non si riducono** —
+    si stringono solo gli spazi, come vuole il §10.6.
+  - **Guadagno in altezza, misurato a 390 · 768 · 1280 · 1680px** confrontando ogni app con la
+    propria versione precedente, sugli stessi dati:
+    | | guadagno |
+    |---|--:|
+    | Dipendenti · **Riepiloghi** | **−13,2% … −20,4%** |
+    | Dipendenti · **Tabellone** | **−7% … −12,1%** |
+    | Dipendenti · Anagrafica / Costo orario | −2,1% … −6,8% |
+    | Fogli ore · Pannello admin | −5,2% … −8,1% |
+    | Collaboratori · copertina | −5,1% … −7,5% |
+    | Collaboratori · scheda | −3,4% … −4,7% |
+    | USOINT · mesi / budget / riepilogo | −2,3% … −4,6% |
+    | Pagina integrata · barra | −5,1% … −36,1% |
+  - ✅ **Che cosa NON è cambiato, misurato in ogni vista e a ogni larghezza**: la **larghezza della
+    pagina** (identica ovunque, nessuno scorrimento laterale nuovo); **tutte le griglie dense**
+    (tabella del mese di Dipendenti **2282 → 2282px**, di Fogli ore **1009 / 1252 / 1652 →
+    identiche**, celle della griglia del budget USOINT **41px e 56 celle → identiche**, righe delle
+    due tabelle dense di Collaboratori **23·23·19·23·23·21 → identiche**); le **altezze dei
+    comandi** (cella delle ore 34px, pulsanti ≥40px 9 su 9, **0 comandi sotto i 40px** fuori dalle
+    tabelle in Collaboratori, pulsanti della barra integrata 48/46/50px); il numero di **scritte
+    sotto i 12,5px** (identico in ogni vista). **Zero errori di pagina.**
+  - 🐞 **Un difetto PREESISTENTE corretto**: in **Collaboratori a 390px la scheda sbordava**
+    (misurati **415px su 390**) per la riga dei pulsanti che non andava a capo. ⚠️ La rev 8 non
+    l'aveva visto perché provava su un backup con **un solo anno**. **Ora 390px esatti.**
+  - ⚠️ **Due rinunce volute**: stringendo il contenitore, la tabella del foglio unico guadagnava
+    4px e la griglia del budget 8px, perché sono larghe quanto lo spazio che trovano. Guadagno
+    nullo, regola «dentro la griglia non si tocca niente» violata: le due regole laterali sono
+    state tolte e resta solo il verticale.
+  - 🔴 **RESTA APERTA la codifica cromatica delle celle** (giallo manuale / verde parametro /
+    azzurro formula / bianco incerto). Oggi ogni app ha già una sua codifica parziale decisa da
+    Christian — Dipendenti ha già giallo e azzurro, USOINT ha giallo-senape per il finanziato e
+    rosa per il cofinanziato — e completarla significherebbe toccare colori suoi. **Non si fa
+    senza una sua decisione nuova.**
 - ⚠️ **Dipendenti ver133 (08/11/2026) — le «settimane davvero lavorabili» dicono che non
   servono.** Domanda di Christian: «la questione settimane davvero lavorabili in realtà ci serve?
   Non calcoliamo tutto dalle ore reali da tabellone?». Ha ragione: con le ore **dai Riepiloghi**

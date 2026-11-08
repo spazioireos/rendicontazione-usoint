@@ -9,7 +9,7 @@ USOINT sta per **"uso interno"**.
 - **In questo repo c'è anche la PAGINA INTEGRATA**: `integrata/index.html`, il link unico
   `https://spazioireos.github.io/rendicontazione-usoint/integrata/` con i quattro pulsanti
   (Collaboratori, Dipendenti, Rendicontazione progetti, Fogli ore). **Apre i LINK LIVE**, non
-  copie: ha un suo numero di revisione (attuale `rev 5 · 05nov26`) nella barra.
+  copie: ha un suo numero di revisione (attuale `rev 6 · 08nov26`) nella barra.
   🔄 **L'app arriva sempre fresca** (rev 5, 05/11/2026, scelta **A** di Christian dopo che aveva
   visto la ver90 quando su Pages c'era già la ver92). L'indirizzo dentro l'`iframe` era **sempre
   identico**, quindi il browser serviva la **copia in memoria**: si vedevano versioni vecchie per
@@ -35,7 +35,7 @@ USOINT sta per **"uso interno"**.
   (specchio di localStorage). Chiavi: `usoint-idx`, `usoint-p-<id>`, `usoint-orelav`,
   `usoint-tariffe`, `usoint-simul`. Accesso mail+password.
 - **Numero di revisione**: costante `const VER` (riga ~67), mostrata in **tre punti** (Home,
-  scheda progetto, Riepilogo operatori). **Attuale: ver122 · 07nov26.** `VER` finisce anche nei
+  scheda progetto, Riepilogo operatori). **Attuale: ver123 · 08nov26.** `VER` finisce anche nei
   nomi dei file esportati: incrementarla, non affiancarle un secondo numero.
 - **Strutture utili**: `usoint-orelav` = `{ [norm(nome)]: { [anno]: [12 numeri] } }` (ore
   lavorate, indice 0 = gennaio; `norm` = minuscolo, trim, spazi singoli).
@@ -75,6 +75,53 @@ USOINT sta per **"uso interno"**.
 - **Funzioni presenti**: import automatico (SOLA LETTURA) delle ore lavorate dal database dei
   Dipendenti tramite una **seconda app Firebase** chiamata "dip"; tabella compatta della scheda
   operatore (Lavorate | una colonna per progetto | Tot. rendicontate | Avanzo).
+- 📐 **COMPATTAZIONE: PIU' ROBA A SCHERMO, STESSI COLORI E STESSE ALTEZZE** (ver123, 08/11/2026,
+  richiesta di Christian: «REVISIONE GRAFICA COMPLESSIVA DEL GESTIONALE — l'interfaccia attuale
+  presenta spaziature eccessive»). Intervento **di solo CSS**: un blocco nuovo in fondo al
+  `<style>`, **nessuna riga di JavaScript, nessun attributo HTML, nessuna classe nuova**.
+  - 🔑 **TRE SCELTE DI CHRISTIAN, prese con una domanda PRIMA di costruire**, perché la sua
+    richiesta conteneva due contraddizioni interne:
+    1. **niente verde**: la codifica a colori per provenienza del dato (giallo manuale / verde
+       parametro / azzurro formula / bianco incerto) **non è ottenibile dal solo CSS**, perché
+       «parametro preassegnato» e «compilazione manuale» nel DOM sono **la stessa casella**:
+       servirebbe un contrassegno nel JavaScript, che il suo stesso vincolo vietava. **Rimandata**
+       (sua risposta: «Parte 2 hai fatto bene a non fare»);
+    2. **i colori già scelti da lui vincono sempre**: qui **nessun colore è stato toccato**;
+    3. **le altezze NON si riducono**: la sua richiesta chiedeva di abbassare anche caselle,
+       tendine e pulsanti, ma il §10.6 dice il contrario; **vale il §10.6**, si stringono solo
+       gli SPAZI.
+  - ⚠️ **Il verde non si può fare senza toccare il codice**: non riproporlo come se bastasse il
+    CSS. Se un giorno lo si vorrà davvero, serve il suo permesso per **un solo contrassegno** sulle
+    caselle precompilate da un parametro.
+  - ⚠️ **In quest'app non c'era niente da stringere nel CSS**: il foglio è di 44 righe e **tutte**
+    le spaziature sono scritte in riga da React. Il blocco è quindi fatto **solo** di selettori
+    `[style*="..."]` con `!important` (React serializza **con** lo spazio dopo i due punti).
+  - **Che cosa si stringe**: home e schermata di accesso, cartellini dei progetti, i riquadri del
+    Riepilogo operatori, la barra e l'area contenuti della scheda progetto, le sezioni, e le
+    distanze verticali ricorrenti.
+  - 🚫 **L'esclusione è diversa dalle altre app**: la griglia densa del budget è fatta di
+    **`<div>`, non di `<table>`**, quindi `:not(table *)` **non la protegge**. Ogni regola porta
+    **`:not([style*="overflow: auto hidden"] *)`**, che è la sua impronta digitale (è l'unico
+    elemento del file con quella coppia di proprietà, più `zoom:0.9`).
+  - ⚠️ **Una regola corretta in corsa**: stringendo anche i **fianchi** del contenitore della
+    griglia, la griglia — che è `flex:1` — si prendeva lo spazio e passava da **1246 a 1254px**,
+    e a 1680 il suo contenuto da **1824 a 1833**. Ora si stringe **solo il verticale** e i fianchi
+    restano a 8px: il guadagno in altezza resta tutto.
+  - **Misurato in esecuzione** a 390 · 768 · 1280 · 1680px: vista MESI **da −3,3% a −4,6%**,
+    BUDGET da −2,3% a −3,5%, Riepilogo operatori da −2,8% a −3,9%.
+  - ✅ **NON cambiati**: larghezza di pagina identica; **griglia del budget 356 / 734 / 1246 /
+    1646px e contenuto 1455 / 1824 → identici**; **celle della griglia 41px, 56 celle →
+    identiche**; righe delle tabelle identiche; scritte sotto i 12,5px identiche (269 nel budget e
+    390 nei mesi: sono dentro le griglie). **Zero errori di pagina.**
+  - 🔗 **Anche la PAGINA INTEGRATA è stata compattata** (`integrata/index.html`, **rev 6 ·
+    08nov26**): `.barra` da `gap:8px 12px; padding:9px 14px` a `gap:6px 9px; padding:7px 11px`,
+    `.pulsanti` gap 8→6px, `.btn` padding `11px 18px`→`9px 15px`, e i valori corrispondenti nelle
+    due media query. **Misurato: la barra passa da 97 a 62px a 1280, e da 236 a 224px a 390.**
+    ⚠️ **NON toccati**: l'altezza minima dei pulsanti (**48px**, e 46/50px nelle media query —
+    misurati identici prima e dopo), la misura dei caratteri (19px il titolo, 16px i pulsanti,
+    scelte della rev 4) e **il telaio che fa adattare la barra quando i pulsanti vanno a capo**
+    (`flex:0 0 auto`, `flex-wrap:wrap`, `.area{min-height:0}`, `body{height:100dvh}`): era il
+    difetto corretto nella rev 4 su tablet. **Nessuna altezza fissa aggiunta.**
 - 📱 **A 390px LA SCHEDA PROGETTO NON SCORRE PIÙ DI LATO, E NIENTE RESTA SOTTO I 12,5px**
   (ver122, 07/11/2026, trovati con l'**audit generale del gestionale** e corretti con il Nu\* di
   Christian). **Difetti PREESISTENTI, di solo aspetto.**
