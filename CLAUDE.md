@@ -35,7 +35,7 @@ USOINT sta per **"uso interno"**.
   (specchio di localStorage). Chiavi: `usoint-idx`, `usoint-p-<id>`, `usoint-orelav`,
   `usoint-tariffe`, `usoint-simul`. Accesso mail+password.
 - **Numero di revisione**: costante `const VER` (riga ~67), mostrata in **tre punti** (Home,
-  scheda progetto, Riepilogo operatori). **Attuale: ver123 · 08nov26.** `VER` finisce anche nei
+  scheda progetto, Riepilogo operatori). **Attuale: ver124 · 09nov26.** `VER` finisce anche nei
   nomi dei file esportati: incrementarla, non affiancarle un secondo numero.
 - **Strutture utili**: `usoint-orelav` = `{ [norm(nome)]: { [anno]: [12 numeri] } }` (ore
   lavorate, indice 0 = gennaio; `norm` = minuscolo, trim, spazi singoli).
@@ -75,6 +75,23 @@ USOINT sta per **"uso interno"**.
 - **Funzioni presenti**: import automatico (SOLA LETTURA) delle ore lavorate dal database dei
   Dipendenti tramite una **seconda app Firebase** chiamata "dip"; tabella compatta della scheda
   operatore (Lavorate | una colonna per progetto | Tot. rendicontate | Avanzo).
+- 🧾 **LA ✕ DELLA FATTURA ORA CHIEDE CONFERMA** (ver124, 09/11/2026, difetto trovato dal
+  collaudo generale e corretto su richiesta di Christian).
+  - **Il difetto**: nel riquadro FATTURAZIONE AL COMMITTENTE la ✕ toglieva la riga **a secco**,
+    senza nessun dialogo — ed era **l'unica cancellazione dell'app senza conferma** (il progetto
+    ne chiede due, la riga di personale con ore una dettagliata, «🗑 Svuota simulazione» e
+    «🧹 Riporta tutto» pure). Il **§10.1 nomina esplicitamente la «fattura»** fra le eliminazioni
+    che richiedono conferma.
+  - **La correzione**: `delFatt(i, ft)` riceve ora **anche la riga**, perché nella funzione non
+    c'è nessuna variabile con il progetto corrente — ⚠️ al primo tentativo avevo usato `p` e
+    `fP`, che **lì non esistono**: sarebbe stato un errore a tempo di esecuzione come quello
+    della ver139 di Dipendenti. La conferma nomina **data, numero, tipo e importo** della
+    fattura e dice che finché non si preme 💾 si recupera ricaricando.
+    ⚠️ **Dicitura nuova, scritta da Claude.**
+  - **Provato in esecuzione** (`fix-b2.cjs`, **7 controlli su 7**, zero errori di pagina):
+    la ✕ chiede conferma nominando «del 2026-09-30 · n° 2026/777 · acconto · 1234,56 €»;
+    rispondendo **NO** la riga resta (3 → 3); rispondendo **SÌ** sparisce (3 → 2).
+
 - 📐 **COMPATTAZIONE: PIU' ROBA A SCHERMO, STESSI COLORI E STESSE ALTEZZE** (ver123, 08/11/2026,
   richiesta di Christian: «REVISIONE GRAFICA COMPLESSIVA DEL GESTIONALE — l'interfaccia attuale
   presenta spaziature eccessive»). Intervento **di solo CSS**: un blocco nuovo in fondo al

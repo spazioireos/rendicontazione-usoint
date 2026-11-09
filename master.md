@@ -66,8 +66,8 @@ in cache (problema realmente capitato).
 | App integrata | `rev 6 · 08nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 9 · 08nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
 | Dipendenti | `ver144 · 09nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
-| Rendicontazione USOINT | `ver123 · 08nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
-| Fogli ore | `rev 11 · 08nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
+| Rendicontazione USOINT | `ver124 · 09nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
+| Fogli ore | `rev 12 · 09nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
 **Criterio:** dove l'app aveva già una numerazione (USOINT `ver`, Dipendenti `APP_VER`) si usa e
 si incrementa **quella**; dove non c'era si è partiti da `rev 1`. **Mai due numerazioni nella
@@ -239,6 +239,17 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
     Christian — Dipendenti ha già giallo e azzurro, USOINT ha giallo-senape per il finanziato e
     rosa per il cofinanziato — e completarla significherebbe toccare colori suoi. **Non si fa
     senza una sua decisione nuova.**
+- 🔴 **Fogli ore rev 12 (09/11/2026) — anche l'assenza non si perde più in silenzio.**
+  È lo stesso difetto chiuso nella rev 10 per le ore, rimasto aperto per le **assenze**, che non
+  passano da `saveTS`: con il collegamento caduto l'eccezione impediva il ridisegno, **la banda
+  rossa non compariva**, la tendina continuava a mostrare «FERIE» e **ricaricando l'assenza era
+  sparita** — in un'app che non tiene copia locale. Ora il `batch.commit()` sta in un
+  `try/catch`: il batch è atomico, quindi si buttano dalla cache le chiavi toccate e la pagina
+  torna a dire la verità, con banda rossa e avviso. **13 controlli su 13.**
+- 🧾 **USOINT ver124 (09/11/2026) — la ✕ della fattura chiede conferma.**
+  Era l'unica cancellazione dell'app senza conferma, e il §10.1 nomina esplicitamente la
+  «fattura». La conferma nomina data, numero, tipo e importo. **7 controlli su 7.**
+
 - 🔐 **Dipendenti ver144 (09/11/2026) — due schede aperte non si cancellano più a vicenda.**
   Difetto trovato dal collaudo generale: con due schede aperte sullo stesso browser, la seconda
   che salvava **cancellava in silenzio** il lavoro della prima (misurato: 11,25 scritto e salvato
