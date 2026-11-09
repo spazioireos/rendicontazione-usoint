@@ -65,7 +65,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 6 · 08nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 11 · 09nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver145 · 09nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver146 · 09nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver126 · 09nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 13 · 09nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -265,6 +265,28 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   sparita** — in un'app che non tiene copia locale. Ora il `batch.commit()` sta in un
   `try/catch`: il batch è atomico, quindi si buttano dalla cache le chiavi toccate e la pagina
   torna a dire la verità, con banda rossa e avviso. **13 controlli su 13.**
+- 🧪 **COLLAUDO GENERALE DEL 09/11/2026 — che cosa è stato davvero provato, e che cosa ne è
+  uscito.** Richiesta di Christian: due collaudi, il secondo con una **matrice obbligatoria**
+  (copertura generale, per applicazione, delle integrazioni, dei casi negativi, della grafica).
+  - **Numeri**: **1.714 controlli eseguiti** fra i due giri. Primo giro 899 (842 superati);
+    secondo giro 815 più 16 dichiarati non applicabili, di cui **Collaboratori 154**
+    (148 superati), **USOINT 275** (266), **Fogli ore 239** (224) e il resto su Dipendenti,
+    integrazioni, casi negativi, prestazioni e privacy.
+  - **Ambiente**: quattro app servite in locale con una **finta Firebase** e un **finto jsPDF**,
+    più l'**emulatore ufficiale Firestore** per le regole di sicurezza (**51 su 51**).
+  - **Nove difetti trovati, tutti corretti in giornata**: l'assenza che si perdeva in silenzio in
+    Fogli ore (il più grave), la ✕ della fattura senza conferma in USOINT, due schede di
+    Dipendenti che si cancellavano a vicenda, «Compila veloce» che accettava testo libero, il
+    tetto delle ore al giorno, la mail al posto del nome dopo la registrazione, il codice HTML
+    nelle finestre di Collaboratori, i numeri negativi accettati ovunque, e le ultime scritte
+    sotto i 12,5px. Più **tre cognomi tolti da `master.md`** (regola privacy).
+  - **Prestazioni misurate** (Dipendenti): apertura 3,3 s, Tabellone 196 ms con 16 persone e
+    **480 ms con 60 persone e 40.320 celle**; salvataggio 107 → 981 ms; backup 93 → 1.032 ms.
+    18 misure su 18 entro soglia.
+  - ⚠️ **Non verificabile da qui, e dichiarato**: Firebase vera, il disegno vero del Report PDF,
+    le lettere .docx, Google Drive, gli utenti simultanei veri e il **collaudo in
+    pre-produzione** sull'ambiente pubblicato.
+
 - 🔎 **USOINT ver126 (09/11/2026) — il filtro «progetto» agisce anche a schermo.**
   Nel Riepilogo operatori la tendina teneva la scelta ma non cambiava le righe: funzionava solo
   nell'export. Esisteva già `rendAt()` che rispetta il filtro, usata solo dall'export: ora la
@@ -280,6 +302,16 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
 - 🧾 **USOINT ver124 (09/11/2026) — la ✕ della fattura chiede conferma.**
   Era l'unica cancellazione dell'app senza conferma, e il §10.1 nomina esplicitamente la
   «fattura». La conferma nomina data, numero, tipo e importo. **7 controlli su 7.**
+
+- 🏛️ **Dipendenti ver146 (09/11/2026) — i dati del costo si scrivono in Anagrafica, con un periodo.**
+  Sezione nuova **«Costo del lavoro»** in ANAGRAFICA con le nove voci che prima stavano nella
+  scheda del Costo orario; le tre ricorrenti (premi, premio al mese, rimborso km) hanno un
+  **dal/al** facoltativo e `firmaMese` li guarda, quindi il periodo si taglia da solo.
+  Nel Costo orario quelle caselle sono ora **grigie e di sola lettura**. 🔑 Se in Anagrafica la
+  casella è vuota, il motore continua a leggere il vecchio valore: nessun dato smette di
+  funzionare. 🔴 Misurato: un rimborso di 100 €/mese pesa **+1.200,00 €** su dodici mesi e
+  **+600,00 €** se vale solo da gennaio a giugno. Non regressione: **0 differenze sui 16
+  dipendenti**. **27 controlli su 28.**
 
 - 🧹 **Dipendenti ver145 (09/11/2026) — via la tendina morta, e la frase che mentiva.**
   Tolta la tendina **«Tabella CCNL»** dai valori comuni: dalla ver137 non veniva più letta e il
