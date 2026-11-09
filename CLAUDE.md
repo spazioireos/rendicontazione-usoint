@@ -35,7 +35,7 @@ USOINT sta per **"uso interno"**.
   (specchio di localStorage). Chiavi: `usoint-idx`, `usoint-p-<id>`, `usoint-orelav`,
   `usoint-tariffe`, `usoint-simul`. Accesso mail+password.
 - **Numero di revisione**: costante `const VER` (riga ~67), mostrata in **tre punti** (Home,
-  scheda progetto, Riepilogo operatori). **Attuale: ver124 · 09nov26.** `VER` finisce anche nei
+  scheda progetto, Riepilogo operatori). **Attuale: ver125 · 09nov26.** `VER` finisce anche nei
   nomi dei file esportati: incrementarla, non affiancarle un secondo numero.
 - **Strutture utili**: `usoint-orelav` = `{ [norm(nome)]: { [anno]: [12 numeri] } }` (ore
   lavorate, indice 0 = gennaio; `norm` = minuscolo, trim, spazi singoli).
@@ -75,6 +75,29 @@ USOINT sta per **"uso interno"**.
 - **Funzioni presenti**: import automatico (SOLA LETTURA) delle ore lavorate dal database dei
   Dipendenti tramite una **seconda app Firebase** chiamata "dip"; tabella compatta della scheda
   operatore (Lavorate | una colonna per progetto | Tot. rendicontate | Avanzo).
+- 🚫 **NIENTE NEGATIVI NELLE CASELLE NUMERICHE, E AVVISO SUI TITOLI DOPPI** (ver125, 09/11/2026,
+  due risposte di Christian alla ricognizione: «**A4**: vieta sempre i negativi nelle celle
+  compilabili da me» e «**A5**: avviso non bloccante»).
+  - **A4** — il collaudo aveva misurato che «Ore tot.» accettava **−50** (costo **−1.149,50 €**,
+    che si propagava ai totali del progetto), «€/ora» accettava −10 e anche una cella della vista
+    MESI accettava −30. Ora il **meno non si può più scrivere**: bloccato il tasto in
+    `onKeyDown` e **tolto anche se incollato** in `onChange`, nei **quattro** componenti numerici
+    dell'app — **`NumIn`, `TarIn`, `LavIn`, `SimIn`**.
+    ⚠️ **Le caselle di TESTO non sono state toccate**: mansioni e nomi accettano ancora il
+    trattino (**verificato**: «ANTE-MERIDIANO» entra).
+    ⚠️ **I valori negativi già nei dati NON vengono cambiati**: si impedisce di scriverne di
+    nuovi, non si riscrive niente. 🟠 **Nei dati di prova ce n'era uno (−2.000,00)**: se nei
+    dati veri esiste una casella in cui un negativo serve davvero, va esentata — **chiesto a
+    Christian**.
+  - **A5** — due progetti con lo **stesso titolo** venivano accettati in silenzio. Ora `cr()`
+    avvisa: «Esiste già un progetto con questo titolo … Puoi crearlo lo stesso, ma nell'elenco
+    saranno difficili da distinguere. Vuoi crearlo?» ⚠️ **Non bloccante**, come ha chiesto lui:
+    rispondendo **sì** il progetto si crea. ⚠️ **Dicitura nuova, scritta da Claude.**
+  - **Provato in esecuzione** (`ver125.cjs`, **10 controlli su 10**, zero errori di pagina):
+    `-50` battuto diventa `50,00`, `-33` incollato diventa `33,00`, un numero normale entra come
+    prima; un titolo nuovo non fa nessun avviso, lo stesso titolo lo fa comparire, rispondendo
+    **no** il progetto non viene creato e rispondendo **sì** sì.
+
 - 🧾 **LA ✕ DELLA FATTURA ORA CHIEDE CONFERMA** (ver124, 09/11/2026, difetto trovato dal
   collaudo generale e corretto su richiesta di Christian).
   - **Il difetto**: nel riquadro FATTURAZIONE AL COMMITTENTE la ✕ toglieva la riga **a secco**,
