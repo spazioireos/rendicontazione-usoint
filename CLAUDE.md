@@ -35,7 +35,7 @@ USOINT sta per **"uso interno"**.
   (specchio di localStorage). Chiavi: `usoint-idx`, `usoint-p-<id>`, `usoint-orelav`,
   `usoint-tariffe`, `usoint-simul`. Accesso mail+password.
 - **Numero di revisione**: costante `const VER` (riga ~67), mostrata in **tre punti** (Home,
-  scheda progetto, Riepilogo operatori). **Attuale: ver127 · 09nov26.** `VER` finisce anche nei
+  scheda progetto, Riepilogo operatori). **Attuale: ver128 · 09nov26.** `VER` finisce anche nei
   nomi dei file esportati: incrementarla, non affiancarle un secondo numero.
 - **Strutture utili**: `usoint-orelav` = `{ [norm(nome)]: { [anno]: [12 numeri] } }` (ore
   lavorate, indice 0 = gennaio; `norm` = minuscolo, trim, spazi singoli).
@@ -75,6 +75,52 @@ USOINT sta per **"uso interno"**.
 - **Funzioni presenti**: import automatico (SOLA LETTURA) delle ore lavorate dal database dei
   Dipendenti tramite una **seconda app Firebase** chiamata "dip"; tabella compatta della scheda
   operatore (Lavorate | una colonna per progetto | Tot. rendicontate | Avanzo).
+- ✅ **LA SPUNTA VERDE DELL'IMPORT NON MENTE PIÙ** (ver128, 09/11/2026, difetto trovato dal
+  **collaudo delle INTERCONNESSIONI**).
+  - 🔴 **Misurato**: se il documento `report-ore-mensile/{uid}` **non esisteva** — collegamento
+    `dip` su un **altro account**, oppure Dipendenti che non ha mai salvato — `_dipImport`
+    proseguiva con un oggetto vuoto e finiva in `setDipState("done")`, mostrando
+    «**Ore lavorate importate dai Dipendenti ✓ (0 operatori aggiornati)**» con la spunta **verde**
+    e **zero ore**. Indistinguibile da «tutto già aggiornato»: è il modo più facile di guardare
+    numeri vuoti credendoli veri. Il §10.1 vieta le bugie silenziose.
+  - **La correzione**: due guardie in cima a `_dipImport`, prima di qualunque scrittura. Se il
+    documento non c'è: «Nessun dato trovato in Dipendenti: il collegamento potrebbe essere su un
+    altro account, oppure Dipendenti non ha ancora salvato niente. Le ore già importate NON sono
+    state toccate.» Se c'è ma non contiene dipendenti: «Il gestionale Dipendenti risponde, ma non
+    contiene nessun dipendente da leggere. …» Entrambe in **rosso**, nel punto dove compariva la
+    spunta verde. ⚠️ **Diciture nuove, scritte da Claude.**
+  - **Provato in esecuzione** (`ic-fix.cjs`): col documento **assente** e col documento **senza
+    dipendenti** non compare più «importate ✓» e il motivo è scritto; col documento **buono** la
+    frase di prima torna identica. **Zero errori di pagina.**
+  - 🟠 **ALTRE ANOMALIE DEL COLLEGAMENTO, MISURATE E NON TOCCATE** (servono decisioni di
+    Christian; sono nell'elenco che gli è stato consegnato):
+    1. **record orfani / dati obsoleti**: il ciclo è `Object.keys(dati).forEach` con `if(!cell)
+       return`, quindi ciò che in Dipendenti **non esiste più** non viene né azzerato né segnalato.
+       Togliendo un mese, una persona da un mese o un dipendente dall'elenco, in USOINT **restano
+       le ore di prima** (misurato: 20,00 e 3,00), si salvano, si ricaricano e **finiscono
+       nell'Avanzo**;
+    2. **omonimi fusi in silenzio**: due dipendenti con lo stesso nome diventano **una** riga —
+       nello stesso mese vince l'ultimo (**77 invece di 147: 70 ore perse**), in mesi diversi le
+       ore dei due si mescolano. L'unico identificativo che attraversa il confine è **`norm(nome)`**:
+       nessun codice condiviso;
+    3. **un valore scritto a mano** nella colonna «Lavorate» viene **sostituito** dall'import senza
+       dirlo, e a video non si distingue un numero importato da uno scritto a mano;
+    4. **un nome con un accento diverso non si abbina** (`norm` non tocca i segni diacritici): le
+       ore si perdono, ma l'app lo elenca in «Non abbinati»;
+    5. **un documento di Dipendenti salvato a metà** (`dati[ym][id]` senza `giorni`) **azzera un
+       mese** con la spunta verde;
+    6. **l'import parte da sé** aprendo il Riepilogo e **scrive nel cloud senza 💾** (`LS.set` ha
+       un rinvio di 1,5 s): scostamento dal §10.1 **non dichiarato prima**;
+    7. **non esiste nessun pulsante per rifare l'import**: parte solo al montaggio della schermata;
+    8. due formati numerici plausibili si perdono: **« 4»** (spazio davanti) e **«.5»** valgono 0,
+       perché `_dipNum` pretende che il primo carattere sia una cifra.
+  - ✅ **CHE COSA REGGE, misurato (131 controlli, 131 superati)**: il numero arriva **giusto e nel
+    mese giusto** (gennaio = indice 0, provato con un valore solo a dicembre), con i **formati
+    misti** e la **virgola italiana**; si **aggiorna** in su e in giù e **non si somma**
+    ripetendo l'import; **non si perde** al ricaricamento; con la lettura **caduta** l'app lo
+    **dice** e **non** cancella ciò che c'era; USOINT **non scrive MAI** su `report-ore-mensile`
+    (0 scritture in 7 script); un documento **rotto** non lascia niente a metà.
+
 - 🧵 **DUE CORREZIONI CHE ERANO INCOMPLETE, E UN IMPORTO SCRITTO A MANO** (ver127,
   09/11/2026, tre difetti **trovati dal SECONDO collaudo**, tutti e tre **miei**).
   - 🔴 **L'avviso sui titoli doppi copriva solo la CREAZIONE.** La ver125 metteva il

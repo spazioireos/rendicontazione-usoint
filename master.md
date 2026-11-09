@@ -64,9 +64,9 @@ in cache (problema realmente capitato).
 | App | Numero attuale | Dove si vede | Da dove viene |
 |---|---|---|---|
 | App integrata | `rev 6 · 08nov26` | barra in alto | scritto nel file |
-| Collaboratori | `rev 12 · 09nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
+| Collaboratori | `rev 13 · 09nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
 | Dipendenti | `ver148 · 09nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
-| Rendicontazione USOINT | `ver127 · 09nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
+| Rendicontazione USOINT | `ver128 · 09nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 14 · 09nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
 **Criterio:** dove l'app aveva già una numerazione (USOINT `ver`, Dipendenti `APP_VER`) si usa e
@@ -316,6 +316,29 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   - ⚠️ **Non verificabile da qui, e dichiarato**: Firebase vera, il disegno vero del Report PDF,
     le lettere .docx, Google Drive, gli utenti simultanei veri e il **collaudo in
     pre-produzione** sull'ambiente pubblicato.
+
+- 🔗 **COLLAUDO DELLE INTERCONNESSIONI (09/11/2026) — 415 controlli in esecuzione.**
+  Mappati e provati tutti e sei i collegamenti del gestionale: **Fogli ore → Dipendenti** (ore e
+  assenze, sola lettura: 39 controlli, **zero** scritture di Dipendenti su `users`/`timesheets`),
+  **Dipendenti → Fogli ore** (il residuo: 41 controlli; dimostrato il percorso intero — 6 ore
+  scritte in una cella → «Già usate» 48→54 → documento 54/649 → l'operatore legge 649,00 h),
+  **Dipendenti → USOINT** (ore lavorate: 131 controlli), **USOINT ↔ suo cloud** (36),
+  **pagina integrata** (19) e **Collaboratori**, che risulta **isolata** (24).
+  ✅ **Corretti subito due difetti che perdevano dati**, perché la correzione era già imposta dalle
+  regole: **Collaboratori rev 13** (un file JSON qualunque, es. `[1,2,3]`, veniva importato,
+  sostituiva l'archivio e lasciava la **pagina bianca**) e **USOINT ver128** (la spunta verde
+  «importate ✓» compariva anche con **zero ore**, quando il collegamento era su un altro account).
+  🟠 **Restano in attesa di una decisione di Christian** (consegnate in un elenco di 21 punti): i
+  **dati orfani** in USOINT quando in Dipendenti si cancella; gli **omonimi** che fondono o
+  perdono ore in **entrambi** i collegamenti (l'unico identificativo che attraversa il confine è
+  il **nome**, non un codice); le ore scritte a mano sostituite dall'import; l'import che scrive
+  nel cloud **senza 💾**; **due schede** che si cancellano a vicenda in **USOINT e
+  Collaboratori** (in Dipendenti è già protetto dalla ver144) e, in USOINT, una scheda vecchia che
+  può **far risorgere un lavoro eliminato**; e il salvataggio locale di USOINT che **sparisce** se
+  si ricarica con la linea ancora giù.
+  ⚠️ **Non verificabili dal banco di prova**: Firebase vero con le sue regole, due **computer**
+  diversi che salvano insieme (nel codice l'ultimo vince), Google Drive, e le app vere dentro
+  l'iframe della pagina integrata.
 
 - 🧵 **USOINT ver127 (09/11/2026) — due correzioni che erano incomplete, e un importo scritto a mano.**
   Il secondo collaudo ha trovato tre difetti, tutti e tre **miei**. (1) L'avviso sui **titoli
