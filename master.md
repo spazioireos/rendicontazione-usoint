@@ -65,7 +65,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 6 · 08nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 9 · 08nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver144 · 09nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver145 · 09nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver124 · 09nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 12 · 09nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -249,6 +249,12 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
 - 🧾 **USOINT ver124 (09/11/2026) — la ✕ della fattura chiede conferma.**
   Era l'unica cancellazione dell'app senza conferma, e il §10.1 nomina esplicitamente la
   «fattura». La conferma nomina data, numero, tipo e importo. **7 controlli su 7.**
+
+- 🧹 **Dipendenti ver145 (09/11/2026) — via la tendina morta, e la frase che mentiva.**
+  Tolta la tendina **«Tabella CCNL»** dai valori comuni: dalla ver137 non veniva più letta e il
+  collaudo ha misurato che forzarla non cambiava il costo di un centesimo. Il valore già salvato
+  non viene cancellato, semplicemente non si legge. Corretta la frase «Scegli il livello e il
+  minimo si compila da sé», che rimandava a una cosa non più possibile. **7 controlli su 7.**
 
 - 🔐 **Dipendenti ver144 (09/11/2026) — due schede aperte non si cancellano più a vicenda.**
   Difetto trovato dal collaudo generale: con due schede aperte sullo stesso browser, la seconda
