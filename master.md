@@ -65,7 +65,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 6 · 08nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 9 · 08nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver139 · 09nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver140 · 09nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver123 · 08nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 11 · 08nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -239,6 +239,25 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
     Christian — Dipendenti ha già giallo e azzurro, USOINT ha giallo-senape per il finanziato e
     rosa per il cofinanziato — e completarla significherebbe toccare colori suoi. **Non si fa
     senza una sua decisione nuova.**
+- 🎨 **Dipendenti ver140 (09/11/2026) — i tre colori delle celle, finiti.** Richiesta di
+  Christian: giallline con cornice ocra le celle da compilare, **azzurrine** quelle frutto di
+  formule, **grigioline** quelle copiate e intoccabili (sue scelte 1b, 2a, 3 ok, e Nu*).
+  - 🔑 **La regola era già quella in uso**: misurate in esecuzione tutte e **90 le caselle**
+    delle due schede, 49+14 erano già giallline, 7+6 grigioline, 1 azzurrina. Mancavano **otto
+    tendine** (rimaste col grigio del sistema operativo perché stanno fuori da `.field`) e
+    **l'azzurrino nel Costo orario**.
+  - Ora: le tendine che sono **un dato** sono giallline (rimborso, TFR supplementari, i mesi delle
+    trasformazioni, del monte ore temporaneo, della mensilizzazione, il periodo del massimale);
+    i **selettori del periodo** (Dal mese · Anno · Al mese) sono **neutri** — scelta 1b: non sono
+    un dato che si salva; e **tre celle azzurrine** nel blocco *La retribuzione* (Totale delle
+    componenti, Importo orario, Mensile fisso), gli unici tre numeri calcolati da una formula.
+  - Chiusa un'**incoerenza**: la casella delle ore *Scritte a mano*, quando spenta, aveva fondo
+    grigiolino ma **cornice ocra** — sembrava scrivibile. Ora la cornice segue lo stato.
+  - ✅ **Non regressione misurata**: ver139 e ver140 danno **costo e €/h identici sui 16
+    dipendenti veri** (0 differenze), **larghezza di pagina identica**, **comandi sotto i 32px
+    10 prima e 10 dopo**. Due tendine passano da 32 a 34px: crescono, non si abbassano.
+  - **Provato in esecuzione**: `colori.cjs` (inventario prima/dopo), `azz140.cjs` 4/4, `nr140.cjs`
+    5/5, zero errori di pagina, e **tre anteprime PNG mostrate prima di committare** (§10.3).
 - 🎖️ **Dipendenti ver139 (09/11/2026) — la decorrenza dello scatto si legge in Anagrafica.**
   Punto 13C della direttiva. In ANAGRAFICA → Contratto due righe nuove grigie e di sola lettura:
   **Scatti maturati a oggi** e **Prossimo scatto — decorrenza** (es. `01/02/2027 (il 2°)`).
