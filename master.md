@@ -65,7 +65,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 6 · 08nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 9 · 08nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver135 · 09nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver136 · 09nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver123 · 08nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 11 · 08nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -239,6 +239,23 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
     Christian — Dipendenti ha già giallo e azzurro, USOINT ha giallo-senape per il finanziato e
     rosa per il cofinanziato — e completarla significherebbe toccare colori suoi. **Non si fa
     senza una sua decisione nuova.**
+- 🐞 **Dipendenti ver136 (09/11/2026) — tre difetti preesistenti chiusi, tutti misurati.**
+  Trovati con la verifica del motore `calcCosto` chiesta da Christian nella direttiva
+  «RICOGNIZIONE GENERALE». **Non regressione verificata sui 16 dipendenti veri**: costo e €/h
+  identici fra ver135 e ver136, 16 su 16.
+  - 🚗 il **rimborso km «secco»** si moltiplicava per il numero di pezzi in cui il periodo si
+    taglia: misurato, **18.297,43 → 18.247,43 €** (50,00 € in meno) con 2 pezzi. Era lo stesso
+    caso della formazione, già gestito. Col rimborso «al mese» non cambia niente.
+  - 🔴 un **divisore scritto a ZERO** (*Giorni settimanali* o *Divisore TFR*) rompeva il conto, e
+    `R2`/`fmt2` mostravano il risultato come **«0,00»** come se fosse vero: bugia silenziosa
+    vietata dal §10.1. Ora si usa il valore di riserva e compare una fascia rossa.
+    ⚠️ **Due trappole nella prima stesura, trovate in esecuzione**: la bandierina si perdeva col
+    periodo a pezzi (avviso mai visibile) e la nota scriveva «÷ 0».
+  - 🧾 un **superminimo scritto «1.500,00»** veniva **buttato in silenzio** (il parser non
+    capiva il punto delle migliaia) e la trasformazione si salvava senza. Ora si usa `cNum` e un
+    numero illeggibile ferma il salvataggio dicendolo.
+  - **Provato in esecuzione**: `dif136.cjs` + `dif136b.cjs`, **28 controlli su 28**, zero errori di
+    pagina. ⚠️ I 4 «falliti» della prima passata erano **errori degli script**, non dell'app.
 - 🎖️ **Dipendenti ver135 (09/11/2026) — gli scatti all'assunzione si scrivono in ANAGRAFICA, e
   l'avviso che mancava.** Due richieste di Christian: «è bene che compaia anche in anagrafica e qui
   si compili automaticamente e resti sfondo grigiolino, come per tutte le cose copiate in maniera
