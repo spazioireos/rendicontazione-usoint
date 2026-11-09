@@ -65,7 +65,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 6 · 08nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 9 · 08nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver138 · 09nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver139 · 09nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver123 · 08nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 11 · 08nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -239,6 +239,27 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
     Christian — Dipendenti ha già giallo e azzurro, USOINT ha giallo-senape per il finanziato e
     rosa per il cofinanziato — e completarla significherebbe toccare colori suoi. **Non si fa
     senza una sua decisione nuova.**
+- 🎖️ **Dipendenti ver139 (09/11/2026) — la decorrenza dello scatto si legge in Anagrafica.**
+  Punto 13C della direttiva. In ANAGRAFICA → Contratto due righe nuove grigie e di sola lettura:
+  **Scatti maturati a oggi** e **Prossimo scatto — decorrenza** (es. `01/02/2027 (il 2°)`).
+  Funzione nuova `scattiStoria`, che ricostruisce le date con la **stessa** regola di `scattiAl`
+  (il «giorno 25» del punto 13B era un refuso: vale la 1a, confermata il 09/11).
+  - ⚠️ Nessun calcolo toccato: **ver138 e ver139 danno costo identico sui 16 dipendenti veri**.
+    Senza data di assunzione le due caselle restano **vuote**, di proposito. Le righe non entrano
+    nell'export Excel (le 50 colonne restano quelle).
+  - 🐞 **Un mio errore trovato dalla prova e non da Babel**: avevo usato `nTxt`, funzione
+    **locale** di `CostoOrario`, dentro l'Anagrafica → ReferenceError che rompeva tutta la vista.
+    È la ragione per cui il §10.2 chiede le prove in esecuzione.
+  - **Collaudo del punto 13D, i cinque casi, attesi ricalcolati a mano**: assunto il giorno 1
+    (1 maturato, prossimo 01/02/2027) · assunto il giorno 7 (0, 01/02/2027) · più bienni
+    (2, 01/01/2027) · con 2 mesi tutti AN (1, **01/03/2028**: lo slittamento si vede) · senza data
+    di assunzione (vuoto). **Tutti e cinque coincidono**, e il Costo orario dà lo stesso numero.
+  - **Collaudo del punto 9, il caso completo**: D1 promossa D2 dal 01/07/2026 con due tranche CCNL
+    caricate, anno 2026 → il periodo si divide **da solo in 4 pezzi** (Ott25/D1 · Apr26/D1 ·
+    Apr26/D2 · Ott26/D2), somma dei pezzi **35.446,69 €** e totale **35.696,69 €**: la differenza
+    è **250,00 € esatti**, la formazione, che si conta una volta sola (ver84).
+  - **Provato in esecuzione**: `scatti139.cjs` 28/29 + `caso9.cjs` 3/3 = **31 controlli**, zero
+    errori di pagina. L'unico fallito era un'attesa sbagliata dello script.
 - 📊 **Dipendenti ver138 (09/11/2026) — ⚙ AGGIORNA TABELLE CCNL: lo storico degli importi,
   senza toccare il codice.** Punto 6 della direttiva di Christian; dicitura del pulsante scelta da
   lui. ✅ **Verificato prima di costruire che non esistesse già**: le tabelle stavano solo dentro
