@@ -67,7 +67,7 @@ in cache (problema realmente capitato).
 | Collaboratori | `rev 12 · 09nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
 | Dipendenti | `ver148 · 09nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver126 · 09nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
-| Fogli ore | `rev 13 · 09nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
+| Fogli ore | `rev 14 · 09nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
 **Criterio:** dove l'app aveva già una numerazione (USOINT `ver`, Dipendenti `APP_VER`) si usa e
 si incrementa **quella**; dove non c'era si è partiti da `rev 1`. **Mai due numerazioni nella
@@ -239,6 +239,21 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
     Christian — Dipendenti ha già giallo e azzurro, USOINT ha giallo-senape per il finanziato e
     rosa per il cofinanziato — e completarla significherebbe toccare colori suoi. **Non si fa
     senza una sua decisione nuova.**
+- ⏱️ **Fogli ore rev 14 (09/11/2026) — l'attesa della rev 13 scadeva, e il difetto tornava.**
+  Il secondo collaudo ha trovato un difetto **nella correzione stessa della rev 13**: l'attesa era
+  di **5 secondi**, e con una linea piu' lenta scadeva mentre la registrazione stava ancora
+  scrivendo. **Misurato**: sicuro a 4,5 s, **guasto a 5,5 s** — due scritture, il `name` uguale
+  alla **mail** che vinceva nel database, e `set()` senza merge che **cancellava `cognome` e
+  `nome`**. Corretto: tetto da 50 a 600 giri (la bandierina si abbassa sempre, quindi il ciclo
+  finisce da se') e **`{merge:true}`**. Verificato con la scrittura rallentata a 3 · 4,5 · 5,5 · 7
+  · **12 secondi**: una sola scrittura in tutti i casi. In piu': l'errore tecnico in inglese che
+  arrivava all'operatore esterno ora e' una frase in italiano, e la schermata di **accesso** —
+  dimenticata dal perimetro della rev 13 — non ha piu' scritte sotto i 12,5px (da 3 e 5 a zero).
+  🟠 Segnalati a Christian e **non toccati**: la banda rossa dice «ORE NON SALVATE» anche
+  quando si perde un'**assenza** (dicitura); gli account «battezzati con la mail» quando la
+  registrazione cade a meta' (preesistente); e il mese che **si svuota a video** se cade anche la
+  lettura (effetto collaterale della rev 12, nessun dato perso, misurato in simulazione).
+
 - 🧾 **Fogli ore rev 13 (09/11/2026) — il nome al posto della mail, e le ultime scritte piccole.**
   Alla registrazione `onAuthStateChanged` scattava prima che il documento utente vero fosse
   scritto e ne creava uno con `name: u.email`: **due scritture in corsa**, e per tutta la prima
