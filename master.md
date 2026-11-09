@@ -65,7 +65,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 6 · 08nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 11 · 09nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver146 · 09nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver148 · 09nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver126 · 09nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 13 · 09nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -302,6 +302,24 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
 - 🧾 **USOINT ver124 (09/11/2026) — la ✕ della fattura chiede conferma.**
   Era l'unica cancellazione dell'app senza conferma, e il §10.1 nomina esplicitamente la
   «fattura». La conferma nomina data, numero, tipo e importo. **7 controlli su 7.**
+
+- 🚫 **Dipendenti ver148 (09/11/2026) — «Compila veloce» non accetta più i negativi.**
+  Difetto **trovato dal secondo collaudo**: battendo `-3` il pulsante restava acceso e premendolo
+  scriveva **22 celle a −3**, con TOT calcolato **−66,00**. Nella cella del Tabellone il meno non
+  si può scrivere (ver102), ma «Compila veloce» non passa da `CellInput`: era lo stesso buco della
+  ver143 e della ver144, rimasto aperto sul **segno**. Corretto applicando la regola che Christian
+  aveva già dato ad A4. Il pulsante si spegne e la nota dice «Le ore non possono essere negative».
+
+- 🧪 **Dipendenti ver147 (09/11/2026) — il riquadro «Simulazione».**
+  Ultimo pezzo di **A1**: le caselle giallline che restano nel Costo orario (mesi di contratto e
+  le due settimane) sono raccolte in un riquadro solo loro, col filetto ocra, insieme ai loro
+  avvisi e al pulsante ↺, che ora svuota tutte e tre in un colpo. In cima il riquadro **dice se
+  stai simulando** e nomina ogni forzatura accesa, scatti e superminimo compresi. Fuori, quelle
+  caselle diventano **di sola lettura**. 🐞 Chiuso un **difetto preesistente**: «Mesi di
+  contratto» da vuota mostrava 12, quindi battendo una cifra diventava **125** e il costo passava
+  da 18.197,43 € a **164.566,02 €** (era l'ultimo caso del difetto della ver80).
+  Non regressione: **0 differenze sui 16 dipendenti** sia ver146→ver147 sia **ver140→ver147**,
+  cioè prima e dopo l'intera catena.
 
 - 🏛️ **Dipendenti ver146 (09/11/2026) — i dati del costo si scrivono in Anagrafica, con un periodo.**
   Sezione nuova **«Costo del lavoro»** in ANAGRAFICA con le nove voci che prima stavano nella
