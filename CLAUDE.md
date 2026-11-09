@@ -35,7 +35,7 @@ USOINT sta per **"uso interno"**.
   (specchio di localStorage). Chiavi: `usoint-idx`, `usoint-p-<id>`, `usoint-orelav`,
   `usoint-tariffe`, `usoint-simul`. Accesso mail+password.
 - **Numero di revisione**: costante `const VER` (riga ~67), mostrata in **tre punti** (Home,
-  scheda progetto, Riepilogo operatori). **Attuale: ver126 · 09nov26.** `VER` finisce anche nei
+  scheda progetto, Riepilogo operatori). **Attuale: ver127 · 09nov26.** `VER` finisce anche nei
   nomi dei file esportati: incrementarla, non affiancarle un secondo numero.
 - **Strutture utili**: `usoint-orelav` = `{ [norm(nome)]: { [anno]: [12 numeri] } }` (ore
   lavorate, indice 0 = gennaio; `norm` = minuscolo, trim, spazi singoli).
@@ -75,6 +75,49 @@ USOINT sta per **"uso interno"**.
 - **Funzioni presenti**: import automatico (SOLA LETTURA) delle ore lavorate dal database dei
   Dipendenti tramite una **seconda app Firebase** chiamata "dip"; tabella compatta della scheda
   operatore (Lavorate | una colonna per progetto | Tot. rendicontate | Avanzo).
+- 🧵 **DUE CORREZIONI CHE ERANO INCOMPLETE, E UN IMPORTO SCRITTO A MANO** (ver127,
+  09/11/2026, tre difetti **trovati dal SECONDO collaudo**, tutti e tre **miei**).
+  - 🔴 **L'avviso sui titoli doppi copriva solo la CREAZIONE.** La ver125 metteva il
+    controllo in `cr()`, ma **`rinominaTitolo` non ne aveva nessuno**: con la ✎ si arrivava a due
+    progetti dallo stesso titolo **senza un fiato**. E le conseguenze sono molto peggiori del
+    «difficili da distinguere nell'elenco» che l'avviso prometteva, perché il **Riepilogo
+    operatori aggrega per TITOLO** (`cur.prjM[titolo]`). **Misurato**: il Riepilogo **perde una
+    colonna** (6 → 5), la colonna che resta **somma i due progetti** come se fossero uno (giugno
+    da 42,00 a **132,00**) e la **tendina del filtro della ver126 SPARISCE del tutto** (si disegna
+    solo con più di un progetto in elenco), cioè la correzione appena fatta diventa
+    inutilizzabile. Ora la rinomina legge l'indice, conta gli **altri** progetti con lo stesso
+    titolo (confronto con trim e minuscole, sé stesso escluso) e chiede conferma, **non bloccante**
+    come alla creazione. ⚠️ **Dicitura nuova, scritta da Claude**, che nomina le conseguenze vere:
+    le ore «sommate in una colonna sola» e la tendina che sparisce.
+  - 🔴 **L'avviso del filtro nominava una colonna sola.** Col filtro attivo cambia **anche
+    «Avanzo»** (misurato: TOTALE da 118,00 a 685,00), perché è `lavorate − rendicontate`. L'avviso
+    della ver126 parlava solo di «rendicontate»: ora nomina **entrambe**, spiega perché l'avanzo
+    segue il filtro, e dice che «lavorate» e le colonne per progetto **non** cambiano.
+    ⚠️ La **legenda** sotto la tabella («Avanzo = lavorate − totale rendicontate») **non è stata
+    toccata**: è una dicitura storica, e col filtro attivo diventa inesatta. **Segnalato a
+    Christian.**
+  - 🟠 **L'importo nella conferma della fattura era scritto a mano** (difetto introdotto dalla
+    **ver124**): `String(r.importo).replace(".",",")` invece dei formattatori interni, che il
+    §10.2 vieta espressamente. **Misurato**: la cella diceva «€ 1.234.567,89» e la conferma
+    «**1234567,89 €**»; su 1000 diceva «1000 €» invece di «€ 1.000,00». Ora usa **`grp`**, lo stesso
+    formattatore della cella (verificato: `grp(1234567.89)` = `1.234.567,89`).
+  - 🟠 **SEGNALATE A CHRISTIAN E NON TOCCATE** (servono una sua decisione o cambiano il modello
+    dei dati):
+    1. **La finestrella del dettaglio non segue il filtro**: la cella filtrata di giugno mostra
+       90,00 ma la finestrella «da quali progetti vengono queste ore» elenca **tutti** i progetti
+       (42,00 + 90,00 = 132,00). Il numero grande e il suo dettaglio si contraddicono.
+    2. **Col filtro attivo i mesi a «—» non sono più cliccabili** (la guardia è `if(rw.r>0)`):
+       misurati 2 mesi su 12 muti pur avendo ore su un altro progetto.
+    3. **«1.234,56» BATTUTO si storpia in «1,234»**, perché `onKeyDown` converte il punto in
+       virgola. ⚠️ **PREESISTENTE**, verificato identico nella ver122: **non** è un effetto della
+       ver125. Incollandolo funziona. Il §10.2 chiede il contrario.
+    4. **`rinominaTitolo` scrive subito in `localStorage`** senza passare dal 💾: deroga
+       **preesistente** al §10.1.
+    5. **`key={i}` sulle righe delle fatture** (l'indice dell'array, vietato dal §10.2). Con la
+       cancellazione ora possibile a metà elenco React potrebbe riusare il DOM della riga
+       sbagliata; nelle prove i **valori** risultano sempre corretti. Cambiarlo richiede un
+       identificativo stabile per ogni fattura, cioè toccare il modello dei dati.
+
 - 🔎 **IL FILTRO «PROGETTO» ORA AGISCE ANCHE A SCHERMO** (ver126, 09/11/2026, scelta **a** di
   Christian al punto **A3** della ricognizione).
   - **Il difetto, misurato dal collaudo**: nel **Riepilogo operatori** la tendina «Tutti i

@@ -66,7 +66,7 @@ in cache (problema realmente capitato).
 | App integrata | `rev 6 · 08nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 12 · 09nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
 | Dipendenti | `ver148 · 09nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
-| Rendicontazione USOINT | `ver126 · 09nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
+| Rendicontazione USOINT | `ver127 · 09nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 14 · 09nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
 **Criterio:** dove l'app aveva già una numerazione (USOINT `ver`, Dipendenti `APP_VER`) si usa e
@@ -316,6 +316,21 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   - ⚠️ **Non verificabile da qui, e dichiarato**: Firebase vera, il disegno vero del Report PDF,
     le lettere .docx, Google Drive, gli utenti simultanei veri e il **collaudo in
     pre-produzione** sull'ambiente pubblicato.
+
+- 🧵 **USOINT ver127 (09/11/2026) — due correzioni che erano incomplete, e un importo scritto a mano.**
+  Il secondo collaudo ha trovato tre difetti, tutti e tre **miei**. (1) L'avviso sui **titoli
+  doppi** della ver125 copriva solo la **creazione**: con la ✎ si arrivava a due progetti dallo
+  stesso titolo senza un fiato, e le conseguenze sono peggiori di quanto l'avviso prometteva,
+  perche' il Riepilogo operatori aggrega **per titolo** — misurato: perde una colonna (6 → 5),
+  **somma i due progetti** (giugno da 42,00 a 132,00) e la **tendina del filtro della ver126
+  sparisce**. Ora avvisa anche la rinomina, non bloccante. (2) L'avviso del **filtro** nominava una
+  colonna sola: col filtro cambia anche **Avanzo** (TOTALE da 118,00 a 685,00), e ora lo dice.
+  (3) L'importo nella **conferma della fattura** era scritto a mano invece che col formattatore
+  interno (misurato: «1234567,89 €» invece di «€ 1.234.567,89»), cosa che il §10.2 vieta.
+  🟠 Segnalati a Christian e **non toccati**: la finestrella del dettaglio che non segue il
+  filtro, i mesi a «—» non cliccabili col filtro, il «1.234,56» battuto che si storpia
+  (preesistente), `rinominaTitolo` che scrive senza il 💾 (preesistente) e il `key={i}` sulle
+  righe delle fatture.
 
 - 🔎 **USOINT ver126 (09/11/2026) — il filtro «progetto» agisce anche a schermo.**
   Nel Riepilogo operatori la tendina teneva la scelta ma non cambiava le righe: funzionava solo
