@@ -64,7 +64,7 @@ in cache (problema realmente capitato).
 | App | Numero attuale | Dove si vede | Da dove viene |
 |---|---|---|---|
 | App integrata | `rev 6 · 08nov26` | barra in alto | scritto nel file |
-| Collaboratori | `rev 10 · 09nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
+| Collaboratori | `rev 11 · 09nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
 | Dipendenti | `ver145 · 09nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver126 · 09nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 13 · 09nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
@@ -246,6 +246,12 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   bandierina fa **aspettare** il documento vero: **una sola scrittura**. Chiuse anche le tre
   scritte sotto i 12,5px fuori dalla tabella del mese (linguette dei servizi a 9 e 12px).
   **9 controlli su 9.**
+- 🚫 **Collaboratori rev 11 (09/11/2026) — niente negativi, e avviso sui nomi doppi.**
+  Il collaudo aveva misurato che `-5` nelle ore **sottraeva** senza avviso. La correzione è in
+  `raw()`, il punto unico da cui passano i numeri scritti a mano; verificato prima che nessuna
+  sua chiamata legge dati salvati, quindi le rettifiche calcolate dall'app non sono toccate.
+  Aggiunto l'avviso **non bloccante** sui nomi doppi. **8 controlli su 8.**
+
 - 🧹 **Collaboratori rev 10 (09/11/2026) — niente più codice HTML nelle finestre.**
   `f2()` e `fE()` restituiscono HTML su zero e negativi, e dentro un `confirm()` i tag si
   vedevano scritti («Residuo iniziale: `<span class="zero">0,00</span>`»). Nuova `soloTesto()`
