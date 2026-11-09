@@ -64,7 +64,7 @@ in cache (problema realmente capitato).
 | App | Numero attuale | Dove si vede | Da dove viene |
 |---|---|---|---|
 | App integrata | `rev 6 · 08nov26` | barra in alto | scritto nel file |
-| Collaboratori | `rev 11 · 09nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
+| Collaboratori | `rev 12 · 09nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
 | Dipendenti | `ver148 · 09nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver126 · 09nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 13 · 09nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
@@ -251,6 +251,21 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   `raw()`, il punto unico da cui passano i numeri scritti a mano; verificato prima che nessuna
   sua chiamata legge dati salvati, quindi le rettifiche calcolate dall'app non sono toccate.
   Aggiunto l'avviso **non bloccante** sui nomi doppi. **8 controlli su 8.**
+
+- 🚫 **Collaboratori rev 12 (09/11/2026) — i negativi chiusi anche dalle altre tre porte.**
+  Il secondo collaudo ha dimostrato che la rev 11 aveva chiuso **meno** di quanto dichiarava: la
+  frase «raw() è il punto unico da cui passano tutti i numeri scritti a mano» non regge, perché
+  è il punto unico delle caselle delle **tabelle**. Tre caselle non ci passavano e il difetto A4
+  era ancora aperto da lì: **«Costo orario €» del Nuovo Operatore** (misurato: `-10` dava tariffa
+  −10 e la scheda mostrava «−€ 100,00» per 10 ore), **«Costo orario predefinito €» del Nuovo
+  anno**, e **«Importo €» del pannello della riga in blocco** (letto con `euroIn`, che ammette il
+  meno per costruzione). Corrette tutte e tre. Chiuso anche l'ultimo **`f2()` scoperto dentro un
+  `confirm`** (il difetto B5 che la rev 10 doveva chiudere): con **0,0001 ore** il dialogo mostrava
+  ancora `<span class="zero">0,00</span>`.
+  🟠 Segnalate a Christian e **non toccate**: `1.234,56` nelle ore diventa **1,23** (difetto
+  preesistente, ma il §10.2 chiede il contrario), e un negativo già in archivio si vede per un
+  istante senza il meno dopo un entra/esci dalla casella (effetto collaterale della rev 11, solo a
+  video, dato intatto).
 
 - 🧹 **Collaboratori rev 10 (09/11/2026) — niente più codice HTML nelle finestre.**
   `f2()` e `fE()` restituiscono HTML su zero e negativi, e dentro un `confirm()` i tag si
