@@ -65,7 +65,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 6 · 08nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 9 · 08nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver141 · 09nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver142 · 09nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver123 · 08nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 11 · 08nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -239,6 +239,16 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
     Christian — Dipendenti ha già giallo e azzurro, USOINT ha giallo-senape per il finanziato e
     rosa per il cofinanziato — e completarla significherebbe toccare colori suoi. **Non si fa
     senza una sua decisione nuova.**
+- ⏱️ **Dipendenti ver142 (09/11/2026) — in un giorno non si scrivono più di 13 ore.**
+  Il collaudo generale aveva misurato che la ver102 limitava solo il **numero di cifre**, quindi
+  si potevano scrivere **99 ore in un giorno** e finivano in TOT, tetto annuo e straordinario
+  senza nessuna segnalazione. Costante **`ORE_MAX_GIORNO = 13`** (scelta di Christian) e
+  funzione `oreEntroIlMassimo`, applicate sia mentre si scrive sia all'uscita dalla cella;
+  l'avviso nomina il tetto invece del generico «non è un codice né un numero».
+  ✅ Verificato sui dati veri prima di metterlo: **nessuna cella supera le 13 ore** (massimo
+  8,5), quindi nessun dato esistente diventa irraggiungibile. ⚠️ **«Compila veloce» non è
+  toccato**: non passa da `CellInput`, quindi di là un valore oltre il tetto entrerebbe ancora.
+
 - 🎓 **Dipendenti ver141 (09/11/2026) — l'E.A.R. degli educatori D1 si calcola da solo.**
   Dato di Christian: due maggiorazioni per gli **educatori inquadrati al livello D1** —
   **41,00 €/mese a tempo pieno dal 01/01/2025**, **82,00 € dal 01/09/2025**, e **cessazione dal
