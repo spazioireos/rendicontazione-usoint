@@ -65,7 +65,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 6 · 08nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 9 · 08nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver136 · 09nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver137 · 09nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver123 · 08nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 11 · 08nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -239,6 +239,28 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
     Christian — Dipendenti ha già giallo e azzurro, USOINT ha giallo-senape per il finanziato e
     rosa per il cofinanziato — e completarla significherebbe toccare colori suoi. **Non si fa
     senza una sua decisione nuova.**
+- 🩶 **Dipendenti ver137 (09/11/2026) — la scheda anagrafica comanda: cinque caselle del
+  Costo orario sono grigie e di sola lettura.** Direttiva di Christian «LA SCHEDA ANAGRAFICA È IL
+  MOTORE DEL SISTEMA», sua scelta **«a»** («la casella del Costo orario diventa grigia e di sola
+  lettura, il dato si scrive solo in Anagrafica») e **«6a»** sul part-time.
+  - Grigie ora: **Livello** e **Ore settimanali** (dall'Anagrafica e dalle trasformazioni),
+    **Minimo tabellare** e **Tabella** (dalle tabelle CCNL, per data), **Addizionale TD** (dalle
+    proroghe), più la nuova **Part-time %** (ore ÷ 38). Funzione nuova `campoRO`.
+  - 🔑 **Non bastava renderle grigie**: una casella che non si può né scrivere né svuotare
+    terrebbe per sempre uno scavalcamento vecchio. Quindi il motore **non li legge più**, e il
+    periodo torna a tagliarsi al rinnovo, al passaggio di livello e al cambio di orario.
+  - 🔴 **Quanto era pericoloso, misurato**: con livello F2 e minimo 9999 scritti a mano, la
+    ver136 dava **158.381,47 €** senza tagliare il periodo; la ver137 dà **14.427,24 €** e taglia.
+  - ✅ **Sui dati veri non cambia un centesimo**: nessuno dei 16 dipendenti aveva scritto una di
+    quelle caselle, e ver136/ver137 danno costo e €/h identici su due periodi, 16 su 16.
+  - ⚠️ Restano giallline e scrivibili, con il loro avviso: *Giorni settimanali*, *Mesi di
+    contratto*, le *Settimane* della simulazione, *Scatti*, *Superminimo*.
+  - ⚠️ Le caselle dell'Anagrafica che Christian ha compilato **non sono state toccate** (sua
+    istruzione: «lasciamo stare le cose che ho inserito io»): l'**ETAR** scritto come *Altro
+    importo orario* (0,25 e 0,50 €/h su due persone) **continua a non entrare nel costo**.
+  - **Provato in esecuzione**: `ro137.cjs`, **23 controlli su 23**, zero errori di pagina.
+  - 🔴 **Una dicitura ora rimanda a qualcosa che non si può più fare** e NON è stata corretta
+    (§10.6): «Scegli il livello e il minimo si compila da sé». **Da decidere con Christian.**
 - 🐞 **Dipendenti ver136 (09/11/2026) — tre difetti preesistenti chiusi, tutti misurati.**
   Trovati con la verifica del motore `calcCosto` chiesta da Christian nella direttiva
   «RICOGNIZIONE GENERALE». **Non regressione verificata sui 16 dipendenti veri**: costo e €/h
