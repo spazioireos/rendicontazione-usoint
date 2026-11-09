@@ -35,7 +35,7 @@ USOINT sta per **"uso interno"**.
   (specchio di localStorage). Chiavi: `usoint-idx`, `usoint-p-<id>`, `usoint-orelav`,
   `usoint-tariffe`, `usoint-simul`. Accesso mail+password.
 - **Numero di revisione**: costante `const VER` (riga ~67), mostrata in **tre punti** (Home,
-  scheda progetto, Riepilogo operatori). **Attuale: ver125 · 09nov26.** `VER` finisce anche nei
+  scheda progetto, Riepilogo operatori). **Attuale: ver126 · 09nov26.** `VER` finisce anche nei
   nomi dei file esportati: incrementarla, non affiancarle un secondo numero.
 - **Strutture utili**: `usoint-orelav` = `{ [norm(nome)]: { [anno]: [12 numeri] } }` (ore
   lavorate, indice 0 = gennaio; `norm` = minuscolo, trim, spazi singoli).
@@ -75,6 +75,25 @@ USOINT sta per **"uso interno"**.
 - **Funzioni presenti**: import automatico (SOLA LETTURA) delle ore lavorate dal database dei
   Dipendenti tramite una **seconda app Firebase** chiamata "dip"; tabella compatta della scheda
   operatore (Lavorate | una colonna per progetto | Tot. rendicontate | Avanzo).
+- 🔎 **IL FILTRO «PROGETTO» ORA AGISCE ANCHE A SCHERMO** (ver126, 09/11/2026, scelta **a** di
+  Christian al punto **A3** della ricognizione).
+  - **Il difetto, misurato dal collaudo**: nel **Riepilogo operatori** la tendina «Tutti i
+    progetti» **teneva la scelta ma non cambiava niente** nella tabella mese per mese — le righe
+    restavano identiche con tutte e tre le scelte. Il filtro **funzionava solo nell'export
+    Excel**, dove il titolo e i numeri lo seguivano. A schermo sembrava un filtro e non lo era.
+  - **La causa**: la tabella leggeva `cur.years[y][mi]` (il **totale** su tutti i progetti),
+    mentre esisteva già **`rendAt(y,mi)`** — che rispetta il filtro — usata **solo** dall'export.
+  - **La correzione è una riga**: la colonna *rendicontate* usa ora `rendAt(y,mi)`.
+    In più, quando il filtro è attivo compare un **avviso giallo**: «Filtro attivo: la colonna
+    **rendicontate** mostra SOLO il progetto «…». Rimetti «Tutti i progetti» per vedere il
+    totale.» ⚠️ **Dicitura nuova, scritta da Claude.**
+  - ⚠️ **Le colonne per progetto e la colonna «lavorate» non sono state toccate**, e nemmeno il
+    motore di rendicontazione: cambia solo **quale numero** mostra una colonna.
+  - **Provato in esecuzione** (`ver126.cjs`, **7 controlli su 7**, zero errori di pagina): le
+    righe cambiano scegliendo un progetto, due progetti diversi danno righe diverse, l'avviso
+    compare e sparisce, e rimettendo «Tutti i progetti» si torna **esattamente** ai numeri di
+    prima. Il collaudo `mxus-C` passa ora **53 su 53**.
+
 - 🚫 **NIENTE NEGATIVI NELLE CASELLE NUMERICHE, E AVVISO SUI TITOLI DOPPI** (ver125, 09/11/2026,
   due risposte di Christian alla ricognizione: «**A4**: vieta sempre i negativi nelle celle
   compilabili da me» e «**A5**: avviso non bloccante»).

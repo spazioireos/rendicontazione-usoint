@@ -66,7 +66,7 @@ in cache (problema realmente capitato).
 | App integrata | `rev 6 · 08nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 10 · 09nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
 | Dipendenti | `ver145 · 09nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
-| Rendicontazione USOINT | `ver125 · 09nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
+| Rendicontazione USOINT | `ver126 · 09nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 13 · 09nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
 **Criterio:** dove l'app aveva già una numerazione (USOINT `ver`, Dipendenti `APP_VER`) si usa e
@@ -259,6 +259,11 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   sparita** — in un'app che non tiene copia locale. Ora il `batch.commit()` sta in un
   `try/catch`: il batch è atomico, quindi si buttano dalla cache le chiavi toccate e la pagina
   torna a dire la verità, con banda rossa e avviso. **13 controlli su 13.**
+- 🔎 **USOINT ver126 (09/11/2026) — il filtro «progetto» agisce anche a schermo.**
+  Nel Riepilogo operatori la tendina teneva la scelta ma non cambiava le righe: funzionava solo
+  nell'export. Esisteva già `rendAt()` che rispetta il filtro, usata solo dall'export: ora la
+  usa anche la tabella, e un avviso giallo dice che il filtro è attivo. **7 controlli su 7.**
+
 - 🚫 **USOINT ver125 (09/11/2026) — niente negativi, e avviso sui titoli doppi.**
   Il collaudo aveva misurato che «Ore tot.» accettava −50 (costo −1.149,50 €, propagato ai
   totali). Ora il meno non si scrive più in nessuna delle quattro caselle numeriche dell'app,
