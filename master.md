@@ -65,7 +65,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 6 · 08nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 9 · 08nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver142 · 09nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver143 · 09nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver123 · 08nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 11 · 08nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -239,6 +239,14 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
     Christian — Dipendenti ha già giallo e azzurro, USOINT ha giallo-senape per il finanziato e
     rosa per il cofinanziato — e completarla significherebbe toccare colori suoi. **Non si fa
     senza una sua decisione nuova.**
+- ⚡ **Dipendenti ver143 (09/11/2026) — il tetto delle 13 ore vale anche in «Compila veloce».**
+  `QuickFillModal` non passa da `CellInput`, quindi il tetto della ver142 non lo toccava: di là
+  un valore oltre le 13 ore sarebbe entrato su decine di giorni in un colpo solo. Ora il pulsante
+  «Compila N giorni» si spegne e la nota dice il motivo; i codici passano come prima.
+  **11 controlli su 11**, zero errori di pagina.
+  🔴 **Resta aperto**: «Compila veloce» accetta anche **testo libero** (scrivendo `PIPPO` riempie
+  22 celle, che l'app poi segnala in rosso). Correzione pronta, **in attesa del permesso**.
+
 - ⏱️ **Dipendenti ver142 (09/11/2026) — in un giorno non si scrivono più di 13 ore.**
   Il collaudo generale aveva misurato che la ver102 limitava solo il **numero di cifre**, quindi
   si potevano scrivere **99 ore in un giorno** e finivano in TOT, tetto annuo e straordinario
