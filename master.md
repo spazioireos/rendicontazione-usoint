@@ -64,10 +64,10 @@ in cache (problema realmente capitato).
 | App | Numero attuale | Dove si vede | Da dove viene |
 |---|---|---|---|
 | App integrata | `rev 6 · 08nov26` | barra in alto | scritto nel file |
-| Collaboratori | `rev 9 · 08nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
+| Collaboratori | `rev 10 · 09nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
 | Dipendenti | `ver145 · 09nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver124 · 09nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
-| Fogli ore | `rev 12 · 09nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
+| Fogli ore | `rev 13 · 09nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
 **Criterio:** dove l'app aveva già una numerazione (USOINT `ver`, Dipendenti `APP_VER`) si usa e
 si incrementa **quella**; dove non c'era si è partiti da `rev 1`. **Mai due numerazioni nella
@@ -239,6 +239,19 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
     Christian — Dipendenti ha già giallo e azzurro, USOINT ha giallo-senape per il finanziato e
     rosa per il cofinanziato — e completarla significherebbe toccare colori suoi. **Non si fa
     senza una sua decisione nuova.**
+- 🧾 **Fogli ore rev 13 (09/11/2026) — il nome al posto della mail, e le ultime scritte piccole.**
+  Alla registrazione `onAuthStateChanged` scattava prima che il documento utente vero fosse
+  scritto e ne creava uno con `name: u.email`: **due scritture in corsa**, e per tutta la prima
+  sessione la testata diceva la mail. ⚠️ Con Firebase vero l'ordine non è garantito. Ora una
+  bandierina fa **aspettare** il documento vero: **una sola scrittura**. Chiuse anche le tre
+  scritte sotto i 12,5px fuori dalla tabella del mese (linguette dei servizi a 9 e 12px).
+  **9 controlli su 9.**
+- 🧹 **Collaboratori rev 10 (09/11/2026) — niente più codice HTML nelle finestre.**
+  `f2()` e `fE()` restituiscono HTML su zero e negativi, e dentro un `confirm()` i tag si
+  vedevano scritti («Residuo iniziale: `<span class="zero">0,00</span>`»). Nuova `soloTesto()`
+  usata nei tre dialoghi; `f2` e `fE` non toccate. Chiuse anche tre scritte a 12px fuori dalle
+  tabelle. **8 controlli su 8**, righe delle tabelle dense invariate.
+
 - 🔴 **Fogli ore rev 12 (09/11/2026) — anche l'assenza non si perde più in silenzio.**
   È lo stesso difetto chiuso nella rev 10 per le ore, rimasto aperto per le **assenze**, che non
   passano da `saveTS`: con il collegamento caduto l'eccezione impediva il ridisegno, **la banda
