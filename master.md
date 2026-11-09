@@ -65,7 +65,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 6 · 08nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 9 · 08nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver137 · 09nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver138 · 09nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver123 · 08nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 11 · 08nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -239,6 +239,26 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
     Christian — Dipendenti ha già giallo e azzurro, USOINT ha giallo-senape per il finanziato e
     rosa per il cofinanziato — e completarla significherebbe toccare colori suoi. **Non si fa
     senza una sua decisione nuova.**
+- 📊 **Dipendenti ver138 (09/11/2026) — ⚙ AGGIORNA TABELLE CCNL: lo storico degli importi,
+  senza toccare il codice.** Punto 6 della direttiva di Christian; dicitura del pulsante scelta da
+  lui. ✅ **Verificato prima di costruire che non esistesse già**: le tabelle stavano solo dentro
+  `index.html` come costanti.
+  - Nella barra del **Costo orario**, accanto alle Aliquote: elenco delle tranche in vigore (nome ·
+    vale dal · livelli · D1 · scatto D1 · «nell'app» o «caricata da te») e il modulo per caricarne
+    una nuova, **incollando una riga per livello** («D1 1.690,00»), con anteprima e conferma.
+  - Dati nuovi: **`state.ccnlTab`** — vive nei dati, finisce da sé nel backup JSON e nel sync.
+    Funzioni `ccnlTranche`, `ccnlAl`, `minimiDi`, `scattoDi`; in App `onCCNLAdd`/`onCCNLDel`.
+  - 🔑 **Gli importi storici non si sovrascrivono mai.** Misurato: caricando una tranche dal
+    01/07/2026 il **2026** passa da **18.197,43 a 18.476,82 €** e il periodo si taglia a luglio,
+    mentre il **2025 resta 8.288,89 €, identico al centesimo**.
+  - Le tre tabelle dell'app **non si possono cancellare** (non hanno la ✕); una tranche con la
+    stessa decorrenza di una dell'app **prende il suo posto** (serve a correggere un importo) e la
+    riga originale resta nel codice. Gli **scatti** si possono aggiornare con la loro data, e se la
+    tranche non li porta **si eredita quello di prima**.
+  - **Provato in esecuzione**: `ccnl138.cjs` 27/28 + `ccnlE.cjs` 6/6 = **33 controlli**, zero
+    errori di pagina, e **non regressione** sui 16 dipendenti veri (0 differenze).
+    ⚠️ L'unico «fallito» era un'attesa sbagliata dello script (un nome con lo spazio), non
+    dell'app.
 - 🩶 **Dipendenti ver137 (09/11/2026) — la scheda anagrafica comanda: cinque caselle del
   Costo orario sono grigie e di sola lettura.** Direttiva di Christian «LA SCHEDA ANAGRAFICA È IL
   MOTORE DEL SISTEMA», sua scelta **«a»** («la casella del Costo orario diventa grigia e di sola
