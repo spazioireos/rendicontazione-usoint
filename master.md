@@ -65,7 +65,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 6 · 08nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 9 · 08nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver143 · 09nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver144 · 09nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver123 · 08nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 11 · 08nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -239,6 +239,17 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
     Christian — Dipendenti ha già giallo e azzurro, USOINT ha giallo-senape per il finanziato e
     rosa per il cofinanziato — e completarla significherebbe toccare colori suoi. **Non si fa
     senza una sua decisione nuova.**
+- 🔐 **Dipendenti ver144 (09/11/2026) — due schede aperte non si cancellano più a vicenda.**
+  Difetto trovato dal collaudo generale: con due schede aperte sullo stesso browser, la seconda
+  che salvava **cancellava in silenzio** il lavoro della prima (misurato: 11,25 scritto e salvato
+  da A, sparito dopo il salvataggio di B). Ora a ogni salvataggio si scrive un **timbro** in una
+  chiave a parte; se al momento di salvare il timbro è cambiato, l'app **chiede** prima di
+  sovrascrivere, con il pulsante «Salva lo stesso». ⚠️ Il **formato dei dati e del backup non
+  cambia**. ⚠️ Vale per le schede dello stesso browser: due computer collegati al cloud non si
+  vedono per questa strada.
+  Nella stessa versione **«Compila veloce» non accetta più testo libero** (`PIPPO` riempiva 22
+  celle). **14 controlli su 14**, zero errori di pagina, regressione pulita sui 16 dipendenti.
+
 - ⚡ **Dipendenti ver143 (09/11/2026) — il tetto delle 13 ore vale anche in «Compila veloce».**
   `QuickFillModal` non passa da `CellInput`, quindi il tetto della ver142 non lo toccava: di là
   un valore oltre le 13 ore sarebbe entrato su decine di giorni in un colpo solo. Ora il pulsante
