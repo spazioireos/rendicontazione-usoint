@@ -65,7 +65,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 6 · 08nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 9 · 08nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver134 · 08nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver135 · 09nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver123 · 08nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 11 · 08nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -239,6 +239,29 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
     Christian — Dipendenti ha già giallo e azzurro, USOINT ha giallo-senape per il finanziato e
     rosa per il cofinanziato — e completarla significherebbe toccare colori suoi. **Non si fa
     senza una sua decisione nuova.**
+- 🎖️ **Dipendenti ver135 (09/11/2026) — gli scatti all'assunzione si scrivono in ANAGRAFICA, e
+  l'avviso che mancava.** Due richieste di Christian: «è bene che compaia anche in anagrafica e qui
+  si compili automaticamente e resti sfondo grigiolino, come per tutte le cose copiate in maniera
+  automatica perchè scritte altrove» e «in questo punto fai ricomparire il nome della persona
+  dipendente» (sua scelta «a e b», «sezione del contratto, ma se lo metto impediscimi di scriverlo
+  altrove»). **Nessun calcolo toccato**: stesso costo al centesimo della ver134.
+  - La casella **«Scatti riconosciuti all'assunzione»** è passata in **ANAGRAFICA → Contratto**;
+    nel Costo orario è **grigia e di sola lettura** e rimanda lì. Il vecchio valore scritto nella
+    scheda continua a valere **finché l'Anagrafica è vuota**, e la nota lo dice: nessun dato perso.
+  - Il **nome della persona** si ripete in cima ai tre blocchi e al riquadro del risultato, col
+    quadratino del suo colore: scorrendo la scheda non si sa più di chi siano i numeri.
+  - 🟨 **Avviso nuovo**: un importo di scatti scritto a mano **ferma l'aggiornamento automatico** e
+    spegne il taglio del periodo. Prima l'aiutino mostrava il conteggio automatico senza dire che
+    non era quello in uso. Ora nomina **entrambi** i numeri.
+  - 🔴 **Il problema strutturale è più grande, e Christian lo ha chiesto come correzione il
+    09/11/2026** («LA SCHEDA ANAGRAFICA È IL MOTORE DEL SISTEMA»): **otto caselle dell'Anagrafica
+    che riguardano la paga** — *Importo orario base*, ***Superminimo***, ***Scatti di anzianità***,
+    *Altro importo orario*, *Importo orario totale*, *Part / Full time*, *Giorni di lavoro nella
+    settimana*, *Ruolo / qualifica* — **non sono lette da nessun calcolo** (verificato contando le
+    letture nel file: **zero**). Finiscono in `dp.ana.*` e servono solo alla lettera .docx e
+    all'export Excel, mentre il Costo orario legge le sue caselle `dp.costo.*`, che hanno **lo
+    stesso nome**. È la causa del «ho messo 0,500 orarie di scatti e non si aggiorna». **Da
+    correggere, in attesa delle sue risposte sulle domande aperte.**
 - ⚠️ **Dipendenti ver133 (08/11/2026) — le «settimane davvero lavorabili» dicono che non
   servono.** Domanda di Christian: «la questione settimane davvero lavorabili in realtà ci serve?
   Non calcoliamo tutto dalle ore reali da tabellone?». Ha ragione: con le ore **dai Riepiloghi**
