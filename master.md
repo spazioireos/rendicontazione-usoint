@@ -65,7 +65,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 6 · 08nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 9 · 08nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver140 · 09nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver141 · 09nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver123 · 08nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 11 · 08nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -239,6 +239,28 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
     Christian — Dipendenti ha già giallo e azzurro, USOINT ha giallo-senape per il finanziato e
     rosa per il cofinanziato — e completarla significherebbe toccare colori suoi. **Non si fa
     senza una sua decisione nuova.**
+- 🎓 **Dipendenti ver141 (09/11/2026) — l'E.A.R. degli educatori D1 si calcola da solo.**
+  Dato di Christian: due maggiorazioni per gli **educatori inquadrati al livello D1** —
+  **41,00 €/mese a tempo pieno dal 01/01/2025**, **82,00 € dal 01/09/2025**, e **cessazione dal
+  01/01/2026** (sue scelte: tabella automatica, e «finisce il 31/12/2025 per tutti, qualunque
+  livello»). Riguarda **tre persone**; le altre erano già D2 oppure D1 ma non educatrici.
+  - Costante **`EAR_TRANCHE`** con le tre decorrenze: gli importi storici **non si
+    sovrascrivono**, ogni mese usa quello in vigore allora. Due condizioni necessarie: la
+    **spunta «Educatore (E.A.R.)»** in ANAGRAFICA → Contratto **e** il livello **D1** di quel
+    mese, così il passaggio a D2 lo spegne da sé.
+  - L'E.A.R. entra fra le **componenti mensili** come il superminimo, quindi segue importo
+    orario, mensile fisso, 13ª, 14ª, festività, imponibili, contributi e TFR; **`firmaMese` lo
+    guarda**, quindi il periodo **si taglia da solo** al cambio di tranche.
+  - Nel **Costo orario** la casella è **grigia e di sola lettura** (il dato si scrive solo in
+    Anagrafica), e nella tabella «Come si divide il periodo» c'è una **colonna E.A.R.** che
+    compare solo a chi ce l'ha.
+  - 🔴 **Misurato** su una persona vera, gennaio 2025 → dicembre 2026: **27.748,55 € →
+    28.211,54 €** (**+462,99 €**), €/h 24,28 → **24,69**, e il periodo passa da **3 a 4 pezzi**
+    (41 € fino ad agosto 2025, 82 € da settembre, niente dal 2026 con il D2).
+  - ✅ **Non regressione misurata**: ver140 e ver141 danno **costo e €/h identici sui 16
+    dipendenti veri** (gen→ott 2026, 0 differenze), larghezza di pagina identica a 390 · 768 ·
+    1280 · 1680px. **23 controlli su 23** in esecuzione, zero errori di pagina.
+
 - 🎨 **Dipendenti ver140 (09/11/2026) — i tre colori delle celle, finiti.** Richiesta di
   Christian: giallline con cornice ocra le celle da compilare, **azzurrine** quelle frutto di
   formule, **grigioline** quelle copiate e intoccabili (sue scelte 1b, 2a, 3 ok, e Nu*).
