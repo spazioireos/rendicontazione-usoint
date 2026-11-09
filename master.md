@@ -1008,7 +1008,7 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   dell'Excel, «3h e 45 min»): quei due fogli hanno una riga in meno degli altri e l'importazione
   di allora aveva letto la riga sbagliata. Mancavano **1.762,49 ore**. Rimesse con un file JSON
   che tocca **solo** quei due mesi. Registrate anche le **ore settimanali cambiate nel 2025** di
-  CHIODI (9,5 → 12 → 18 → 12), DEL MASTRO (21 → 17) e PANSERA (16 → 15), come trasformazioni
+  **tre dipendenti** (9,5 → 12 → 18 → 12 · 21 → 17 · 16 → 15), come trasformazioni
   dal 01/01/2025 in poi: ⚠️ **prima del 2025 non cambia niente**, perché il valore di base è
   rimasto quello che c'era.
 
