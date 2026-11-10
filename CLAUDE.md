@@ -35,7 +35,7 @@ USOINT sta per **"uso interno"**.
   (specchio di localStorage). Chiavi: `usoint-idx`, `usoint-p-<id>`, `usoint-orelav`,
   `usoint-tariffe`, `usoint-simul`. Accesso mail+password.
 - **Numero di revisione**: costante `const VER` (riga ~67), mostrata in **tre punti** (Home,
-  scheda progetto, Riepilogo operatori). **Attuale: ver130 · 10nov26.** `VER` finisce anche nei
+  scheda progetto, Riepilogo operatori). **Attuale: ver131 · 10nov26.** `VER` finisce anche nei
   nomi dei file esportati: incrementarla, non affiancarle un secondo numero.
 - **Strutture utili**: `usoint-orelav` = `{ [norm(nome)]: { [anno]: [12 numeri] } }` (ore
   lavorate, indice 0 = gennaio; `norm` = minuscolo, trim, spazi singoli).
@@ -75,6 +75,46 @@ USOINT sta per **"uso interno"**.
 - **Funzioni presenti**: import automatico (SOLA LETTURA) delle ore lavorate dal database dei
   Dipendenti tramite una **seconda app Firebase** chiamata "dip"; tabella compatta della scheda
   operatore (Lavorate | una colonna per progetto | Tot. rendicontate | Avanzo).
+- 🔐 **DUE SCHEDE NON SI CANCELLANO PIÙ A VICENDA, E L'IMPORT HA IL SUO PULSANTE**
+  (ver131, 10/11/2026, punti **4** «**metti la stessa protezione di dipendenti**» e **10**
+  «**metti il pulsante**»).
+  - 🔒 **4 — il TIMBRO, come nella ver144 di Dipendenti.** Con **due schede aperte** sullo stesso
+    browser, quella che salva per ultima riscrive tutto con quello che ha in memoria: le
+    modifiche dell'altra sparivano **senza un fiato**, e una scheda vecchia poteva **far
+    risorgere un lavoro eliminato** nell'altra.
+    Ora a ogni salvataggio si scrive **`uso-timbro`** (una chiave a parte, con un numero sempre
+    diverso) e ogni scheda ricorda in **`timbroMio`** il timbro che conosce; se quello in memoria
+    è **diverso**, **`timbroControlla(cosa)`** chiede prima di sovrascrivere, nominando che cosa
+    si sta per riscrivere («l'elenco dei lavori» oppure «questo lavoro»).
+    - **Dove si controlla**: **`sI`** (l'elenco dei lavori, cioè ogni creazione, eliminazione,
+      duplicazione, importazione e rinomina) e il **💾 della scheda del lavoro**. In **`cr`** e in
+      **`dl`** il controllo è **all'inizio**, prima di scrivere o cancellare: così, se rispondi
+      «annulla», non resta in giro nessun documento orfano.
+    - ⚠️ **Rispondendo sì una volta non te lo richiede a ogni passo**: `timbroMio` prende il
+      timbro nuovo, altrimenti una sola azione farebbe comparire due o tre domande.
+    - ⚠️ La chiave **non comincia per «usoint»**, quindi **non entra nel backup** né in
+      `fbPush`/`fbSync`: il formato dei dati non cambia di una virgola.
+    - ⚠️ **Vale per le schede dello STESSO browser.** Due computer diversi collegati al cloud non
+      si vedono per questa strada: lì l'ultimo che salva vince, **come prima**.
+    - ⚠️ **Dicitura nuova, scritta da Claude**, la stessa della ver144 di Dipendenti.
+  - ↻ **10 — il pulsante per rifare l'import.** Prima l'import delle ore lavorate partiva **solo**
+    aprendo il Riepilogo operatori, e per rifarlo bisognava uscire e rientrare: non esisteva
+    nessun comando. Ora, accanto allo stato del collegamento, c'è
+    **«↻ Rileggi le ore dai Dipendenti»** (compare quando l'import è finito o è andato male).
+    Dati nuovi: **`_dipDbRef`** e **`_dipUidRef`**, riempiti dentro `onAuthStateChanged`.
+    ⚠️ **Dicitura nuova, scritta da Claude.**
+    ⚠️ **Non cambia niente di come l'import lavora**: resta vero che scrive anche nel cloud
+    **senza 💾** (punto 9, ancora da decidere) e che **sostituisce** un numero scritto a mano
+    (punto 7, ancora da decidere).
+  - **Provato in esecuzione** (`ver131us.cjs`, **19 controlli su 19**, zero errori di pagina):
+    due schede vere aperte insieme — la seconda duplica un lavoro senza domande e scrive il
+    timbro, la prima **avvisa**; rispondendo **annulla** l'elenco resta **identico** e il timbro
+    dell'altra scheda **non viene toccato**; col 💾 della scheda del lavoro la domanda nomina
+    «questo lavoro» e **non si ripete** al salvataggio successivo; con **una scheda sola** non
+    chiede **niente** e dice «✓ Salvato» come prima; e il pulsante dell'import, premuto **senza
+    uscire dalla schermata**, aggiorna le ore (10 → 15) e il riquadro torna a dire
+    «importate ✓».
+
 - 🔤 **UN ACCENTO DI DIFFERENZA NON FA PIÙ PERDERE LE ORE** (ver130, 10/11/2026, punto **8**
   dell'elenco, risposta di Christian: «**Ignorali e attenzione a accenti e apostrofi in fine di
   parola, perché si equivalgono**»).

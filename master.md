@@ -66,7 +66,7 @@ in cache (problema realmente capitato).
 | App integrata | `rev 6 · 08nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 14 · 10nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
 | Dipendenti | `ver149 · 10nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
-| Rendicontazione USOINT | `ver130 · 10nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
+| Rendicontazione USOINT | `ver131 · 10nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 15 · 10nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
 **Criterio:** dove l'app aveva già una numerazione (USOINT `ver`, Dipendenti `APP_VER`) si usa e
@@ -397,6 +397,22 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   54 · `mxop-3` 49 · `rev11` 8 · `fix-b45` 8 · `g2-opoc` 9 · `g2b-opoc` 13 · `ic-fix3` 13 ·
   `sc-op-rev12c` 7 · `sc-op-rev12` 10), con un solo controllo fallito, che **falliva già prima**
   (fragilità dello script, non dell'app).
+
+- 🔐 **USOINT ver131 (10/11/2026) — due schede non si cancellano più a vicenda, e l'import ha
+  il suo pulsante** (punti **4** «metti la stessa protezione di dipendenti» e **10** «metti il
+  pulsante»).
+  (1) **Il timbro**, identico a quello della ver144 di Dipendenti: a ogni salvataggio si scrive una
+  chiave a parte con un numero sempre diverso, e se quello in memoria è diverso l'app **chiede**
+  prima di sovrascrivere, nominando «l'elenco dei lavori» o «questo lavoro». Si controlla
+  nell'elenco (creazione, eliminazione, duplicazione, importazione, rinomina) e nel 💾 della
+  scheda del lavoro; in creazione ed eliminazione **prima** di scrivere, così annullando non resta
+  niente a metà. ⚠️ Vale per le schede dello **stesso browser**; la chiave sta fuori dai dati.
+  (2) **↻ Rileggi le ore dai Dipendenti**: prima l'import partiva solo aprendo il Riepilogo
+  operatori e per rifarlo bisognava uscire e rientrare. ⚠️ Non cambia **come** l'import lavora:
+  resta da decidere se avvisare prima di sostituire un numero scritto a mano (punto 7) e se
+  legarlo al 💾 (punto 9).
+  **Provato in esecuzione**: **19 controlli su 19** con due schede vere aperte insieme, zero
+  errori di pagina.
 
 - 🔤 **USOINT ver130 (10/11/2026) — un accento di differenza non fa più perdere le ore**
   (punto **8**, risposta di Christian: «Ignorali e attenzione a accenti e apostrofi in fine di
