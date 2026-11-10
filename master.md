@@ -65,9 +65,9 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 6 · 08nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 14 · 10nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver148 · 09nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
-| Rendicontazione USOINT | `ver129 · 10nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
-| Fogli ore | `rev 14 · 09nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
+| Dipendenti | `ver149 · 10nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Rendicontazione USOINT | `ver130 · 10nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
+| Fogli ore | `rev 15 · 10nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
 **Criterio:** dove l'app aveva già una numerazione (USOINT `ver`, Dipendenti `APP_VER`) si usa e
 si incrementa **quella**; dove non c'era si è partiti da `rev 1`. **Mai due numerazioni nella
@@ -340,6 +340,46 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   diversi che salvano insieme (nel codice l'ultimo vince), Google Drive, e le app vere dentro
   l'iframe della pagina integrata.
 
+- 🔗 **Dipendenti ver149 (10/11/2026) — tre risposte di Christian sul collegamento con Fogli
+  ore** (punti **5** «Ricorda», **6** «Se tolgo il tetto, non deve vedere più niente»,
+  **8** «Ignorali e attenzione a accenti e apostrofi in fine di parola»).
+  (1) **Togliendo il massimale il residuo si CANCELLA**: prima il documento restava e l'operatore
+  leggeva «Ti restano 649,00 h» per sempre. Ora la pubblicazione legge la collection `residui` e
+  cancella il documento di chi non ha **più nessun massimale**, dicendolo nella conferma.
+  ⚠️ Si guarda «nessun massimale in scheda», **non** «nessuno per il mese che guardo»: misurato
+  che aprendo un mese fuori dal periodo **non viene toccato niente**. I residui che non
+  corrispondono a nessun dipendente di oggi non si toccano.
+  (2) **Il promemoria di ripubblicare**: quanto è stato pubblicato si tiene da parte in una
+  chiave di servizio (fuori dai dati, come il timbro della ver144) e, se i numeri di oggi sono
+  diversi, un riquadro giallo nella barra del Tabellone nomina le persone e dice di premere
+  📤 Pubblica i residui.
+  (3) **Accenti e apostrofo finale si equivalgono**: l'unico identificativo che attraversa il
+  confine fra le app è il nome scritto a mano in due anagrafiche, e «NICOLO'» e «NICOLÒ» erano
+  due persone diverse. Funzione nuova `foChiave` (NFD + apostrofo finale), usata **solo per
+  confrontare**: `foNorm`, che serve a come il nome si vede, non è stata toccata. Misurato nel
+  percorso vero: «FERRARÈ» e «FERRARE'» si abbinano.
+  ✅ **Non regressione misurata**: ver148 e ver149 danno **costo, ore e €/h identici per tutti e
+  16 i dipendenti veri** (gen→ott 2026, 0 differenze).
+  **Provato in esecuzione**: **29 controlli su 29**, zero errori di pagina.
+
+- 🗣️ **Fogli ore rev 15 (10/11/2026) — tre risposte di Christian, tutte sulle scritte che
+  mancavano** (punti **13** «Cambiala», **14** «Richiedi al primo accesso», **15** «Aggiungi»).
+  **Nessun calcolo e nessun dato toccato.**
+  (1) **La banda dice quale cosa non è stata salvata**: diceva «ORE NON SALVATE» anche quando si
+  perdeva un'**assenza**, e indicava il 💾, che l'assenza non la rimette. Ora per l'assenza dice
+  «**ASSENZA NON SALVATA** — … il 💾 Salva non la rimette: riscegli l'assenza dalla tendina».
+  ⚠️ Il testo delle ore resta identico carattere per carattere.
+  (2) **«NON HAI PERSO NIENTE»**: era l'effetto collaterale della rev 12 misurato e non corretto
+  (se cade anche la lettura, tutto il mese si svuota a video: 186 caselle su 186). Ora una
+  **seconda banda, blu**, spiega che i dati sono nel database e che basta ricaricare quando torna
+  la linea; sparisce da sé al primo documento riletto.
+  (3) **Il nome chiesto al primo accesso**: gli account «battezzati con la mail» (registrazione
+  caduta a metà) erano un difetto preesistente rimasto aperto. Ora l'app chiede **Cognome** e
+  **Nome** e li scrive con `{merge:true}`, in STAMPATELLO. ⚠️ **L'admin è escluso** di proposito;
+  se la scrittura non riesce compare «Lo faccio dopo» e si entra comunque.
+  **Provato in esecuzione**: **34 controlli su 34**, zero errori di pagina, più la batteria
+  rieseguita.
+
 - ➖ **Collaboratori rev 14 (10/11/2026) — il meno di un negativo già in archivio non sparisce
   più** (punto **12** dell'elenco, sua risposta «Sistema»). Entrando e uscendo da una casella
   **senza scrivere niente**, `blurFmt` riformattava con `raw()`, che dalla rev 11 scarta il segno:
@@ -357,6 +397,18 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   54 · `mxop-3` 49 · `rev11` 8 · `fix-b45` 8 · `g2-opoc` 9 · `g2b-opoc` 13 · `ic-fix3` 13 ·
   `sc-op-rev12c` 7 · `sc-op-rev12` 10), con un solo controllo fallito, che **falliva già prima**
   (fragilità dello script, non dell'app).
+
+- 🔤 **USOINT ver130 (10/11/2026) — un accento di differenza non fa più perdere le ore**
+  (punto **8**, risposta di Christian: «Ignorali e attenzione a accenti e apostrofi in fine di
+  parola, perché si equivalgono»). L'unico identificativo fra Dipendenti e USOINT è il nome,
+  scritto a mano in due anagrafiche: con un accento o un apostrofo di differenza le ore **non
+  venivano importate**. **Misurato**: su tre dipendenti ne arrivava **uno solo**; ora arrivano
+  tutti e tre, coi numeri giusti.
+  ⚠️ `norm` non è stata toccata (le sue chiavi sono l'identità con cui le ore sono già salvate):
+  la funzione nuova `normA` serve **solo a confrontare**, e l'import usa **la chiave di USOINT**,
+  così le ore si attaccano alla riga che c'è già invece di duplicarla (misurato: 5 → 11, tre
+  chiavi). L'apostrofo **dentro** la parola non si tocca.
+  **Provato in esecuzione**: **18 controlli su 18**, zero errori di pagina.
 
 - 🧮 **USOINT ver129 (10/11/2026) — le prime quattro risposte di Christian all'elenco delle
   interconnessioni** (punti **2** «Segnala», **3** «Correggi» con «per il blocco fbSync lascia

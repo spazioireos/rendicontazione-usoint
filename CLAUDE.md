@@ -35,7 +35,7 @@ USOINT sta per **"uso interno"**.
   (specchio di localStorage). Chiavi: `usoint-idx`, `usoint-p-<id>`, `usoint-orelav`,
   `usoint-tariffe`, `usoint-simul`. Accesso mail+password.
 - **Numero di revisione**: costante `const VER` (riga ~67), mostrata in **tre punti** (Home,
-  scheda progetto, Riepilogo operatori). **Attuale: ver129 · 10nov26.** `VER` finisce anche nei
+  scheda progetto, Riepilogo operatori). **Attuale: ver130 · 10nov26.** `VER` finisce anche nei
   nomi dei file esportati: incrementarla, non affiancarle un secondo numero.
 - **Strutture utili**: `usoint-orelav` = `{ [norm(nome)]: { [anno]: [12 numeri] } }` (ore
   lavorate, indice 0 = gennaio; `norm` = minuscolo, trim, spazi singoli).
@@ -75,6 +75,36 @@ USOINT sta per **"uso interno"**.
 - **Funzioni presenti**: import automatico (SOLA LETTURA) delle ore lavorate dal database dei
   Dipendenti tramite una **seconda app Firebase** chiamata "dip"; tabella compatta della scheda
   operatore (Lavorate | una colonna per progetto | Tot. rendicontate | Avanzo).
+- 🔤 **UN ACCENTO DI DIFFERENZA NON FA PIÙ PERDERE LE ORE** (ver130, 10/11/2026, punto **8**
+  dell'elenco, risposta di Christian: «**Ignorali e attenzione a accenti e apostrofi in fine di
+  parola, perché si equivalgono**»).
+  - 🔴 **Il difetto, misurato**: l'unico identificativo che attraversa il confine fra Dipendenti e
+    USOINT è il **nome**, scritto a mano in **due anagrafiche diverse**. Con un accento o un
+    apostrofo di differenza l'operatore **non si abbinava** e le ore **non venivano importate**:
+    finiva in «Non abbinati». **Misurato sulla ver129**: su tre dipendenti — «ALFÀ PROVA»,
+    «BETA PROVA'» e «GAMMA PROVA» — ne arrivava **uno solo**.
+  - **La correzione**: funzione nuova **`normA(x)`** che toglie i segni con **NFD** e
+    l'**apostrofo in fine di parola**. ⚠️ **`norm` NON è stata toccata**: le sue chiavi sono
+    l'**identità** con cui le ore lavorate sono già salvate in `usoint-orelav`, e cambiarla
+    renderebbe **orfano** tutto quello che c'è in archivio. `normA` serve **solo a confrontare**.
+  - 🔑 **E si usa LA CHIAVE DI USOINT, non quella di Dipendenti**: se il nome non combacia
+    lettera per lettera, l'import cerca fra gli operatori di USOINT quello che coincide ignorando
+    i segni e **usa la chiave di USOINT**. Così le ore si **attaccano alla riga che c'è già**
+    invece di crearne una nuova. **Misurato**: una riga in archivio con 5 ore diventa 11, e le
+    chiavi restano **tre**, senza nessuna chiave nuova con l'accento.
+  - ⚠️ **L'apostrofo DENTRO la parola non si tocca**: «D'AMICO LUCIA» resta «d'amico lucia».
+  - **Provato in esecuzione** (`ver130us.cjs`, **18 controlli su 18**, zero errori di pagina): il
+    confronto diretto con la ver129 (una sola riga importata contro tre), i numeri giusti nel mese
+    giusto (11 / 22 / 33 a gennaio), nessuno fra i «Non abbinati», l'avviso sugli orfani della
+    ver129 che **non** compare, la riga in archivio aggiornata e non duplicata, e la **non
+    regressione** con i nomi identici.
+  - ⚠️ **Resta vero che non esiste nessun codice condiviso** fra le app: l'abbinamento è sempre
+    sul nome. Questa correzione lo rende **più tollerante**, non più sicuro: due **omonimi**
+    restano il punto aperto (punto 1 dell'elenco, su cui Christian ha risposto «non chiaro»).
+  - **Batteria rieseguita sulla ver130**: `mxus-A` 47 · `mxus-C` 53 · `ver126` 7 · `ver129a` 13 ·
+    `ver129b` 17, **zero falliti** (in `ver129a` l'attesa della targhetta era scritta a mano:
+    aggiornata).
+
 - 🧮 **QUATTRO RISPOSTE DI CHRISTIAN, IN UNA VOLTA** (ver129, 10/11/2026: punti **2**
   «Segnala», **3** «Correggi» (con «**Per il blocco fbSync lascia stare**»), **16** «Fai seguire
   il filtro anche al dettaglio» e **17** «Sistema», dall'elenco consegnato dopo il collaudo delle
