@@ -65,8 +65,8 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 6 · 08nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 15 · 10nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver149 · 10nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
-| Rendicontazione USOINT | `ver131 · 10nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
+| Dipendenti | `ver150 · 10nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Rendicontazione USOINT | `ver132 · 10nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 15 · 10nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
 **Criterio:** dove l'app aveva già una numerazione (USOINT `ver`, Dipendenti `APP_VER`) si usa e
@@ -339,6 +339,62 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   ⚠️ **Non verificabili dal banco di prova**: Firebase vero con le sue regole, due **computer**
   diversi che salvano insieme (nel codice l'ultimo vince), Google Drive, e le app vere dentro
   l'iframe della pagina integrata.
+
+- 🛡️ **USOINT ver132 (10/11/2026) — l'import non scrive più da sé, e non sovrascrive più in
+  silenzio** (punti **1** «avvisa», **7** «avvisa» e **9** «lega al salva»).
+  (1) **Omonimi**: due schede di Dipendenti che finiscono sulla stessa chiave non si fondono più.
+  Prima **vinceva l'ultima** (misurato dal collaudo: **77 invece di 70+77**, cioè 70 ore perse);
+  ora le loro ore **non si importano** e un riquadro rosso le nomina, spiegando che per sbloccarle
+  si distinguono i nomi in Dipendenti. ⚠️ «Avvisa», **non** «somma».
+  (7) **Un numero scritto a mano viene CHIESTO prima di sostituirlo**: una chiave di servizio
+  nuova, `uso-import-orig`, tiene la **provenienza** (che cosa aveva scritto l'import l'ultima
+  volta); se in archivio c'è un numero diverso, un `confirm` elenca le caselle e **Annulla** le
+  lascia come sono, importando comunque il resto. ⚠️ La **prima volta non avvisa**: la
+  provenienza non esiste ancora.
+  (9) **L'import è legato al 💾**: era l'unico scostamento **non dichiarato** dal §10.1, perché
+  `_dipImport` scriveva da sé in `localStorage` e, col rinvio di 1,5 s, anche nel cloud. Ora mette
+  le ore a schermo, dice «**non sono ancora salvate**» e mostra il 💾 **nel riquadro del
+  collegamento** (quello della tabella si vede solo con un operatore selezionato); e **uscire
+  dalla schermata senza salvare viene CHIESTO**, perché ← Indietro smonta la vista e le ore
+  andrebbero perse — ⚠️ vale **anche** per le ore scritte a mano in quella tabella, che prima
+  si perdevano senza un fiato (difetto **preesistente**).
+  ⚠️ Le due chiavi di servizio **non cominciano per «usoint»**, quindi il **backup JSON e il
+  cloud restano identici**. **Provato in esecuzione**: `ver132us.cjs` **41/41**, zero errori di
+  pagina. ✅ **Non regressione misurata**: senza omonimi e senza numeri scritti a mano, dopo il
+  💾 i numeri sono **identici alla ver131**. 🐞 La batteria ha trovato **due pulsanti troppo
+  bassi** (25px il «↻ Rileggi le ore dai Dipendenti» della ver131, cioè una mia regressione
+  rimasta aperta): alzati entrambi a 34px, così i comandi sotto i 32px nel Riepilogo tornano
+  **8, come nella ver122**. **Batteria rieseguita, zero falliti nuovi** (19 script).
+
+- ✅ **Dipendenti ver150 — non regressione numerica**: **ver148 e ver150 danno costo, ore e
+  €/h identici per tutti e 16 i dipendenti veri** (gen→ott 2026, **0 differenze**), e la
+  batteria (12 script) dà gli **stessi conteggi** del record della ver149.
+  🐞 Lo script del confronto (`nr149`) era stato **rotto da una mia modifica all'etichetta** e
+  andava in errore: corretto e rieseguito, perché altrimenti la non regressione non era
+  dimostrata.
+
+- 👥 **Dipendenti ver150 (10/11/2026) — due persone con lo stesso nome non si fondono più in
+  silenzio** (punto **1** dell'elenco, risposta di Christian: «**avvisa**»).
+  Due casi, tutti e due silenziosi: **due account in Fogli ore** con lo stesso nome (il confronto
+  mostrava le ore di una sola persona) e **due schede in Dipendenti** con lo stesso nome
+  (📤 Pubblica i residui scriveva **due volte sullo stesso documento** `residui/<uid>`;
+  misurato sulla ver149: due schede che dicono **655** e **703** h, e nel database resta **703**).
+  Ora un **riquadro rosso** nella scheda del mese dice quante schede o quanti account hanno quel
+  nome, il **confronto è sospeso**, il **residuo non viene pubblicato** e la conferma della
+  pubblicazione li elenca sotto «OMONIMI (saltati…)». ⚠️ Un residuo **già pubblicato** per un
+  nome diventato ambiguo **non viene né riscritto né cancellato**.
+  Funzioni nuove: `foRaggruppaPerChiave`, `foOmonimiUtenti`, `dipOmonimi`.
+  **Provato in esecuzione**: `ver150.cjs` **31/31**, zero errori di pagina.
+  ✅ **Non regressione misurata**: senza omonimi la riga del confronto è **identica** alla ver149
+  e la pubblicazione scrive **gli stessi residui con gli stessi numeri**.
+
+- ✅ **Punti 18 e 19 dell'elenco: CHIUSI DA CHRISTIAN SENZA TOCCARE NIENTE** (10/11/2026, sua
+  risposta «3 ok»). **18** — in USOINT le righe delle fatture sono identificate dalla
+  **posizione** (`key={i}`, che il §10.2 vieta): cambiarlo richiede un identificativo stabile per
+  ogni fattura, cioè toccare il modello dei dati. **19** — le quattro app stanno sulla **stessa
+  origine**, quindi condividono un solo `localStorage`, e la separazione è data solo dal prefisso
+  delle chiavi; ⚠️ **oggi non fa danni, misurato**. Entrambi sono **limiti dichiarati e
+  accettati**: non vanno riproposti.
 
 - 🔗 **Dipendenti ver149 (10/11/2026) — tre risposte di Christian sul collegamento con Fogli
   ore** (punti **5** «Ricorda», **6** «Se tolgo il tetto, non deve vedere più niente»,

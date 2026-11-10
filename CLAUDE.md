@@ -35,7 +35,7 @@ USOINT sta per **"uso interno"**.
   (specchio di localStorage). Chiavi: `usoint-idx`, `usoint-p-<id>`, `usoint-orelav`,
   `usoint-tariffe`, `usoint-simul`. Accesso mail+password.
 - **Numero di revisione**: costante `const VER` (riga ~67), mostrata in **tre punti** (Home,
-  scheda progetto, Riepilogo operatori). **Attuale: ver131 · 10nov26.** `VER` finisce anche nei
+  scheda progetto, Riepilogo operatori). **Attuale: ver132 · 10nov26.** `VER` finisce anche nei
   nomi dei file esportati: incrementarla, non affiancarle un secondo numero.
 - **Strutture utili**: `usoint-orelav` = `{ [norm(nome)]: { [anno]: [12 numeri] } }` (ore
   lavorate, indice 0 = gennaio; `norm` = minuscolo, trim, spazi singoli).
@@ -75,6 +75,105 @@ USOINT sta per **"uso interno"**.
 - **Funzioni presenti**: import automatico (SOLA LETTURA) delle ore lavorate dal database dei
   Dipendenti tramite una **seconda app Firebase** chiamata "dip"; tabella compatta della scheda
   operatore (Lavorate | una colonna per progetto | Tot. rendicontate | Avanzo).
+- 🛡️ **L'IMPORT NON SCRIVE PIÙ DA SÉ, E NON SOVRASCRIVE PIÙ IN SILENZIO** (ver132,
+  10/11/2026, tre risposte di Christian all'elenco: punto **1** «avvisa», punto **7** «avvisa»
+  e punto **9** «lega al salva»).
+  - 👥 **1 — due persone con lo stesso nome non si fondono più in silenzio.** L'unico
+    identificativo che attraversa il confine fra le app è il **nome**, scritto a mano in due
+    anagrafiche diverse. Se due schede di Dipendenti finiscono sulla stessa chiave, prima
+    **vinceva l'ultima**: nello stesso mese si perdevano le ore della prima (**misurato dal
+    collaudo: 77 invece di 70+77, cioè 70 ore perse**), in mesi diversi le ore dei due si
+    mescolavano, e **niente lo diceva**.
+    - La chiave finale si calcola in una **prima passata** (compreso il recupero per accenti
+      della ver130) e si **contano**: due schede sulla stessa chiave diventano *ambigue*, le loro
+      ore **non si importano** e un **riquadro rosso** le nomina
+      («Due o più schede con lo STESSO nome in Dipendenti: NOME (2 schede)») spiegando che
+      sommarle o scegliere una delle due falserebbe i conti, e che per sbloccarle si distinguono
+      i nomi in Dipendenti e si ripreme **↻ Rileggi le ore dai Dipendenti**.
+    - ⚠️ **Christian ha scelto «avvisa», NON «somma»**: non sommare le ore di due omonimi.
+    - ⚠️ Gli omonimi sono **esclusi anche dagli «orfani»** della ver129, altrimenti lo stesso
+      caso veniva segnalato due volte con due motivi diversi.
+    - ⚠️ **Dicitura nuova, scritta da Claude.**
+  - ✋ **7 — un numero scritto a mano viene CHIESTO prima di sostituirlo.** Prima l'import lo
+    **sostituiva senza dirlo**, e a video un numero importato e uno scritto a mano erano
+    indistinguibili.
+    - **Come si riconosce**: una chiave di servizio nuova, **`uso-import-orig`**, tiene la
+      **provenienza**, cioè che cosa aveva scritto l'import l'ultima volta, cella per cella. Se
+      in archivio c'è un numero **diverso** da quello, non l'ha messo l'import.
+      ⚠️ La chiave **non comincia per «usoint»**, quindi **non entra nel backup JSON né in
+      `fbPush`/`fbSync`**: il formato dei dati non cambia di una virgola (verificato: nel cloud
+      non compare).
+    - **Che cosa succede**: un `confirm` elenca le caselle («NOME · 2026 GEN: 99,00 → 10,00») e
+      dice che **OK** sostituisce e **Annulla** lascia tutto come era, importando comunque il
+      resto. Rispondendo **Annulla** compare un riquadro che dice quali caselle sono state
+      lasciate come erano, e la domanda **torna al giro dopo** (la provenienza di quelle celle
+      non viene aggiornata). ⚠️ **Diciture nuove, scritte da Claude.**
+    - ⚠️ **La PRIMA volta non avvisa**, di proposito: la provenienza non esiste ancora e l'app
+      non può sapere quali numeri sono scritti a mano. Si limita a prenderne nota.
+    - ⚠️ **Se un import precedente non è ancora stato salvato**, il confronto si fa con
+      **quella** provenienza (`_impoPendRef`), non con quella in archivio: altrimenti i numeri
+      appena importati e non salvati sembrerebbero scritti a mano al giro dopo.
+  - 💾 **9 — l'import è legato al 💾.** Era l'unico scostamento **non dichiarato** dal §10.1
+    («mai salvataggio automatico»): `_dipImport` scriveva da sé in `localStorage` e, con il
+    rinvio di 1,5 s di `LS.set`, **anche nel cloud**. Ora mette le ore **a schermo** e accende il
+    💾; nel riquadro del collegamento compare la riga «**non sono ancora salvate**: se
+    ricarichi la pagina adesso le perdi» **con il pulsante 💾 accanto**.
+    ⚠️ Il 💾 della tabella sotto si vede **solo con un operatore selezionato**: per questo il
+    pulsante è stato messo **anche** nel riquadro, che si vede sempre.
+    ⚠️ **La provenienza si scrive SOLO quando si salva davvero** (in `saveLav`, da un `useRef`),
+    altrimenti un import non salvato farebbe comparire avvisi falsi al giro dopo. Se l'import
+    non cambia niente, la provenienza si scrive subito: in quel caso l'archivio è già identico
+    a quello che si registrerebbe.
+    ⚠️ **Dicitura nuova, scritta da Claude.**
+    - 🚪 **E uscire dalla schermata senza salvare viene CHIESTO.** `RiepilogoPersone` è
+      renderizzato in alternativa alle altre viste, quindi **← Indietro lo smonta** e le ore
+      appena importate sarebbero perse. Ora `tornaIndietro()` chiede «Le ore lavorate non sono
+      salvate — se esci adesso le perdi» (§10.1: avviso alla chiusura con modifiche non
+      salvate). ⚠️ Vale **anche** per le ore scritte a mano in quella tabella, che prima si
+      perdevano **senza un fiato**: difetto **preesistente** chiuso qui per necessità.
+      ⚠️ **Dicitura nuova, scritta da Claude.**
+  - **Funzioni nuove**: `impoLeggi`, `impoScrivi`, `impoVal`, `impoSet`, `tornaIndietro`; stati
+    `dipOmon` e `dipMano`; ref `_impoPendRef`.
+  - **Provato in esecuzione** (`ver132us.cjs`, **41 controlli su 41**, zero errori di pagina):
+    il confronto diretto con la **ver131** (77 al posto di 70+77, e l'archivio che cambiava senza
+    premere niente); il riquadro rosso degli omonimi, con l'operatore **senza** omonimi importato
+    come prima; l'archivio **non toccato** dopo l'import e le ore che arrivano davvero col 💾,
+    anche nel cloud; la provenienza scritta solo al salvataggio e **fuori** dal cloud; la prima
+    volta che **non** chiede; la domanda che nomina la casella; **Annulla** che tiene il numero
+    scritto a mano e **OK** che lo sostituisce; e il terzo giro che non chiede più niente.
+  - ✅ **NON REGRESSIONE, misurata**: senza omonimi e senza numeri scritti a mano, **dopo il 💾
+    i numeri sono identici a quelli della ver131**, il riquadro rosso non compare e il
+    collegamento dice «importate ✓ (2 operatori aggiornati)» come prima.
+  - 🐞 **DUE PULSANTI TROPPO BASSI, TROVATI DALLA MISURA E NON DAL CODICE.** `mxus-G` ha
+    misurato che i comandi sotto i 32px nel Riepilogo passavano da **8 a 9**, contro il §10.6
+    («l'altezza di caselle e pulsanti NON si riduce»). Il colpevole non era il 💾 nuovo ma
+    **«↻ Rileggi le ore dai Dipendenti», cioè il pulsante della ver131**, alto **25px**: una mia
+    regressione rimasta aperta, che quel giorno `mxus-G` non aveva potuto vedere perché il
+    server della versione di confronto non era in funzione. Ora **entrambi** i pulsanti hanno
+    `minHeight:34`, e i comandi sotto i 32px nel Riepilogo tornano **8, come nella ver122**.
+  - **Batteria rieseguita, tutta superata, zero falliti**: `mxus-A` 47 · `B` 67 · `C` 53 ·
+    `D` 34 · `E` 28 · `F` 7 · `G` 5 · `H` 5 · `ver125` 10 · `ver126` 7 · `ver129a` 13 ·
+    `ver129b` 17 · `ver129c` 19/1 · `ver129d` 6 · `ver129t` 3 · `ver130us` 18 · `ver131us` 19 ·
+    `fix-b2` 7 · `ver132us` 46.
+    ⚠️ L'unico fallito, in `ver129c`, è **un errore di pagina della ver128** (la versione di
+    confronto), non di oggi: identico al record della ver129.
+    ⚠️ In **quattro** script le attese erano invecchiate e sono state **aggiornate, non
+    aggirate**: le targhette scritte a mano in `mxus-D` e `ver129t`, e — in `ver130us` e
+    `ver131us` — la lettura dell'archivio subito dopo l'import, che ora richiede il 💾 perché
+    è esattamente ciò che il punto 9 ha cambiato.
+
+- ✅ **DUE COSE CHIUSE DA CHRISTIAN SENZA TOCCARE NIENTE** (10/11/2026, sua risposta «3 ok» ai
+  punti **18** e **19** dell'elenco). **Restano come sono, e NON vanno riproposte.**
+  - **18 — le righe delle fatture sono identificate dalla POSIZIONE** (`key={i}`, l'indice
+    dell'array, che il §10.2 vieta). Con la cancellazione a metà elenco React potrebbe riusare
+    il riquadro della riga sbagliata; nelle prove i **valori** risultano sempre corretti.
+    Cambiarlo richiede un identificativo stabile per ogni fattura, cioè toccare il modello dei
+    dati. **Limite dichiarato e accettato.**
+  - **19 — le quattro app stanno sulla stessa origine** `spazioireos.github.io`, quindi
+    condividono **un solo `localStorage`**: la separazione è data **solo** dal prefisso delle
+    chiavi. ⚠️ **Oggi non fa danni, misurato**: nessuna app legge o scrive le chiavi di
+    un'altra e i prefissi non si sovrappongono. **Limite dichiarato e accettato.**
+
 - 🔐 **DUE SCHEDE NON SI CANCELLANO PIÙ A VICENDA, E L'IMPORT HA IL SUO PULSANTE**
   (ver131, 10/11/2026, punti **4** «**metti la stessa protezione di dipendenti**» e **10**
   «**metti il pulsante**»).
@@ -103,9 +202,9 @@ USOINT sta per **"uso interno"**.
     **«↻ Rileggi le ore dai Dipendenti»** (compare quando l'import è finito o è andato male).
     Dati nuovi: **`_dipDbRef`** e **`_dipUidRef`**, riempiti dentro `onAuthStateChanged`.
     ⚠️ **Dicitura nuova, scritta da Claude.**
-    ⚠️ **Non cambia niente di come l'import lavora**: resta vero che scrive anche nel cloud
-    **senza 💾** (punto 9, ancora da decidere) e che **sostituisce** un numero scritto a mano
-    (punto 7, ancora da decidere).
+    ⚠️ **Nella ver131 non cambiava niente di come l'import lavora**: scriveva anche nel cloud
+    **senza 💾** (punto 9) e **sostituiva** un numero scritto a mano (punto 7).
+    ✅ **Tutti e due chiusi dalla ver132**, vedi la scheda 🛡️ qui sopra.
   - **Provato in esecuzione** (`ver131us.cjs`, **19 controlli su 19**, zero errori di pagina):
     due schede vere aperte insieme — la seconda duplica un lavoro senza domande e scrive il
     timbro, la prima **avvisa**; rispondendo **annulla** l'elenco resta **identico** e il timbro
