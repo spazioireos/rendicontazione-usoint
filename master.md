@@ -66,7 +66,7 @@ in cache (problema realmente capitato).
 | App integrata | `rev 6 · 08nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 13 · 09nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
 | Dipendenti | `ver148 · 09nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
-| Rendicontazione USOINT | `ver128 · 09nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
+| Rendicontazione USOINT | `ver129 · 10nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 14 · 09nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
 **Criterio:** dove l'app aveva già una numerazione (USOINT `ver`, Dipendenti `APP_VER`) si usa e
@@ -339,6 +339,39 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   ⚠️ **Non verificabili dal banco di prova**: Firebase vero con le sue regole, due **computer**
   diversi che salvano insieme (nel codice l'ultimo vince), Google Drive, e le app vere dentro
   l'iframe della pagina integrata.
+
+- 🧮 **USOINT ver129 (10/11/2026) — le prime quattro risposte di Christian all'elenco delle
+  interconnessioni** (punti **2** «Segnala», **3** «Correggi» con «per il blocco fbSync lascia
+  stare», **16** «Fai seguire il filtro anche al dettaglio», **17** «Sistema»).
+  (1) **Il dettaglio segue il filtro**: cliccando *Tot. rendicontate* la finestrella elencava
+  **sempre tutti** i progetti, quindi la cella diceva **42,00** e il dettaglio **132,00**; ora
+  mostra solo il progetto scelto, col TOTALE uguale alla cella e un avviso in cima. Si chiude da
+  sé anche la seconda anomalia (i mesi a «—» non cliccabili: adesso è giusto).
+  (2) **La legenda** «Avanzo = lavorate − totale rendicontate» era inesatta col filtro attivo
+  (il totale dell'Avanzo passa da 118,00 a 685,00): **senza filtro la dicitura di Christian resta
+  identica**, col filtro nomina entrambe le colonne e il progetto.
+  (3) **Le ore che Dipendenti non conferma vengono SEGNALATE**: ciò che là è stato cancellato
+  restava qui, si salvava e finiva nell'Avanzo senza che niente lo dicesse. Ora un riquadro giallo
+  elenca «NOME · 2026: MAR» e, per chi non c'è più, «non è più in Dipendenti». ⚠️ **Non viene
+  azzerato niente**: quelle ore possono anche essere scritte a mano.
+  (4) **Il salvataggio locale non si perde più al ricaricamento**: `LS.set` rinvia la scrittura
+  nel cloud di 1,5 s e, se cade, al ricaricamento `fbSync` sovrascriveva (**misurato sulla
+  ver128**: 1077 nel browser, 68 nel cloud, dopo il ricaricamento 68 — dato perduto). Ora le
+  chiavi non confermate si segnano **col loro valore** in una chiave di servizio
+  (`uso-sospese-cloud`, fuori dal backup e da `fbPush`/`fbSync`) e si **riprovano prima** di
+  `fbSync` (misurato: 1077 nel browser **e** nel cloud). ⚠️ **`fbSync` non è stato bloccato**,
+  come ha chiesto lui: se la riprova non riesce il valore resta **tenuto da parte** (non è
+  perduto) e un avviso arancione dice di fare un 💾 Backup dati. Corretto nello stesso punto un
+  **promise non gestito** del `beforeunload`, che a linea caduta lasciava un errore di pagina
+  (identico nella ver128).
+  **Provato in esecuzione**: **58 controlli** (13 + 17 + 19 + 6 + 3), zero errori di pagina sulla
+  ver129; rieseguita tutta la batteria (`mxus-A` 47 · `B` 67 · `C` 53 · `D` 34 · `E` 28 ·
+  `F` 7 · `G` 5 · `H` 5 · `ver125` 10 · `ver126` 7 · `fix-b2` 7), **zero falliti**.
+  ⚠️ In sei script le attese erano **invecchiate** (targhetta, nome del file di backup, formato
+  dell'importo della ver127 e i controlli che misuravano i negativi chiusi dalla ver125):
+  aggiornate, non aggirate.
+  🟠 **Restano da chiarire con lui**: gli **omonimi** (punto 1) e il **`key={i}`** delle righe
+  delle fatture (punto 18), su cui ha risposto «non chiaro».
 
 - 🧵 **USOINT ver127 (09/11/2026) — due correzioni che erano incomplete, e un importo scritto a mano.**
   Il secondo collaudo ha trovato tre difetti, tutti e tre **miei**. (1) L'avviso sui **titoli

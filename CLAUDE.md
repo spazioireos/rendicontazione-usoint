@@ -35,7 +35,7 @@ USOINT sta per **"uso interno"**.
   (specchio di localStorage). Chiavi: `usoint-idx`, `usoint-p-<id>`, `usoint-orelav`,
   `usoint-tariffe`, `usoint-simul`. Accesso mail+password.
 - **Numero di revisione**: costante `const VER` (riga ~67), mostrata in **tre punti** (Home,
-  scheda progetto, Riepilogo operatori). **Attuale: ver128 · 09nov26.** `VER` finisce anche nei
+  scheda progetto, Riepilogo operatori). **Attuale: ver129 · 10nov26.** `VER` finisce anche nei
   nomi dei file esportati: incrementarla, non affiancarle un secondo numero.
 - **Strutture utili**: `usoint-orelav` = `{ [norm(nome)]: { [anno]: [12 numeri] } }` (ore
   lavorate, indice 0 = gennaio; `norm` = minuscolo, trim, spazi singoli).
@@ -75,6 +75,76 @@ USOINT sta per **"uso interno"**.
 - **Funzioni presenti**: import automatico (SOLA LETTURA) delle ore lavorate dal database dei
   Dipendenti tramite una **seconda app Firebase** chiamata "dip"; tabella compatta della scheda
   operatore (Lavorate | una colonna per progetto | Tot. rendicontate | Avanzo).
+- 🧮 **QUATTRO RISPOSTE DI CHRISTIAN, IN UNA VOLTA** (ver129, 10/11/2026: punti **2**
+  «Segnala», **3** «Correggi» (con «**Per il blocco fbSync lascia stare**»), **16** «Fai seguire
+  il filtro anche al dettaglio» e **17** «Sistema», dall'elenco consegnato dopo il collaudo delle
+  interconnessioni).
+  - 🔍 **16 — il DETTAGLIO segue il filtro.** Nel Riepilogo operatori, cliccando la cella
+    *Tot. rendicontate* si apre la finestrella «da quali progetti vengono queste ore»: elencava
+    **sempre tutti** i progetti, anche col filtro attivo. **Misurato**: la cella diceva
+    **42,00** e la finestrella **132,00** (42 + 90) — il numero grande e il suo dettaglio si
+    contraddicevano. Ora, col filtro attivo, la finestrella mostra **solo quel progetto** e il
+    suo TOTALE è identico alla cella; in cima compare un avviso giallo che lo dice.
+    ⚠️ **Si chiude da sé anche la seconda anomalia dell'elenco**: col filtro attivo i mesi a
+    «—» non sono cliccabili, e adesso è **giusto**, perché per quel progetto non c'è niente da
+    dettagliare. ⚠️ **Dicitura nuova, scritta da Claude.**
+  - 📝 **17 — la legenda non mente più.** La riga «Avanzo = lavorate − totale rendicontate»
+    era **inesatta col filtro attivo** (misurato: il TOTALE dell'Avanzo passa da 118,00 a
+    685,00). ⚠️ **Senza filtro la dicitura di Christian resta IDENTICA, carattere per
+    carattere**: cambia **solo** quando il filtro è attivo, e allora nomina **entrambe** le
+    colonne che il filtro cambia e il progetto scelto. ⚠️ **Dicitura nuova, scritta da Claude**,
+    autorizzata dalla sua risposta «Sistema».
+  - 🟠 **2 — le ore che Dipendenti NON conferma vengono SEGNALATE.** Il ciclo dell'import
+    è `Object.keys(dati).forEach` con `if(!cell) return`, quindi ciò che in Dipendenti **non
+    esiste più** (un mese cancellato, una persona tolta dall'elenco) restava qui con le ore di
+    prima, si salvava, si ricaricava e finiva nell'**Avanzo**, senza che niente lo dicesse.
+    Dati nuovi in `_dipImport`: **`visti`** (quali persona/anno/mese Dipendenti conferma davvero)
+    e **`inDip`**; stato nuovo **`dipOrf`**. A video, un riquadro giallo sotto «Non abbinati»
+    elenca «NOME · 2026: MAR» e, per chi non c'è più, «— non è più in Dipendenti».
+    ⚠️ **NON si azzera e non si cancella niente** (§10.1: quelle ore possono anche essere state
+    scritte a mano), e il riquadro lo dice. ⚠️ **Dicitura nuova, scritta da Claude.**
+  - 🔐 **3 — il salvataggio locale non si perde più al ricaricamento.** `LS.set` scrive
+    subito in `localStorage` e rinvia la scrittura nel cloud di **1,5 s**; se quella cade (linea
+    assente) il dato resta solo nel browser, e al ricaricamento **`fbSync` scaricava dal cloud e
+    sovrascriveva**. **Misurato sulla ver128**: valore nuovo **1077** nel browser, cloud **68**;
+    dopo il ricaricamento il browser torna **68** — il salvataggio era **perduto**.
+    **La correzione**: le chiavi non ancora confermate dal cloud si segnano **col loro valore**
+    in una chiave di servizio **`uso-sospese-cloud`**, che **non comincia per «usoint»** e quindi
+    **non entra** né nel backup JSON né in `fbPush`/`fbSync`. All'accesso successivo
+    **`sospRiprova(uid)`** le spinge nel cloud **prima** di `fbSync`: riuscita, il cloud ha il
+    dato locale e `fbSync` non può più cancellarlo. **Misurato sulla ver129**: 1077 nel browser
+    **e** nel cloud, lista delle sospese svuotata.
+    ⚠️ **`fbSync` NON è stato bloccato**, come ha chiesto Christian: se la riprova **non**
+    riesce, il cloud riscrive comunque `localStorage`, ma il valore è **tenuto da parte** nella
+    chiave di servizio (quindi non è perduto: torna al primo accesso riuscito) e un avviso
+    arancione dice di fare un **💾 Backup dati** e che a schermo si possono vedere i numeri di
+    prima. ⚠️ **Conseguenza dichiarata**: un valore tenuto da parte molto a lungo, al primo
+    accesso riuscito, **vince sul cloud**. ⚠️ **Dicitura nuova, scritta da Claude.**
+    🐞 **Corretto nello stesso punto un promise NON GESTITO**: la scrittura di scorta nel
+    `beforeunload` era in un `try/catch`, che **non** cattura una promessa rifiutata, quindi a
+    linea caduta lasciava un errore di pagina (**misurato identico nella ver128**). Ora ha il suo
+    `.catch`, e la ver129 chiude con **zero errori di pagina** dove la ver128 ne aveva uno.
+  - 🔒 **Guardia sull'account**: le chiavi messe da parte portano l'**uid** di chi le ha
+    scritte, quindi su un browser usato da due account quelle di uno **non** vengono spinte nel
+    cloud dell'altro (restano lì e tornano quando rientra il loro). **Misurato.**
+  - **Provato in esecuzione, 58 controlli**: `ver129a.cjs` **13/13** (filtro e legenda),
+    `ver129b.cjs` **17/17** (orfani), `ver129c.cjs` **19/20** — l'unico «fallito» è l'errore di
+    pagina **della ver128**, non della ver129 —, `ver129d.cjs` **6/6** (guardia sull'account e
+    formato vecchio della lista), `ver129t.cjs` **3/3** (le tre targhette).
+    **Non regressione**: senza filtro la legenda e il dettaglio tornano **identici**; con
+    Dipendenti che conferma tutto **nessun avviso** e la spunta verde intatta; col cloud sano il
+    💾 scrive subito anche nel cloud e la lista delle sospese resta vuota.
+    **Batteria rieseguita, tutta superata**: `mxus-A` 47 · `B` 67 · `C` 53 · `D` 34 · `E` 28 ·
+    `F` 7 · `G` 5 · `H` 5 · `ver125` 10 · `ver126` 7 · `fix-b2` 7, **zero falliti**.
+    ⚠️ In sei script le **attese erano invecchiate** (la targhetta «ver123», il nome del file di
+    backup, l'importo della fattura nel formato della ver127 e i tre controlli di `mxus-H` che
+    misuravano il difetto dei **negativi chiuso dalla ver125**): sono state **aggiornate**, non
+    aggirate, e in `mxus-H` è stato chiarito che gli importi negativi a video sono **differenze
+    calcolate**, non valori scritti a mano.
+  - 🟠 **NON toccate, per scelta**: la **legenda** non è stata riscritta fuori dal caso del
+    filtro; gli **omonimi** (punto 1, «non chiaro») e il **`key={i}`** delle fatture (punto 18,
+    «non chiaro») restano da chiarire con lui.
+
 - ✅ **LA SPUNTA VERDE DELL'IMPORT NON MENTE PIÙ** (ver128, 09/11/2026, difetto trovato dal
   **collaudo delle INTERCONNESSIONI**).
   - 🔴 **Misurato**: se il documento `report-ore-mensile/{uid}` **non esisteva** — collegamento
