@@ -64,7 +64,7 @@ in cache (problema realmente capitato).
 | App | Numero attuale | Dove si vede | Da dove viene |
 |---|---|---|---|
 | App integrata | `rev 6 · 08nov26` | barra in alto | scritto nel file |
-| Collaboratori | `rev 14 · 10nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
+| Collaboratori | `rev 15 · 10nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
 | Dipendenti | `ver149 · 10nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver131 · 10nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 15 · 10nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
@@ -397,6 +397,19 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   54 · `mxop-3` 49 · `rev11` 8 · `fix-b45` 8 · `g2-opoc` 9 · `g2b-opoc` 13 · `ic-fix3` 13 ·
   `sc-op-rev12c` 7 · `sc-op-rev12` 10), con un solo controllo fallito, che **falliva già prima**
   (fragilità dello script, non dell'app).
+
+- 🔐 **Collaboratori rev 15 (10/11/2026) — due schede non si cancellano più a vicenda in
+  silenzio** (punto **4**, risposta di Christian: «metti la stessa protezione di dipendenti»).
+  Con due schede aperte sullo stesso browser l'ultima che premeva ✔ Salva riscriveva tutto
+  l'elenco: misurato, il **41,5** della prima spariva e restava il **38,25** della seconda.
+  Ora il **timbro** (chiave a parte, fuori dai dati: il backup JSON non cambia) fa **chiedere**
+  prima di sovrascrivere, e annullando non viene toccato niente. È la stessa protezione della
+  ver144 di Dipendenti e della ver131 di USOINT, quindi adesso **tutte e tre** le app che salvano
+  in locale sono difese.
+  🐞 **Un mio errore trovato dalla prova in esecuzione e non dal controllo di sintassi**: al primo
+  tentativo era entrata solo la **chiamata** e non le **funzioni**, e il salvataggio sarebbe
+  andato in errore. Stessa trappola della ver139 di Dipendenti.
+  **Provato in esecuzione**: **15 controlli su 15** con due schede vere aperte insieme.
 
 - 🔐 **USOINT ver131 (10/11/2026) — due schede non si cancellano più a vicenda, e l'import ha
   il suo pulsante** (punti **4** «metti la stessa protezione di dipendenti» e **10** «metti il
