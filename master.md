@@ -64,7 +64,7 @@ in cache (problema realmente capitato).
 | App | Numero attuale | Dove si vede | Da dove viene |
 |---|---|---|---|
 | App integrata | `rev 6 · 08nov26` | barra in alto | scritto nel file |
-| Collaboratori | `rev 13 · 09nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
+| Collaboratori | `rev 14 · 10nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
 | Dipendenti | `ver148 · 09nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver129 · 10nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 14 · 09nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
@@ -339,6 +339,24 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   ⚠️ **Non verificabili dal banco di prova**: Firebase vero con le sue regole, due **computer**
   diversi che salvano insieme (nel codice l'ultimo vince), Google Drive, e le app vere dentro
   l'iframe della pagina integrata.
+
+- ➖ **Collaboratori rev 14 (10/11/2026) — il meno di un negativo già in archivio non sparisce
+  più** (punto **12** dell'elenco, sua risposta «Sistema»). Entrando e uscendo da una casella
+  **senza scrivere niente**, `blurFmt` riformattava con `raw()`, che dalla rev 11 scarta il segno:
+  un negativo già in archivio — e li scrive l'app stessa con «Azzera credito residuo» — si
+  vedeva per un istante **senza il meno**. **Misurato nel percorso vero**: rev 13 «-45,50» →
+  **«45,50»**; rev 14 «-45,50» → **«-45,50»**. ⚠️ **Il dato in archivio non era mai stato
+  alterato**: era una bugia solo a video. La correzione sta in **due funzioni** (`fcl` ricorda il
+  testo di partenza, `blurFmt` non riformatta se non hai toccato niente) e **non tocca il divieto
+  dei negativi** della rev 11 (misurato: scrivendo `-12,5` entra 12,50).
+  ✅ **Punto 11 chiuso senza toccare niente**: verificato in esecuzione che **`1234.56` e
+  `1234,56` danno entrambi 1.234,56**, cioè i due modi che usa lui. Resta vero che «1.234,56»
+  con le migliaia puntate dà 1,234, ma è una scrittura che lui **non usa mai**.
+  **Provato in esecuzione**: 22 controlli (15 in isolamento + 7 nel percorso vero, col confronto
+  rev 13 ↔ rev 14), zero errori di pagina; rieseguita tutta la batteria (`mxop-1` 46 · `mxop-2`
+  54 · `mxop-3` 49 · `rev11` 8 · `fix-b45` 8 · `g2-opoc` 9 · `g2b-opoc` 13 · `ic-fix3` 13 ·
+  `sc-op-rev12c` 7 · `sc-op-rev12` 10), con un solo controllo fallito, che **falliva già prima**
+  (fragilità dello script, non dell'app).
 
 - 🧮 **USOINT ver129 (10/11/2026) — le prime quattro risposte di Christian all'elenco delle
   interconnessioni** (punti **2** «Segnala», **3** «Correggi» con «per il blocco fbSync lascia
