@@ -75,6 +75,42 @@ USOINT sta per **"uso interno"**.
 - **Funzioni presenti**: import automatico (SOLA LETTURA) delle ore lavorate dal database dei
   Dipendenti tramite una **seconda app Firebase** chiamata "dip"; tabella compatta della scheda
   operatore (Lavorate | una colonna per progetto | Tot. rendicontate | Avanzo).
+- 🔴 **COLLAUDO GENERALE DEL 11/11/2026 — UN DIFETTO GRAVE PREESISTENTE, TROVATO E NON
+  CORRETTO** (serve la decisione di Christian). Per il resto la ver133 ha retto: **665 controlli
+  superati**, batteria storica rieseguita per intero (i «falliti» sono **targhette scritte a
+  mano** in 5 script e l'irraggiungibilità dei link live), **zero errori di pagina**, grafica
+  confermata (griglia del budget **356 / 734 / 1246 / 1646px**, celle **41px**, a 390 la scheda
+  **non sborda**), `R2` **1.551,83**, cofinanziamento in %, «⇥ spalma», ✕ della fattura con
+  l'importo formattato, timbro, import dai Dipendenti, pagina integrata **36/36**.
+  1. 🔴 **UN FILE DI RIPRISTINO CON LA FORMA GIUSTA E IL CONTENUTO ROTTO VIENE ACCETTATO, ROMPE
+     L'APP E AVVELENA IL CLOUD.** La guardia della ver121 conta gli elementi la cui **chiave**
+     comincia per `usoint`: valida la **forma**, non il **contenuto**.
+     **Misurato** con un file di una riga, `{"usoint-idx":"12345"}`: la conferma dice «Stai per
+     rimettere **1 elementi**…», poi «Rimessi 1 elementi **e scritti nel cloud (5)**»; al
+     ricaricamento compare «**Errore nell'applicazione — TypeError: (projects || []).forEach is
+     not a function**»; «**Reset e ricarica**» pulisce il browser **ma NON il cloud**
+     (verificato: dopo il reset il cloud contiene ancora `{"v":"12345"}`), e siccome `fbSync`
+     all'accesso riscarica dal cloud, **rientrando l'app torna rotta, su qualunque dispositivo**.
+     ⚠️ **PREESISTENTE**, identico nella ver132. ⚠️ Un backup **vero troncato** è JSON non valido
+     e viene **respinto correttamente**: serve un file costruito a mano o prodotto da un altro
+     strumento. ⚠️ È lo stesso difetto che **Collaboratori ha chiuso con la rev 13**
+     (`paionoOperatori`): qui l'effetto è peggiore perché si propaga al cloud.
+     ⚠️ **NON corretto**: tocca il percorso dei dati, serve il suo via (§10.3).
+  2. 🟠 **Il backup JSON non porta nessun numero di versione dello schema** (§10.1). È
+     `{chiave: valore}` delle sole chiavi `usoint*`. Dipendenti ha `version: 4` e Collaboratori
+     `versione: 3`: qui non c'è niente, quindi un backup di uno schema più vecchio verrebbe
+     rimesso **alla cieca** — ed è anche il motivo per cui quel caso **non si può provare**.
+  3. 🟡 **La conferma di eliminazione di un lavoro non nomina il lavoro**: sono due clic della
+     **stessa** conferma in riga, non due conferme distinte (⚠️ la scheda della ver124 dice «il
+     progetto ne chiede due»: letto alla lettera, dice una cosa che non succede). La ✕ della
+     fattura, al confronto, nomina data, numero, tipo e importo.
+  4. 🟡 **`uso122.js`** (381.405 byte) sta nella radice del repository e **non è usato da
+     nessuno**: è il JavaScript compilato della **ver123**, entrato col commit `cf171dc`. Nessun
+     dato personale dentro (verificato), ma è pubblicato su Pages e confonde chi guarda il repo.
+  5. 🟡 **La targhetta della pagina integrata è a 12px** (`.rev{font-size:12px}`), sotto il
+     minimo del §10.6: nelle quattro app la targhetta è un'eccezione **dichiarata**, per la
+     pagina integrata no.
+
 - 💾 **RINOMINARE UN LAVORO PASSA DAL 💾, E USCIRE SENZA SALVARE VIENE CHIESTO** (ver133,
   11/11/2026, risposta di Christian: «**8 sì**»).
   - 🔴 **Era l'ultima deroga al «mai salvataggio automatico» del §10.1.** La ✎ sul titolo del

@@ -340,6 +340,36 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   diversi che salvano insieme (nel codice l'ultimo vince), Google Drive, e le app vere dentro
   l'iframe della pagina integrata.
 
+- 🔬 **COLLAUDO GENERALE DELL'INTERO GESTIONALE — 11/11/2026.** Quattro app più la pagina
+  integrata, provate **una per una** e poi **fra loro**: **~2.570 controlli, 2.542 superati**.
+  Le quattro anomalie **gravi** sono **tutte preesistenti** e riguardano **la sicurezza dei dati
+  e l'inserimento**, non le novità delle ultime revisioni.
+  | App | esito | anomalie aperte |
+  |---|---|---|
+  | **Dipendenti** ver156 | 898 superati · 8 falliti (gli stessi di sempre, attese dei miei script) | **nessuna** |
+  | **Fogli ore** rev 15 | 509 superati · 3 falliti | **2 gravi**: il backup JSON **non contiene `svccaps` né `lightsheets`**; **non esiste nessun import** |
+  | **Collaboratori** rev 15 | ~500 superati · 15 falliti | **1 grave**: «22,99» battuto nel costo orario diventa **2299** (`type="number"` ingoia la virgola); **1 media**: 13 scritte a 11px in tre finestre |
+  | **USOINT** ver133 | 665 superati · 38 falliti (quasi tutti targhette invecchiate) | **1 grave**: un file di ripristino con la forma giusta e il contenuto rotto è accettato, rompe l'app e **avvelena il cloud**; **1 media**: backup senza numero di schema |
+  | **Pagina integrata** rev 6 | 36/36 | targhetta a 12px (eccezione non dichiarata) |
+  - **Interconnessioni: 320 controlli, ZERO falliti.** Provati tutti e tre i canali reali, con le
+    app vere nello stesso browser: **Fogli ore → Dipendenti** (lettura di `users`/`timesheets`,
+    con accenti e apostrofo equiparati), **Dipendenti → `residui` → Fogli ore** (pubblicazione,
+    cancellazione quando il tetto sparisce, privacy fra operatori), **Dipendenti → USOINT**
+    (import delle ore, omonimi segnalati e non importati, numero scritto a mano chiesto prima di
+    sostituirlo, tutto legato al 💾). **Nessuna app scrive mai dove non deve**: zero scritture di
+    USOINT su `report-ore-mensile`, zero di Dipendenti fuori da `residui`.
+  - **Flusso completo F2 provato end-to-end** (14/14): si scrivono le ore in Dipendenti → 💾 →
+    USOINT le importa → 💾 → si cambia il dato in Dipendenti → ↻ Rileggi → il numero segue, senza
+    righe doppie.
+  - **Regole di sicurezza Firestore rieseguite** con l'emulatore ufficiale sul testo dichiarato
+    pubblicato: **51 controlli su 51**.
+  - **Nessun dato personale nei repository**: cercati 31 pezzi di nome in 18 file, 14 occorrenze
+    tutte false (nomi comuni, tabella dei comuni, parole).
+  - 🔬 **Da oggi il PDF si può guardare davvero**: jsPDF 2.5.1 e autotable 3.8.2 — le stesse
+    versioni del CDN — installati da npm e serviti in locale; il PDF si scarica, si conta con
+    `pdfinfo` e si rende in immagine. È così che si è scoperto che la griglia delle presenze
+    **non stava in una pagina** (corretto con la **ver156**).
+
 - 🖨️ **Dipendenti ver156 (11/11/2026) — il PDF ora si vede davvero, e le presenze stanno in
   una pagina** (Christian: «i report pdf devono stare su una pagina il primo e va bene anche su
   due quello per l'ufficio paghe»).
