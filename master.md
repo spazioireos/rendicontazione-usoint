@@ -65,7 +65,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 6 · 08nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 15 · 10nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver154 · 11nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver155 · 11nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver133 · 11nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 15 · 10nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -339,6 +339,21 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   ⚠️ **Non verificabili dal banco di prova**: Firebase vero con le sue regole, due **computer**
   diversi che salvano insieme (nel codice l'ultimo vince), Google Drive, e le app vere dentro
   l'iframe della pagina integrata.
+
+- 🗑️ **Dipendenti ver155 (11/11/2026) — un valore rimasto su un giorno rosso si può
+  togliere, e il giorno resta bloccato** (punto 1: «togli», «se però poi sarà nuovamente
+  possibile bloccare i gg rossi»).
+  Le **7 celle `FESTNG`** dei dati veri stanno **tutte su domenica 7 dicembre 2025** e dalla
+  ver77 non erano né correggibili né togliibili. Ora sotto la cella c'è un **🗑 togli**:
+  ⚠️ **non sblocca niente** — la casella resta disabilitata, il giorno resta rosso e scrivere
+  resta impossibile; il pulsante toglie e basta, e sparisce appena la cella è vuota.
+  🔑 **Compare SOLO su `FESTNG`**: sui giorni rossi dell'archivio ci sono **922** celle con un
+  valore, ma sono quasi tutte dati veri (**695 `--`**, **153 `FEST`**, 34 `MAT-OBB`…), e un
+  🗑 su tutte sarebbe stato un invito a cancellarli. Conferma esplicita, e la cancellazione
+  va **solo in memoria**: serve il 💾.
+  **Provato in esecuzione**: `ver155` **18/18**, `graf155` **15/15**, `graf155b` **4/4**, zero
+  errori di pagina; grafica identica a 390 · 1280 · 1700px e **tabella del mese 2283px
+  invariata**.
 
 - 🧾 **Dipendenti ver154 (11/11/2026) — il report delle paghe diventa una tabella sola, con le
   ore voce per voce.** Quattro risposte di Christian nello stesso giorno.
