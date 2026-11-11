@@ -65,7 +65,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 6 · 08nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 15 · 10nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver155 · 11nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver156 · 11nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver133 · 11nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 15 · 10nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -339,6 +339,29 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   ⚠️ **Non verificabili dal banco di prova**: Firebase vero con le sue regole, due **computer**
   diversi che salvano insieme (nel codice l'ultimo vince), Google Drive, e le app vere dentro
   l'iframe della pagina integrata.
+
+- 🖨️ **Dipendenti ver156 (11/11/2026) — il PDF ora si vede davvero, e le presenze stanno in
+  una pagina** (Christian: «i report pdf devono stare su una pagina il primo e va bene anche su
+  due quello per l'ufficio paghe»).
+  - 🔬 **Cade il limite dichiarato da sempre**: `jspdf@2.5.1` e `jspdf-autotable@3.8.2` — le
+    **stesse versioni del CDN** — si installano da **npm** e si servono in locale (banco nuovo
+    `scratchpad/sitopdf/`, porta 8300, con `dip/` di oggi e `dip155/` per il confronto). Il PDF
+    si scarica davvero, si conta con `pdfinfo`, si legge con `pdftotext` e **si guarda** con
+    `pdftoppm`. ⚠️ Da qui in avanti nessun report PDF si consegna senza averlo generato e contato.
+  - 🔴 **Misurato**: la **ver155** faceva **3 pagine** sui dati veri di ottobre 2026 (la griglia
+    delle presenze si spezzava su due) e **4** con 24 persone. La **ver156** ne fa **2** e **3**,
+    con le presenze sempre in **una pagina sola**. La pagina per l'ufficio paghe **non è stata
+    toccata**: può andare su due, l'ha detto lui.
+  - **Come**: una misura calcolata che stringe imbottitura → righe col permesso → carattere, e
+    poi una **verifica vera** (la tabella si disegna su una pagina di prova, si contano le pagine
+    con `getNumberOfPages()`, le prove si cancellano e se serve si stringe ancora).
+  - 🐞 **Un errore mio, trovato dal PDF vero e non dal finto**: la prima stesura aveva infilato
+    `misura.fs`/`misura.hPerm` anche nel **Report storico**, che andava in errore e non produceva
+    più niente. Babel compilava lo stesso. Corretto, e verificato che il testo del Report storico
+    è **identico** a quello della ver155.
+  - **Provato in esecuzione**: `ver156` **19/19** su PDF veri, `ver153` 41/41, `ver154` 41/41,
+    `ver155` 18/18, zero errori di pagina. I **dati** del report mensilizzati sono identici alla
+    ver155 (nessun numero cambiato).
 
 - 🗑️ **Dipendenti ver155 (11/11/2026) — un valore rimasto su un giorno rosso si può
   togliere, e il giorno resta bloccato** (punto 1: «togli», «se però poi sarà nuovamente
