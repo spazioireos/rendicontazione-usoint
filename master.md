@@ -67,7 +67,7 @@ in cache (problema realmente capitato).
 | Collaboratori | `rev 16 · 11nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
 | Dipendenti | `ver156 · 11nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver134 · 11nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
-| Fogli ore | `rev 15 · 10nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
+| Fogli ore | `rev 16 · 11nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
 **Criterio:** dove l'app aveva già una numerazione (USOINT `ver`, Dipendenti `APP_VER`) si usa e
 si incrementa **quella**; dove non c'era si è partiti da `rev 1`. **Mai due numerazioni nella
@@ -125,6 +125,30 @@ ore.** Non riproporlo.
   tolto dal repository. **Provato in esecuzione**: `ver134us` **21/21**, batteria completa
   **zero falliti nuovi** (21 script; l'unico fallito è un errore di pagina della **ver128**, la
   versione di confronto).
+
+- 💾 **Fogli ore rev 16 (11/11/2026) — il backup completo e il ripristino che non c'era.**
+  Il backup JSON **non era una copia completa**: mancavano `svccaps` (i massimali per servizio, il
+  sistema in uso dalla rev 6) e `lightsheets` (tutti gli operatori light e le loro ore), mentre
+  dentro c'era `caps`, il sistema vecchio e fermo dalla rev 6. Per **due collection su sei** quel
+  file non era quello che il PROMEMORIA a video dice che è. E **non esisteva nessun import**:
+  0 `input[type=file]`, 0 `FileReader`, nessuna funzione di ripristino, quindi un recupero
+  richiedeva la console Firebase, contro il §10.1. Ora il backup porta **tutte e sei** le
+  collection più il numero di **schema** (`FO_SCHEMA = 1`), e c'è **«📂 Ripristina backup JSON»**,
+  che **prima valida il contenuto** (ogni collection dev'essere un elenco di documenti con un
+  `id`) e **solo se valido** sovrascrive, con **due conferme** e un esito che, se qualcosa non
+  entra, dice «**FINITO A META'**» invece di «completato».
+  - 🔐 **Un limite vero, misurato con l'emulatore ufficiale e dichiarato nella conferma a
+    video**: le regole danno all'admin `update` su `users` ma **non `create`**, quindi un utente
+    il cui documento è stato **cancellato** non si può ricreare dal ripristino — deve
+    registrarsi di nuovo, e poi il ripristino gli rimette ruolo e dati. Tutto il resto
+    (`timesheets`, `lightsheets`, `svccaps`, `caps`, `locks`) l'admin lo riscrive. **Nove
+    controlli nuovi** nel test delle regole: ora **60 su 60**. Le regole **non sono state
+    toccate**: le pubblica Christian in console.
+  - ⚠️ **`residui` NON è nel backup, di proposito**: lo scrive Dipendenti con *📤 Pubblica i
+    residui* e si rifà da solo; in Fogli ore è di sola lettura.
+  - **Provato in esecuzione**: `rev16fo` **33/33**, grafica `rev16fo-graf` **22/22** (a 390 · 768
+    · 1280 · 1700px la larghezza è **identica** alla rev 15), batteria completa **zero falliti**
+    (31 script + le regole).
 
 
 - **App integrata** (§3): quattro pulsanti, link live, revisione visibile.
