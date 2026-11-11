@@ -35,7 +35,7 @@ USOINT sta per **"uso interno"**.
   (specchio di localStorage). Chiavi: `usoint-idx`, `usoint-p-<id>`, `usoint-orelav`,
   `usoint-tariffe`, `usoint-simul`. Accesso mail+password.
 - **Numero di revisione**: costante `const VER` (riga ~67), mostrata in **tre punti** (Home,
-  scheda progetto, Riepilogo operatori). **Attuale: ver132 · 10nov26.** `VER` finisce anche nei
+  scheda progetto, Riepilogo operatori). **Attuale: ver133 · 11nov26.** `VER` finisce anche nei
   nomi dei file esportati: incrementarla, non affiancarle un secondo numero.
 - **Strutture utili**: `usoint-orelav` = `{ [norm(nome)]: { [anno]: [12 numeri] } }` (ore
   lavorate, indice 0 = gennaio; `norm` = minuscolo, trim, spazi singoli).
@@ -75,6 +75,38 @@ USOINT sta per **"uso interno"**.
 - **Funzioni presenti**: import automatico (SOLA LETTURA) delle ore lavorate dal database dei
   Dipendenti tramite una **seconda app Firebase** chiamata "dip"; tabella compatta della scheda
   operatore (Lavorate | una colonna per progetto | Tot. rendicontate | Avanzo).
+- 💾 **RINOMINARE UN LAVORO PASSA DAL 💾, E USCIRE SENZA SALVARE VIENE CHIESTO** (ver133,
+  11/11/2026, risposta di Christian: «**8 sì**»).
+  - 🔴 **Era l'ultima deroga al «mai salvataggio automatico» del §10.1.** La ✎ sul titolo del
+    lavoro scriveva **subito** in `localStorage` — e quindi, col rinvio di 1,5 s di `LS.set`,
+    **anche nel cloud** — senza che nessuno premesse niente. Ora `rinominaTitolo` fa solo
+    `upd(...)`: cambia quello che hai a schermo e **accende il 💾**, come ogni altra modifica.
+  - 🔑 **Il titolo vive in DUE posti**: nel lavoro (`usoint-p-<id>`) e nell'**elenco della Home**
+    (`usoint-idx`). `save` scriveva **solo il primo**: da sola, la modifica (1) avrebbe lasciato
+    la Home col titolo vecchio **per sempre**. Perciò `save` riallinea ora anche l'elenco, e
+    **solo il titolo**: date, cadenza e colore restano quelli dell'elenco.
+  - 🚪 **E uscire con ← viene CHIESTO.** `_dirtyKV` serviva **solo** all'avviso del browser alla
+    chiusura della pagina, e lo smontaggio del componente lo azzera: uscendo dalla scheda con ←
+    ogni modifica non salvata spariva **senza un fiato**. Senza questa guardia, legare la
+    rinomina al 💾 l'avrebbe fatta perdere. ⚠️ Il difetto era **PREESISTENTE** e vale per
+    **qualunque** modifica non salvata della scheda, non solo per il titolo: è lo stesso §10.1
+    chiuso nel Riepilogo con la ver132. Funzione nuova **`tornaIndietroLavoro`**.
+    ⚠️ **Dicitura nuova, scritta da Claude.**
+  - **Provato in esecuzione** (`ver133us.cjs`, **22 controlli su 22**, zero errori di pagina): la
+    rinomina non tocca né l'elenco né il lavoro e il pulsante torna a dire «💾 Salva»; col 💾 il
+    titolo nuovo arriva **in tutti e due** e resta dopo il ricaricamento; senza modifiche il ←
+    **non chiede niente**; con modifiche avvisa, annullando si resta nella scheda col titolo a
+    video, confermando si esce e l'archivio è rimasto quello di prima; il confronto diretto con
+    la **ver132**, dove la rinomina scriveva subito; e l'**avviso sui titoli doppi della ver127
+    è ancora lì**.
+
+- ✅ **«1.234,56» BATTUTO A MANO: SI LASCIA COM'È** (11/11/2026, Christian: «**9, vale sempre**»,
+  cioè vale anche qui la risposta che aveva già dato per Collaboratori: «Non metto mai numeri con
+  le migliaia puntate. Io scrivo 1234.56 o 1234,56 e per me questo vuol dire 1.234,56»).
+  Battendo `1.234,56` in una cella numerica si ottiene `1,234`; incollandolo funziona.
+  🚫 **Non va corretto**: cambierebbe come si interpreta ciò che si scrive in tutte le caselle, e
+  lui quella scrittura non la usa. **Vale in tutte e quattro le app. Non riproporlo.**
+
 - 🛡️ **L'IMPORT NON SCRIVE PIÙ DA SÉ, E NON SOVRASCRIVE PIÙ IN SILENZIO** (ver132,
   10/11/2026, tre risposte di Christian all'elenco: punto **1** «avvisa», punto **7** «avvisa»
   e punto **9** «lega al salva»).

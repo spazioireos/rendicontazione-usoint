@@ -65,8 +65,8 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 6 · 08nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 15 · 10nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver153 · 11nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
-| Rendicontazione USOINT | `ver132 · 10nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
+| Dipendenti | `ver154 · 11nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Rendicontazione USOINT | `ver133 · 11nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 15 · 10nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
 **Criterio:** dove l'app aveva già una numerazione (USOINT `ver`, Dipendenti `APP_VER`) si usa e
@@ -339,6 +339,43 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   ⚠️ **Non verificabili dal banco di prova**: Firebase vero con le sue regole, due **computer**
   diversi che salvano insieme (nel codice l'ultimo vince), Google Drive, e le app vere dentro
   l'iframe della pagina integrata.
+
+- 🧾 **Dipendenti ver154 (11/11/2026) — il report delle paghe diventa una tabella sola, con le
+  ore voce per voce.** Quattro risposte di Christian nello stesso giorno.
+  - **«Tutto in un'unica tabella»**: la pagina per l'ufficio paghe aveva due tabelle (gli importi
+    e «I giorni, voce per voce»). Ora è **una sola**, e le assenze retribuite sono **colonne in
+    ORE**, una per ogni codice davvero usato nel mese: `Ore dovute · Ore rese · FERIE (h) ·
+    EXF (h) · MAL (h) · … · Permessi (h) · Fest. godute (h) · **SUPPLEMENTARE** · Fest. non
+    godute (gg / h) da pagare in più · FESTNG (gg) · ASP 0h (gg) · AN (gg) · Riposi (gg · dom.)`,
+    più il TOTALE. Le non retribuite, gli AN e i riposi restano **in giorni**: quelle ore non
+    sono dovute.
+  - **«in calce … tutti i totali dei giorni di assenza retribuita e non retribuita»**: sotto la
+    griglia delle presenze non c'è più solo «gg P» ma **una riga per voce**, e con MAXCOL da 14
+    a **24** i 16 mensilizzati stanno in **una pagina sola**.
+  - **«NON METTERLA»**: le **quattro righe di legenda** in calce sono state **tolte**, come la
+    legenda del Report storico nella ver95. Restano l'avviso sui mesi prima di ottobre 2026 e
+    l'elenco dei permessi orari.
+  - **«2 uniforma su monte/26»**: la quota delle **festività non godute** passa a `quotaGiorno`
+    (ore dovute ÷ 26), la stessa del Costo orario. Misurato: `2 / 6,000` → `2 / 6,012`.
+    ⚠️ Le **godute** restano a `oreSett/ggSett` (ver119): due quote diverse di proposito.
+    Il **supplementare non si muove**.
+  - **«10 togli»**: via il verde brillante `#CCFF66` dalla palette; al suo posto `#8FA860`, le
+    altre 23 tinte non si spostano, e chi aveva il verde ci passa al caricamento — **in memoria,
+    serve il 💾**.
+  - **Provato in esecuzione**: `ver154.cjs` **41/41**, zero errori di pagina.
+    ⚠️ **Non verificabile dal banco di prova**: l'impaginazione vera del PDF.
+  - ✅ **Scatti CCNL (punto 6)**: Christian ha mandato la **tabella ufficiale**, che coincide
+    **esattamente** con `SCATTI_CCNL` su tutti e 13 i livelli e conferma `SCATTI_MAX = 5`
+    (D1: 20,66 · massimo 103,30). **La voce dei 61,98 € è smentita: non riproporla.**
+
+- 💾 **USOINT ver133 (11/11/2026) — rinominare un lavoro passa dal 💾** («8 sì»). Era l'ultima
+  deroga al «mai salvataggio automatico»: la ✎ scriveva subito, e col rinvio di `LS.set` anche
+  nel cloud. Ora accende il 💾; `save` riallinea **anche l'elenco della Home** (il titolo vive in
+  due posti) e **uscire con ← senza aver salvato viene CHIESTO** — guardia nuova che vale per
+  **qualunque** modifica non salvata della scheda, difetto preesistente senza il quale la
+  rinomina si sarebbe persa. **Provato**: `ver133us.cjs` **22/22**, zero errori di pagina.
+  ✅ **Punto 9 chiuso senza toccare niente** («9, vale sempre»): `1.234,56` **battuto** a mano dà
+  `1,234`, ma lui non scrive mai le migliaia puntate — **vale in tutte e quattro le app**.
 
 - 🖨️ **Dipendenti ver151 · ver152 · ver153 (11/11/2026) — il report per l'ufficio paghe,
   e le cinque cose che mancavano sul Tabellone.** Richiesta di Christian: un PDF A4 che segnali
