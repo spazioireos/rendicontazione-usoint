@@ -65,8 +65,8 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 6 · 08nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 16 · 11nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver156 · 11nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
-| Rendicontazione USOINT | `ver135 · 11nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
+| Dipendenti | `ver158 · 11nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Rendicontazione USOINT | `ver136 · 11nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 16 · 11nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
 **Criterio:** dove l'app aveva già una numerazione (USOINT `ver`, Dipendenti `APP_VER`) si usa e
@@ -76,6 +76,34 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
 ---
 
 ## 5. Lavori fatti e attivi
+
+### 5.0-ter IL CODICE OPERATORE — TR-03 (11/11/2026)
+
+Era l'ultima criticità **strutturale** aperta: **l'unico identificativo che attraversava il
+confine fra le app era il NOME**, scritto a mano in due anagrafiche diverse. Christian l'ha
+chiusa l'11/11/2026: «ok codice condiviso che crei tu di max 4 caratteri 3 dei quali contengono
+le prime lettere del cognome», poi **«cifra progressiva»** e **«resta solo in Dipendenti»**.
+
+| Dove | Che cosa | Versione |
+|---|---|---|
+| **Dipendenti** | nasce il **codice** `dp.sigla` — 3 lettere del cognome + una cifra (`ROS1`, `ROS2`): casella **grigia di sola lettura** in ANAGRAFICA, pulsante **«🔖 Assegna i codici mancanti»** che elenca, chiede conferma e richiede il 💾 | **ver157** |
+| **Dipendenti ↔ Fogli ore** | l'**aggancio all'account** `dp.foUid`, creato **una volta** col nome e poi congelato: pulsante **«🔗 Aggancia gli account di Fogli ore»**. ⚠️ **In Fogli ore non si scrive NIENTE** (verificato: zero scritture) | **ver158** |
+| **Dipendenti → USOINT** | il codice viaggia dentro il documento che USOINT **già legge**; USOINT tiene la corrispondenza **codice → riga** in `usoint-codici` | **ver136** |
+| **Fogli ore** | **non cambia** | — |
+
+🚦 **Che cosa risolve e che cosa no.** Su **Dipendenti ↔ Fogli ore** il problema è **chiuso**:
+il legame è un uid, unico per costruzione, quindi omonimi e accenti non lo toccano più. Su
+**Dipendenti → USOINT** il codice rende stabile l'abbinamento anche se il nome cambia del
+tutto — **misurato: rinominando la persona in Dipendenti, le ore vanno sulla riga di sempre,
+mentre senza codice non arrivano affatto** — ma **due omonimi dentro USOINT restano
+indistinguibili**, perché lì gli operatori non hanno un'anagrafica: sono i nomi scritti nelle
+righe del budget. Lì resta l'avviso della ver132.
+
+⚠️ **Il codice non si ricalcola mai.** Una volta assegnato resta quello anche se cambia il
+cognome: è un identificativo, e ricalcolarlo romperebbe il legame con le altre app.
+
+**Provato in esecuzione**: `ver157` **28/28**, `ver158` **19/19**, `ver136us` **17/17**, zero
+errori di pagina.
 
 ### 5.0-bis RICONCILIAZIONE DELLE URGENZE FRA TUTTI I COLLAUDI (11/11/2026)
 
@@ -250,7 +278,7 @@ non vale come risolta.
 | 1 | ~~Un mese svuotato in Dipendenti azzera il mese in USOINT~~ | US-14 | ✅ **CHIUSO l'11/11**: «non azzerare mai da solo e chiedere» → **ver135** |
 | 2 | ~~Un importo negativo serve in qualche casella di USOINT?~~ | US-30 | ✅ **CHIUSO l'11/11**: «non serve». 🚫 Non riproporlo |
 | 3 | ~~Gli utenti cancellati non si ricreano dal ripristino di Fogli ore~~ | FO-17 | ✅ **CHIUSO l'11/11**: «va bene così» — limite accettato e scritto nella conferma a video |
-| 4 | **L'abbinamento fra le app diventa un CODICE CONDIVISO** | TR-03 | 🟠 **deciso l'11/11**: «ok codice condiviso che crei tu di max 4 caratteri, 3 dei quali contengono le prime lettere del cognome» — **da progettare e costruire** |
+| 4 | ~~L'abbinamento fra le app è solo il nome~~ | TR-03 | ✅ **FATTO l'11/11**: il codice operatore (ver157 · ver158 · ver136). Resta dichiarato il solo caso degli **omonimi dentro USOINT** |
 | 5 | ~~`locks` e ruolo `disabled` non imposti dal database~~ | FO-20 | ✅ **CHIUSO l'11/11**: «ok» — accettato |
 | 6 | Aprire un mese mai compilato **scrive** nel database | FO-14 | 🟡 programmabile |
 | 7 | La **banda rossa unica** di Fogli ore | FO-15 | 🟡 **Christian** (è una dicitura) |

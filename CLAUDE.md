@@ -33,9 +33,10 @@ USOINT sta per **"uso interno"**.
   nascosta sotto l app).
 - **Dati**: Firebase progetto `rendicontazione-usoint`, percorso `users/{uid}/kv/<chiave>`
   (specchio di localStorage). Chiavi: `usoint-idx`, `usoint-p-<id>`, `usoint-orelav`,
-  `usoint-tariffe`, `usoint-simul`. Accesso mail+password.
+  `usoint-tariffe`, `usoint-simul`, **`usoint-codici`** (dalla ver136: codice operatore → riga).
+  Accesso mail+password.
 - **Numero di revisione**: costante `const VER` (riga ~67), mostrata in **tre punti** (Home,
-  scheda progetto, Riepilogo operatori). **Attuale: ver135 · 11nov26.** `VER` finisce anche nei
+  scheda progetto, Riepilogo operatori). **Attuale: ver136 · 11nov26.** `VER` finisce anche nei
   nomi dei file esportati: incrementarla, non affiancarle un secondo numero.
 - **Strutture utili**: `usoint-orelav` = `{ [norm(nome)]: { [anno]: [12 numeri] } }` (ore
   lavorate, indice 0 = gennaio; `norm` = minuscolo, trim, spazi singoli).
@@ -75,6 +76,37 @@ USOINT sta per **"uso interno"**.
 - **Funzioni presenti**: import automatico (SOLA LETTURA) delle ore lavorate dal database dei
   Dipendenti tramite una **seconda app Firebase** chiamata "dip"; tabella compatta della scheda
   operatore (Lavorate | una colonna per progetto | Tot. rendicontate | Avanzo).
+- 🔗 **IL CODICE OPERATORE: L'ABBINAMENTO NON DIPENDE PIÙ DAL NOME** (ver136, 11/11/2026,
+  **TR-03** della riconciliazione delle urgenze; il codice nasce in **Dipendenti ver157**).
+  - 🔴 **Il problema**: l'unico identificativo che attraversava il confine era il **NOME**,
+    scritto a mano in due anagrafiche diverse. Le ver130 e ver132 lo avevano reso tollerante
+    (accenti) e non silenzioso (omonimi), mai **sicuro**.
+  - **Come funziona**: Dipendenti scrive in ogni scheda un **codice** di 4 caratteri (3 lettere
+    del cognome + una cifra) **dentro il documento che questa app già legge** — quindi **nessun
+    permesso nuovo, nessuna scrittura in più**. Qui si tiene la corrispondenza
+    **codice → riga di USOINT** nella chiave nuova **`usoint-codici`**.
+    - ⚠️ La chiave comincia per «usoint», quindi **entra nel backup JSON e nel cloud**: è il
+      legame fra le due app, e perderlo vorrebbe dire rifare gli abbinamenti. (È il contrario
+      delle chiavi di servizio `uso-timbro`, `uso-sospese-cloud` e `uso-import-orig`, che
+      restano fuori.)
+    - **La PRIMA volta** il legame non c'è: si abbina **col nome**, come si è sempre fatto, e si
+      **registra**. Da lì in poi comanda il codice.
+    - ⚠️ **Un codice NON si aggancia a una riga che non esiste**: agganciarlo vorrebbe dire
+      congelare un abbinamento sbagliato. **Verificato.**
+    - ⚠️ Il legame si scrive **col 💾**, come le ore (ver132) — tranne quando l'import non
+      cambia nessuna ora: lì si scrive subito, perché non ci sarebbe nessun 💾 a portarlo.
+    - **A video** un riquadro azzurro: «🔗 Codici agganciati: ALF1 → ALFA PROVA — da ora in poi
+      l'abbinamento non dipende più dal nome.» ⚠️ **Dicitura nuova, scritta da Claude.**
+  - ⚠️ **Che cosa NON risolve, detto chiaro**: qui gli operatori **non hanno un'anagrafica**,
+    sono i nomi scritti nelle righe del budget. Il codice rende stabile il legame, ma **due
+    omonimi dentro USOINT restano indistinguibili**: resta l'avviso della ver132.
+  - **Provato in esecuzione** (`ver136us.cjs`, **17 controlli su 17**, zero errori di pagina): il
+    primo import che aggancia `ALF1 → alfa prova` solo col 💾, anche nel cloud; chi non ha codice
+    che resta fuori dalla mappa; e la prova che conta — **rinominando la persona in Dipendenti
+    da capo a piedi**, le ore nuove **vanno sulla riga di sempre** (18,00) e **non nasce nessuna
+    riga nuova**, mentre **senza codice** le stesse 18 ore **non arrivano** e la persona finisce
+    fra i «Non abbinati». Più la **non regressione**: senza codici tutto come prima.
+
 - 🛑 **L'IMPORT NON AZZERA PIÙ UN MESE DA SOLO: LO CHIEDE** (ver135, 11/11/2026, risposta di
   Christian a **US-14** della riconciliazione delle urgenze: «**non azzerare mai da solo e
   chiedere**»).
