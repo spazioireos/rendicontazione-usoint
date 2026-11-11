@@ -77,6 +77,191 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
 
 ## 5. Lavori fatti e attivi
 
+### 5.0-bis RICONCILIAZIONE DELLE URGENZE FRA TUTTI I COLLAUDI (11/11/2026)
+
+Richiesta di Christian dell'11/11/2026: confrontare le urgenze attribuite nei vari collaudi,
+perché alcune criticità avevano ricevuto livelli diversi in momenti diversi.
+⚠️ **Questa sezione NON sostituisce i rapporti precedenti**: quelli restano dove sono, nelle
+schede di ogni `CLAUDE.md`. Qui si tiene solo il raccordo fra loro.
+
+**Le campagne di collaudo, in ordine:**
+
+| Sigla | Quando | Che cos'era |
+|---|---|---|
+| **C1** | 07/11/2026 | Audit generale del gestionale (tutte e quattro le app) |
+| **C2** | 09/11/2026 | Collaudo generale (i difetti «A» e «B») |
+| **C3** | 09/11/2026 | **Secondo** collaudo: verificava le correzioni di C2 e ne trovò di incomplete |
+| **C4** | 09-10/11/2026 | Collaudo delle **INTERCONNESSIONI** fra le app |
+| **C5** | 11/11/2026 | Collaudo definitivo, integrale e chirurgico (le 10 domande) |
+| **C6** | 11/11/2026 | Correzioni autorizzate da Christian + riconciliazione (questa) |
+
+**I criteri di urgenza, applicati allo stesso modo a tutte le app e a tutte le campagne:**
+
+| Livello | Quando si applica |
+|---|---|
+| 🔴 **ALTA** | i dati si perdono, si alterano o si duplicano; oppure l'app smette di funzionare; oppure l'app **dice il falso** su un salvataggio |
+| 🟠 **MEDIA** | l'app mostra o accetta qualcosa di sbagliato senza perdita di dati; violazione del §10.1/§10.2 recuperabile; si può aggirare |
+| 🟡 **BASSA** | aspetto, leggibilità, igiene del repository, osservazioni senza conseguenze misurate |
+
+🔎 **Tre incoerenze trovate nel confronto, dichiarate:**
+1. **Lo stesso difetto ha avuto tre urgenze diverse in tre app.** «Due schede aperte si
+   cancellano a vicenda» era 🔴 in **Dipendenti** (C2, chiuso subito con la ver144), ma è rimasto
+   in un elenco 🟠 «non toccate» per **Collaboratori** (da C4 fino alla rev 15) e per **USOINT**
+   (fino alla ver131). È lo stesso difetto con lo stesso impatto: andava 🔴 in tutte e tre.
+2. **«L'import accetta un file con la forma giusta e il contenuto rotto»** è stato 🔴 in
+   **Collaboratori** (C4 → rev 13) ma in **USOINT** non è stato nemmeno provato fino a C5, dove
+   si è rivelato **peggiore** (avvelena anche il cloud). Non è un declassamento: è un **buco di
+   copertura** del collaudo C4, che provò gli import di Collaboratori e non quelli di USOINT.
+3. **Due voci di C4 sono sparite dai rapporti successivi senza esito** (US-14 e US-17). Sono
+   state **rimisurate oggi sulla ver134**: sono **ancora aperte**, e una va **AGGRAVATA**.
+
+🔬 **Le due voci rimisurate oggi** (`ric-U14-U17.cjs`, banco con finta Firestore):
+- **US-14** — un mese di Dipendenti che **perde le ore** (documento salvato a metà, oppure mese
+  svuotato): **misurato, gennaio passa da 20,00 a 0,00 in USOINT**, il riquadro dice
+  «**importate ✓ (1 operatori aggiornati)**» con la spunta **verde**, e **nessuna scritta dice
+  che un mese è stato azzerato**. Lo zero finisce poi nell'**Avanzo**. ⚠️ Dalla **ver132**
+  l'azzeramento non entra in archivio finché non si preme 💾, e compare «le ore lavorate sono
+  cambiate e non sono ancora salvate»: è un freno, ma **non dice che cosa** è cambiato.
+  ⚠️ **Sui dati veri** (backup del 04/11): **0** record senza il campo `giorni`, **1** con
+  `giorni` vuoto — e quello è un mese legittimamente non lavorato, dove lo zero è giusto.
+  **Da 🟠 (C4) a 🔴**: altera un dato in silenzio e tocca due app.
+- **US-17** — i formati **« 4»** (spazio davanti) e **«.5»**: **misurato, valgono ancora 0**
+  (gennaio 9,00 invece di 13,50: **4,5 ore perse**). ⚠️ **Sui dati veri: ZERO celle** scritte
+  così, e dalla **ver102** di Dipendenti la cella **non permette** di scriverle (il modello
+  pretende una cifra all'inizio). **Resta 🟡**: difetto reale ma senza impatto misurato.
+
+**PROSPETTO COMPARATIVO COMPLETO.** Ci sono **tutte** le criticità di tutte le campagne,
+comprese quelle che i rapporti successivi non nominano più. Dove la correzione c'è, la colonna
+«Prova» porta lo script e il suo punteggio: una modifica al codice **senza** un test positivo
+non vale come risolta.
+
+**FOGLI ORE**
+
+| ID | Problema | Trovato | Prima | Dopo | Stato | Correzione | Prova | Definitiva |
+|---|---|---|---|---|---|---|---|---|
+| FO-01 | «✓ Salvato!» mentiva: il salvataggio automatico falliva in silenzio e le ore erano perse | C1 | 🔴 | — | **RISOLTO** | rev 10 | `g9-fo-salva` 12/12 | — |
+| FO-02 | Un'assenza si perdeva in silenzio (non passa da `saveTS`) | C2 | 🔴 | — | **RISOLTO** | rev 12 | `fix-b1` 13/13 | — |
+| FO-03 | Scritte sotto i 12,5px fuori dalla tabella del mese | C1 | 🟠 | 🟠 (C3: dimenticata la schermata di accesso) | **RISOLTO** | rev 10 · rev 13 · rev 14 | `fix-b36` 9/9 | — |
+| FO-04 | Dopo la registrazione la testata mostrava la **mail** | C2 | 🔴 | — | **RISOLTO** | rev 13 | misurato: una sola scrittura | — |
+| FO-05 | L'attesa della rev 13 scadeva: FO-04 tornava **peggiorato**, e `set()` senza `{merge:true}` cancellava cognome e nome | C3 | — | 🔴 **NUOVO (mio errore)** | **RISOLTO** | rev 14 | 5 velocità provate | — |
+| FO-06 | Messaggio tecnico inglese all'operatore esterno (1 punto) | C3 | 🟠 | — | **RISOLTO** | rev 14 | misurato | — |
+| FO-07 | La banda diceva «ORE NON SALVATE» anche per un'**assenza** | C3 | 🟠 | 🟠 | **RISOLTO** | rev 15 | `rev15fo` 34/34 | — |
+| FO-08 | Account «battezzati con la mail» | C3 | 🟠 | 🟠 | **RISOLTO** | rev 15 (lo chiede al primo accesso) | `rev15fo` | — |
+| FO-09 | Con la **lettura** caduta il mese si svuotava a video senza spiegazione | C3 | 🟠 | 🟠 | **RISOLTO** | rev 15 (banda blu) | `rev15fo` · `rev15fo-graf` | — |
+| FO-10 | **Il backup non era una copia completa**: mancavano `svccaps` e `lightsheets` | C5 | — | 🔴 | **RISOLTO** | rev 16 | `rev16fo` 33/33 | — |
+| FO-11 | **Non esisteva nessun import**: il backup si poteva solo produrre | C5 | — | 🔴 | **RISOLTO** | rev 16 | `rev16fo` 33/33 | — |
+| FO-12 | Il backup non portava il numero di schema; «ver1» nel nome scritto a mano | C5 | — | 🟠 | **RISOLTO** | rev 16 | `rev16fo` | — |
+| FO-13 | **28 messaggi d'errore in inglese di Firebase** (percorsi admin) | C3 | 🟠 | 🟠 | **INVARIATO — chiuso per DECISIONE** («non serve») | nessuna, voluto | — | 🚫 non si tocca |
+| FO-14 | Aprire un mese mai compilato **scrive** nel database | C5 | — | 🟡 | **INVARIATO — aperto** | nessuna | — | 🟡 |
+| FO-15 | La banda rossa è una sola: perdendo ore **e** assenza, il messaggio sulle ore sparisce | C5 | — | 🟡 | **INVARIATO — aperto** | nessuna (conseguenza voluta della rev 15) | — | 🟡 |
+| FO-16 | Il `CLAUDE.md` dichiarava una dimensione del file sbagliata | C5 | — | 🟡 | **RISOLTO** | corretto in C5 e C6 | — | — |
+| FO-17 | **L'admin non può RICREARE un `users` cancellato** (le regole danno `update`, non `create`) | **C6** | — | 🟠 **NUOVO** | **NUOVO — limite dichiarato** | nessuna possibile da qui; scritto nella conferma a video | emulatore `R1`…`R9`, **60/60** | 🟠 serve una sua decisione |
+| FO-18 | Salvataggio automatico ogni 600 ms (scostamento dal §10.1) | C1 | 🟡 dichiarato | 🟡 | **INVARIATO — accettato**: senza, l'esterno perderebbe tutto chiudendo la pagina | nessuna, voluto | — | 🟡 |
+| FO-19 | Tabella del mese 906px e scritte piccole **dentro** la griglia su telefono | C1 | 🟡 dichiarato | 🟡 | **INVARIATO — accettato**: alzarle allarga la tabella (provato il 31/10) | nessuna, voluto | — | 🟡 |
+| FO-20 | `locks` e ruolo `disabled` non imposti dal **database**; creazione libera dei `lightsheets` | 30/10 | 🟠 dichiarato | 🟠 | **INVARIATO — accettato** da Christian il 06/11 («va bene così») | nessuna, voluto | emulatore 60/60 | 🟠 |
+
+**COLLABORATORI**
+
+| ID | Problema | Trovato | Prima | Dopo | Stato | Correzione | Prova | Definitiva |
+|---|---|---|---|---|---|---|---|---|
+| OP-01 | I **negativi** nelle celle sottraevano senza avviso | C2 | 🔴 | 🔴 (C3: chiuso solo in parte, 3 porte ancora aperte) | **RISOLTO** | rev 11 + rev 12 | `rev11` 8/8 · `sc-op-rev12` | — |
+| OP-02 | Due collaboratori con lo **stesso nome** accettati in silenzio | C2 | 🟠 | — | **RISOLTO** | rev 11 (avviso non bloccante) | `rev11` | — |
+| OP-03 | Scritte a 12px fuori dalle tabelle | C2 | 🟠 | 🟠 (C5: restavano le regole `.modal`) | **RISOLTO** | rev 10 + rev 16 | `fix-b45` 8/8 · `col-G2` 29/29 | — |
+| OP-04 | Codice **HTML** dentro le finestre di conferma | C2 | 🟠 | 🟠 (C3: un `f2()` ancora scoperto) | **RISOLTO** | rev 10 + rev 12 | `sc-op-rev12c` 7/7 | — |
+| OP-05 | **L'import accettava qualunque array** → pagina bianca, recuperabile solo da backup | C4 | 🔴 | — | **RISOLTO** | rev 13 (`paionoOperatori`) | `ic-fix3` 13/13 | — |
+| OP-06 | **Due schede aperte si cancellano a vicenda** in silenzio | C4 | 🟠 *(sottostimato)* | 🔴 | **RICLASSIFICATO poi RISOLTO** — in Dipendenti lo stesso difetto era 🔴 fin da C2 | rev 15 (timbro) | `rev15op` 15/15 | — |
+| OP-07 | Un negativo già in archivio si vedeva senza il meno | C3 | 🟠 | — | **RISOLTO** | rev 14 | `rev14op` 15/15 · `rev14opb` 7/7 | — |
+| OP-08 | **«1.234,56» battuto** diventa 1,234 | C3 | 🟠 | 🟠 | **INVARIATO — chiuso per DECISIONE** | nessuna, voluto | `raw` verificata | 🚫 non si tocca |
+| OP-09 | **«22,99» nel Costo orario diventava 2299** (×100 in silenzio) | C5 | — | 🔴 | **RISOLTO** | rev 16 | `col-B2-virgola` 7/7 | — |
+| OP-10 | 13 scritte a 11px in tre finestre | C5 | — | 🟠 | **RISOLTO** | rev 16 | `col-G2-finestre` 29/29 | — |
+| OP-11 | Somma dei «secchi» 8.026,70 € contro residuo 8.026,69 € | C5 | — | 🟡 | **INVARIATO — aperto**: un centesimo, i dati sono giusti | nessuna | — | 🟡 |
+| OP-12 | Ogni ✔ Salva scarica da sé un file di backup | C5 | — | 🟡 | **INVARIATO — accettato**: rete di sicurezza storica | nessuna, voluto | — | 🟡 |
+| OP-13 | Il **PIN è in chiaro** in `spazioireos_opoc_pin` | C5 | — | 🟡 | **INVARIATO — aperto**: protegge la schermata, non i dati | nessuna | — | 🟡 serve una sua decisione |
+| OP-14 | Le quattro app condividono **un solo `localStorage`** | C4 | 🟠 | 🟡 | **DECLASSATO** da Christian il 10/11 («3 ok»), con la misura a sostegno | nessuna, accettato | 24 controlli di isolamento | 🟡 |
+
+**USOINT**
+
+| ID | Problema | Trovato | Prima | Dopo | Stato | Correzione | Prova | Definitiva |
+|---|---|---|---|---|---|---|---|---|
+| US-01 | Il ripristino veniva **sovrascritto da `fbSync`**: «Ripristinati N elementi» era una bugia | 04/11 | 🔴 | — | **RISOLTO** | ver121 | `g11` 13/13 | — |
+| US-02 | Scheda progetto che sborda a 390px e scritte piccole | C1 | 🟡 | — | **RISOLTO** | ver122 | G7/G7b | — |
+| US-03 | La **✕ della fattura** cancellava a secco (§10.1 la nomina) | C2 | 🟠 | — | **RISOLTO** | ver124 | `fix-b2` 7/7 | — |
+| US-04 | I **negativi** nelle caselle numeriche | C2 | 🔴 | — | **RISOLTO** | ver125 | `ver125` 10/10 | — |
+| US-05 | Due progetti con lo **stesso titolo** in silenzio | C2 | 🟠 | 🔴 (C3: la rinomina non era coperta e il Riepilogo **somma** i due) | **AGGRAVATO poi RISOLTO** | ver125 + ver127 | misurato 42 → 132 | — |
+| US-06 | Il **filtro «progetto»** non agiva a schermo | C2 | 🟠 | — | **RISOLTO** | ver126 | `ver126` 7/7 | — |
+| US-07 | L'avviso del filtro nominava una colonna sola | C3 | 🟠 | — | **RISOLTO** | ver127 + ver129 | `ver129a` 13/13 | — |
+| US-08 | Importo della fattura formattato **a mano** (§10.2) | C3 | 🟠 | — | **RISOLTO** | ver127 | misurato con `grp` | — |
+| US-09 | **La spunta verde dell'import mentiva** (0 operatori = «✓») | C4 | 🔴 | — | **RISOLTO** | ver128 | `ic-fix` | — |
+| US-10 | **Record orfani**: ciò che in Dipendenti non esiste più finiva nell'Avanzo | C4 | 🟠 | 🟠 | **RISOLTO** (segnala, non cancella) | ver129 | `ver129b` 17/17 | — |
+| US-11 | **Omonimi fusi in silenzio**: 70 ore perse in un mese | C4 | 🟠 *(sottostimato)* | 🔴 | **RICLASSIFICATO poi RISOLTO**: l'impatto misurato era perdita di dati | ver132 (avvisa) | `ver132us` 46/46 | — |
+| US-12 | Un **numero scritto a mano** sostituito dall'import senza dirlo | C4 | 🟠 | 🟠 | **RISOLTO** (ora chiede) | ver132 | `ver132us` | — |
+| US-13 | Un **accento** di differenza non abbinava: le ore si perdevano | C4 | 🟠 | — | **RISOLTO** | ver130 | `ver130us` 18/18 | — |
+| US-14 | **Un mese di Dipendenti che perde le ore azzera il mese in USOINT con la spunta verde** | C4 | 🟠 | 🔴 | **AGGRAVATO — APERTO** (sparito da C5; rimisurato oggi: 20,00 → 0,00) | nessuna; dalla ver132 almeno non entra in archivio senza 💾 | `ric-U14-U17` | 🔴 **serve la sua decisione** |
+| US-15 | L'import partiva da sé e **scriveva nel cloud senza 💾** | C4 | 🟠 | 🟠 | **RISOLTO** | ver132 | `ver132us` | — |
+| US-16 | Nessun pulsante per **rifare** l'import | C4 | 🟡 | — | **RISOLTO** | ver131 | `ver131us` 19/19 | — |
+| US-17 | I formati **« 4»** e **«.5»** valgono 0 | C4 | 🟡 | 🟡 | **INVARIATO — APERTO** (sparito da C5; rimisurato oggi: 4,5 ore perse). ⚠️ **Zero celle così nei dati veri**, e dalla ver102 non si possono più scrivere | nessuna | `ric-U14-U17` | 🟡 |
+| US-18 | Il **salvataggio locale si perdeva** al ricaricamento col cloud caduto | C4 | 🔴 | — | **RISOLTO** | ver129 (`uso-sospese-cloud`) | `ver129c` | — |
+| US-19 | La finestrella del dettaglio **non seguiva il filtro** (42 contro 132) | C3 | 🟠 | — | **RISOLTO** | ver129 | `ver129a` | — |
+| US-20 | Col filtro attivo i mesi a «—» non erano cliccabili | C3 | 🟡 | — | **RISOLTO** (conseguenza di US-19) | ver129 | `ver129a` | — |
+| US-21 | **«1.234,56» battuto** diventa 1,234 | C3 | 🟠 | 🟠 | **INVARIATO — chiuso per DECISIONE** («9, vale sempre») | nessuna, voluto | — | 🚫 non si tocca |
+| US-22 | **`rinominaTitolo` scriveva senza 💾** (deroga al §10.1) | C3 | 🟠 | 🟠 | **RISOLTO** | ver133 | `ver133us` 22/22 | — |
+| US-23 | **`key={i}`** sulle righe delle fatture (§10.2) | C3 | 🟠 | 🟡 | **DECLASSATO** da Christian il 10/11 («3 ok»): i valori risultano sempre corretti | nessuna, accettato | prove ripetute | 🟡 |
+| US-24 | **Due schede aperte si cancellano a vicenda**, e una scheda vecchia può far **risorgere** un lavoro eliminato | C4 | 🟠 *(sottostimato)* | 🔴 | **RICLASSIFICATO poi RISOLTO** | ver131 (timbro) | `ver131us` 19/19 | — |
+| US-25 | **Un file con la forma giusta e il contenuto rotto rompe l'app e avvelena il cloud** | C5 | — | 🔴 | **RISOLTO** | ver134 | `ver134us` 21/21 | — |
+| US-26 | Il backup non portava nessun numero di schema | C5 | — | 🟠 | **RISOLTO** | ver134 | `ver134us` | — |
+| US-27 | La conferma di eliminazione **non nominava il lavoro** | C5 | 🟡 *(sottostimato: il §10.1 nomina le eliminazioni)* | 🟠 | **RICLASSIFICATO poi RISOLTO** | ver134 | `ver134us` | — |
+| US-28 | **`uso122.js`** inutile nella radice del repository | C5 | — | 🟡 | **RISOLTO** | ver134 (tolto) | — | — |
+| US-29 | La targhetta della **pagina integrata** è a 12px | C5 | — | 🟡 | **INVARIATO — aperto** | nessuna | — | 🟡 |
+| US-30 | Un **negativo nei dati di prova** (−2.000,00): esiste una casella in cui serve davvero? | ver125 | 🟠 | 🟠 | **NON PIÙ VERIFICATO**: domanda posta il 09/11 e **mai riscontrata**; sparita dai rapporti successivi | nessuna | — | 🟠 **serve la sua risposta** |
+
+**DIPENDENTI**
+
+| ID | Problema | Trovato | Prima | Dopo | Stato | Correzione | Prova | Definitiva |
+|---|---|---|---|---|---|---|---|---|
+| DIP-01 | Si potevano scrivere **99 ore in un giorno** | C2 | 🟠 | — | **RISOLTO** | ver142 (tetto 13 h) | `ore142` | — |
+| DIP-02 | «Compila veloce» **non passava dal tetto** | C2 | 🟠 | — | **RISOLTO** | ver143 | `qf143` 11/11 | — |
+| DIP-03 | «Compila veloce» accettava **testo libero** (22 celle) | C2 | 🟠 | — | **RISOLTO** | ver144 | `sc-dip-C` | — |
+| DIP-04 | «Compila veloce» accettava i **negativi** (−3 su 22 celle) | C3 | — | 🔴 **NUOVO** | **RISOLTO** | ver148 | `sc-dip-A` | — |
+| DIP-05 | **Due schede aperte si cancellano a vicenda** | C2 | 🔴 | — | **RISOLTO** | ver144 (timbro) | `ver144` 14/14 | — |
+| DIP-06 | Un testo di 200 caratteri fa scorrere la pagina di lato | C2 | 🟡 | 🟡 | **INVARIATO — chiuso per DECISIONE** («pazienza») | nessuna, voluto | — | 🚫 non si tocca |
+| DIP-07 | **Omonimi** fra Dipendenti e Fogli ore: il residuo di una finiva all'altra | C4 | 🔴 | — | **RISOLTO** | ver150 (avvisa, non somma) | `ver150` 31/31 | — |
+| DIP-08 | Togliendo il massimale il **residuo pubblicato restava** per sempre | C4 | 🟠 | — | **RISOLTO** | ver149 | `ver149` 29/29 | — |
+| DIP-09 | Nessun promemoria per **ripubblicare** i residui | C4 | 🟠 | — | **RISOLTO** | ver149 | `ver149` | — |
+| DIP-10 | **Accenti e apostrofo finale** non si equivalevano | C4 | 🟠 | — | **RISOLTO** | ver149 (`foChiave`) | `ver149` | — |
+| DIP-11 | **La griglia del Report PDF si spezzava in due pagine** (3 pagine sui dati veri) | C5 | — | 🔴 | **RISOLTO** | ver156 | `ver156` 19/19 su **PDF veri** | — |
+| DIP-12 | **Due prove di interconnessione erano VIZIATE** | C5 | — | 🟠 (sul collaudo, non sull'app) | **RISOLTO** | script corretti | `ic-fodip-A` 20/0 · `ic-fodip-B` 21/0 | — |
+| DIP-13 | **4 persone senza data di assunzione, 5 senza livello** nei dati veri | C1 | 🟡 | 🟡 | **INVARIATO — aperto**: dati da sistemare a mano, non difetti del codice | nessuna possibile da qui | censimento dei dati veri | 🟡 **lo fa Christian** |
+
+**TRASVERSALI**
+
+| ID | Problema | Trovato | Prima | Dopo | Stato | Correzione | Prova | Definitiva |
+|---|---|---|---|---|---|---|---|---|
+| TR-01 | **Arrotondamento**: `67,5 × 22,99` dava 1.551,82 invece di 1.551,83 | 03/11 | 🟠 | — | **RISOLTO in tutte e quattro** | `R2` | misurato in tutte e quattro | — |
+| TR-02 | **Dati personali dentro `index.html`** su un repository pubblico | 01/11 | 🔴 | — | **RISOLTO**: svuotati, e la **storia del repository azzerata** il 02/11 | ver67/ver68 | C5: 18 file, **14 occorrenze tutte false** | — |
+| TR-03 | **L'abbinamento fra le app è solo il NOME**, scritto a mano in due anagrafiche | sempre | 🟠 dichiarato | 🟠 | **INVARIATO — limite strutturale**: mitigato ma non eliminabile senza un codice condiviso | ver130/132/149/150 | — | 🟠 **serve una sua decisione** |
+| TR-04 | **Due falle nelle regole Firestore** | 30/10 | 🔴 | — | **RISOLTO**: Christian ha pubblicato il testo corretto | regole in console | emulatore **60/60** | — |
+| TR-05 | Le due app React impiegano **~4 secondi** ad aprirsi (Babel nel browser) | C5 | 🟡 | 🟡 | **INVARIATO — accettato**: è il prezzo del file unico | nessuna | misurato | 🟡 |
+| TR-06 | Le prove girano con **finta Firebase**: il comportamento con Firestore vero non è verificabile da qui | sempre | — | — | **NON PIÙ VERIFICATO per costruzione** | nessuna possibile | — | ⚠️ limite dichiarato |
+
+**ELENCO DEFINITIVO DI CIÒ CHE RESTA, in ordine di urgenza:**
+
+| # | Che cosa | ID | Chi decide |
+|---|---|---|---|
+| 1 | Un mese svuotato in Dipendenti **azzera il mese in USOINT** con la spunta verde | US-14 | 🔴 **Christian**: avvisare, oppure non azzerare mai da solo |
+| 2 | Esiste una casella di USOINT in cui un **importo negativo** serve davvero? | US-30 | 🟠 **Christian** |
+| 3 | Gli **utenti cancellati** non si possono ricreare dal ripristino di Fogli ore | FO-17 | 🟠 **Christian** (riguarda le regole) |
+| 4 | L'**abbinamento fra le app è solo il nome** | TR-03 | 🟠 **Christian** |
+| 5 | `locks` e ruolo `disabled` non imposti dal database | FO-20 | 🟠 già accettato, riaprirlo è una sua scelta |
+| 6 | Aprire un mese mai compilato **scrive** nel database | FO-14 | 🟡 programmabile |
+| 7 | La **banda rossa unica** di Fogli ore | FO-15 | 🟡 **Christian** (è una dicitura) |
+| 8 | Il **PIN in chiaro** di Collaboratori | OP-13 | 🟡 **Christian** |
+| 9 | La **targhetta della pagina integrata** a 12px | US-29 | 🟡 programmabile |
+| 10 | I formati « 4» e «.5» in USOINT | US-17 | 🟡 programmabile, impatto misurato nullo |
+| 11 | Il centesimo nella somma dei «secchi» di Collaboratori | OP-11 | 🟡 programmabile |
+| 12 | **4 persone senza data di assunzione e 5 senza livello** | DIP-13 | 🟡 **lo fa Christian** nei dati |
+
+
+
 ### 5.0 LE CORREZIONI AUTORIZZATE DOPO IL COLLAUDO DELL'11/11/2026
 
 Il collaudo generale dell'11/11/2026 aveva trovato **quattro difetti gravi, tutti preesistenti**,
