@@ -102,8 +102,16 @@ righe del budget. Lì resta l'avviso della ver132.
 ⚠️ **Il codice non si ricalcola mai.** Una volta assegnato resta quello anche se cambia il
 cognome: è un identificativo, e ricalcolarlo romperebbe il legame con le altre app.
 
-**Provato in esecuzione**: `ver157` **28/28**, `ver158` **19/19**, `ver136us` **17/17**, zero
-errori di pagina.
+**Provato in esecuzione**: `ver157` **28/28**, `ver158` **24/24**, `ver136us` **17/17**,
+`ver136-bk` **4/4** (un backup che contiene i codici rientra senza essere rifiutato dalla
+guardia della ver134), zero errori di pagina. **Batterie complete rieseguite su tutte e due le
+app, zero falliti nuovi.**
+
+🐞 **Una trappola del BANCO DI PROVA, non dell'app, che è costata un'ora**: la copia congelata
+della versione di confronto (porta 8201) va costruita con **`FB_READY = false`**, altrimenti
+resta sulla **schermata di accesso** e misura una pagina vuota, facendo sembrare regressione
+tutto quello che la versione nuova disegna (`sc-dip-C` dava **63/44** invece di **107/0**).
+Rifatta bene: **ver140 e ver158 danno gli stessi identici numeri**.
 
 ### 5.0-bis RICONCILIAZIONE DELLE URGENZE FRA TUTTI I COLLAUDI (11/11/2026)
 
