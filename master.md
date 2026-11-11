@@ -65,7 +65,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 6 · 08nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 15 · 10nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver150 · 10nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver153 · 11nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver132 · 10nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 15 · 10nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -339,6 +339,53 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
   ⚠️ **Non verificabili dal banco di prova**: Firebase vero con le sue regole, due **computer**
   diversi che salvano insieme (nel codice l'ultimo vince), Google Drive, e le app vere dentro
   l'iframe della pagina integrata.
+
+- 🖨️ **Dipendenti ver151 · ver152 · ver153 (11/11/2026) — il report per l'ufficio paghe,
+  e le cinque cose che mancavano sul Tabellone.** Richiesta di Christian: un PDF A4 che segnali
+  **giornalmente** la presenza con **P**, oppure **AN**, oppure il codice dell'assenza, e **a
+  parte** il **supplementare** da dare all'ufficio paghe che elabora i cedolini dei
+  **mensilizzati**; più «devo vedere per ognuno sul tabellone ore ordinarie effettivamente rese,
+  ore di assenza retribuita (suddivise per voce), ore di assenza non retribuita, riposi
+  domenicali, supplementari». Sue decisioni: il supplementare è il **Risultato del mese** del
+  Tabellone e **può essere negativo o pari**; dentro **solo i mensilizzati**; **`MAL 0h` e
+  `CASSA` sono retribuite**, **`ASP 0h` no**, **`FESTNG` è retribuita ma si paga IN PIÙ** e non
+  entra nel calcolo; il **4 novembre** vale come un festivo in domenica, quindi le non godute le
+  conta il **calendario** perché lui non le scriverà mai nel Tabellone; nome del pulsante scelto
+  da lui: **«🖨️ Report PDF A4 mensilizz.»**.
+  - **ver151 — i conti**: funzioni nuove **`copreOre`** (il punto unico che decide chi copre le
+    ore dovute) e **`assMese`** (giorni e ore, **per voce**, più riposi e domeniche).
+    `coverAbsHours` **non è stata riscritta: ora delega**, quindi per i codici che coprivano già
+    il numero è identico. `bancaMeseA` somma ora anche i **permessi orari** (sua scelta **2a**),
+    così il **totale dell'anno** e il **Report** dicono la stessa cosa del riquadro del mese, che
+    li contava dalla ver93.
+  - **ver152 — sul Tabellone**, sotto ogni scheda, una riga nuova con le pastiglie: assenze
+    retribuite **per voce**, non retribuite, la pastiglia **FESTNG — si paga in più** e i
+    **riposi (di cui domeniche)**. Nessun calcolo nuovo.
+  - **ver153 — il PDF**, accanto a quello che c'era (**`esportaPDF` non è stata toccata**):
+    pagina delle **presenze** (P verde, AN, R, i codici col loro colore, riga «gg P») e pagina
+    **per l'ufficio paghe** (ore dovute · rese · assenze retribuite · festività godute · permessi
+    · **SUPPLEMENTARE** col segno · **festività non godute da pagare in più**, più il TOTALE), e
+    una terza tabella **«I giorni, voce per voce»**.
+  - 🔴 **Misurato sui dati veri prima di toccare qualunque cosa**: `ASP 0h` **0** celle,
+    `MAL 0h` **27** (tutte ≤ set-2026), `FESTNG` **7** (tutte dic-2025), permessi orari **0**,
+    mensilizzati **16 su 16** dal 01/10/2026. Quindi `bancaMeseA` cambia in **7 casi, tutti in
+    dicembre 2025**, e in **nessuno di ottobre 2026** (il mese che va in paga); il **totale
+    dell'anno è identico per tutti e 16**; nei Riepiloghi i 27 giorni di `MAL 0h` passano da
+    **non retribuiti a retribuiti**. ⚠️ **Conseguenza dichiarata**: `coverAbsHours` serve anche
+    al **Costo orario**, quindi i periodi che **contengono dicembre 2025** cambiano di poco:
+    **misurato**, gennaio → ottobre 2026 è **identico per tutti e 16** (0 differenze), mentre
+    gennaio → dicembre 2025 cambia su **4 schede su 16** (il costo **scende** di 3,41 € ·
+    36,00 € · 51,03 € · 53,85 €, e le **ore non cambiano**): è il verso giusto, perché un
+    `FESTNG` non copre più le ore dovute e quindi le ore aggiuntive al +27% scendono.
+  - **Provato in esecuzione**: `ver151.cjs` **27/27**, `ver152.cjs` **23/23**, `ver153.cjs`
+    **46/46**, zero errori di pagina; la **grafica misurata** (scritte sotto i 12,5px 7 → 7,
+    comandi sotto i 32px 140 → 140, larghezza di pagina identica a 390 · 1280 · 1700px).
+    ⚠️ **Non verificabile dal banco di prova**: l'**impaginazione vera** del PDF (jsPDF non è
+    raggiungibile), che deve guardare Christian su un foglio vero.
+    **Batteria di Dipendenti rieseguita, confrontata con lo storico, zero falliti nuovi**:
+    `sc-dip-A` 38/3 · `sc-dip-B` 32/2 · `sc-dip-C` 106/1 · `sc-dip-D` 11/0 · `ver144` 14/0 ·
+    `ver145` 7/0 · `ver146` 27/1 · `ver147` 26/1 · `ver149` 29/0 · `ver150` 31/0 ·
+    `ic-fodip-A` 19/1 · `ic-fodip-B` 20/1/1 · `nr153` 5/0.
 
 - 🛡️ **USOINT ver132 (10/11/2026) — l'import non scrive più da sé, e non sovrascrive più in
   silenzio** (punti **1** «avvisa», **7** «avvisa» e **9** «lega al salva»).
