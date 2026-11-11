@@ -64,9 +64,9 @@ in cache (problema realmente capitato).
 | App | Numero attuale | Dove si vede | Da dove viene |
 |---|---|---|---|
 | App integrata | `rev 6 · 08nov26` | barra in alto | scritto nel file |
-| Collaboratori | `rev 15 · 10nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
+| Collaboratori | `rev 16 · 11nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
 | Dipendenti | `ver156 · 11nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
-| Rendicontazione USOINT | `ver133 · 11nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
+| Rendicontazione USOINT | `ver134 · 11nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 15 · 10nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
 **Criterio:** dove l'app aveva già una numerazione (USOINT `ver`, Dipendenti `APP_VER`) si usa e
@@ -76,6 +76,56 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
 ---
 
 ## 5. Lavori fatti e attivi
+
+### 5.0 LE CORREZIONI AUTORIZZATE DOPO IL COLLAUDO DELL'11/11/2026
+
+Il collaudo generale dell'11/11/2026 aveva trovato **quattro difetti gravi, tutti preesistenti**,
+e li aveva **lasciati fermi** perché toccano il percorso dei dati (§10.3). Christian ha risposto
+punto per punto lo stesso giorno. Queste sono le correzioni che ne sono nate.
+
+| # | App | Difetto trovato dal collaudo | Risposta | Esito |
+|---|---|---|---|---|
+| 1 | Fogli ore | il **backup JSON non era una copia completa**: mancavano `svccaps` e `lightsheets` | «aggiungi» | **rev 16** |
+| 2 | Fogli ore | **non esisteva nessun IMPORT**: il backup si poteva solo produrre, mai rimettere | «aggiungi» | **rev 16** |
+| 3 | USOINT | un file **con la forma giusta e il contenuto rotto** veniva accettato, rompeva l'app e **avvelenava il cloud** | «chiudi» | **ver134** |
+| 4 | Collaboratori | **«22,99» nel costo orario diventava 2299**, un errore di ×100 in silenzio | «correggi» | **rev 16** |
+| 5 | USOINT + Fogli ore | il backup **non portava nessun numero di schema** (§10.1) | «SÌ» | **ver134** + **rev 16** |
+| 6 | Fogli ore | 28 messaggi d'errore mostrano ancora il testo tecnico inglese di Firebase | «non serve» | 🚫 **non si tocca** |
+| 7 | Collaboratori | **13 scritte a 11px** in tre finestre (§10.6 chiede 12,5px) | «ok» | **rev 16** |
+| 8 | USOINT | `uso122.js` nella radice del repository, **non usato da nessuno** | «se necessario togli» | **tolto (ver134)** |
+| 9 | USOINT | la conferma di eliminazione **non nominava il lavoro** | «sì» | **ver134** |
+
+🚫 **Il punto 6 è una decisione presa: NON tradurre i 28 messaggi tecnici di Firebase in Fogli
+ore.** Non riproporlo.
+
+- ⌨️ **Collaboratori rev 16 (11/11/2026) — la virgola e le finestre.** Le caselle `#nR` (*Nuovo
+  Operatore*) e `#nyR` (*Nuovo anno*) erano `<input type="number">`, e un campo di quel tipo
+  **ingoia la virgola** prima che il JavaScript la veda: a `raw()` arrivava già `"2299"`, e
+  10 ore facevano **€ 22.990,00** invece di € 229,90. Ora sono `type="text"
+  inputmode="decimal"`, così il testo arriva intero a `raw()` e sul telefono la tastiera
+  numerica compare lo stesso. ⚠️ `#nYr` (l'**anno**) resta `type="number"`: non ha decimali.
+  Nello stesso intervento le 13 scritte a 11px delle finestre (*Nuovo Operatore*, *Nuovo anno*,
+  *Report per data*) salgono a 12,5px — erano regole di **classe**, che il blocco della rev 8
+  non vedeva. **Misurato**: `22,99` → 22,99 e € 229,90; scritte piccole da **13 a ZERO**; righe
+  delle due tabelle dense **23·23·19·23·23·21 identiche**. Batteria completa **zero falliti**
+  (20 script).
+
+- 🛡️ **USOINT ver134 (11/11/2026) — il ripristino, lo schema, l'eliminazione e un file di troppo.**
+  La guardia del ripristino della ver121 contava gli elementi la cui **chiave** comincia per
+  `usoint`: validava la **forma**, non il **contenuto**. Un file di una riga
+  `{"usoint-idx":"12345"}` veniva accettato, scritto **anche nel cloud**, e al ricaricamento
+  l'app moriva con «TypeError: (projects || []).forEach is not a function»; «Reset e ricarica»
+  puliva il browser **ma non il cloud**, quindi rientrando l'app tornava rotta **su qualunque
+  dispositivo**. Ora si guarda dentro: ogni valore dev'essere JSON leggibile, `usoint-idx` un
+  elenco di lavori, ogni `usoint-p-*` un oggetto; al primo guasto l'app elenca i motivi e dice
+  «NON ho toccato niente, né nel browser né nel cloud». Insieme: il backup porta ora
+  **`__schema`** (costante `USO_SCHEMA = 1`, §10.1) e il ripristino avvisa se manca e **rifiuta**
+  uno schema più nuovo; la conferma di eliminazione **nomina il lavoro e il periodo**; e
+  **`uso122.js`** (381 KB di JavaScript compilato della ver123, non usato da nessuno) è stato
+  tolto dal repository. **Provato in esecuzione**: `ver134us` **21/21**, batteria completa
+  **zero falliti nuovi** (21 script; l'unico fallito è un errore di pagina della **ver128**, la
+  versione di confronto).
+
 
 - **App integrata** (§3): quattro pulsanti, link live, revisione visibile.
 - **Dipendenti**, su `main`:

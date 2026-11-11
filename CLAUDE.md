@@ -35,7 +35,7 @@ USOINT sta per **"uso interno"**.
   (specchio di localStorage). Chiavi: `usoint-idx`, `usoint-p-<id>`, `usoint-orelav`,
   `usoint-tariffe`, `usoint-simul`. Accesso mail+password.
 - **Numero di revisione**: costante `const VER` (riga ~67), mostrata in **tre punti** (Home,
-  scheda progetto, Riepilogo operatori). **Attuale: ver133 · 11nov26.** `VER` finisce anche nei
+  scheda progetto, Riepilogo operatori). **Attuale: ver134 · 11nov26.** `VER` finisce anche nei
   nomi dei file esportati: incrementarla, non affiancarle un secondo numero.
 - **Strutture utili**: `usoint-orelav` = `{ [norm(nome)]: { [anno]: [12 numeri] } }` (ore
   lavorate, indice 0 = gennaio; `norm` = minuscolo, trim, spazi singoli).
@@ -75,6 +75,61 @@ USOINT sta per **"uso interno"**.
 - **Funzioni presenti**: import automatico (SOLA LETTURA) delle ore lavorate dal database dei
   Dipendenti tramite una **seconda app Firebase** chiamata "dip"; tabella compatta della scheda
   operatore (Lavorate | una colonna per progetto | Tot. rendicontate | Avanzo).
+- 🛡️ **UN FILE ROTTO NON ENTRA PIÙ, IL BACKUP DICE DI CHE SCHEMA È, E L'ELIMINAZIONE
+  NOMINA IL LAVORO** (ver134, 11/11/2026, quattro risposte di Christian all'elenco del collaudo
+  generale: punti **3** «chiudi», **5** «SÌ», **8** «se necessario togli», **9** «sì»).
+  - 🔴 **3 — la guardia della ver121 validava la FORMA, non il CONTENUTO.** Contava gli elementi
+    la cui **chiave** comincia per `usoint`, e basta. **Misurato prima di correggere**, con un
+    file di una riga `{"usoint-idx":"12345"}`: la conferma diceva «Stai per rimettere **1
+    elementi**…», poi «Rimessi 1 elementi **e scritti nel cloud (5)**»; al ricaricamento
+    compariva «**Errore nell'applicazione — TypeError: (projects || []).forEach is not a
+    function**»; «Reset e ricarica» puliva il browser **ma non il cloud**, e siccome `fbSync`
+    all'accesso riscarica dal cloud, **rientrando l'app tornava rotta, su qualunque
+    dispositivo**. ⚠️ **PREESISTENTE**, identico nella ver133.
+    - **Ora si guarda dentro**: ogni valore deve essere **JSON leggibile**; `usoint-idx` deve
+      essere un **elenco** i cui elementi sono oggetti con `id` **oppure** `title`; ogni
+      `usoint-p-*` deve essere un oggetto; le altre chiavi un oggetto o niente. Al primo guasto
+      l'app elenca i motivi (fino a sei) e dice: «**NON ho toccato niente, né nel browser né nel
+      cloud.**» ⚠️ **Dicitura nuova, scritta da Claude.**
+    - È il §10.1: «prima validare, poi — solo se valido — sovrascrivere». È lo stesso difetto che
+      **Collaboratori** ha chiuso con la **rev 13** (`paionoOperatori`); qui l'effetto era peggiore
+      perché si propagava al **cloud**.
+  - 🔢 **5 — il backup porta il numero di schema.** Costante nuova **`USO_SCHEMA = 1`**, scritta
+    nel file come `__schema` insieme a `__app`, `__ver` e `__creato`. Al ripristino: se **manca**
+    (backup fatto prima della ver134) l'app **avvisa** e chiede conferma; se **non è un numero**
+    o è **più alto** di quello dell'app **rifiuta**, perché non sa che cosa contiene.
+    ⚠️ **Si incrementa SOLO quando cambia la forma dei dati**, non a ogni versione dell'app.
+    ⚠️ Le quattro chiavi cominciano per `__`, quindi **il ripristino non le riscrive** in
+    `localStorage`: i dati restano esattamente le chiavi `usoint*` di prima.
+  - 🗑️ **9 — la conferma di eliminazione nomina il lavoro.** Prima erano due clic della **stessa**
+    conferma in riga, che non diceva quale lavoro. Ora `dl` chiede: «**ELIMINARE il lavoro
+    «‹titolo›» (dal → al)?** Si perdono il suo budget, le ore rendicontate, le fatture e
+    tutto quello che contiene. L'operazione NON si annulla: per recuperarlo serve un 💾 Backup
+    dati fatto prima.» ⚠️ La domanda arriva **prima** del controllo del timbro, così annullando
+    non resta in giro niente. ⚠️ **Dicitura nuova, scritta da Claude.**
+  - 🧹 **8 — `uso122.js` tolto dal repository.** Erano 381.405 byte di JavaScript compilato della
+    **ver123**, entrati col commit `cf171dc`, **non usati da nessuno** e pubblicati su Pages.
+    Nessun dato personale dentro (verificato prima di toglierlo).
+  - **Provato in esecuzione** (`ver134us.cjs`, **21 controlli su 21**, zero errori di pagina): il
+    confronto diretto con la **ver133**, dove `{"usoint-idx":"12345"}` **entrava**; sei file
+    malfatti diversi tutti **rifiutati** con l'archivio **identico** e il cloud **intatto**; il
+    backup che si scarica con `__schema 1 · USOINT · ver134`; un backup **vero** che si rimette
+    ancora; uno di schema **99** rifiutato; uno **senza schema** che avvisa e si può rimettere; e
+    la conferma dell'eliminazione che **nomina il lavoro**, con il lavoro che resta rispondendo
+    **no** e sparisce rispondendo **sì**.
+  - **Batteria rieseguita sulla ver134, ZERO falliti nuovi**: `mxus-A` **47/0** · `B` **67/0** ·
+    `C` **53/0** · `D` **34/0** · `E` **29/0** · `F` **7/0** · `G` **5/0** · `H` **7/0** ·
+    `ver125` **10/0** · `ver126` **7/0** · `ver129a` **13/0** · `ver129b` **17/0** · `ver129c`
+    **19/1** · `ver129d` **6/0** · `ver129t` **3/0** · `ver130us` **18/0** · `ver131us` **19/0** ·
+    `ver132us` **46/0** · `ver133us` **22/0** · `fix-b2` **7/0** · `g11` **13/0**.
+    ⚠️ L'unico fallito, in `ver129c`, è **un errore di pagina della ver128** (la versione di
+    confronto), non di oggi: identico al record della ver129.
+    ⚠️ In **sette** script le attese erano invecchiate — la **targhetta** scritta a mano in
+    `mxus-D`, `ver129t`, `ver130us`, `ver131us`, `ver132us` e `ver133us` (ora si legge la
+    costante `VER` dal file dell'app, così non invecchia più) e, in `mxus-E`, il controllo che
+    pretendeva che **tutte** le chiavi del backup cominciassero per `usoint`, mentre dalla ver134
+    ci sono anche le quattro di servizio. **Aggiornate, non aggirate.**
+
 - 🔴 **COLLAUDO GENERALE DEL 11/11/2026 — UN DIFETTO GRAVE PREESISTENTE, TROVATO E NON
   CORRETTO** (serve la decisione di Christian). Per il resto la ver133 ha retto: **665 controlli
   superati**, batteria storica rieseguita per intero (i «falliti» sono **targhette scritte a
@@ -95,18 +150,20 @@ USOINT sta per **"uso interno"**.
      e viene **respinto correttamente**: serve un file costruito a mano o prodotto da un altro
      strumento. ⚠️ È lo stesso difetto che **Collaboratori ha chiuso con la rev 13**
      (`paionoOperatori`): qui l'effetto è peggiore perché si propaga al cloud.
-     ⚠️ **NON corretto**: tocca il percorso dei dati, serve il suo via (§10.3).
+     ✅ **CHIUSO dalla ver134** (Christian: «chiudi»): vedi la scheda 🛡️ qui sopra.
   2. 🟠 **Il backup JSON non porta nessun numero di versione dello schema** (§10.1). È
      `{chiave: valore}` delle sole chiavi `usoint*`. Dipendenti ha `version: 4` e Collaboratori
-     `versione: 3`: qui non c'è niente, quindi un backup di uno schema più vecchio verrebbe
-     rimesso **alla cieca** — ed è anche il motivo per cui quel caso **non si può provare**.
+     `versione: 3`: qui non c'era niente.
+     ✅ **CHIUSO dalla ver134** (Christian: «SÌ»): vedi la scheda 🛡️ qui sopra.
   3. 🟡 **La conferma di eliminazione di un lavoro non nomina il lavoro**: sono due clic della
      **stessa** conferma in riga, non due conferme distinte (⚠️ la scheda della ver124 dice «il
      progetto ne chiede due»: letto alla lettera, dice una cosa che non succede). La ✕ della
      fattura, al confronto, nomina data, numero, tipo e importo.
+     ✅ **CHIUSO dalla ver134** (Christian: «sì»): ora la conferma nomina il lavoro e il periodo.
   4. 🟡 **`uso122.js`** (381.405 byte) sta nella radice del repository e **non è usato da
      nessuno**: è il JavaScript compilato della **ver123**, entrato col commit `cf171dc`. Nessun
      dato personale dentro (verificato), ma è pubblicato su Pages e confonde chi guarda il repo.
+     ✅ **TOLTO dalla ver134** (Christian: «se necessario togli»).
   5. 🟡 **La targhetta della pagina integrata è a 12px** (`.rev{font-size:12px}`), sotto il
      minimo del §10.6: nelle quattro app la targhetta è un'eccezione **dichiarata**, per la
      pagina integrata no.

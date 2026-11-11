@@ -211,7 +211,7 @@ function fbSync(uid){return fbDb.collection("users").doc(uid).collection("kv").g
 function fbPush(uid){var batch=fbDb.batch();var n=0;for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(k&&k.indexOf("usoint")===0){batch.set(fbDb.collection("users").doc(uid).collection("kv").doc(k),{v:localStorage.getItem(k)});n++}}if(n>0)return batch.commit().then(function(){return n});return Promise.resolve(0)}
 const MESI=["GEN","FEB","MAR","APR","MAG","GIU","LUG","AGO","SET","OTT","NOV","DIC"];
 const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
-const VER="ver133";
+const VER="ver134";const USO_SCHEMA=1;/* ver134: numero di schema dei dati, scritto nel backup (§10.1) */
 function nomeFile(base,ext){var mm=["gen","feb","mar","apr","mag","giu","lug","ago","set","ott","nov","dic"];var d=new Date();var o={};try{new Intl.DateTimeFormat("en-GB",{timeZone:"Europe/Rome",year:"2-digit",month:"numeric",day:"2-digit",hour:"2-digit",minute:"2-digit",hour12:false}).formatToParts(d).forEach(function(p){o[p.type]=p.value})}catch(e){o={day:("0"+d.getDate()).slice(-2),month:String(d.getMonth()+1),year:String(d.getFullYear()).slice(-2),hour:("0"+d.getHours()).slice(-2),minute:("0"+d.getMinutes()).slice(-2)}}var gg=("0"+o.day).slice(-2),mmm=mm[(+o.month)-1]||"",aa=o.year,HH=("0"+o.hour).slice(-2),MM=("0"+o.minute).slice(-2);if(HH==="24")HH="00";return base+" "+gg+mmm+aa+" - "+VER+" - "+HH+"."+MM+"."+ext}
 function markSaved(ok){try{var t=document.getElementById("usoint-savetoast");if(!t){t=document.createElement("div");t.id="usoint-savetoast";t.style.cssText="position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:999999;background:#dc2626;color:#fff;padding:12px 20px;border-radius:10px;font-family:'Nunito','Segoe UI',sans-serif;font-weight:800;font-size:14px;line-height:1.35;box-shadow:0 6px 22px rgba(220,38,38,.5);max-width:92vw;text-align:center;cursor:pointer";t.onclick=function(){t.style.display="none"};document.body.appendChild(t)}if(ok){t.style.display="none"}else{t.textContent="⚠ SALVATAGGIO NON RIUSCITO — memoria piena o disattivata (es. navigazione privata). I dati NON sono stati salvati. (clic per chiudere)";t.style.display="block"}}catch(e){if(!ok){try{alert("SALVATAGGIO NON RIUSCITO: i dati NON sono stati salvati (memoria piena o navigazione privata).")}catch(_e){}}}return ok}
 const calcCY=(s,e)=>{if(!s||!e)return[];const sd=new Date(s),ed=new Date(e);if(isNaN(sd)||isNaN(ed)||ed<=sd)return[];const r=[];for(let y=sd.getFullYear();y<=ed.getFullYear();y++){const fm=y===sd.getFullYear()?sd.getMonth():0,lm=y===ed.getFullYear()?ed.getMonth():11,ms=[];for(let m=0;m<12;m++){ms.push({month:m,label:MESI[m],disabled:m<fm||m>lm})}r.push({year:y,months:ms,n:lm-fm+1,partial:(lm-fm+1)<12,fm:fm,lm:lm})}return r};
@@ -319,7 +319,16 @@ function App(){
     if(gia>0){ if(!window.confirm("Esiste gi\u00e0 "+(gia===1?"un progetto":(gia+" progetti"))+" con questo titolo:\n\n"+t+"\n\nPuoi crearlo lo stesso, ma nell'elenco saranno difficili da distinguere.\n\nVuoi crearlo?")) return; }
     const id=uid(),nY=calcCY(s,e).length;LS.set("usoint-p-"+id,JSON.stringify({id,title:t,start:s,end:e,vincolo:v,colore:col||"#e3f0fc",cadMesi:cad||0,personnel:Array.from({length:nP},()=>mkP(nY)),beni:Array.from({length:nB},()=>mkB(nY)),fatture:[],propag:[]}));sI([...projects,{id,title:t,start:s,end:e,vincolo:v,cadMesi:cad||0}]);setAid(id)};
   const dp=id=>{const r=LS.get("usoint-p-"+id);if(!r)return;const src=JSON.parse(r.value),nid=uid(),d={...src,id:nid,title:src.title+" (copia)"};LS.set("usoint-p-"+nid,JSON.stringify(d));sI([...projects,{id:nid,title:d.title,start:src.start,end:src.end,vincolo:src.vincolo,cadMesi:src.cadMesi||0}]);setAid(nid)};
-  const dl=id=>{if(!timbroControlla("l'elenco dei lavori"))return;LS.del("usoint-p-"+id);sI(projects.filter(p=>p.id!==id));if(aid===id)setAid(null)};   /* ver131 */
+  /* ver134 (11/11/2026, risposta di Christian al punto 9: «si»). La conferma in riga non
+   nominava il lavoro: due clic sullo stesso pulsante e spariva, senza dire QUALE. Ora, prima
+   di cancellare, si chiede nominando titolo, periodo e che cosa si perde. ⚠️ La conferma in
+   riga «Conferma / Annulla» NON e' stata tolta: questa si aggiunge dopo, come ultima guardia.
+   ⚠️ Dicitura nuova, scritta da Claude. */
+const dl=id=>{const pr=(projects||[]).filter(x=>x.id===id)[0];
+  const tit=(pr&&pr.title)||"(senza titolo)";
+  const per=(pr&&pr.start&&pr.end)?(" ("+pr.start+" → "+pr.end+")"):"";
+  if(!confirm("ELIMINARE il lavoro «"+tit+"»"+per+"?\n\nSi perdono il suo budget, le ore rendicontate, le fatture e tutto quello che contiene.\nL'operazione NON si annulla: per recuperarlo serve un 💾 Backup dati fatto prima.\n\nVuoi eliminarlo?"))return;
+  if(!timbroControlla("l'elenco dei lavori"))return;LS.del("usoint-p-"+id);sI(projects.filter(p=>p.id!==id));if(aid===id)setAid(null)};   /* ver131 */
   const ed=(id,ns,ne,ncad,ncol)=>{if(!ns||!ne){alert("Inserisci entrambe le date");return}if(ne<=ns){alert("La data di fine deve essere successiva a quella di inizio");return}var nY=calcCY(ns,ne).length;if(!nY){alert("Periodo non valido");return}var r=LS.get("usoint-p-"+id);if(!r)return;var d=JSON.parse(r.value);d.start=ns;d.end=ne;d.cadMesi=(ncad||0);var fitN=function(a,f){a=(a||[]).slice(0,nY);while(a.length<nY)a.push(f);return a};var fitM=function(a){a=(a||[]).slice(0,nY);while(a.length<nY)a.push(Array(12).fill(0));return a};d.finAnno=fitN(d.finAnno,0);d.rettFin=fitN(d.rettFin,0);(d.personnel||[]).forEach(function(p){p.aOre=fitN(p.aOre,0);p.aElim=fitN(p.aElim,0);p.eurA=fitN(p.eurA,0);p.md=fitM(p.md);if(p.mv)p.mv=fitM(p.mv);if(p.pa)p.pa=fitM(p.pa)});(d.beni||[]).forEach(function(b){b.aImp=fitN(b.aImp,0);b.aElim=fitN(b.aElim,0);b.md=fitM(b.md);if(b.mv)b.mv=fitM(b.mv);if(b.pa)b.pa=fitM(b.pa)});if(ncol)d.colore=ncol;LS.set("usoint-p-"+id,JSON.stringify(d));sI(projects.map(function(p){return p.id===id?Object.assign({},p,{start:ns,end:ne,cadMesi:(ncad||0),colore:(ncol||p.colore)}):p}))};
   function pinSubmit(){
     if(!pinVal||!pinVal2){setPinErr("Inserisci email e password");return}
@@ -464,7 +473,11 @@ function Dash({projects,onCreate,onOpen,onDup,onDel,onEditDates,onTariffario,onR
         <button onClick={()=>setShow(true)} style={{...bPri,width:"100%",marginTop:14}}>+ Nuovo Progetto</button>
         <div style={{display:"flex",gap:8,marginTop:10}}>
           <button onClick={function(){
-            var bk={};for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(k.indexOf("usoint")===0)bk[k]=localStorage.getItem(k)}
+            /* ver134 (punto 5, risposta di Christian: «SI»): il backup porta ora il NUMERO DI SCHEMA,
+   come chiede il §10.1 e come gia' fanno Dipendenti (version) e Collaboratori (versione).
+   ⚠️ Le due chiavi di servizio NON cominciano per «usoint», quindi il ripristino non le
+   rimette in localStorage: servono solo a riconoscere il file. */
+            var bk={__schema:USO_SCHEMA,__app:"USOINT",__ver:VER,__creato:new Date().toISOString()};for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(k.indexOf("usoint")===0)bk[k]=localStorage.getItem(k)}
             var bl=new Blob([JSON.stringify(bk,null,2)],{type:"application/json"});
             var a=document.createElement("a");a.href=URL.createObjectURL(bl);
             a.download=nomeFile("Spazio Ireos USOINT Backup","json");a.click();
@@ -484,7 +497,48 @@ function Dash({projects,onCreate,onOpen,onDup,onDel,onEditDates,onTariffario,onR
                 var chiavi=[];
                 for(var k in d){ if(k.indexOf("usoint")===0 && typeof d[k]==="string") chiavi.push(k); }
                 if(!chiavi.length){ alert("In questo file non c'è nessun dato di USOINT.\n\nNON ho toccato niente."); return; }
-                if(!confirm("Stai per rimettere "+chiavi.length+" elementi presi dal file.\n\nI dati di adesso — anche quelli nel cloud — verranno SOSTITUITI.\nQuello che c'è adesso e non è nel file resta dov'è: non viene cancellato.\n\nVuoi procedere?")) return;
+                /* ver134 (11/11/2026, risposta di Christian al punto 3: «chiudi»).
+                   IL DIFETTO, misurato dal collaudo: la guardia della ver121 contava gli elementi
+                   la cui CHIAVE comincia per «usoint», cioè validava la FORMA e non il CONTENUTO.
+                   Un file di una riga, {"usoint-idx":"12345"}, veniva accettato, finiva anche NEL
+                   CLOUD, e al ricaricamento l'app moriva con «(projects || []).forEach is not a
+                   function»; «Reset e ricarica» puliva il browser ma non il cloud, quindi al
+                   rientro tornava rotta su qualunque dispositivo.
+                   Ora si guarda dentro, come fa Collaboratori dalla rev 13 (paionoOperatori).
+                   È il §10.1: «prima validare, poi — solo se valido — sovrascrivere».
+                   ⚠️ Larga di proposito, per non rifiutare un backup storico: si chiede solo che
+                   ogni pezzo sia della FORMA giusta, non che contenga certi campi. */
+                var guasti=[];
+                for(var iv=0;iv<chiavi.length;iv++){
+                  var kv=chiavi[iv], vv=null;
+                  try{ vv=JSON.parse(d[kv]); }
+                  catch(ex2){ guasti.push(kv+" (non è JSON leggibile)"); continue; }
+                  if(kv==="usoint-idx"){
+                    if(!Array.isArray(vv)){ guasti.push("usoint-idx (l'elenco dei lavori non è un elenco)"); continue; }
+                    for(var ie=0;ie<vv.length;ie++){
+                      var el=vv[ie];
+                      if(!el || typeof el!=="object" || Array.isArray(el)){ guasti.push("usoint-idx (la voce n. "+(ie+1)+" non è un lavoro)"); break; }
+                      if(el.id===undefined && el.title===undefined){ guasti.push("usoint-idx (la voce n. "+(ie+1)+" non ha né id né titolo)"); break; }
+                    }
+                  } else if(kv.indexOf("usoint-p-")===0){
+                    if(!vv || typeof vv!=="object" || Array.isArray(vv)) guasti.push(kv+" (il lavoro non è un lavoro)");
+                  } else {
+                    if(vv!==null && typeof vv!=="object") guasti.push(kv+" (il contenuto non è dei dati)");
+                  }
+                }
+                if(guasti.length){
+                  alert("Questo file ha la forma giusta ma il CONTENUTO non è dei dati di USOINT:\n\n• "+guasti.slice(0,6).join("\n• ")+(guasti.length>6?("\n• … e altri "+(guasti.length-6)):"")+"\n\nNON ho toccato niente, né nel browser né nel cloud.");
+                  return;
+                }
+                /* ver134 (punto 5): il numero di schema del file */
+                var sch = d.__schema;
+                if(sch===undefined){
+                  if(!confirm("Questo backup NON dice di che schema è: è stato fatto con una versione precedente alla ver134.\n\nL'app lo rimetterà così com'è. Se viene da una versione molto vecchia, qualche dato potrebbe non essere letto.\n\nVuoi procedere lo stesso?")) return;
+                } else if(!(typeof sch==="number") || sch>USO_SCHEMA){
+                  alert("Questo backup è di uno schema più NUOVO di questa app (file: "+String(sch)+" · app: "+USO_SCHEMA+").\n\nNON lo rimetto: potrebbe contenere dati che questa versione non sa leggere.\nApri la versione aggiornata dell'app e riprova.");
+                  return;
+                }
+                if(!confirm("Stai per rimettere "+chiavi.length+" elementi presi dal file"+(d.__creato?(" del "+String(d.__creato).slice(0,10)):"")+".\n\nI dati di adesso — anche quelli nel cloud — verranno SOSTITUITI.\nQuello che c'è adesso e non è nel file resta dov'è: non viene cancellato.\n\nVuoi procedere?")) return;
                 for(var i2=0;i2<chiavi.length;i2++){ localStorage.setItem(chiavi[i2], d[chiavi[i2]]); }
                 if(!fbUid){ alert("Rimessi "+chiavi.length+" elementi. La pagina si ricaricherà."); location.reload(); return; }
                 fbPush(fbUid).then(function(n2){
