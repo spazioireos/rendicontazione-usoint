@@ -35,7 +35,7 @@ USOINT sta per **"uso interno"**.
   (specchio di localStorage). Chiavi: `usoint-idx`, `usoint-p-<id>`, `usoint-orelav`,
   `usoint-tariffe`, `usoint-simul`. Accesso mail+password.
 - **Numero di revisione**: costante `const VER` (riga ~67), mostrata in **tre punti** (Home,
-  scheda progetto, Riepilogo operatori). **Attuale: ver134 · 11nov26.** `VER` finisce anche nei
+  scheda progetto, Riepilogo operatori). **Attuale: ver135 · 11nov26.** `VER` finisce anche nei
   nomi dei file esportati: incrementarla, non affiancarle un secondo numero.
 - **Strutture utili**: `usoint-orelav` = `{ [norm(nome)]: { [anno]: [12 numeri] } }` (ore
   lavorate, indice 0 = gennaio; `norm` = minuscolo, trim, spazi singoli).
@@ -75,6 +75,58 @@ USOINT sta per **"uso interno"**.
 - **Funzioni presenti**: import automatico (SOLA LETTURA) delle ore lavorate dal database dei
   Dipendenti tramite una **seconda app Firebase** chiamata "dip"; tabella compatta della scheda
   operatore (Lavorate | una colonna per progetto | Tot. rendicontate | Avanzo).
+- 🛑 **L'IMPORT NON AZZERA PIÙ UN MESE DA SOLO: LO CHIEDE** (ver135, 11/11/2026, risposta di
+  Christian a **US-14** della riconciliazione delle urgenze: «**non azzerare mai da solo e
+  chiedere**»).
+  - 🔴 **Il difetto, misurato**: se in Dipendenti un mese **perde le ore** — documento salvato a
+    metà, oppure mese svuotato — qui quel mese veniva messo a **ZERO**. Misurato sulla ver134:
+    gennaio **20,00 → 0,00**, con il riquadro che diceva «**Ore lavorate importate dai
+    Dipendenti ✓ (1 operatori aggiornati)**» e la spunta **verde**, e **nessuna scritta** che
+    dicesse che un mese era stato azzerato. Lo zero finiva poi nell'**Avanzo**.
+    ⚠️ Era **PREESISTENTE** e lo aveva trovato il **collaudo delle interconnessioni del
+    09/11/2026** (voce 5 dell'elenco di allora, classificata 🟠), ma era **sparita dai rapporti
+    successivi senza esito**. È stata ritrovata dalla **riconciliazione delle urgenze**
+    dell'11/11, rimisurata e **aggravata a 🔴**.
+  - **La correzione**: elenco nuovo **`azzera[]`** accanto a `mano[]`, riempito quando
+    `tot === 0` **e** in archivio c'è un valore **maggiore di zero**. Prima di scrivere, un
+    `confirm` elenca le caselle («ALFA PROVA · 2026 GEN: 20,00 → 0»), dice le **due cause
+    possibili** (il mese svuotato davvero, oppure un salvataggio rimasto a metà) e chiede.
+    Rispondendo **annulla** le ore restano e la **provenienza non viene aggiornata**, quindi la
+    domanda **torna al giro dopo** invece di sparire; compare il riquadro «⚠️ Mesi NON azzerati,
+    lasciati con le loro ore: …». ⚠️ **Dicitura nuova, scritta da Claude.**
+  - ⚠️ **NON è una riduzione**: 20 → 5 è una correzione legittima dei Dipendenti e passa **senza
+    domande**, come prima (verificato). La domanda scatta **solo sull'azzeramento**.
+  - ⚠️ **Le caselle già finite in `mano`** (ver132) **non si ripetono qui**: quella domanda mostra
+    già «vecchio → 0» ed è la stessa decisione.
+  - ⚠️ **Il primo import non chiede niente** (non c'è niente da azzerare), e un mese che in
+    Dipendenti **non esiste più** resta «**orfano**» come dalla **ver129**, senza essere azzerato:
+    sono due casi diversi e restano distinti (verificato).
+  - 🐞 **UN MIO ERRORE TROVATO DALLA MISURA, NON DAL CODICE**: nel riquadro avevo scritto
+    `\u26a0\ufe0f` dentro il **testo JSX**, dove **non è una sequenza di escape**: a video usciva
+    scritto `\u26a0\ufe0f` invece dell'emoji. Babel compilava e `node --check` passava.
+    Corretto col carattere vero. ⚠️ **Dentro una stringa JS l'escape funziona, dentro il testo
+    JSX no**: è la stessa famiglia di trappole della ver139 di Dipendenti.
+  - **Provato in esecuzione** (`ver135us.cjs`, **19 controlli su 19**, zero errori di pagina): il
+    confronto diretto con la **ver134**, dove il mese veniva azzerato **senza nessuna domanda**;
+    la domanda che nomina persona, mese e numero e spiega le due cause; **annulla** → le ore
+    restano a video **e dopo il 💾**, con il riquadro che le elenca, mentre **l'altra persona
+    viene importata lo stesso**; la domanda che **torna** al giro dopo; **OK** → il mese si azzera
+    davvero e il riquadro non compare; e la **non regressione** su riduzione, primo import e mesi
+    orfani.
+  - **Batteria rieseguita sulla ver135, ZERO falliti nuovi**: `mxus-A` **47/0** · `B` **67/0** ·
+    `C` **53/0** · `D` **34/0** · `E` **29/0** · `F` **7/0** · `G` **5/0** · `H` **5/0** ·
+    `ver125` **10/0** · `ver126` **7/0** · `ver129a` **13/0** · `ver129b` **17/0** · `ver129c`
+    **19/1** · `ver129d` **6/0** · `ver129t` **3/0** · `ver130us` **18/0** · `ver131us` **19/0** ·
+    `ver132us` **46/0** · `ver133us` **22/0** · `ver134us` **21/0** · `ver135us` **19/0** ·
+    `fix-b2` **7/0** · `g11` **13/0** · `ric-U14-U17` **4/0 + 1 aperto (US-17)**.
+    ⚠️ L'unico fallito, in `ver129c`, è **un errore di pagina della ver128** (la versione di
+    confronto), non di oggi.
+    ⚠️ In **tre** script le attese erano invecchiate e sono state **aggiornate, non aggirate**:
+    in `ver134us` la **versione scritta nel backup** (ora si legge dal file dell'app); in
+    `mxus-G` il controllo che pretendeva che il contenuto si **accorciasse** (era scritto per la
+    campagna della ver123: ora, fuori da quella, pretende che **non sia cresciuto**); e in
+    `ric-U14-U17` la voce **US-14**, che **documentava il difetto chiuso oggi**.
+
 - 🛡️ **UN FILE ROTTO NON ENTRA PIÙ, IL BACKUP DICE DI CHE SCHEMA È, E L'ELIMINAZIONE
   NOMINA IL LAVORO** (ver134, 11/11/2026, quattro risposte di Christian all'elenco del collaudo
   generale: punti **3** «chiudi», **5** «SÌ», **8** «se necessario togli», **9** «sì»).

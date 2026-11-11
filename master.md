@@ -66,7 +66,7 @@ in cache (problema realmente capitato).
 | App integrata | `rev 6 · 08nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 16 · 11nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
 | Dipendenti | `ver156 · 11nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
-| Rendicontazione USOINT | `ver134 · 11nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
+| Rendicontazione USOINT | `ver135 · 11nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 16 · 11nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
 **Criterio:** dove l'app aveva già una numerazione (USOINT `ver`, Dipendenti `APP_VER`) si usa e
@@ -247,11 +247,11 @@ non vale come risolta.
 
 | # | Che cosa | ID | Chi decide |
 |---|---|---|---|
-| 1 | Un mese svuotato in Dipendenti **azzera il mese in USOINT** con la spunta verde | US-14 | 🔴 **Christian**: avvisare, oppure non azzerare mai da solo |
-| 2 | Esiste una casella di USOINT in cui un **importo negativo** serve davvero? | US-30 | 🟠 **Christian** |
-| 3 | Gli **utenti cancellati** non si possono ricreare dal ripristino di Fogli ore | FO-17 | 🟠 **Christian** (riguarda le regole) |
-| 4 | L'**abbinamento fra le app è solo il nome** | TR-03 | 🟠 **Christian** |
-| 5 | `locks` e ruolo `disabled` non imposti dal database | FO-20 | 🟠 già accettato, riaprirlo è una sua scelta |
+| 1 | ~~Un mese svuotato in Dipendenti azzera il mese in USOINT~~ | US-14 | ✅ **CHIUSO l'11/11**: «non azzerare mai da solo e chiedere» → **ver135** |
+| 2 | ~~Un importo negativo serve in qualche casella di USOINT?~~ | US-30 | ✅ **CHIUSO l'11/11**: «non serve». 🚫 Non riproporlo |
+| 3 | ~~Gli utenti cancellati non si ricreano dal ripristino di Fogli ore~~ | FO-17 | ✅ **CHIUSO l'11/11**: «va bene così» — limite accettato e scritto nella conferma a video |
+| 4 | **L'abbinamento fra le app diventa un CODICE CONDIVISO** | TR-03 | 🟠 **deciso l'11/11**: «ok codice condiviso che crei tu di max 4 caratteri, 3 dei quali contengono le prime lettere del cognome» — **da progettare e costruire** |
+| 5 | ~~`locks` e ruolo `disabled` non imposti dal database~~ | FO-20 | ✅ **CHIUSO l'11/11**: «ok» — accettato |
 | 6 | Aprire un mese mai compilato **scrive** nel database | FO-14 | 🟡 programmabile |
 | 7 | La **banda rossa unica** di Fogli ore | FO-15 | 🟡 **Christian** (è una dicitura) |
 | 8 | Il **PIN in chiaro** di Collaboratori | OP-13 | 🟡 **Christian** |
