@@ -36,7 +36,7 @@ USOINT sta per **"uso interno"**.
   `usoint-tariffe`, `usoint-simul`, **`usoint-codici`** (dalla ver136: codice operatore → riga).
   Accesso mail+password.
 - **Numero di revisione**: costante `const VER` (riga ~67), mostrata in **tre punti** (Home,
-  scheda progetto, Riepilogo operatori). **Attuale: ver136 · 11nov26.** `VER` finisce anche nei
+  scheda progetto, Riepilogo operatori). **Attuale: ver137 · 12nov26.** `VER` finisce anche nei
   nomi dei file esportati: incrementarla, non affiancarle un secondo numero.
 - **Strutture utili**: `usoint-orelav` = `{ [norm(nome)]: { [anno]: [12 numeri] } }` (ore
   lavorate, indice 0 = gennaio; `norm` = minuscolo, trim, spazi singoli).
@@ -76,6 +76,59 @@ USOINT sta per **"uso interno"**.
 - **Funzioni presenti**: import automatico (SOLA LETTURA) delle ore lavorate dal database dei
   Dipendenti tramite una **seconda app Firebase** chiamata "dip"; tabella compatta della scheda
   operatore (Lavorate | una colonna per progetto | Tot. rendicontate | Avanzo).
+- 🔢 **UN NUMERO CON LO SPAZIO DAVANTI, O CHE COMINCIA COL PUNTO, NON VALE PIÙ ZERO**
+  (ver137, 12/11/2026, risposta di Christian al punto **6** dell'elenco del sospeso:
+  «**sistema**»).
+  - 🟡 **Il difetto, misurato**: **`_dipNum`** — la funzione che legge una cella di
+    Dipendenti durante l'import delle ore lavorate — cominciava con
+    `if(!/^[0-9]/.test(sv))return 0`, cioè pretendeva che il **primo carattere** fosse una
+    cifra. Quindi **« 4»** (con uno spazio davanti) e **«.5»** valevano **ZERO**, in
+    silenzio: quelle ore non arrivavano in USOINT e finivano nell'**Avanzo** come se non fossero
+    mai state fatte. ⚠️ **PREESISTENTE**, e **impatto misurato NULLO sui dati veri**
+    (nessuna cella di quella forma): era una porta aperta, non un danno in corso.
+  - **La correzione è una riga**: `String(v).trim()` e, accanto al controllo di prima, si ammette
+    anche **il punto o la virgola iniziale** (`/^[.,][0-9]/`). Tutto il resto è identico.
+  - ⚠️ **Perché quel controllo c'è**, e perché non si può togliere: nel campo `giorni` di
+    Dipendenti convivono le **ore** e i **CODICI di assenza** (`FERIE`, `MAL`, `AN`, `--`,
+    `FEST`, `MAT-OBB`, `ASP 0h`), che valgono **0 ore**. Senza il controllo, `parseFloat` di un
+    codice darebbe `NaN`, e il **segno meno** passerebbe. **Misurato dopo la correzione**: tutti
+    e otto i codici valgono ancora **0**, e `-3` e `-0,5` valgono ancora **0**.
+  - **Provato in esecuzione** (`ver137us.cjs`, **12 controlli su 12**, zero errori di pagina): il
+    confronto diretto con la **ver136** su **26 valori**, estraendo il testo vero della funzione
+    dal file dell'app invece di riscriverla a mano. Cambiano **quattro** casi e **solo** quelli:
+    | valore scritto | ver136 | **ver137** |
+    |---|--:|--:|
+    | `" 4"` (spazio davanti) | 0 | **4** |
+    | `"  4,5  "` (spazi dai due lati) | 0 | **4,5** |
+    | `".5"` | 0 | **0,5** |
+    | `",5"` (virgola italiana) | 0 | **0,5** |
+    Identici: `4` · `4,5` · `4.5` · `7,25` · `12` · `13` · `99` · `0.5` · `4h` · i numeri non
+    testuali · e **zero** per gli otto codici, per i due negativi, per il vuoto e per il solo
+    spazio.
+  - **Batteria rieseguita sulla ver137, ZERO falliti nuovi**: `mxus-A` **47/0** · `B` **67/0** ·
+    `C` **53/0** · `D` **34/0** · `E` **29/0** · `F` **7/0** · `G` **5/0** · `H` **5/0** ·
+    `ver125` **10/0** · `ver126` **7/0** · `ver129a` **13/0** · `ver129b` **17/0** · `ver129c`
+    **19/1** · `ver129d` **6/0** · `ver129t` **3/0** · `ver130us` **18/0** · `ver131us` **19/0**
+    · `ver132us` **46/0** · `ver133us` **22/0** · `ver134us` **21/0** · `ver135us` **19/0** ·
+    `ver136us` **17/0** · `ver137us` **12/0** · `fix-b2` **7/0** · `g11` **13/0**.
+    ⚠️ L'unico fallito, in `ver129c`, è **un errore di pagina della ver128** (la versione di
+    confronto), non di oggi: identico al record della ver129.
+    🐞 **TRE INCIAMPI DEL BANCO DI PROVA, non dell'app, da ricordare:**
+    1. la prima esecuzione girava su un banco **rigenerato prima** del cambio di versione, quindi
+      `mxus-D` dava **31/3** lamentando la targhetta «ver136»: era vero, il banco serviva ancora
+      la ver136. **Rigenerare il banco DOPO ogni modifica al file**, altrimenti si misura la
+      versione di ieri;
+    2. `mxus-A` in fila con gli altri dà **46/1** (««Logout» riporta alla schermata di accesso»);
+      **da solo dà 47/0**, e il controllo che cade non ha niente a che vedere con le due righe
+      cambiate. È una **fragilità dello script**, verificata rieseguendolo in isolamento;
+    3. `mxus-G` e `ver125` non partivano affatto: `mxus-G` confronta con la **copia congelata sulla
+      porta 8201**, che non era in funzione. **Il banco di confronto va avviato**, altrimenti lo
+      script muore e sembra un difetto.
+    ⚠️ In `ver125` l'attesa era **invecchiata dalla ver133**: uscire da una scheda con modifiche
+    non salvate **chiede conferma** (§10.1), e lo script rispondeva «annulla», restando dentro la
+    scheda e non trovando mai «Nuovo Progetto». Ora quel dialogo viene **accettato** e **non**
+    conta fra gli avvisi che la prova A5 misura: **aggiornata, non aggirata** (10/0).
+
 - 🔗 **IL CODICE OPERATORE: L'ABBINAMENTO NON DIPENDE PIÙ DAL NOME** (ver136, 11/11/2026,
   **TR-03** della riconciliazione delle urgenze; il codice nasce in **Dipendenti ver157**).
   - 🔴 **Il problema**: l'unico identificativo che attraversava il confine era il **NOME**,

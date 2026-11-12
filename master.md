@@ -66,7 +66,7 @@ in cache (problema realmente capitato).
 | App integrata | `rev 6 · 08nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 16 · 11nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
 | Dipendenti | `ver158 · 11nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
-| Rendicontazione USOINT | `ver136 · 11nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
+| Rendicontazione USOINT | `ver137 · 12nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 16 · 11nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
 **Criterio:** dove l'app aveva già una numerazione (USOINT `ver`, Dipendenti `APP_VER`) si usa e
@@ -76,6 +76,119 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
 ---
 
 ## 5. Lavori fatti e attivi
+
+### 5.0-quater LE RISPOSTE DEL 12/11/2026 E LE DUE GRAVITÀ MISURATE
+
+Portate su `main` le quattro app l'11/11, Christian ha chiesto l'elenco numerato del sospeso e
+ha risposto punto per punto. Queste sono le risposte e, dove le ha chieste, le **misure**.
+
+| # | Che cosa | Risposta | Esito |
+|---|---|---|---|
+| 1 | Fogli ore: aprire un mese mai compilato **scrive** nel database (FO-14) | «non conosco la gravità» | **misurata** (sotto), **non toccata** |
+| 2 | Fogli ore: la **banda rossa unica** (FO-15) | «non conosco la gravità» | **misurata** (sotto), **non toccata** |
+| 3 | Collaboratori: il **PIN in chiaro** (OP-13) | «**no assolutamente hash**» | 🚫 **CHIUSO**: non riproporlo |
+| 4 | Dipendenti: 📤 Pubblica i residui automatico? | «**manuale e' ok**» | 🚫 **CHIUSO**: resta manuale, non riproporlo |
+| 5 | Dipendenti: 4 senza data di assunzione, 5 senza livello (DIP-13) | «**provvedo**» | lo sistema lui nei dati |
+| 6 | USOINT: i formati « 4» e «.5» valgono zero (US-17) | «**sistema**» | ✅ **ver137** |
+
+#### US-17 — la correzione (ver137)
+
+**`_dipNum`**, la funzione che legge una cella di Dipendenti durante l'import delle ore
+lavorate, pretendeva che il **primo carattere** fosse una cifra: **« 4»** (spazio davanti) e
+**«.5»** valevano **ZERO**, e quelle ore finivano nell'Avanzo come se non fossero mai state
+fatte. Ora si toglie lo spazio e si ammette anche il punto o la virgola iniziale.
+⚠️ **I codici di assenza** (`FERIE`, `MAL`, `AN`, `--`, `FEST`, `MAT-OBB`, `ASP 0h`) e il
+**segno meno** restano scartati come prima: è la ragione per cui quel controllo esiste.
+**Misurato** (`ver137us.cjs` **12/12**): 26 valori confrontati con la ver136, cambiano **solo**
+i quattro con spazio o punto iniziale. Batteria completa **ZERO falliti nuovi** (25 script).
+
+| 7 | Pagina integrata: la targhetta a 12px (US-29) | «**va bene 12px**» | ✅ **CHIUSO**: eccezione dichiarata |
+| 8 | Collaboratori: il centesimo dei «secchi» (OP-11) | «si può risolvere?» | **sì**, e indagando è uscito **OP-15**: attende la sua decisione |
+
+#### FO-14 — la gravità, misurata (`grav12d.cjs`)
+
+Aprire un mese **mai compilato** crea **un documento** `timesheets/<uid>__<anno>_<mese>_<slot>`
+con `days:{}`. **Misurato**: aprendo quattro mesi vuoti sono nati **3 documenti** (uno per mese
+aperto; il quarto era già in cache). Aprire un mese **già compilato** non scrive **niente**.
+
+🔑 **E leggendo il codice si è visto che quella scrittura NON è «per la sola
+navigazione»**, come diceva il verbale del collaudo: è la **copia automatica della
+configurazione del servizio** nel mese nuovo. `findAnyMonthAnag` cerca mansione, sede, dettagli,
+comune e alunno in un altro mese, controlla che non sia un doppione e li **scrive** nel mese
+appena aperto — ed è esattamente ciò che i documenti nati nella prova contenevano
+(`mansione: "Educatore/Assistente"`, `days` vuoto). Serve a far trovare all'operatore il suo
+servizio **già configurato** ogni mese, invece di fargli riscrivere tutto. ⚠️ La descrizione
+precedente era **incompleta**, ed è corretta qui.
+
+- ✅ **Nessun numero cambia e nessun dato si perde**: `days` è vuoto, quindi le ore valgono 0
+  come per un mese che non esiste, e il confronto con Dipendenti non si muove. Il documento nasce
+  **solo** se non c'era (`if(!cache[k])` dopo un `loadTS` che ha trovato il vuoto): **non può
+  sovrascrivere** un foglio vero.
+- 🟡 **Che cosa costa davvero**: documenti vuoti in un database **condiviso con gli esterni**
+  (al massimo 12 mesi × 20 slot = **240** per operatore, in pratica solo i mesi e gli slot che
+  apre), che da quando il backup è completo (rev 16) **finiscono anche nel file di backup**; e
+  «mese mai toccato» diventa indistinguibile da «mese aperto e lasciato vuoto».
+- ⚠️ **La correzione costerebbe più di quanto rende**: rinviando la scrittura al primo dato
+  vero, la configurazione resterebbe **solo nella memoria del browser**, e un mese aperto e
+  lasciato vuoto risulterebbe «DA CONFIGURARE» a chi lo guarda da un altro dispositivo o
+  dall'admin. Tocca il **percorso dei dati degli esterni** (§10.3).
+- 📌 **Consiglio, dichiarato**: **lasciarlo come è**. Non si perde e non si altera niente, e
+  quella scrittura paga un servizio vero all'operatore. Se un giorno i documenti vuoti dessero
+  fastidio, la via pulita è un ripulitore lato admin, non il rinvio della scrittura.
+
+#### FO-15 — la gravità, misurata (`grav2.cjs`, 4 controlli su 4)
+
+Con il collegamento caduto, in quest'ordine: si scrivono delle **ore** → compare
+«⚠️ **ORE NON SALVATE** — … quando torna la linea premi 💾 Salva»; si scegle poi
+un'**assenza** → la stessa banda diventa «⚠️ **ASSENZA NON SALVATA** — … il 💾 Salva non la
+rimette: riscegli l'assenza dalla tendina», e **il messaggio delle ore sparisce**.
+
+- 🔴 **La conseguenza è la perdita di ore**: verificato che in quel momento le ore **non sono
+  nel database**, e Fogli ore **non tiene nessuna copia nel browser**. Chi legge la banda rimasta
+  — che dice che il 💾 «non la rimette» — può concludere che non c'è niente da premere, chiudere
+  la pagina e **perdere le ore**.
+- 🟡 **Quanto è probabile**: serve che la linea cada **e** che in quella finestra si facciano
+  **tutte e due** le cose, in quell'ordine. L'avviso a comparsa dell'assenza, intanto, compare
+  correttamente («L'assenza NON è stata salvata…»).
+- **La correzione è pronta nell'impianto**: la rev 15 ha già **due** bande impilate
+  (`banda-salv` e `banda-lett`) con `bandeImpila()` che ne misura l'altezza vera. Servirebbe una
+  **terza banda** (o una banda a due righe) e quindi una **dicitura nuova**: §10.6, serve il suo
+  via libera.
+
+#### OP-11 — sì, si può risolvere; e indagando è uscito **OP-15** (`cent8*.cjs`)
+
+**Misurato a video**, nel riquadro «Il credito ‹anno› viene da:»:
+
+| caso | somma delle righe | credito residuo | scarto |
+|---|--:|--:|--:|
+| **D** nessuna liquidazione e nessuna rettifica | 5.287,71 € | 5.287,71 € | **0,00** |
+| **A** una liquidazione (10 h a 20,50) | 92,25 € | 92,26 € | **−0,01** |
+| **B** rettifica di **sole ore** (24,39 h) | 1.550,01 € | 2.050,00 € | **−499,99** |
+| **C** rettifica di **solo importo** (500 €) | 2.050,00 € | 1.550,00 € | **+500,00** |
+
+- 🟡 **OP-11, il centesimo**: compare **solo** con una liquidazione o con un riporto fra anni, ed
+  è sempre **esattamente un centesimo** (misurato: **81 casi su 500** con liquidazione, **65 su
+  500** con riporto, mai più di 0,01). Senza liquidazioni né rettifiche la somma **quadra sempre**
+  (2.401 combinazioni su 2.401). **Si risolve**: si arrotondano le righe e il centesimo che resta
+  si mette sulla riga più grande, così le righe sommano **esatte** al credito. Costa che **una
+  riga mostra un centesimo diverso** dal suo ore × tariffa, ed è solo **visualizzazione**: il
+  motore dei residui non si tocca.
+- 🟠 **OP-15 — NUOVO, trovato indagando OP-11**: il pannello **«Rettifica credito»** ha **due
+  caselle indipendenti** (Ore e Importo €) e le due viaggiano su **binari separati** — `rettOre`
+  consuma i secchi ma **non** abbassa l'importo residuo, `rettImp` abbassa l'importo residuo ma
+  **non** tocca i secchi. Usandone **una sola**, il riquadro in euro contraddice il credito
+  **dell'intera rettifica** (casi **B** e **C**: 500 € nella prova), e **niente a video lo dice**.
+  ⚠️ Con «**Azzera credito residuo**» non capita, perché quel pulsante scrive **entrambe**.
+  ⚠️ **PREESISTENTE** e **non toccato**: il motore dei residui è nell'elenco delle cose da non
+  toccare senza richiesta, e la correzione richiederebbe anche una **dicitura nuova**.
+  🔴 **Vale più di OP-11**: lo scarto è di **centinaia di euro**, non di un centesimo.
+- 🐞 **Due errori MIEI nello script, trovati e corretti prima di riportare i numeri**: la prima
+  stesura leggeva una **finestra di testo** di 420 caratteri dopo «viene da:», che sconfinava
+  nella tabella dell'anno dopo (scarti inventati di migliaia di euro), e la seconda agganciava il
+  riquadro **dell'anno sbagliato**. Ora si parte dal titolo vero (il solo `div` che contiene
+  «viene da:» e **nessun altro `div`**) e si leggono **solo** le righe di quel riquadro.
+  ⚠️ **Un numero misurato con un selettore sbagliato non è una misura**: nel caso sano la somma
+  quadra al centesimo, e prima sembrava sbagliata di 1.597 €.
 
 ### 5.0-ter IL CODICE OPERATORE — TR-03 (11/11/2026)
 
@@ -188,8 +301,8 @@ non vale come risolta.
 | FO-11 | **Non esisteva nessun import**: il backup si poteva solo produrre | C5 | — | 🔴 | **RISOLTO** | rev 16 | `rev16fo` 33/33 | — |
 | FO-12 | Il backup non portava il numero di schema; «ver1» nel nome scritto a mano | C5 | — | 🟠 | **RISOLTO** | rev 16 | `rev16fo` | — |
 | FO-13 | **28 messaggi d'errore in inglese di Firebase** (percorsi admin) | C3 | 🟠 | 🟠 | **INVARIATO — chiuso per DECISIONE** («non serve») | nessuna, voluto | — | 🚫 non si tocca |
-| FO-14 | Aprire un mese mai compilato **scrive** nel database | C5 | — | 🟡 | **INVARIATO — aperto** | nessuna | — | 🟡 |
-| FO-15 | La banda rossa è una sola: perdendo ore **e** assenza, il messaggio sulle ore sparisce | C5 | — | 🟡 | **INVARIATO — aperto** | nessuna (conseguenza voluta della rev 15) | — | 🟡 |
+| FO-14 | Aprire un mese mai compilato **scrive** nel database | C5 | — | 🟡 | **RICLASSIFICATO** il 12/11: non è una scrittura «per la sola navigazione» ma la **copia della configurazione del servizio** nel mese nuovo (`findAnyMonthAnag`); nessun numero cambia e nulla si sovrascrive | nessuna | `grav12d` (2/2): 3 documenti nati aprendo 4 mesi vuoti, con la mansione copiata e `days` vuoto; zero scritture su un mese già compilato | 🟢 **proposta: chiuderlo come comportamento VOLUTO** — serve il suo via |
+| FO-15 | La banda rossa è una sola: perdendo ore **e** assenza, il messaggio sulle ore sparisce | C5 | — | 🟡 | **AGGRAVATO** il 12/11, su misura nuova e non per il passare del tempo: verificato che in quel momento le ore **non sono nel database** e Fogli ore **non tiene copia locale**, quindi chi legge la banda rimasta può chiudere la pagina e **perdere le ore** | nessuna (conseguenza voluta della rev 15) | `grav2` (4/4): la banda passa a «ASSENZA NON SALVATA» e il messaggio delle ore **sparisce** | 🟠 **proposta**: perdita di dati possibile, anche se serve la linea caduta e due azioni in quell'ordine — serve il suo via (dicitura nuova) |
 | FO-16 | Il `CLAUDE.md` dichiarava una dimensione del file sbagliata | C5 | — | 🟡 | **RISOLTO** | corretto in C5 e C6 | — | — |
 | FO-17 | **L'admin non può RICREARE un `users` cancellato** (le regole danno `update`, non `create`) | **C6** | — | 🟠 **NUOVO** | **NUOVO — limite dichiarato** | nessuna possibile da qui; scritto nella conferma a video | emulatore `R1`…`R9`, **60/60** | 🟠 serve una sua decisione |
 | FO-18 | Salvataggio automatico ogni 600 ms (scostamento dal §10.1) | C1 | 🟡 dichiarato | 🟡 | **INVARIATO — accettato**: senza, l'esterno perderebbe tutto chiudendo la pagina | nessuna, voluto | — | 🟡 |
@@ -210,10 +323,11 @@ non vale come risolta.
 | OP-08 | **«1.234,56» battuto** diventa 1,234 | C3 | 🟠 | 🟠 | **INVARIATO — chiuso per DECISIONE** | nessuna, voluto | `raw` verificata | 🚫 non si tocca |
 | OP-09 | **«22,99» nel Costo orario diventava 2299** (×100 in silenzio) | C5 | — | 🔴 | **RISOLTO** | rev 16 | `col-B2-virgola` 7/7 | — |
 | OP-10 | 13 scritte a 11px in tre finestre | C5 | — | 🟠 | **RISOLTO** | rev 16 | `col-G2-finestre` 29/29 | — |
-| OP-11 | Somma dei «secchi» 8.026,70 € contro residuo 8.026,69 € | C5 | — | 🟡 | **INVARIATO — aperto**: un centesimo, i dati sono giusti | nessuna | — | 🟡 |
+| OP-11 | Somma dei «secchi» 8.026,70 € contro residuo 8.026,69 € | C5 | — | 🟡 | **INVARIATO — aperto**, ora **circoscritto** (12/11): compare **solo** con una liquidazione o un riporto fra anni, ed è sempre **esattamente 0,01** | nessuna | `cent8`/`cent8b`/`cent8d`: 0 scarti su 2.401 casi puliti, 81/500 con liquidazione, 65/500 con riporto, **mai oltre 0,01**; a video 92,25 contro 92,26 | 🟡 **confermata**: si risolve in sola visualizzazione — attende la sua decisione |
 | OP-12 | Ogni ✔ Salva scarica da sé un file di backup | C5 | — | 🟡 | **INVARIATO — accettato**: rete di sicurezza storica | nessuna, voluto | — | 🟡 |
-| OP-13 | Il **PIN è in chiaro** in `spazioireos_opoc_pin` | C5 | — | 🟡 | **INVARIATO — aperto**: protegge la schermata, non i dati | nessuna | — | 🟡 serve una sua decisione |
+| OP-13 | Il **PIN è in chiaro** in `spazioireos_opoc_pin` | C5 | — | 🟡 | 🚫 **CHIUSO il 12/11 da Christian**: «no assolutamente hash» — il PIN resta in chiaro, protegge la schermata e non i dati | nessuna, per sua decisione | — | — **non riproporlo** |
 | OP-14 | Le quattro app condividono **un solo `localStorage`** | C4 | 🟠 | 🟡 | **DECLASSATO** da Christian il 10/11 («3 ok»), con la misura a sostegno | nessuna, accettato | 24 controlli di isolamento | 🟡 |
+| OP-15 | La **«Rettifica credito»** ha due caselle indipendenti: usandone una sola, il riquadro «Il credito ‹anno› viene da:» contraddice il credito **dell'intera rettifica** | **12/11** | — | 🟠 **NUOVO** | **NUOVO**, trovato indagando OP-11; **PREESISTENTE** nel codice | nessuna: il motore dei residui è fra le cose da non toccare, e servirebbe una dicitura nuova | `cent8c`/`cent8d`: scarto **−499,99 €** con la rettifica di sole ore e **+500,00 €** con quella di solo importo; con «Azzera credito residuo» **non capita** (scrive entrambe) | 🟠 **serve una sua decisione** |
 
 **USOINT**
 
@@ -235,7 +349,7 @@ non vale come risolta.
 | US-14 | **Un mese di Dipendenti che perde le ore azzera il mese in USOINT con la spunta verde** | C4 | 🟠 | 🔴 | **AGGRAVATO — APERTO** (sparito da C5; rimisurato oggi: 20,00 → 0,00) | nessuna; dalla ver132 almeno non entra in archivio senza 💾 | `ric-U14-U17` | 🔴 **serve la sua decisione** |
 | US-15 | L'import partiva da sé e **scriveva nel cloud senza 💾** | C4 | 🟠 | 🟠 | **RISOLTO** | ver132 | `ver132us` | — |
 | US-16 | Nessun pulsante per **rifare** l'import | C4 | 🟡 | — | **RISOLTO** | ver131 | `ver131us` 19/19 | — |
-| US-17 | I formati **« 4»** e **«.5»** valgono 0 | C4 | 🟡 | 🟡 | **INVARIATO — APERTO** (sparito da C5; rimisurato oggi: 4,5 ore perse). ⚠️ **Zero celle così nei dati veri**, e dalla ver102 non si possono più scrivere | nessuna | `ric-U14-U17` | 🟡 |
+| US-17 | I formati **« 4»** e **«.5»** valgono 0 | C4 | 🟡 | 🟡 | **RISOLTO il 12/11** («sistema»): **ver137**, `trim()` e punto o virgola iniziale ammessi; i codici e il segno meno restano scartati | **ver137** | `ver137us` **12/12**: 26 valori confrontati con la ver136, cambiano **solo** i 4 con spazio o punto iniziale | — **chiuso** |
 | US-18 | Il **salvataggio locale si perdeva** al ricaricamento col cloud caduto | C4 | 🔴 | — | **RISOLTO** | ver129 (`uso-sospese-cloud`) | `ver129c` | — |
 | US-19 | La finestrella del dettaglio **non seguiva il filtro** (42 contro 132) | C3 | 🟠 | — | **RISOLTO** | ver129 | `ver129a` | — |
 | US-20 | Col filtro attivo i mesi a «—» non erano cliccabili | C3 | 🟡 | — | **RISOLTO** (conseguenza di US-19) | ver129 | `ver129a` | — |
@@ -247,7 +361,7 @@ non vale come risolta.
 | US-26 | Il backup non portava nessun numero di schema | C5 | — | 🟠 | **RISOLTO** | ver134 | `ver134us` | — |
 | US-27 | La conferma di eliminazione **non nominava il lavoro** | C5 | 🟡 *(sottostimato: il §10.1 nomina le eliminazioni)* | 🟠 | **RICLASSIFICATO poi RISOLTO** | ver134 | `ver134us` | — |
 | US-28 | **`uso122.js`** inutile nella radice del repository | C5 | — | 🟡 | **RISOLTO** | ver134 (tolto) | — | — |
-| US-29 | La targhetta della **pagina integrata** è a 12px | C5 | — | 🟡 | **INVARIATO — aperto** | nessuna | — | 🟡 |
+| US-29 | La targhetta della **pagina integrata** è a 12px | C5 | — | 🟡 | ✅ **CHIUSO il 12/11 da Christian**: «va bene 12px» — l'eccezione del §10.6 vale ora **anche** per la pagina integrata, dichiarata | nessuna, per sua decisione | — | — **non riproporlo** |
 | US-30 | Un **negativo nei dati di prova** (−2.000,00): esiste una casella in cui serve davvero? | ver125 | 🟠 | 🟠 | **NON PIÙ VERIFICATO**: domanda posta il 09/11 e **mai riscontrata**; sparita dai rapporti successivi | nessuna | — | 🟠 **serve la sua risposta** |
 
 **DIPENDENTI**
@@ -288,13 +402,13 @@ non vale come risolta.
 | 3 | ~~Gli utenti cancellati non si ricreano dal ripristino di Fogli ore~~ | FO-17 | ✅ **CHIUSO l'11/11**: «va bene così» — limite accettato e scritto nella conferma a video |
 | 4 | ~~L'abbinamento fra le app è solo il nome~~ | TR-03 | ✅ **FATTO l'11/11**: il codice operatore (ver157 · ver158 · ver136). Resta dichiarato il solo caso degli **omonimi dentro USOINT** |
 | 5 | ~~`locks` e ruolo `disabled` non imposti dal database~~ | FO-20 | ✅ **CHIUSO l'11/11**: «ok» — accettato |
-| 6 | Aprire un mese mai compilato **scrive** nel database | FO-14 | 🟡 programmabile |
-| 7 | La **banda rossa unica** di Fogli ore | FO-15 | 🟡 **Christian** (è una dicitura) |
-| 8 | Il **PIN in chiaro** di Collaboratori | OP-13 | 🟡 **Christian** |
-| 9 | La **targhetta della pagina integrata** a 12px | US-29 | 🟡 programmabile |
-| 10 | I formati « 4» e «.5» in USOINT | US-17 | 🟡 programmabile, impatto misurato nullo |
-| 11 | Il centesimo nella somma dei «secchi» di Collaboratori | OP-11 | 🟡 programmabile |
-| 12 | **4 persone senza data di assunzione e 5 senza livello** | DIP-13 | 🟡 **lo fa Christian** nei dati |
+| 6 | Aprire un mese mai compilato **scrive** nel database | FO-14 | 🟡 **APERTO**: il 12/11 Christian ha chiesto di conoscerne la gravità, misurata e consegnata; attende la sua decisione |
+| 7 | La **banda rossa unica** di Fogli ore | FO-15 | 🟡 **APERTO**: il 12/11 Christian ha chiesto di conoscerne la gravità, misurata e consegnata; attende la sua decisione |
+| 8 | ~~Il **PIN in chiaro** di Collaboratori~~ | OP-13 | 🚫 **CHIUSO il 12/11**: «no assolutamente hash». Il PIN resta in chiaro: **non riproporlo** |
+| 9 | ~~La **targhetta della pagina integrata** a 12px~~ | US-29 | ✅ **CHIUSO il 12/11**: «va bene 12px» — eccezione ora **dichiarata** anche per la pagina integrata |
+| 10 | ~~I formati « 4» e «.5» in USOINT~~ | US-17 | ✅ **FATTO il 12/11** («sistema»): **ver137**, `ver137us` 12/12 |
+| 11 | Il centesimo nella somma dei «secchi» di Collaboratori | OP-11 | 🟡 **APERTO**: il 12/11 Christian ha chiesto «si può risolvere?» — sì, e indagando è uscito **OP-15** (vedi §5.0-quater); attende la sua decisione |
+| 12 | **4 persone senza data di assunzione e 5 senza livello** | DIP-13 | 🟡 **in corso**: il 12/11 Christian ha risposto «**provvedo**» — lo sistema lui nei dati |
 
 
 
