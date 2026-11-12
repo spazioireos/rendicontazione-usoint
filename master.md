@@ -65,7 +65,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 6 · 08nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 17 · 12nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver160 · 12nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver161 · 12nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver137 · 12nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 17 · 12nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -76,6 +76,32 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
 ---
 
 ## 5. Lavori fatti e attivi
+
+### 5.0-septies DIPENDENTI ver161 — IL TFR ANNO PER ANNO (12/11/2026)
+
+Idea di Christian: «e se io inserissi il tfr ogni anno (una cella per ogni anno dal 31/12/24)
+così non modifico ogni volta?», poi «**ok il TFR per anno con la decisione sull'ISTAT**».
+
+🔑 **Non era solo comodità.** La rivalutazione si calcola sul fondo al **31/12 dell'anno
+precedente** al periodo: con una casella sola, chiedendo il costo di un anno passato l'app usava
+comunque il numero scritto — dalla ver114 avvisava, ma **il risultato restava errato**. Ora in
+ANAGRAFICA → *Costo del lavoro* c'è un **elenco con una riga per anno** e l'app sceglie da sé.
+L'**ISTAT** ha preso la stessa strada fra i valori comuni, altrimenti si sarebbe usato il fondo
+giusto con la percentuale sbagliata.
+
+⚠️ **Finché i due elenchi sono vuoti non cambia niente**: valgono le caselle di prima, e le
+vecchie **restano scrivibili** (quando l'elenco è in uso dichiarano di non valere più).
+⚠️ Se l'elenco c'è ma **manca l'anno** che serve, il conto ricade sulla **stima** e lo dice.
+⚠️ Il numero di schema del backup **non cambia**: sono due campi facoltativi in più.
+
+🐞 **Un difetto mio, trovato dalla prova**: col periodo tagliato in pezzi la nota scriveva
+«ISTAT 0,00%» mentre il conto usava la percentuale giusta — la somma dei pezzi ricostruisce il
+risultato dai soli **importi**. È lo stesso errore della **ver136** con `divNonValidi`.
+
+**Provato in esecuzione**: `ver161.cjs` **28 su 28**, zero errori di pagina, e con gli elenchi
+vuoti i dipendenti veri danno numeri **identici** alla ver160.
+
+---
 
 ### 5.0-sexies COLLAUDO INTEGRALE DEL 12/11/2026 — DUE LIVELLI, NESSUNA ANOMALIA APERTA
 
