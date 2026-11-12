@@ -103,6 +103,62 @@ vuoti i dipendenti veri danno numeri **identici** alla ver160.
 
 ---
 
+### 5.0-sexies-bis SECONDO GIRO DELLO STESSO GIORNO, SULLA ver161, CON LE PROVE RIPETUTE
+
+La sera del 12/11, pubblicata la **ver161** di Dipendenti, Christian ha chiesto un nuovo
+collaudo integrale e ha dettato i **princìpi** che da qui in avanti valgono per ogni collaudo:
+
+> Nessuna promozione senza prova · Prove ripetute (le operazioni critiche ripetute più volte
+> devono dare sempre lo stesso risultato) · Prove incrociate (un dato inserito in una webapp va
+> verificato in tutte quelle che devono riceverlo) · Verifica prima e dopo · Casi limite ·
+> Retest obbligatorio · Evidenze · Nessuna supposizione (ciò che non si prova è NON VERIFICATO).
+> **Non basta che una funzione funzioni una volta: deve funzionare anche dopo ripetizioni,
+> modifiche e interazioni con le altre webapp.**
+
+Versioni collaudate: **Dipendenti ver161 · Fogli ore rev 17 · Collaboratori rev 17 ·
+USOINT ver137 · pagina integrata rev 6**, tutte già su `main` e su Pages.
+
+**Livello A** (ogni app da sola): Fogli ore 33 script **595/0** · Collaboratori 26 script
+**524/0** (1 NON VERIFICATO dichiarato: il `.docx` vero) · Dipendenti 26 script **659/5** ·
+USOINT 25 script **516/1**. I sei falliti sono **gli stessi di sempre**: cinque attese sbagliate
+dei miei script su Dipendenti e, su USOINT, l'errore di pagina della **ver128** usata come
+termine di confronto (riprovato in isolamento: «client is offline», della versione vecchia).
+⚠️ `mxus-A`, che in fila con gli altri perdeva un controllo, stavolta ha fatto **47/0**.
+
+**Livello B** (il gestionale come sistema): interconnessioni e flussi completi 20 script
+**370/0** · pagina integrata VERA in rete **16/16** · regole Firestore (emulatore ufficiale)
+**60/60** · sito pubblicato **identico byte per byte** ai repository, **5 pagine su 5** ·
+prestazioni misurate sul sito vero (integrata 0,37 s · Collaboratori 0,74 s · Fogli ore 0,75 s
+· Dipendenti 3,28 s · USOINT 4,79 s).
+
+**Il livello nuovo — le PROVE RIPETUTE** (5 script, **54 controlli su 54**):
+
+| script | che cosa ripete | esito |
+|---|---|--:|
+| `pr-dip` | 3 cicli scrivi→💾→ricarica sulla stessa cella (6,5·7,25·6,5): il 3° riporta i dati **identici byte per byte** al 1°; il Costo orario letto 3 volte alternando 2026/2025; doppio clic sul 💾 | **12/12** |
+| `pr-fo` | 3 cicli orario→salvataggio→ricarica; l'assenza messa e tolta **2 volte** (sempre su tutti i servizi, sempre via da tutti) | **11/11** |
+| `pr-op` | 3 cicli ore→✔ Salva→ricarica; la conversione ore↔importo della Rettifica ripetuta 2 volte: stessa domanda, stessa risposta | **9/9** |
+| `pr-us` | 3 cicli Ore tot.→💾→ricarica: archivio e **cloud** tornano identici al 1° ciclo | **10/10** |
+| `pr-ic` | **3 cicli incrociati** Dipendenti→USOINT (modifica, reimport, 💾), con doppio import a dati fermi in ogni ciclo: il 3° ciclo riporta archivio **e cloud** identici al 1°, e un F5 finale non perde niente | **12/12** |
+
+🐞 **Tre errori dei MIEI script, trovati dalle prove e corretti** (non dell'app): `pr-dip`
+riseminava i dati a ogni navigazione, cancellando proprio il salvataggio che provava (la
+trappola già documentata in `ic-dipuso-lib`); `pr-op` scriveva le ore **nella casella del nome
+del servizio** (la prima `.edit-cell` non è un numero: ora si aggancia la casella il cui
+`onchange` scrive `hours[...]`); `pr-fo` pretendeva che un giorno svuotato sparisse dalla mappa,
+mentre resta come voce vuota `{}` — **equivalente misurato** (0 ore, nessuna assenza, stessa
+regola del «days vuoto» di FO-14), attesa corretta sull'equivalenza.
+
+🟢 **Osservazione senza intervento**: in Fogli ore, togliere un'assenza lascia nel documento la
+voce vuota `{}` del giorno invece di cancellare la chiave. Nessun numero ne risente (misurato);
+si segnala perché un domani un ripulitore lato admin potrebbe spazzarle.
+
+**Totale della giornata, secondo giro: 2.794 controlli superati · 6 falliti (tutti noti e
+spiegati) · 5 NON VERIFICATI dichiarati** (gli stessi del mattino: F.2, B13b, C19, D20, I13).
+**Nessuna anomalia nuova. Nessuna decisione in attesa.**
+
+---
+
 ### 5.0-sexies COLLAUDO INTEGRALE DEL 12/11/2026 — DUE LIVELLI, NESSUNA ANOMALIA APERTA
 
 Eseguito con la Skill *Collaudo integrale del gestionale*, sui due livelli che richiede: ogni
