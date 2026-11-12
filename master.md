@@ -67,7 +67,7 @@ in cache (problema realmente capitato).
 | Collaboratori | `rev 17 · 12nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
 | Dipendenti | `ver158 · 11nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver137 · 12nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
-| Fogli ore | `rev 16 · 11nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
+| Fogli ore | `rev 17 · 12nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
 **Criterio:** dove l'app aveva già una numerazione (USOINT `ver`, Dipendenti `APP_VER`) si usa e
 si incrementa **quella**; dove non c'era si è partiti da `rev 1`. **Mai due numerazioni nella
@@ -84,8 +84,8 @@ ha risposto punto per punto. Queste sono le risposte e, dove le ha chieste, le *
 
 | # | Che cosa | Risposta | Esito |
 |---|---|---|---|
-| 1 | Fogli ore: aprire un mese mai compilato **scrive** nel database (FO-14) | «non conosco la gravità» | **misurata** (sotto), **non toccata** |
-| 2 | Fogli ore: la **banda rossa unica** (FO-15) | «non conosco la gravità» | **misurata** (sotto), **non toccata** |
+| 1 | Fogli ore: aprire un mese mai compilato **scrive** nel database (FO-14) | «non conosco la gravità» → poi «**1 lascia**» | 🚫 **CHIUSO**: comportamento **voluto**, non riproporlo |
+| 2 | Fogli ore: la **banda rossa unica** (FO-15) | «non conosco la gravità» → poi «**2 banda in più**» | ✅ **rev 17**: tre bande impilate |
 | 3 | Collaboratori: il **PIN in chiaro** (OP-13) | «**no assolutamente hash**» | 🚫 **CHIUSO**: non riproporlo |
 | 4 | Dipendenti: 📤 Pubblica i residui automatico? | «**manuale e' ok**» | 🚫 **CHIUSO**: resta manuale, non riproporlo |
 | 5 | Dipendenti: 4 senza data di assunzione, 5 senza livello (DIP-13) | «**provvedo**» | lo sistema lui nei dati |
@@ -104,6 +104,29 @@ i quattro con spazio o punto iniziale. Batteria completa **ZERO falliti nuovi** 
 
 | 7 | Pagina integrata: la targhetta a 12px (US-29) | «**va bene 12px**» | ✅ **CHIUSO**: eccezione dichiarata |
 | 8 | Collaboratori: il centesimo dei «secchi» (OP-11) | «si può risolvere?» → poi «**1 sistema**» | ✅ **rev 17** |
+
+#### E le due decisioni su Fogli ore: «1 lascia, 2 banda in più»
+
+Lette le gravità misurate, Christian ha deciso. Ne è nata **Fogli ore rev 17**.
+
+| punto | risposta | esito |
+|---|---|---|
+| **FO-14** — aprire un mese mai compilato scrive nel database | «**1 lascia**» | 🚫 **CHIUSO**: è la copia automatica della configurazione del servizio, un comportamento **voluto**. Non riproporlo |
+| **FO-15** — la banda rossa è una sola | «**2 banda in più**» | ✅ **rev 17**: le ore e l'assenza hanno due bande distinte |
+
+- 🚩 **Come è fatta**: una banda sua per l'assenza (**`#banda-ass`**), con lo **stesso blocco
+  CSS** di quella delle ore, così non possono divergere. Le bande sono ora **tre** e si impilano
+  dal basso: **ORE · ASSENZA · LETTURA**, con l'altezza **misurata** (sul telefono il testo va a
+  capo e la banda si alza a 77px).
+- ⚠️ **I due testi non sono cambiati di una lettera**: sono quelli della rev 15, verificati con
+  il confronto della frase intera. È cambiato solo il **numero** delle bande.
+- 🐞 Chiudendo una banda con la ✕ ora le altre si **ricompattano**: prima la blu restava
+  sospesa dov'era. Difetto **preesistente** della rev 15, invisibile finché erano due.
+- **Provato in esecuzione**: `rev17fo.cjs` **27 controlli su 27**, zero errori di pagina, col
+  confronto diretto sulla copia congelata della **rev 16** (lì il messaggio delle ore spariva).
+  Grafica misurata a **390 · 1280 · 1700px** con tutte e tre le bande accese: nessuna
+  sovrapposizione, nessuno scorrimento laterale, **zero** scritte sotto i 12,5px e la tabella del
+  mese **906px**, identica.
 
 #### Le DUE risposte successive, della stessa giornata: «1 sistema, 2 insieme»
 
@@ -327,10 +350,10 @@ non vale come risolta.
 | FO-11 | **Non esisteva nessun import**: il backup si poteva solo produrre | C5 | — | 🔴 | **RISOLTO** | rev 16 | `rev16fo` 33/33 | — |
 | FO-12 | Il backup non portava il numero di schema; «ver1» nel nome scritto a mano | C5 | — | 🟠 | **RISOLTO** | rev 16 | `rev16fo` | — |
 | FO-13 | **28 messaggi d'errore in inglese di Firebase** (percorsi admin) | C3 | 🟠 | 🟠 | **INVARIATO — chiuso per DECISIONE** («non serve») | nessuna, voluto | — | 🚫 non si tocca |
-| FO-14 | Aprire un mese mai compilato **scrive** nel database | C5 | — | 🟡 | **RICLASSIFICATO** il 12/11: non è una scrittura «per la sola navigazione» ma la **copia della configurazione del servizio** nel mese nuovo (`findAnyMonthAnag`); nessun numero cambia e nulla si sovrascrive | nessuna | `grav12d` (2/2): 3 documenti nati aprendo 4 mesi vuoti, con la mansione copiata e `days` vuoto; zero scritture su un mese già compilato | 🟢 **proposta: chiuderlo come comportamento VOLUTO** — serve il suo via |
-| FO-15 | La banda rossa è una sola: perdendo ore **e** assenza, il messaggio sulle ore sparisce | C5 | — | 🟡 | **AGGRAVATO** il 12/11, su misura nuova e non per il passare del tempo: verificato che in quel momento le ore **non sono nel database** e Fogli ore **non tiene copia locale**, quindi chi legge la banda rimasta può chiudere la pagina e **perdere le ore** | nessuna (conseguenza voluta della rev 15) | `grav2` (4/4): la banda passa a «ASSENZA NON SALVATA» e il messaggio delle ore **sparisce** | 🟠 **proposta**: perdita di dati possibile, anche se serve la linea caduta e due azioni in quell'ordine — serve il suo via (dicitura nuova) |
+| FO-14 | Aprire un mese mai compilato **scrive** nel database | C5 | — | 🟡 | **RICLASSIFICATO e poi CHIUSO il 12/11**: non è una scrittura «per la sola navigazione» ma la **copia della configurazione del servizio** nel mese nuovo (`findAnyMonthAnag`); Christian: «**1 lascia**» | nessuna, per sua decisione | `grav12d` (2/2): 3 documenti con la mansione copiata e `days` vuoto; zero scritture su un mese già compilato | — **chiuso: comportamento voluto, non riproporlo** |
+| FO-15 | La banda rossa è una sola: perdendo ore **e** assenza, il messaggio sulle ore sparisce | C5 | — | 🟡 | **AGGRAVATO e poi RISOLTO il 12/11** («**2 banda in più**»): misurato che le ore non sono nel database e l'app non tiene copia locale, quindi si potevano perdere | **rev 17**: tre bande impilate, testi invariati | `grav2` **4/4** (il difetto) → `rev17fo` **27/27** (la correzione, con la grafica a 390 · 1280 · 1700px) | — **chiuso** |
 | FO-16 | Il `CLAUDE.md` dichiarava una dimensione del file sbagliata | C5 | — | 🟡 | **RISOLTO** | corretto in C5 e C6 | — | — |
-| FO-17 | **L'admin non può RICREARE un `users` cancellato** (le regole danno `update`, non `create`) | **C6** | — | 🟠 **NUOVO** | **NUOVO — limite dichiarato** | nessuna possibile da qui; scritto nella conferma a video | emulatore `R1`…`R9`, **60/60** | 🟠 serve una sua decisione |
+| FO-17 | **L'admin non può RICREARE un `users` cancellato** (le regole danno `update`, non `create`) | **C6** | — | 🟠 **NUOVO** | **CHIUSO l'11/11 da Christian**: «va bene così» — limite accettato e **scritto nella conferma a video** | nessuna possibile da qui | emulatore `R1`…`R9`, **60/60** | — **chiuso: limite dichiarato** |
 | FO-18 | Salvataggio automatico ogni 600 ms (scostamento dal §10.1) | C1 | 🟡 dichiarato | 🟡 | **INVARIATO — accettato**: senza, l'esterno perderebbe tutto chiudendo la pagina | nessuna, voluto | — | 🟡 |
 | FO-19 | Tabella del mese 906px e scritte piccole **dentro** la griglia su telefono | C1 | 🟡 dichiarato | 🟡 | **INVARIATO — accettato**: alzarle allarga la tabella (provato il 31/10) | nessuna, voluto | — | 🟡 |
 | FO-20 | `locks` e ruolo `disabled` non imposti dal **database**; creazione libera dei `lightsheets` | 30/10 | 🟠 dichiarato | 🟠 | **INVARIATO — accettato** da Christian il 06/11 («va bene così») | nessuna, voluto | emulatore 60/60 | 🟠 |
@@ -414,7 +437,7 @@ non vale come risolta.
 |---|---|---|---|---|---|---|---|---|
 | TR-01 | **Arrotondamento**: `67,5 × 22,99` dava 1.551,82 invece di 1.551,83 | 03/11 | 🟠 | — | **RISOLTO in tutte e quattro** | `R2` | misurato in tutte e quattro | — |
 | TR-02 | **Dati personali dentro `index.html`** su un repository pubblico | 01/11 | 🔴 | — | **RISOLTO**: svuotati, e la **storia del repository azzerata** il 02/11 | ver67/ver68 | C5: 18 file, **14 occorrenze tutte false** | — |
-| TR-03 | **L'abbinamento fra le app è solo il NOME**, scritto a mano in due anagrafiche | sempre | 🟠 dichiarato | 🟠 | **INVARIATO — limite strutturale**: mitigato ma non eliminabile senza un codice condiviso | ver130/132/149/150 | — | 🟠 **serve una sua decisione** |
+| TR-03 | **L'abbinamento fra le app è solo il NOME**, scritto a mano in due anagrafiche | sempre | 🟠 dichiarato | 🟠 | **RISOLTO l'11/11** («ok codice condiviso»): il **codice operatore** e l'aggancio all'account | ver157 · ver158 · ver136 (prima: ver130/132/149/150) | `ver157` 28/28 · `ver158` 24/24 · `ver136us` 17/17 | — **chiuso**; resta dichiarato il solo caso degli **omonimi dentro USOINT** |
 | TR-04 | **Due falle nelle regole Firestore** | 30/10 | 🔴 | — | **RISOLTO**: Christian ha pubblicato il testo corretto | regole in console | emulatore **60/60** | — |
 | TR-05 | Le due app React impiegano **~4 secondi** ad aprirsi (Babel nel browser) | C5 | 🟡 | 🟡 | **INVARIATO — accettato**: è il prezzo del file unico | nessuna | misurato | 🟡 |
 | TR-06 | Le prove girano con **finta Firebase**: il comportamento con Firestore vero non è verificabile da qui | sempre | — | — | **NON PIÙ VERIFICATO per costruzione** | nessuna possibile | — | ⚠️ limite dichiarato |
@@ -428,8 +451,8 @@ non vale come risolta.
 | 3 | ~~Gli utenti cancellati non si ricreano dal ripristino di Fogli ore~~ | FO-17 | ✅ **CHIUSO l'11/11**: «va bene così» — limite accettato e scritto nella conferma a video |
 | 4 | ~~L'abbinamento fra le app è solo il nome~~ | TR-03 | ✅ **FATTO l'11/11**: il codice operatore (ver157 · ver158 · ver136). Resta dichiarato il solo caso degli **omonimi dentro USOINT** |
 | 5 | ~~`locks` e ruolo `disabled` non imposti dal database~~ | FO-20 | ✅ **CHIUSO l'11/11**: «ok» — accettato |
-| 6 | Aprire un mese mai compilato **scrive** nel database | FO-14 | 🟡 **APERTO**: il 12/11 Christian ha chiesto di conoscerne la gravità, misurata e consegnata; attende la sua decisione |
-| 7 | La **banda rossa unica** di Fogli ore | FO-15 | 🟡 **APERTO**: il 12/11 Christian ha chiesto di conoscerne la gravità, misurata e consegnata; attende la sua decisione |
+| 6 | ~~Aprire un mese mai compilato **scrive** nel database~~ | FO-14 | 🚫 **CHIUSO il 12/11**: «1 lascia» — comportamento **voluto**, non riproporlo |
+| 7 | ~~La **banda rossa unica** di Fogli ore~~ | FO-15 | ✅ **FATTO il 12/11** («2 banda in più»): **rev 17**, `rev17fo` 27/27 |
 | 8 | ~~Il **PIN in chiaro** di Collaboratori~~ | OP-13 | 🚫 **CHIUSO il 12/11**: «no assolutamente hash». Il PIN resta in chiaro: **non riproporlo** |
 | 9 | ~~La **targhetta della pagina integrata** a 12px~~ | US-29 | ✅ **CHIUSO il 12/11**: «va bene 12px» — eccezione ora **dichiarata** anche per la pagina integrata |
 | 10 | ~~I formati « 4» e «.5» in USOINT~~ | US-17 | ✅ **FATTO il 12/11** («sistema»): **ver137**, `ver137us` 12/12 |
