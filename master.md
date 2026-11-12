@@ -147,9 +147,11 @@ Il costo **scende**, ed è il verso giusto. La punta: una scheda da **14.286,15 
 - ⚠️ **Nei dati veri `costoComune` è vuoto**, quindi il NO vale subito per tutti e 16.
 - ⚠️ **`J18` resta nell'imponibile II**: i contributi sulle ore aggiuntive non cambiano. Cambia
   **solo** la base del TFR.
-- 📜 Nel **foglio Excel di Christian** quella leva era **per persona** (dei 5 casi della ver71, uno
-  era «TFR-supplementari NO»); qui è **unica per tutti**. Se un giorno dovesse dipendere dalla
-  persona, va spostata in anagrafica.
+- 🚫 **CHIUSA il 12/11/2026: «la scelta sulle supplementari è per tutti».** Nel foglio Excel
+  di Christian quella leva era **per persona** (dei 5 casi della ver71, uno era
+  «TFR-supplementari NO»), e gli era stato chiesto se qui dovesse diventare un dato della
+  singola scheda. Ha risposto di no: resta **una sola scelta valida per tutti**.
+  **Non riproporre** lo spostamento in anagrafica.
 
 #### 2 — le celle «in itinere», bordo fucsia
 
