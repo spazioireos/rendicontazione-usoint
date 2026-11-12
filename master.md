@@ -127,6 +127,13 @@ Lette le gravità misurate, Christian ha deciso. Ne è nata **Fogli ore rev 17**
   Grafica misurata a **390 · 1280 · 1700px** con tutte e tre le bande accese: nessuna
   sovrapposizione, nessuno scorrimento laterale, **zero** scritte sotto i 12,5px e la tabella del
   mese **906px**, identica.
+- **Batteria completa rieseguita, ZERO falliti** (31 script). ⚠️ **Undici avevano attese
+  invecchiate**, ed è la conseguenza diretta della richiesta: fino alla rev 16 la banda era
+  **una sola**, quindi gli script guardavano solo `#banda-salv`. Otto la leggevano da lì e **due
+  andavano in errore**; ora prendono **la banda rossa visibile**, qualunque delle due sia.
+  🔑 **Quattro controlli DOCUMENTAVANO il difetto chiuso oggi** (fra cui `cf8` X3, che diceva
+  per esteso «**LIMITE**: il messaggio sulle ORE SPARISCE») e sono stati **rovesciati**: ora
+  pretendono il contrario. **Aggiornate, non aggirate.**
 
 #### Le DUE risposte successive, della stessa giornata: «1 sistema, 2 insieme»
 
