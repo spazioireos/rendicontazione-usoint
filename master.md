@@ -64,7 +64,7 @@ in cache (problema realmente capitato).
 | App | Numero attuale | Dove si vede | Da dove viene |
 |---|---|---|---|
 | App integrata | `rev 6 · 08nov26` | barra in alto | scritto nel file |
-| Collaboratori | `rev 16 · 11nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
+| Collaboratori | `rev 17 · 12nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
 | Dipendenti | `ver158 · 11nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver137 · 12nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 16 · 11nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
@@ -103,7 +103,33 @@ fatte. Ora si toglie lo spazio e si ammette anche il punto o la virgola iniziale
 i quattro con spazio o punto iniziale. Batteria completa **ZERO falliti nuovi** (25 script).
 
 | 7 | Pagina integrata: la targhetta a 12px (US-29) | «**va bene 12px**» | ✅ **CHIUSO**: eccezione dichiarata |
-| 8 | Collaboratori: il centesimo dei «secchi» (OP-11) | «si può risolvere?» | **sì**, e indagando è uscito **OP-15**: attende la sua decisione |
+| 8 | Collaboratori: il centesimo dei «secchi» (OP-11) | «si può risolvere?» → poi «**1 sistema**» | ✅ **rev 17** |
+
+#### Le DUE risposte successive, della stessa giornata: «1 sistema, 2 insieme»
+
+Consegnate le misure, Christian ha risposto alle due domande rimaste aperte su Collaboratori.
+Ne è nata la **rev 17**.
+
+| domanda | risposta | esito |
+|---|---|---|
+| il **centesimo** del riquadro «Il credito ‹anno› viene da:» (OP-11) | «**1 sistema**» | ✅ **rev 17**: quadratura sulla riga più grande, **solo a video** |
+| la **«Rettifica credito»**: due caselle separate o che si muovono insieme? (OP-15) | «**2 insieme**» | ✅ **rev 17**: scritte le ore si ricalcola l'importo, e viceversa |
+
+- 📐 **La quadratura**: le righe erano `ore × tariffa` arrotondate una per una, il credito
+  nasceva da un'altra catena di arrotondamenti. Ora il centesimo che resta si mette sulla **riga
+  più grande**. **Misurato**: 92,25 → **92,26 = 92,26**; nel caso sano **5.287,71 = 5.287,71**,
+  identico. ⚠️ Sta nel **disegno** del riquadro, **non** in `bkResid`, che alimenta anche il
+  riporto fra gli anni e l'export Excel.
+- ⚖️ **Le due caselle insieme**: il valore si ricava **dal motore** (`bkResid` interrogata due
+  volte, con e senza la rettifica), non da una formula riscritta a mano, così la conversione
+  segue da sé l'ordine di consumo dei secchi e le **tariffe diverse**. **Misurato**: 15 ore su
+  due servizi a 20,50 e 30 fanno **355,00 €**, e **355,00 € tornano 15,00 ore**; scrivendo
+  24,39 ore l'importo diventa **500,00 €** e il riquadro **quadra** col credito.
+  ⚠️ `azzeraCredito` e `resetRettifica` **non sono stati toccati** (scrivevano già entrambe le
+  rettifiche); il collegamento scatta **quando si scrive**, quindi una coppia già in archivio
+  scritta con una casella sola resta com'è finché non si tocca una delle due caselle.
+- **Provato in esecuzione**: `rev17op.cjs` **23 controlli su 23**, zero errori di pagina, con il
+  confronto diretto sulla copia congelata della **rev 16**.
 
 #### FO-14 — la gravità, misurata (`grav12d.cjs`)
 
@@ -323,11 +349,11 @@ non vale come risolta.
 | OP-08 | **«1.234,56» battuto** diventa 1,234 | C3 | 🟠 | 🟠 | **INVARIATO — chiuso per DECISIONE** | nessuna, voluto | `raw` verificata | 🚫 non si tocca |
 | OP-09 | **«22,99» nel Costo orario diventava 2299** (×100 in silenzio) | C5 | — | 🔴 | **RISOLTO** | rev 16 | `col-B2-virgola` 7/7 | — |
 | OP-10 | 13 scritte a 11px in tre finestre | C5 | — | 🟠 | **RISOLTO** | rev 16 | `col-G2-finestre` 29/29 | — |
-| OP-11 | Somma dei «secchi» 8.026,70 € contro residuo 8.026,69 € | C5 | — | 🟡 | **INVARIATO — aperto**, ora **circoscritto** (12/11): compare **solo** con una liquidazione o un riporto fra anni, ed è sempre **esattamente 0,01** | nessuna | `cent8`/`cent8b`/`cent8d`: 0 scarti su 2.401 casi puliti, 81/500 con liquidazione, 65/500 con riporto, **mai oltre 0,01**; a video 92,25 contro 92,26 | 🟡 **confermata**: si risolve in sola visualizzazione — attende la sua decisione |
+| OP-11 | Somma dei «secchi» 8.026,70 € contro residuo 8.026,69 € | C5 | — | 🟡 | **RISOLTO il 12/11** («1 sistema»): **rev 17**, quadratura sulla riga più grande, **solo nel disegno** del riquadro | **rev 17** | `rev17op` **23/23**: 92,25 → **92,26 = 92,26**, e il caso sano identico | — **chiuso** |
 | OP-12 | Ogni ✔ Salva scarica da sé un file di backup | C5 | — | 🟡 | **INVARIATO — accettato**: rete di sicurezza storica | nessuna, voluto | — | 🟡 |
 | OP-13 | Il **PIN è in chiaro** in `spazioireos_opoc_pin` | C5 | — | 🟡 | 🚫 **CHIUSO il 12/11 da Christian**: «no assolutamente hash» — il PIN resta in chiaro, protegge la schermata e non i dati | nessuna, per sua decisione | — | — **non riproporlo** |
 | OP-14 | Le quattro app condividono **un solo `localStorage`** | C4 | 🟠 | 🟡 | **DECLASSATO** da Christian il 10/11 («3 ok»), con la misura a sostegno | nessuna, accettato | 24 controlli di isolamento | 🟡 |
-| OP-15 | La **«Rettifica credito»** ha due caselle indipendenti: usandone una sola, il riquadro «Il credito ‹anno› viene da:» contraddice il credito **dell'intera rettifica** | **12/11** | — | 🟠 **NUOVO** | **NUOVO**, trovato indagando OP-11; **PREESISTENTE** nel codice | nessuna: il motore dei residui è fra le cose da non toccare, e servirebbe una dicitura nuova | `cent8c`/`cent8d`: scarto **−499,99 €** con la rettifica di sole ore e **+500,00 €** con quella di solo importo; con «Azzera credito residuo» **non capita** (scrive entrambe) | 🟠 **serve una sua decisione** |
+| OP-15 | La **«Rettifica credito»** ha due caselle indipendenti: usandone una sola, il riquadro «Il credito ‹anno› viene da:» contraddice il credito **dell'intera rettifica** | **12/11** | — | 🟠 **NUOVO** | **NUOVO e RISOLTO lo stesso giorno** («2 insieme»): era **PREESISTENTE** nel codice | **rev 17**: le due caselle si muovono insieme, e la conversione la fa il **motore** (`bkResid`), non una formula riscritta a mano | `cent8c`/`cent8d`: scarto **−499,99 €** con la rettifica di sole ore e **+500,00 €** con quella di solo importo → `rev17op` **23/23**: ora il riquadro **quadra** col credito | — **chiuso** |
 
 **USOINT**
 
@@ -407,7 +433,7 @@ non vale come risolta.
 | 8 | ~~Il **PIN in chiaro** di Collaboratori~~ | OP-13 | 🚫 **CHIUSO il 12/11**: «no assolutamente hash». Il PIN resta in chiaro: **non riproporlo** |
 | 9 | ~~La **targhetta della pagina integrata** a 12px~~ | US-29 | ✅ **CHIUSO il 12/11**: «va bene 12px» — eccezione ora **dichiarata** anche per la pagina integrata |
 | 10 | ~~I formati « 4» e «.5» in USOINT~~ | US-17 | ✅ **FATTO il 12/11** («sistema»): **ver137**, `ver137us` 12/12 |
-| 11 | Il centesimo nella somma dei «secchi» di Collaboratori | OP-11 | 🟡 **APERTO**: il 12/11 Christian ha chiesto «si può risolvere?» — sì, e indagando è uscito **OP-15** (vedi §5.0-quater); attende la sua decisione |
+| 11 | ~~Il centesimo nella somma dei «secchi» di Collaboratori~~ | OP-11 | ✅ **FATTO il 12/11** («1 sistema»): **rev 17**. Insieme a lui è chiuso anche **OP-15** («2 insieme»), trovato indagandolo |
 | 12 | **4 persone senza data di assunzione e 5 senza livello** | DIP-13 | 🟡 **in corso**: il 12/11 Christian ha risposto «**provvedo**» — lo sistema lui nei dati |
 
 
