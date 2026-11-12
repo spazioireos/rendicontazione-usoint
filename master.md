@@ -65,7 +65,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 6 · 08nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 17 · 12nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver159 · 12nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver160 · 12nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver137 · 12nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 17 · 12nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -87,6 +87,18 @@ di Dipendenti.
 | 1 | «nel costo orario dipendenti **le ore supplementari non incidono sul tfr**» + «**chi è a 38 h/sett. non si vede le supplementari (che vanno al 15%) dentro il TFR**» | ✅ **ver159**: la tendina «Supplementari nel TFR» vale ora **per tutti** ed è su **NO** di fabbrica |
 | 2 | «**bordami in fucsia** le celle dell'anagrafica che devo compilare **in itinere**» + «**7 E 8 non sono accordi, si concede e stop**» | ✅ **ver159**: **15 celle** col bordo fucsia, fondo giallino invariato |
 | 3 | sul monte ore temporaneo: «**No, vale fino all'ultimo giorno del mese indicato**, esempio 1 ottobre-30 novembre 2026» | ✅ **ver159**: la didascalia era sbagliata (il programma faceva già la cosa giusta) |
+
+#### 4 — le caselle dell'anagrafica si spiegano (ver160)
+
+Approvati da Christian lo stesso giorno, parola per parola: la riga che spiega il **bordo fucsia**
+sotto il titolo della sezione *Costo del lavoro*, le **tre didascalie** sotto *Premi (tempo pieno)*,
+*Premio €/mese* e *Rimborso km €*, e una quarta uguale sotto le **sei** caselle *dal mese / al mese*.
+In più l'etichetta delle ferie residue porta adesso la **data** — «al 31/12/2024» — che l'app
+calcola dal primo mese che ha in archivio: è **l'unica etichetta cambiata**, e cambia perché era
+incompleta.
+⚠️ Nessun calcolo toccato; il posto dove scrivere una didascalia in anagrafica **non esisteva** ed
+è stato aggiunto. **Provato**: `ver160.cjs` **27/27**, zero errori di pagina, larghezza di pagina
+identica a **390 · 1280 · 1700px**.
 
 #### 1 — le supplementari fuori dal TFR
 
