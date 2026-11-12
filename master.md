@@ -100,6 +100,27 @@ incompleta.
 è stato aggiunto. **Provato**: `ver160.cjs` **27/27**, zero errori di pagina, larghezza di pagina
 identica a **390 · 1280 · 1700px**.
 
+#### La batteria storica, rieseguita sulla ver160
+
+**25 script, 658 controlli superati, 5 falliti**, e tutti e cinque sono **attese sbagliate dei
+miei script**, verificate una per una. `sc-dip-C` torna a **107/0**, il che conferma che il
+63/44 del giro precedente era la trappola del banco di prova e non una regressione.
+
+⚠️ **`sc-dip-B` passa ora 35/0 invece del 32/2 storico**: i suoi due falliti di sempre erano due
+errori miei, trovati e corretti qui (il titolo di sezione che `innerText` restituisce in maiuscolo,
+e una tendina cercata dentro la sua etichetta invece che accanto).
+
+⚠️ **Quattro attese sono state aggiornate, non aggirate.** Due pretendevano che il costo dei 16
+dipendenti fosse identico a quello di prima, e fino alla ver158 era giusto; la ver159 lo cambia di
+proposito, quindi ora pretendono il numero preciso: **10 schede che cambiano e 6 identiche al
+centesimo**. Le altre due guardavano l'etichetta delle ferie residue e la targhetta, che la ver160
+ha cambiato: adesso leggono il valore dal file dell'app.
+
+🐞 **Tre script non erano partiti affatto**, perché i server del finto database, dei PDF veri e
+della versione precedente erano spenti o fermi a una versione vecchia. **I banchi vanno riaccesi e
+rigenerati a ogni sessione e dopo ogni modifica al file**: è la stessa trappola che l'11/11 aveva
+fatto sembrare `sc-dip-C` pieno di regressioni inesistenti.
+
 #### 1 — le supplementari fuori dal TFR
 
 🔴 **La regola era DOPPIA e incoerente**, e l'incoerenza è stata misurata prima di toccare niente:
