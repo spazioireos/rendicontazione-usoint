@@ -77,6 +77,102 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
 
 ## 5. Lavori fatti e attivi
 
+### 5.0-sexies COLLAUDO INTEGRALE DEL 12/11/2026 — DUE LIVELLI, NESSUNA ANOMALIA APERTA
+
+Eseguito con la Skill *Collaudo integrale del gestionale*, sui due livelli che richiede: ogni
+webapp da sola (**livello A**) e il gestionale come sistema unico (**livello B**).
+Versioni collaudate: **Dipendenti ver160 · Fogli ore rev 17 · Collaboratori rev 17 ·
+USOINT ver137 · pagina integrata rev 6**.
+
+**2.743 controlli superati · 7 falliti · 5 dichiarati NON VERIFICATI.**
+Nessuno dei 7 falliti è un difetto delle applicazioni: sono attese sbagliate degli script di
+prova, verificate una per una e, dove si poteva, corrette in questa stessa giornata.
+
+#### Livello A — le quattro webapp, una per una
+
+| app | script | superati | falliti |
+|---|--:|--:|--:|
+| Fogli ore `rev 17` | 31 | **595** | 0 |
+| Collaboratori `rev 17` | 26 | **524** | 0 |
+| USOINT `ver137` | 25 | **515** | 2 |
+| Dipendenti `ver160` | 25 | **658** | 5 |
+
+I 7 falliti: tre in `sc-dip-A` (una cella letta mentre la si digita, un avviso a comparsa che è
+transitorio, il 🗑 cercato in Anagrafica quando sta nel Tabellone), uno in `ver146` (il periodo
+era già diviso in 13 pezzi, quindi il taglio in più non si vede dal conteggio), uno in `ver147`
+(il valore di una casella letto da `innerText`, che non lo contiene), uno in `mxus-A` (cade solo
+in fila con gli altri e passa da solo) e uno in `ver129c` (è un errore di pagina della **ver128**,
+cioè della versione usata come termine di confronto, non di quella di oggi).
+
+#### Livello B — il gestionale come sistema
+
+| che cosa | esito |
+|---|---|
+| Interconnessioni e flussi completi (20 script) | **370 superati, 0 falliti** |
+| Pagina integrata **VERA**, in rete, coi link live | **16 su 16** |
+| Regole di sicurezza Firestore (emulatore ufficiale) | **60 su 60** |
+| Sito pubblicato **identico byte per byte** ai repository | **5 pagine su 5** |
+
+- 🔗 **Il dialogo fra le app regge**: Fogli ore ↔ Dipendenti 41/41, Dipendenti → USOINT 127/127,
+  sincronizzazione col cloud 98/98, residui 40/40, ruoli e permessi 9/9.
+- 🔒 **Chi scrive dove, verificato sia nel codice sia in esecuzione**: Dipendenti legge `users` e
+  `timesheets` **solo** con `.get()`, e l'unica collection che scrive fuori dal proprio documento
+  è `residui`; Fogli ore legge `residui` e basta; USOINT legge il documento di Dipendenti e basta.
+- 🧷 **Nella memoria del browser nessuna app tocca le chiavi di un'altra**: i prefissi non si
+  sovrappongono e le chiavi di servizio derivano ciascuna dal prefisso della propria app.
+- ⏱️ **Prestazioni misurate sul sito vero**: pagina integrata 0,29 s · Collaboratori 0,62 s ·
+  Fogli ore 0,83 s · Dipendenti 3,36 s · USOINT 4,20 s. I secondi delle due app React sono il
+  tempo che Babel impiega a compilare nel browser, prezzo dichiarato del file unico.
+
+#### 🔴 Riservatezza: una cosa trovata e corretta
+
+Cercando nei quattro repository tutti i pezzi dei nomi dei dipendenti veri sono uscite **17
+occorrenze**: 16 sono falsi positivi (l'elenco di nomi comuni per il completamento automatico di
+Fogli ore, la tabella Belfiore dei comuni, la parola «segretariali», un cognome dentro un blocco
+codificato). La diciassettesima era vera: **una citazione di Christian con il cognome di una
+dipendente**, entrata con la ver135 il 09/11 e sfuggita alla pulizia del 06/11. **Tolta.**
+⚠️ Toglierla ora non la toglie dai **commit precedenti**, che restano leggibili nella storia
+pubblica del repository.
+Nessun codice fiscale, email personale o IBAN nei repository.
+
+#### I 5 controlli dichiarati NON VERIFICATI, con il motivo
+
+| id | che cosa | perché |
+|---|---|---|
+| F.2 | l'import delle ore in USOINT dentro il test di Fogli ore ↔ Dipendenti | lo provano in profondità i sette script `ic-dipuso-*`, tutti superati |
+| B13b | le quattro app non sono isolate fra loro dal browser | è un **limite architetturale dichiarato**: stessa origine, un solo `localStorage`, separato dai soli prefissi |
+| C19 | il backup su Google Drive di Collaboratori | le librerie di Google non sono raggiungibili dal contenitore: il banco le sostituisce con uno stub |
+| D20 | due **computer diversi** che salvano insieme sullo stesso cloud | non riproducibile: la finta Firestore vive in `localStorage`, separato per profilo. ⚠️ Nel codice la strada è `doc(uid).set(...)`, cioè **l'ultimo che salva vince**, e il timbro non lo vede: limite già dichiarato |
+| I13 | la generazione del `.docx` vero | servono il modello Word di Christian e la libreria JSZip vera |
+
+#### Tre script di prova superati o da rifare
+
+- `rev16op` **non produce esito**: si ferma sulla schermata del PIN perché il suo seme non lo
+  contiene, e lo fa **allo stesso modo su rev 15, rev 16 e rev 17**. Non è una regressione; quella
+  revisione è coperta da `col-B2-virgola` e `col-G2-finestre`, entrambi superati.
+- `g6-integrata` **non può funzionare dal banco locale**: la pagina madre sta su `127.0.0.1` e i
+  riquadri aprono i link **live**, quindi sono di un altro dominio e lo script non può leggerci
+  dentro. **Sostituito da `live-int.cjs`**, che collauda la pagina integrata VERA: **16/16**.
+- `g12-prestazioni` si blocca sull'accesso del banco. **Sostituito da `prest-live.cjs`**, che
+  misura i tempi sul sito pubblicato (numeri qui sopra).
+
+#### Quattro attese di prova aggiornate, non aggirate
+
+1. **`ic-dipuso-1`**: pretendeva 34,25 ore e ora ne risultano 38,75 (totale 54,75 → 59,25). La
+   differenza è **4,50 in entrambi**, ed è esattamente la **ver137** di stamattina: il seme
+   contiene « 4» e «.5», che fino a ieri valevano zero. È la prova che la correzione arriva fino
+   a USOINT.
+2. **`ic-sync-A`**: il backup di USOINT porta ora anche le quattro chiavi di servizio del numero
+   di schema (**ver134**); si pretende che ci siano **entrambe** le cose.
+3. **`ic-fix`**: la targhetta era scritta a mano («rev 13»); e il controllo sull'import JSON di
+   Collaboratori **prendeva la casella sbagliata** — quella dell'import anagrafiche da Excel —
+   perché la casella del ripristino JSON l'app la crea al momento e non sta nella pagina
+   (misurato: nella copertina c'è **una sola** casella file, `anagFile`, `accept=.xlsx`). Passava
+   per il motivo sbagliato. Il percorso vero resta provato da `ic-fix3` 13/13 e `col-D` 24/0.
+4. **`g4-confronto`**: dalla ver151/153 il blocco JavaScript di Dipendenti supera i **500 KB**
+   (da 497 a **547**) e Babel stampa in console, a livello di errore, una **nota**: non è un
+   guasto. Esclusa **per nome**, una sola, così ogni altro errore di console continua a contare.
+
 ### 5.0-quinquies DIPENDENTI ver159 — TFR, CELLE «IN ITINERE», MONTE ORE (12/11/2026)
 
 Tre risposte di Christian nella stessa giornata, tutte sul **Costo orario** e sull'**anagrafica**
