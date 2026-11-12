@@ -65,7 +65,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 6 · 08nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 17 · 12nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver158 · 11nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver159 · 12nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver137 · 12nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 17 · 12nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -76,6 +76,74 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
 ---
 
 ## 5. Lavori fatti e attivi
+
+### 5.0-quinquies DIPENDENTI ver159 — TFR, CELLE «IN ITINERE», MONTE ORE (12/11/2026)
+
+Tre risposte di Christian nella stessa giornata, tutte sul **Costo orario** e sull'**anagrafica**
+di Dipendenti.
+
+| # | che cosa ha detto | esito |
+|---|---|---|
+| 1 | «nel costo orario dipendenti **le ore supplementari non incidono sul tfr**» + «**chi è a 38 h/sett. non si vede le supplementari (che vanno al 15%) dentro il TFR**» | ✅ **ver159**: la tendina «Supplementari nel TFR» vale ora **per tutti** ed è su **NO** di fabbrica |
+| 2 | «**bordami in fucsia** le celle dell'anagrafica che devo compilare **in itinere**» + «**7 E 8 non sono accordi, si concede e stop**» | ✅ **ver159**: **15 celle** col bordo fucsia, fondo giallino invariato |
+| 3 | sul monte ore temporaneo: «**No, vale fino all'ultimo giorno del mese indicato**, esempio 1 ottobre-30 novembre 2026» | ✅ **ver159**: la didascalia era sbagliata (il programma faceva già la cosa giusta) |
+
+#### 1 — le supplementari fuori dal TFR
+
+🔴 **La regola era DOPPIA e incoerente**, e l'incoerenza è stata misurata prima di toccare niente:
+chi è a **38 h/sett.** si vedeva le supplementari **sempre** dentro la base TFR, **col 15%**, e la
+tendina **non veniva nemmeno letta**; chi è **part-time** seguiva la tendina, di fabbrica su **SI**,
+e allora entravano **senza** maggiorazione.
+
+**Quanto pesa, sui 16 dipendenti veri** (confronto diretto con la copia congelata della ver158,
+16 schede su 16 lette, zero errori di pagina):
+
+| periodo | costo totale PRIMA → DOPO | differenza | schede che cambiano |
+|---|--:|--:|--:|
+| gen → ott 2026 | 154.906,45 → **154.348,48** | **−557,97 €** | 10 su 16 |
+| gen → dic 2026 | 192.649,00 → **192.091,02** | **−557,98 €** | 10 su 16 |
+| gen → dic 2025 | 140.697,40 → **140.015,18** | **−682,22 €** | 8 su 16 |
+
+Il costo **scende**, ed è il verso giusto. La punta: una scheda da **14.286,15 a 14.142,20 €**
+(base TFR da 9.675,65 a **7.775,24**); sul 2025 un'altra fa **−279,98 €**, €/h da **18,28 a 17,97**.
+⚠️ **I costi orari calcolati finora erano sovrastimati** di quella quota.
+
+- ⚠️ **La tendina NON è stata tolta**: è una dicitura di Christian. Rimettendola su **SI** si torna
+  **esattamente** ai numeri di prima — **verificato**, e ora vale **anche per il full-time**, che
+  prima la ignorava.
+- ⚠️ **Nei dati veri `costoComune` è vuoto**, quindi il NO vale subito per tutti e 16.
+- ⚠️ **`J18` resta nell'imponibile II**: i contributi sulle ore aggiuntive non cambiano. Cambia
+  **solo** la base del TFR.
+- 📜 Nel **foglio Excel di Christian** quella leva era **per persona** (dei 5 casi della ver71, uno
+  era «TFR-supplementari NO»); qui è **unica per tutti**. Se un giorno dovesse dipendere dalla
+  persona, va spostata in anagrafica.
+
+#### 2 — le celle «in itinere», bordo fucsia
+
+Sono le **15** caselle della sezione **«Costo del lavoro»**: premi, premio al mese, rimborso km col
+suo «come si conta», i **sei dal/al**, ore sotto soglia, **TFR accantonato** e il suo anno, ferie
+residue, mesi di maternità. ⚠️ **Restano ambra**, per sua decisione: *Giorni settimanali (per il
+costo orario)* (dato del contratto), *Scatti riconosciuti all'**assunzione***, e tutta la sezione
+**«Economico»**, che dalla ver135/ver137 **non alimenta nessun calcolo**.
+⚠️ **Il fondo resta giallino**: cambia **solo** il bordo (misurato: `rgb(192,38,211)` sulle 15,
+`rgb(245,158,11)` su tutte le altre, fondo `rgb(255,253,231)`).
+🟠 **Manca ancora la riga che spiega il colore**: è una dicitura nuova e aspetta il suo via libera.
+
+#### 3 — il monte ore temporaneo: la frase era falsa, il programma no
+
+**Misurato prima di rispondergli** (`orartemp.cjs`, 5/5, dati inventati): 20 ore dal **01/10/2026
+al 30/11/2026** su una persona a 38 h/sett. danno **settembre 165 · ottobre 86,84 · novembre 86,84
+· dicembre 165**. Il periodo copre **novembre per intero**: ha ragione lui, ed era la **didascalia**
+a essere sbagliata — una frase **scritta da Claude** nella ver62, non una sua dicitura.
+🐞 **E la frase taceva una seconda cosa**: il **giorno non conta affatto**. **15/10/2026 →
+05/11/2026** dà lo stesso identico risultato (`orartempB.cjs`, 5/5).
+La frase nuova lo dice per esteso ed è stata **approvata da lui** prima di entrare nel file.
+
+**Provato in esecuzione**: `ver159.cjs` **19 controlli su 19**, zero errori di pagina.
+🐞 Due attese della prima stesura erano **mie e sbagliate** (avevo invertito la scheda full-time
+con quella senza supplementari): **corrette, non aggirate**.
+
+---
 
 ### 5.0-quater LE RISPOSTE DEL 12/11/2026 E LE DUE GRAVITÀ MISURATE
 
