@@ -65,7 +65,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 6 · 08nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 17 · 12nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver161 · 12nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver162 · 13nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver137 · 12nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 17 · 12nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -76,6 +76,39 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
 ---
 
 ## 5. Lavori fatti e attivi
+
+### 5.0-octies DIPENDENTI ver162 — GRAFICA DELL'ANAGRAFICA E TENDINA DEL RIMBORSO (13/11/2026)
+
+Cinque richieste di Christian nella stessa giornata, quasi tutte di aspetto; **una sola tocca un
+calcolo** (il rimborso), dichiarata.
+
+- 🖼️ **Cornici alle sezioni dell'anagrafica**: prima erano separate solo da una riga sotto il
+  titolo. Ora ogni sezione è un riquadro — bianche con bordo grigio quelle «dati», con la loro
+  tinta e un'ombra leggera i box azione in fondo. I **colori scelti da Christian** non cambiano.
+- 🔠 **Titoli dei box più grandi ed evidenziati**: 15,5px in grassetto su una banda colorata;
+  i sotto-titoli interni da 11 a 12,5px. Gerarchia tipografica più chiara.
+- 🟢 **Bordo fucsia → verde elettrico `#47b82a`** sulle caselle «in itinere» (ver159) e nella
+  legenda, che ora dice «bordo verde». Il fucsia del Tabellone (weekend) non è stato toccato.
+- 🔁 **Tendina del rimborso «Forfait / Mensile»**, e con «Mensile» la casella nuova
+  **«Rimborso — per quanti mesi»** (facoltativa: vuota = i mesi del periodo). È l'unica modifica
+  a un calcolo (`J34`): forfait una volta sola, mensile con mesi fissi = importo × mesi,
+  mensile vuoto = importo × mesi del periodo come prima. I vecchi valori «al mese»→Mensile,
+  «secco»→Forfait; i dati non cambiano. Schema del backup invariato.
+- 📝 **Due didascalie più chiare**: il box «La retribuzione» (le sole caselle scrivibili sono
+  scatti e superminimo) e i rimborsi (la tendina «come si conta», prima muta, ora si spiega).
+
+**Provato in esecuzione** (`ver162.cjs` **11/11**): verde `rgb(71,184,42)`, 13 cornici, titolo
+15,5px, la tendina che mostra/nasconde i mesi, e il conto del rimborso (100 € · 10 mesi):
+Mensile vuoto **1.000,00** · Forfait **100,00** · Mensile × 3 **300,00** · Mensile × 24
+**2.400,00**. Ispezione visiva di Dipendenti (5 viste × 390 e 1280px): nessuno scroll laterale,
+nessuna nuova scritta sotto i 12,5px fuori dalle griglie. ⚠️ Nei test `ver159/160/161` l'attesa
+del colore fucsia è stata **aggiornata al verde, non aggirata**.
+
+🟠 **In coda**: collaudo grafico-linguistico sistematico delle **altre tre app** (Fogli ore,
+Collaboratori, USOINT) + pagina integrata, richiesto da Christian il 13/11 — finora ispezionata
+a fondo solo Dipendenti.
+
+---
 
 ### 5.0-septies DIPENDENTI ver161 — IL TFR ANNO PER ANNO (12/11/2026)
 
