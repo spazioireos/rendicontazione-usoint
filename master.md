@@ -67,7 +67,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 6 · 08nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 20 · 14nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver162 · 13nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver163 · 14nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver137 · 12nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 17 · 12nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -104,6 +104,26 @@ mensili** e deve **suggerirmele** come già succede nel tabellone dell'app dipen
   nuovo gruppo, mxop-2 54/0, mxop-3 49/0, g2-opoc 9/0, g2b-opoc 13/0, rev11 8/0, rev14op 15/0,
   rev15op 15/0, sc-op-rev12c 7/0, ic-fix3 13/0). ⚠️ Non verificato con Firebase vero.
 - **Portato su `main`?** No: solo sul ramo di lavoro, in attesa del «porta su main» di Christian.
+
+### 5.0-decies DIPENDENTI ver163 — TERZO REPORT A4 PAGHE: ORDINARIO/EXTRA GIORNALIERO (14/11/2026)
+
+Richiesta di Christian: un PDF A4 che dica **giornalmente** quanto è ordinario e quanto extra per
+ogni dipendente. Quota giornaliera = ore settimanali ÷ giorni a settimana (18/6 = 3). Giorno
+lavorato: ordinario = min(ore, quota), extra = max(0, ore − quota).
+
+- **Nessuna compensazione** (scelta sua): l'extra è la somma dei singoli giorni. ⚠️ Perciò il
+  totale extra è **diverso** (più alto) dal «Risultato del mese» del Tabellone, che compensa: due
+  numeri per due scopi. `bancaMeseA` non toccata.
+- **Tre colonne**: Giorno · Ordinario · Extra · **Assenze/permessi** (codici dei giorni pieni e i
+  permessi EXF a ore: pagati ma non lavorati, quindi fuori da ordinario/extra). In calce: ore rese
+  (ord+extra), gg ferie e le altre voci già chieste (dai motori esistenti, non toccati).
+- **Tutti i dipendenti in forza** nel mese, un foglio A4 verticale a testa (più fogli se servono).
+- Nuova funzione `esportaPDFOrdExtra`, nuovo pulsante «🖨️ Report PDF A4 ord/extra». Diciture nuove
+  scritte da Claude, autorizzate. **Nessun calcolo esistente toccato**; i due PDF che c'erano
+  (storico + mensilizzati) restano invariati.
+- **Provato con jsPDF vero** (`ordextra-test.cjs`, **14/14**): 4h→3+1, 6h→3+3, FERIE e permesso EXF
+  nella terza colonna, TOTALE 8/4, ore rese 12,00, una pagina per dipendente; i due PDF esistenti si
+  generano ancora (non regressione). **Non portato su `main`** (ramo di lavoro).
 
 ### 5.0-octies DIPENDENTI ver162 — GRAFICA DELL'ANAGRAFICA E TENDINA DEL RIMBORSO (13/11/2026)
 
