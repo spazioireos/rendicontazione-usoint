@@ -20,7 +20,7 @@ Organizzazione GitHub: `spazioireos`. Base dei link: `https://spazioireos.github
 
 | App | Repository | Tecnologia | Accesso | Dati |
 |---|---|---|---|---|
-| **Collaboratori** (Operatori Occasionali) | `ore-e-importi-collaboratori` | JS vanilla | PIN locale | browser (`spazioireos_opoc`) + Google Drive |
+| **Collaboratori** (Operatori Occasionali) | `ore-e-importi-collaboratori` | JS vanilla | PIN locale (+ login admin Firebase SOLA LETTURA dalla rev 18) | browser (`spazioireos_opoc`) + Google Drive; legge Fogli ore in sola lettura |
 | **Dipendenti** (Report Ore mensile) | `ore-mensili-dipendenti` | React + Babel | mail+password (solo admin) | Firebase `spazio-ireos-foglio-ore`, doc `report-ore-mensile/{uid}` |
 | **Rendicontazione progetti** (USOINT = "uso interno") | `rendicontazione-usoint` | React minificato + Babel | mail+password | Firebase `rendicontazione-usoint`, `users/{uid}/kv` |
 | **Fogli ore** (gli ESTERNI compilano le proprie ore) | `spazioireos-foglio-ore` | JS + template string | mail+password, con RUOLI | Firebase `spazio-ireos-foglio-ore`, collection globali |
@@ -30,7 +30,9 @@ Verificare sempre il `<title>` dentro il file prima di assumere cosa c'è dentro
 
 **Dipendenti e Fogli ore condividono lo stesso progetto Firebase** (`spazio-ireos-foglio-ore`):
 stesso login, collection diverse. È questo che permette il confronto tra le due senza seconde
-connessioni. **USOINT ha un progetto separato.** **Collaboratori non usa Firebase.**
+connessioni. **USOINT ha un progetto separato.** **Dalla rev 18 anche Collaboratori legge quel
+progetto `spazio-ireos-foglio-ore`, ma SOLO in lettura** (suggerimento ore, login admin): i suoi
+dati restano in `localStorage` e non scrive mai su Fogli ore.
 
 Ogni app ha il suo `CLAUDE.md` con le istruzioni di dettaglio (modello dati, trappole, cosa non
 toccare): leggere quello prima di lavorarci.
@@ -64,7 +66,7 @@ in cache (problema realmente capitato).
 | App | Numero attuale | Dove si vede | Da dove viene |
 |---|---|---|---|
 | App integrata | `rev 6 · 08nov26` | barra in alto | scritto nel file |
-| Collaboratori | `rev 17 · 12nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
+| Collaboratori | `rev 18 · 14nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
 | Dipendenti | `ver162 · 13nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver137 · 12nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 17 · 12nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
@@ -76,6 +78,31 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
 ---
 
 ## 5. Lavori fatti e attivi
+
+### 5.0-nonies COLLABORATORI rev 18 — SUGGERISCE LE ORE DAI FOGLI ORE, LIGHT COMPRESI (14/11/2026)
+
+Richiesta di Christian: «l'app collaboratori deve leggere le ore degli operatori **anche light
+mensili** e deve **suggerirmele** come già succede nel tabellone dell'app dipendenti». Sue scelte:
+**login admin dentro Collaboratori** e suggerimento **sopra le celle, in piccolo**.
+
+- Fino alla rev 17 Collaboratori **non aveva nessun collegamento cloud**. Ora, come il Tabellone di
+  Dipendenti, legge **in SOLA LETTURA** dal Firebase condiviso `spazio-ireos-foglio-ore` le ore dei
+  fogli ore e le mostra come **suggerimento non vincolante** nell'intestazione di ogni mese
+  («FO N»). **Non riempie le caselle e non cambia nessun calcolo.**
+- **Legge `users`+`timesheets`** (operatori normali: somma dei giorni, formati orari storici,
+  assenza una volta sola) **e `lightsheets`** (operatori light, mensili; **giugno inv+est sommati**).
+  ⚠️ **È più di quanto fa Dipendenti**, che i light li esclude. Abbinamento **per nome** con
+  `foChiave` (accenti/apostrofi equivalenti); due omonimi → **«FO ?»**.
+- **Login admin** `spazioireos@gmail.com` (le regole lasciano leggere le ore altrui solo all'admin):
+  SDK Firebase 10.12.2 compat, gruppo «FOGLI ORE» in copertina. Il **PIN resta**, il **backup JSON
+  non cambia** (la sessione Firebase sta fuori da `spazioireos_opoc`), e **non si scrive MAI** su
+  Fogli ore.
+- **Provato**: `col-fo.cjs` **12/12** (banco fake-Firebase) — totali normali e light corretti,
+  giugno inv+est, omonimi «FO ?», scollegato niente, backup intatto. Batteria storica di
+  Collaboratori **tutta verde** (mxop-1 46/0 con l'attesa dei pulsanti aggiornata da 17 a 18 per il
+  nuovo gruppo, mxop-2 54/0, mxop-3 49/0, g2-opoc 9/0, g2b-opoc 13/0, rev11 8/0, rev14op 15/0,
+  rev15op 15/0, sc-op-rev12c 7/0, ic-fix3 13/0). ⚠️ Non verificato con Firebase vero.
+- **Portato su `main`?** No: solo sul ramo di lavoro, in attesa del «porta su main» di Christian.
 
 ### 5.0-octies DIPENDENTI ver162 — GRAFICA DELL'ANAGRAFICA E TENDINA DEL RIMBORSO (13/11/2026)
 
