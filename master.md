@@ -66,7 +66,7 @@ in cache (problema realmente capitato).
 | App | Numero attuale | Dove si vede | Da dove viene |
 |---|---|---|---|
 | App integrata | `rev 6 · 08nov26` | barra in alto | scritto nel file |
-| Collaboratori | `rev 18 · 14nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
+| Collaboratori | `rev 19 · 14nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
 | Dipendenti | `ver162 · 13nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver137 · 12nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 17 · 12nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
@@ -79,7 +79,7 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
 
 ## 5. Lavori fatti e attivi
 
-### 5.0-nonies COLLABORATORI rev 18 — SUGGERISCE LE ORE DAI FOGLI ORE, LIGHT COMPRESI (14/11/2026)
+### 5.0-nonies COLLABORATORI rev 18/19 — SUGGERISCE LE ORE DAI FOGLI ORE, LIGHT COMPRESI (14/11/2026)
 
 Richiesta di Christian: «l'app collaboratori deve leggere le ore degli operatori **anche light
 mensili** e deve **suggerirmele** come già succede nel tabellone dell'app dipendenti». Sue scelte:
@@ -88,7 +88,8 @@ mensili** e deve **suggerirmele** come già succede nel tabellone dell'app dipen
 - Fino alla rev 17 Collaboratori **non aveva nessun collegamento cloud**. Ora, come il Tabellone di
   Dipendenti, legge **in SOLA LETTURA** dal Firebase condiviso `spazio-ireos-foglio-ore` le ore dei
   fogli ore e le mostra come **suggerimento non vincolante** nell'intestazione di ogni mese
-  («FO N»). **Non riempie le caselle e non cambia nessun calcolo.**
+  («TS N» — rev 19: rinominata da «FO» per il kng, TS = foglio ore di un operatore). **Non riempie
+  le caselle e non cambia nessun calcolo.**
 - **Legge `users`+`timesheets`** (operatori normali: somma dei giorni, formati orari storici,
   assenza una volta sola) **e `lightsheets`** (operatori light, mensili; **giugno inv+est sommati**).
   ⚠️ **È più di quanto fa Dipendenti**, che i light li esclude. Abbinamento **per nome** con
@@ -98,7 +99,7 @@ mensili** e deve **suggerirmele** come già succede nel tabellone dell'app dipen
   non cambia** (la sessione Firebase sta fuori da `spazioireos_opoc`), e **non si scrive MAI** su
   Fogli ore.
 - **Provato**: `col-fo.cjs` **12/12** (banco fake-Firebase) — totali normali e light corretti,
-  giugno inv+est, omonimi «FO ?», scollegato niente, backup intatto. Batteria storica di
+  giugno inv+est, omonimi «TS ?», scollegato niente, backup intatto. Batteria storica di
   Collaboratori **tutta verde** (mxop-1 46/0 con l'attesa dei pulsanti aggiornata da 17 a 18 per il
   nuovo gruppo, mxop-2 54/0, mxop-3 49/0, g2-opoc 9/0, g2b-opoc 13/0, rev11 8/0, rev14op 15/0,
   rev15op 15/0, sc-op-rev12c 7/0, ic-fix3 13/0). ⚠️ Non verificato con Firebase vero.
