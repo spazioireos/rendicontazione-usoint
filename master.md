@@ -66,7 +66,7 @@ in cache (problema realmente capitato).
 | App | Numero attuale | Dove si vede | Da dove viene |
 |---|---|---|---|
 | App integrata | `rev 6 · 08nov26` | barra in alto | scritto nel file |
-| Collaboratori | `rev 19 · 14nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
+| Collaboratori | `rev 20 · 14nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
 | Dipendenti | `ver162 · 13nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver137 · 12nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 17 · 12nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
@@ -79,7 +79,7 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
 
 ## 5. Lavori fatti e attivi
 
-### 5.0-nonies COLLABORATORI rev 18/19 — SUGGERISCE LE ORE DAI FOGLI ORE, LIGHT COMPRESI (14/11/2026)
+### 5.0-nonies COLLABORATORI rev 18→20 — SUGGERISCE LE ORE DAI FOGLI ORE, LIGHT COMPRESI (14/11/2026)
 
 Richiesta di Christian: «l'app collaboratori deve leggere le ore degli operatori **anche light
 mensili** e deve **suggerirmele** come già succede nel tabellone dell'app dipendenti». Sue scelte:
