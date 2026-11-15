@@ -67,7 +67,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 6 · 08nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 20 · 14nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver178 · 15nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver179 · 15nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver138 · 15nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 17 · 12nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -211,7 +211,11 @@ Catena di richieste di Christian, è il cambio di motore più importante del per
   costo negativo con i mesi a −7); l'ISTAT resta l'unico che può essere negativo. Costo identico sui
   16 dipendenti veri, batteria di 43 script senza falliti nuovi. Trovato e **non** corretto: un
   salvataggio cloud fallito resta solo nel browser e al rientro sparisce (serve decisione).
-- **Portato su `main`?** Le **ver171 → ver174** sì, il 15/11/2026. **ver175 → ver178 e USOINT ver138** sono solo sul ramo.
+- **ver179 (15/11/2026)**: un salvataggio rimasto solo nel browser perché il cloud è caduto non si
+  perde più al rientro: l'app lo rimanda nel cloud prima di leggerlo (stesso rimedio di USOINT
+  ver129). Accenti con l'apostrofo corretti nei testi a video, legenda senza «crimson #B22222»,
+  suggerimento di ORE MESE senza «Banca ore», fascia del titolo fino al bordo. Provato 25/25 + 9/9.
+- **Portato su `main`?** Sì: **ver171 → ver179 e USOINT ver138**, il 15/11/2026.
 
 ### 5.0-decies DIPENDENTI ver163 — TERZO REPORT A4 PAGHE: ORDINARIO/EXTRA GIORNALIERO (14/11/2026)
 
