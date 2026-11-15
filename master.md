@@ -171,7 +171,7 @@ Catena di richieste di Christian, è il cambio di motore più importante del per
   all'ufficio paghe**, perché è il cedolino che ha le ore che servono per il rendiconto (ordinarie −
   assenze pagate + supplementari). Oggi l'app fornisce il Report PDF mensilizzati e il Report
   ord/extra; eventuali altri tracciati si decidono con Christian.
-- **Portato su `main`?** No: solo sul ramo di lavoro, in attesa del «porta su main» di Christian.
+- **Portato su `main`?** **Sì, il 15/11/2026** («Main» di Christian): `main` di Dipendenti porta la **ver171** (ver165 → ver171) e questo file è allineato.
 
 ### 5.0-decies DIPENDENTI ver163 — TERZO REPORT A4 PAGHE: ORDINARIO/EXTRA GIORNALIERO (14/11/2026)
 
