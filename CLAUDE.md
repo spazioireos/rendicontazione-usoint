@@ -36,7 +36,7 @@ USOINT sta per **"uso interno"**.
   `usoint-tariffe`, `usoint-simul`, **`usoint-codici`** (dalla ver136: codice operatore → riga).
   Accesso mail+password.
 - **Numero di revisione**: costante `const VER` (riga ~67), mostrata in **tre punti** (Home,
-  scheda progetto, Riepilogo operatori). **Attuale: ver137 · 12nov26.** `VER` finisce anche nei
+  scheda progetto, Riepilogo operatori). **Attuale: ver138 · 15nov26.** `VER` finisce anche nei
   nomi dei file esportati: incrementarla, non affiancarle un secondo numero.
 - **Strutture utili**: `usoint-orelav` = `{ [norm(nome)]: { [anno]: [12 numeri] } }` (ore
   lavorate, indice 0 = gennaio; `norm` = minuscolo, trim, spazi singoli).
@@ -76,6 +76,23 @@ USOINT sta per **"uso interno"**.
 - **Funzioni presenti**: import automatico (SOLA LETTURA) delle ore lavorate dal database dei
   Dipendenti tramite una **seconda app Firebase** chiamata "dip"; tabella compatta della scheda
   operatore (Lavorate | una colonna per progetto | Tot. rendicontate | Avanzo).
+- 🧾 **LE ORE LAVORATE DEI MENSILIZZATI SONO QUELLE PAGATE A CEDOLINO** (ver138, 15/11/2026,
+  Christian: «**in usoint devono andare le ore pagate come da cedolino e quelle deve leggere.
+  Lascia correre le retribuite erosive**»).
+  - **Come**: Dipendenti (ver176) scrive a ogni 💾 nel suo documento `cedOre = { "AAAA-MM": {
+    dipId: ore } }` = ordinarie a cedolino + supplementari, per i mensilizzati da ottobre 2026.
+    `_dipImport` usa **quel numero** quando c'è (`cedPub`), altrimenti somma le celle come prima
+    (non mensilizzati, mesi precedenti, Dipendenti non ancora risalvato). **Nessun motore copiato
+    qui**: il conto resta uno solo, in Dipendenti.
+  - **Esempio**: ottobre 2026, 82,50 h rese su 27 giorni senza assenze → «Lavorate» **79,33**
+    (prima 82,50); con le 8 malattie del caso vero (101,50 rese) → **98,34**.
+  - **A video**, accanto a «importate ✓»: «— per i mensilizzati da ottobre 2026 sono le ore pagate
+    a cedolino (N mesi)». ⚠️ **Dicitura nuova, scritta da Claude.**
+  - ⚠️ Le **erosive** non arrivano qui (decisione di Christian). ⚠️ I numeri vengono dall'**ultimo
+    💾 di Dipendenti**: se lì si cambia qualcosa senza salvare, USOINT legge quelli vecchi.
+  - **Provato in esecuzione** (`ced176`, parte B, 7/0 su 7): 79,33 al posto di 82,50; settembre e
+    l'altra persona come prima; senza `cedOre` tutto come la ver137; il riquadro lo dice; zero errori.
+
 - 🔢 **UN NUMERO CON LO SPAZIO DAVANTI, O CHE COMINCIA COL PUNTO, NON VALE PIÙ ZERO**
   (ver137, 12/11/2026, risposta di Christian al punto **6** dell'elenco del sospeso:
   «**sistema**»).

@@ -67,8 +67,8 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 6 · 08nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 20 · 14nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver175 · 15nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
-| Rendicontazione USOINT | `ver137 · 12nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
+| Dipendenti | `ver176 · 15nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Rendicontazione USOINT | `ver138 · 15nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 17 · 12nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
 **Criterio:** dove l'app aveva già una numerazione (USOINT `ver`, Dipendenti `APP_VER`) si usa e
@@ -196,7 +196,12 @@ Catena di richieste di Christian, è il cambio di motore più importante del per
   (erosive e non erosive), ore lavorate ordinarie, eventuali ore da trattenere, supplementari,
   festività non godute a sé, note, e la riga del rendiconto con la frase di Christian. Nessun
   calcolo nuovo. Provato 20/0 + batteria.
-- **Portato su `main`?** Le **ver171 → ver174** sì, il 15/11/2026. La **ver175** è solo sul ramo, in attesa dell'anteprima.
+- **ver176 (15/11/2026)** e **USOINT ver138**: «79,33 ovunque» — nel Costo orario le ore non fatte
+  e trattenute escono dallo stipendio (a paga oraria; contributi e TFR seguono). Sui dati veri il
+  costo scende di ~5.500 € l'anno su 16 persone (gen→ott 2026 −5.472,98; 2025 −5.808,44), ore
+  invariate. E a ogni 💾 Dipendenti scrive le ore a cedolino (`cedOre`) che USOINT legge come
+  «Lavorate» al posto della somma delle celle; senza erosive. Provato 17/0 + batterie.
+- **Portato su `main`?** Le **ver171 → ver174** sì, il 15/11/2026. **ver175, ver176 e USOINT ver138** sono solo sul ramo.
 
 ### 5.0-decies DIPENDENTI ver163 — TERZO REPORT A4 PAGHE: ORDINARIO/EXTRA GIORNALIERO (14/11/2026)
 
