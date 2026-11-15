@@ -67,7 +67,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 6 · 08nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 20 · 14nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver169 · 15nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver170 · 15nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver137 · 12nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 17 · 12nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -151,6 +151,13 @@ Catena di richieste di Christian, è il cambio di motore più importante del per
   correzione tocca anche ASP 0h». `isAbsCell` esclude i codici `pay:false`; il numerino erosivo sotto
   la cella usa la stessa funzione (punto unico). Erode solo l'assenza retribuita. Sui dati veri non
   cambia niente (zero celle ASP 0h). Provato dal vivo 9/0 con confronto sulla ver168 congelata.
+- **ver170 (15/11/2026)**: «Teniamo ASP 0h». I due significati di `AN` si separano: `AN` = solo il
+  sabato / giorno recuperato altrove; il **mese non pagato** si scrive **`ASP 0h`** (Tabellone: Risultato
+  = −tutte le ore corrette da dare = nessuna busta). La regola ver112 (`meseTuttoAN`) scatta ora con
+  i codici non retribuiti (`ASP 0h`, `ASS.ING`) **o** `AN`, così i 5 mesi veri già segnati AN restano
+  validi finché Christian non li ricodifica. Dicitura della riga «Mesi non pagati» adattata (era di
+  Claude, ver112). Limite dichiarato: il Costo orario non scala le trattenute dei giorni singoli.
+  Provato co170 10/0 con confronto sulla ver169 congelata; batteria senza regressioni.
 - **Portato su `main`?** No: solo sul ramo di lavoro, in attesa del «porta su main» di Christian.
 
 ### 5.0-decies DIPENDENTI ver163 — TERZO REPORT A4 PAGHE: ORDINARIO/EXTRA GIORNALIERO (14/11/2026)
