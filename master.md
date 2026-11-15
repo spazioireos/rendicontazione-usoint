@@ -67,7 +67,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 6 · 08nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 20 · 14nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver167 · 15nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver168 · 15nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver137 · 12nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 17 · 12nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -140,6 +140,13 @@ Catena di richieste di Christian, è il cambio di motore più importante del per
   il giorno AN copre la sua quota (ordinario esatto, nessun falso «ha lavorato meno»). Chi lavora su
   6 giorni **non cambia**. Provato: report 38/0 jsPDF vero, riconteggio indipendente 9/9, dal vivo
   11/0 con confronto sulla ver166 congelata; Costo orario coerente (41,22 h = straordinario 41,21).
+- **ver168 (15/11/2026)**: codice nuovo **`ASS.ING` «Assenza ingiustificata»**, non retribuita
+  (`pay:false` come `ASP 0h`), sigla e dicitura di Christian («Ok Ass ing, Nu\*»). Una riga in
+  `CODICI`: tutto il resto (tendina, Compila veloce, copertura, Non retribuite, report paghe e
+  ord/extra) deriva da lì. Il giorno è **dovuto e non coperto**: la soglia non cambia, il Risultato
+  del mese scende delle ore mancate (trattenuta automatica), il report dice «mancano X h». ⚠️ Come
+  `ASP 0h`, erode il Tetto annuo (preesistente, da decidere). Provato: tab168 13/0, report 46/0,
+  riconteggio 10/10, ver153/154 41/0.
 - **Portato su `main`?** No: solo sul ramo di lavoro, in attesa del «porta su main» di Christian.
 
 ### 5.0-decies DIPENDENTI ver163 — TERZO REPORT A4 PAGHE: ORDINARIO/EXTRA GIORNALIERO (14/11/2026)
