@@ -67,7 +67,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 6 · 08nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 20 · 14nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver172 · 15nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver173 · 15nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver137 · 12nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 17 · 12nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -178,7 +178,14 @@ Catena di richieste di Christian, è il cambio di motore più importante del per
   sulla ver171 (dati veri, 16 dipendenti × 205 mesi, riconteggio indipendente): nessun errore di
   conteggio; tre questioni per Christian (colonna «Ore dovute» del report paghe, +12,71 h di
   febbraio 2026 per una full-time, due schede con date/celle da controllare).
-- **Portato su `main`?** La **ver171** sì, il 15/11/2026 («Main» di Christian). La **ver172** è solo sul ramo di lavoro.
+- **ver173 (15/11/2026)**: Christian cambia la decisione del 06/11 — «le festività godute erodono il
+  massimale se erosive, come le ferie e i permessi». `prodottoMese` (Tetto annuo e 📤 Pubblica i
+  residui) somma le festività godute non spente col clic (quota oreSett ÷ ggSett); il numerino sotto
+  il festivo è cliccabile come quello delle assenze; mese senza dati e mese tutto non retribuito = 0.
+  Il Risultato del mese non cambia. Sui dati veri cambia una sola scheda-mese (agosto 2026, +2,5 h).
+  Provato 13/0 + batteria. ⚠️ Resta aperta la domanda sulla base dei residui: ore «erosive»
+  (ora comprese le festività) contro ore a cedolino.
+- **Portato su `main`?** La **ver171** sì, il 15/11/2026 («Main» di Christian). Le **ver172 e ver173** sono solo sul ramo di lavoro.
 
 ### 5.0-decies DIPENDENTI ver163 — TERZO REPORT A4 PAGHE: ORDINARIO/EXTRA GIORNALIERO (14/11/2026)
 
