@@ -67,7 +67,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 6 · 08nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 20 · 14nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver174 · 15nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver175 · 15nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver137 · 12nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 17 · 12nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -191,7 +191,12 @@ Catena di richieste di Christian, è il cambio di motore più importante del per
   di assenze, festività godute e permessi; prima di ottobre 2026 o per i non mensilizzati resta
   rese + erosive. TOT teorico, Risultato del mese, Costo orario e report invariati. Dati veri: cambia
   un solo massimale (−3,17 h). Provato 10/0 + batteria.
-- **Portato su `main`?** Le **ver171 → ver174** sì, il 15/11/2026 («Main» / «porta su main» di Christian).
+- **ver175 (15/11/2026)**: nel Tabellone, per ogni mensilizzato da ottobre 2026, il box «🧾 Da
+  inserire a cedolino»: ORE MESE, di cui ferie / altre assenze / festività godute / permessi
+  (erosive e non erosive), ore lavorate ordinarie, eventuali ore da trattenere, supplementari,
+  festività non godute a sé, note, e la riga del rendiconto con la frase di Christian. Nessun
+  calcolo nuovo. Provato 20/0 + batteria.
+- **Portato su `main`?** Le **ver171 → ver174** sì, il 15/11/2026. La **ver175** è solo sul ramo, in attesa dell'anteprima.
 
 ### 5.0-decies DIPENDENTI ver163 — TERZO REPORT A4 PAGHE: ORDINARIO/EXTRA GIORNALIERO (14/11/2026)
 
