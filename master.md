@@ -167,6 +167,10 @@ Catena di richieste di Christian, è il cambio di motore più importante del per
   collaterale giusto: le ore fuori dalle date del contratto non si contano più (una scheda passa da
   6,63 a 19,78 €/h; quattro schede 2025 senza contratto diventano «non calcolabile»). Provato co171
   13/0, nr153 7/0 (attesa aggiornata), batteria senza regressioni.
+- 📌 **Promemoria aperto (15/11/2026)**: il prossimo problema è **far costruire il cedolino
+  all'ufficio paghe**, perché è il cedolino che ha le ore che servono per il rendiconto (ordinarie −
+  assenze pagate + supplementari). Oggi l'app fornisce il Report PDF mensilizzati e il Report
+  ord/extra; eventuali altri tracciati si decidono con Christian.
 - **Portato su `main`?** No: solo sul ramo di lavoro, in attesa del «porta su main» di Christian.
 
 ### 5.0-decies DIPENDENTI ver163 — TERZO REPORT A4 PAGHE: ORDINARIO/EXTRA GIORNALIERO (14/11/2026)
