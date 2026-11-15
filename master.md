@@ -67,7 +67,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 6 · 08nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 20 · 14nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver177 · 15nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver178 · 15nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver138 · 15nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 17 · 12nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -205,7 +205,13 @@ Catena di richieste di Christian, è il cambio di motore più importante del per
   giorno in ore,minuti) con le ore accanto ai codici delle assenze pagate e «FEST» sulle festività
   godute, più una pagina finale «PER LE PAGHE — DA INSERIRE A CEDOLINO» con il box di ogni
   mensilizzato, senza erosive. Report storico identico. Provato con jsPDF vero 19/0.
-- **Portato su `main`?** Le **ver171 → ver174** sì, il 15/11/2026. **ver175 → ver177 e USOINT ver138** sono solo sul ramo.
+- **ver178 (15/11/2026)**: collaudo approfondito di Dipendenti. Corretto il **segno meno** che entrava
+  nelle caselle numeriche di Anagrafica, Costo orario (persona, Simulazione, valori comuni) e «Ore
+  dichiarate», contro la regola A4 di Christian (misurato: −1.000 € di costo con un rimborso km a −100,
+  costo negativo con i mesi a −7); l'ISTAT resta l'unico che può essere negativo. Costo identico sui
+  16 dipendenti veri, batteria di 43 script senza falliti nuovi. Trovato e **non** corretto: un
+  salvataggio cloud fallito resta solo nel browser e al rientro sparisce (serve decisione).
+- **Portato su `main`?** Le **ver171 → ver174** sì, il 15/11/2026. **ver175 → ver178 e USOINT ver138** sono solo sul ramo.
 
 ### 5.0-decies DIPENDENTI ver163 — TERZO REPORT A4 PAGHE: ORDINARIO/EXTRA GIORNALIERO (14/11/2026)
 
