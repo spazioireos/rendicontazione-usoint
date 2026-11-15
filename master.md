@@ -67,7 +67,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 6 · 08nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 20 · 14nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver173 · 15nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver174 · 15nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver137 · 12nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 17 · 12nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -185,7 +185,13 @@ Catena di richieste di Christian, è il cambio di motore più importante del per
   Il Risultato del mese non cambia. Sui dati veri cambia una sola scheda-mese (agosto 2026, +2,5 h).
   Provato 13/0 + batteria. ⚠️ Resta aperta la domanda sulla base dei residui: ore «erosive»
   (ora comprese le festività) contro ore a cedolino.
-- **Portato su `main`?** La **ver171** sì, il 15/11/2026 («Main» di Christian). Le **ver172 e ver173** sono solo sul ramo di lavoro.
+- **ver174 (15/11/2026)**: «il massimale deve scendere di quello che paga il finanziatore» (si
+  rendiconta copiando dal cedolino). Per i mensilizzati da ottobre 2026 il Tetto annuo e i residui
+  consumano le ore a cedolino ammesse (ordinarie a cedolino + supplementari) più le parti erosive
+  di assenze, festività godute e permessi; prima di ottobre 2026 o per i non mensilizzati resta
+  rese + erosive. TOT teorico, Risultato del mese, Costo orario e report invariati. Dati veri: cambia
+  un solo massimale (−3,17 h). Provato 10/0 + batteria.
+- **Portato su `main`?** Le **ver171 → ver174** sì, il 15/11/2026 («Main» / «porta su main» di Christian).
 
 ### 5.0-decies DIPENDENTI ver163 — TERZO REPORT A4 PAGHE: ORDINARIO/EXTRA GIORNALIERO (14/11/2026)
 
