@@ -92,6 +92,16 @@ USOINT sta per **"uso interno"**.
     💾 di Dipendenti**: se lì si cambia qualcosa senza salvare, USOINT legge quelli vecchi.
   - **Provato in esecuzione** (`ced176`, parte B, 7/0 su 7): 79,33 al posto di 82,50; settembre e
     l'altra persona come prima; senza `cedOre` tutto come la ver137; il riquadro lo dice; zero errori.
+  - **Batteria rieseguita sulla ver138, ZERO falliti nuovi**: `mxus-A` **46/1** (il «Logout» già
+    noto: da solo passa) · `B` **67/0** · `C` **53/0** · `D` **34/0** · `E` **29/0** · `F` **7/0** ·
+    `H` **5/0** · `ver125` **10/0** · `ver126` **7/0** · `ver129a` **13/0** · `ver129b` **17/0** ·
+    `ver129c` **19/1** (l'errore di pagina della ver128 di confronto, storico) · `ver129d` **6/0** ·
+    `ver129t` **3/0** · `ver130us` **18/0** · `ver131us` **19/0** · `ver132us` **46/0** ·
+    `ver133us` **22/0** · `ver134us` **21/0** · `ver135us` **19/0** · `ver136us` **17/0** ·
+    `ver137us` **12/0** · `ced176` **17/0** · `fix-b2` **7/0** · `g11` **13/0**.
+    ⚠️ In `ver137us` la targhetta era **scritta a mano** («ver137 · 12nov26»): ora si legge dal
+    file. **Aggiornata, non aggirata.** ⚠️ `mxus-G` **non rieseguito**: confronta con la copia
+    congelata della ver122 sulla porta 8201, che oggi serve un'altra app.
 
 - 🔢 **UN NUMERO CON LO SPAZIO DAVANTI, O CHE COMINCIA COL PUNTO, NON VALE PIÙ ZERO**
   (ver137, 12/11/2026, risposta di Christian al punto **6** dell'elenco del sospeso:

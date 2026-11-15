@@ -67,7 +67,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 6 · 08nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 20 · 14nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver176 · 15nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver177 · 15nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver138 · 15nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 17 · 12nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -201,7 +201,11 @@ Catena di richieste di Christian, è il cambio di motore più importante del per
   costo scende di ~5.500 € l'anno su 16 persone (gen→ott 2026 −5.472,98; 2025 −5.808,44), ore
   invariate. E a ogni 💾 Dipendenti scrive le ore a cedolino (`cedOre`) che USOINT legge come
   «Lavorate» al posto della somma delle celle; senza erosive. Provato 17/0 + batterie.
-- **Portato su `main`?** Le **ver171 → ver174** sì, il 15/11/2026. **ver175, ver176 e USOINT ver138** sono solo sul ramo.
+- **ver177 (15/11/2026)**: «🖨️ Report PDF A4 paghe e LUL» = il Report storico (ore giorno per
+  giorno in ore,minuti) con le ore accanto ai codici delle assenze pagate e «FEST» sulle festività
+  godute, più una pagina finale «PER LE PAGHE — DA INSERIRE A CEDOLINO» con il box di ogni
+  mensilizzato, senza erosive. Report storico identico. Provato con jsPDF vero 19/0.
+- **Portato su `main`?** Le **ver171 → ver174** sì, il 15/11/2026. **ver175 → ver177 e USOINT ver138** sono solo sul ramo.
 
 ### 5.0-decies DIPENDENTI ver163 — TERZO REPORT A4 PAGHE: ORDINARIO/EXTRA GIORNALIERO (14/11/2026)
 
