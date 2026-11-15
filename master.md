@@ -67,7 +67,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 6 · 08nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 20 · 14nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver171 · 15nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver172 · 15nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver137 · 12nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 17 · 12nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -171,7 +171,14 @@ Catena di richieste di Christian, è il cambio di motore più importante del per
   all'ufficio paghe**, perché è il cedolino che ha le ore che servono per il rendiconto (ordinarie −
   assenze pagate + supplementari). Oggi l'app fornisce il Report PDF mensilizzati e il Report
   ord/extra; eventuali altri tracciati si decidono con Christian.
-- **Portato su `main`?** **Sì, il 15/11/2026** («Main» di Christian): `main` di Dipendenti porta la **ver171** (ver165 → ver171) e questo file è allineato.
+- **ver172 (15/11/2026)**: «scrivi sempre le ore in piccolo sotto le assenze retribuite». Sotto il
+  festivo rosso goduto compare la sua quota (oreSett ÷ ggSett, la stessa di `festGoduteMese`), solo
+  informazione, non cliccabile (le festività non erodono il Tetto, decisione 06/11). Niente doppio
+  con i codici storici. Provato 11/0 + non regressione. **Collaudo approfondito del conteggio ore**
+  sulla ver171 (dati veri, 16 dipendenti × 205 mesi, riconteggio indipendente): nessun errore di
+  conteggio; tre questioni per Christian (colonna «Ore dovute» del report paghe, +12,71 h di
+  febbraio 2026 per una full-time, due schede con date/celle da controllare).
+- **Portato su `main`?** La **ver171** sì, il 15/11/2026 («Main» di Christian). La **ver172** è solo sul ramo di lavoro.
 
 ### 5.0-decies DIPENDENTI ver163 — TERZO REPORT A4 PAGHE: ORDINARIO/EXTRA GIORNALIERO (14/11/2026)
 
