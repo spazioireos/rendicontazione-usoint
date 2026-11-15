@@ -67,7 +67,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 6 · 08nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 20 · 14nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver179 · 15nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver180 · 15nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver138 · 15nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 17 · 12nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -215,7 +215,13 @@ Catena di richieste di Christian, è il cambio di motore più importante del per
   perde più al rientro: l'app lo rimanda nel cloud prima di leggerlo (stesso rimedio di USOINT
   ver129). Accenti con l'apostrofo corretti nei testi a video, legenda senza «crimson #B22222»,
   suggerimento di ORE MESE senza «Banca ore», fascia del titolo fino al bordo. Provato 25/25 + 9/9.
+- **ver180 (15/11/2026, secondo collaudo approfondito di Dipendenti sulla ver179)**: l'elenco a sinistra
+  del Costo orario scriveva un €/h (0,00 o un numero calcolato su ore teoriche) dove il dettaglio e l'Excel
+  dicono «non calcolabile» (25 pulsanti su 48 sul backup vero): ora scrive «non calcolabile». A 390px il
+  riquadro «Da inserire a cedolino» non sporge più dalla scheda e la targhetta «N giorni (no domeniche)» non va
+  a capo a metà. Nessun calcolo toccato. Segnalati e non toccati: nomi dei file di alcuni export.
 - **Portato su `main`?** Sì: **ver171 → ver179 e USOINT ver138**, il 15/11/2026.
+  ⚠️ **La ver180 è solo sul ramo di lavoro**, non su `main`.
 - 🔎 **COLLAUDO GENERALE INTEGRATO del 15/11/2026** (Fogli ore rev 17 · Collaboratori rev 20 · Dipendenti
   ver179 · USOINT ver138 · pagina integrata rev 6, tutte su `main`). **Nessun codice toccato.** Livello A:
   FO 35 script 599 superati + regole Firestore 60/60 (emulatore) · Collaboratori 25 script 515 · Dipendenti
