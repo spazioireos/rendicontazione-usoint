@@ -166,7 +166,7 @@ Catena di richieste di Christian, è il cambio di motore più importante del per
   per mese. Caso vero di ottobre: 101,5 rese → **98,34 a cedolino** (57,12 + 41,22). Effetto
   collaterale giusto: le ore fuori dalle date del contratto non si contano più (una scheda passa da
   6,63 a 19,78 €/h; quattro schede 2025 senza contratto diventano «non calcolabile»). Provato co171
-  13/0, nr153 6/0 (attesa aggiornata), batteria senza regressioni.
+  13/0, nr153 7/0 (attesa aggiornata), batteria senza regressioni.
 - **Portato su `main`?** No: solo sul ramo di lavoro, in attesa del «porta su main» di Christian.
 
 ### 5.0-decies DIPENDENTI ver163 — TERZO REPORT A4 PAGHE: ORDINARIO/EXTRA GIORNALIERO (14/11/2026)
