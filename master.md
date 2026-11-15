@@ -67,7 +67,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 6 · 08nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 20 · 14nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver163 · 14nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver166 · 15nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver137 · 12nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 17 · 12nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -103,6 +103,34 @@ mensili** e deve **suggerirmele** come già succede nel tabellone dell'app dipen
   Collaboratori **tutta verde** (mxop-1 46/0 con l'attesa dei pulsanti aggiornata da 17 a 18 per il
   nuovo gruppo, mxop-2 54/0, mxop-3 49/0, g2-opoc 9/0, g2b-opoc 13/0, rev11 8/0, rev14op 15/0,
   rev15op 15/0, sc-op-rev12c 7/0, ic-fix3 13/0). ⚠️ Non verificato con Firebase vero.
+- **Portato su `main`?** No: solo sul ramo di lavoro, in attesa del «porta su main» di Christian.
+
+### 5.0-undecies DIPENDENTI ver164→166 — «ORE CORRETTE DA DARE» = SOGLIA STRAORDINARIO OVUNQUE (15/11/2026)
+
+Catena di richieste di Christian, è il cambio di motore più importante del periodo.
+
+- **La regola (parole sue)**: le ore che un dipendente deve davvero rendere in un mese sono
+  **monte ÷ 26 × (giorni del mese NON domenicali)**, non il monte fisso. Es. monte 82,5 su 26 gg,
+  mese 27 gg → 82,5/26×27 = **85,67**. Le chiama **«ore corrette da dare»**. Lo **straordinario**
+  è solo ciò che le supera (confermato: 84 h → 0, 87 h → +1,33). La quota giornaliera passa da
+  `oreSett/ggSett` a **`monte/26`** (= `quotaGiorno`).
+- **ver165, nel Tabellone**: **badge** «N giorni (no domeniche)» (ott 27, nov 25); **pillola per
+  dipendente** «ORE CORRETTE DA DARE» accanto a «ORE MESE». Così a video ci sono le tre cose: ore
+  da pagare fisse (monte), ore corrette da dare (soglia), Risultato del mese (straordinario).
+- **ver166, il motore OVUNQUE** (sue scelte: «ovunque» + «correggi il costo orario»): la soglia
+  diventa `oreRetribuibili` in **`bancaMeseA`** (Risultato del mese, Query, Riepiloghi, report
+  mensilizzati), nel **report ord/extra** (`esportaPDFOrdExtra`) e nel **Costo orario**
+  (`oreLavorabiliMese`, solo percorso «dai Riepiloghi»; «a mano»/«teoriche» non toccati).
+- **Conseguenza misurata dal vivo**: stesso lavoro, straordinario diverso mese per mese. 19h/sett,
+  90 h rese: ottobre **+4,33** (era +7,5), novembre **+10,67**. L'esempio 06/11 (19,6666) resta
+  vero solo nei mesi da 26 giorni non domenicali.
+- **ver164** (passaggio intermedio dello stesso giro): correzioni al report ord/extra — ordinario
+  riempito da ferie/malattia/festività/permessi, mesi parziali riproporzionati, ore fuori contratto
+  escluse.
+- **Provato**: report ord/extra **23/23 jsPDF vero**; **riconteggio indipendente 7/7** al centesimo;
+  `bancaMeseA` e Costo orario (supp 8,65 = 180 − 171,35) misurati dal vivo e coerenti; grafica
+  badge/pillola **0 scritte sotto 12,5px**. Batteria: i falliti sono il cambio-straordinario
+  atteso (da riallineare, non aggirare); nessuna regressione non-straordinario.
 - **Portato su `main`?** No: solo sul ramo di lavoro, in attesa del «porta su main» di Christian.
 
 ### 5.0-decies DIPENDENTI ver163 — TERZO REPORT A4 PAGHE: ORDINARIO/EXTRA GIORNALIERO (14/11/2026)
