@@ -67,7 +67,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 6 · 08nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 20 · 14nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver170 · 15nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver171 · 15nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver137 · 12nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 17 · 12nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -158,6 +158,15 @@ Catena di richieste di Christian, è il cambio di motore più importante del per
   validi finché Christian non li ricodifica. Dicitura della riga «Mesi non pagati» adattata (era di
   Claude, ver112). Limite dichiarato: il Costo orario non scala le trattenute dei giorni singoli.
   Provato co170 10/0 con confronto sulla ver169 congelata; batteria senza regressioni.
+- **ver171 (15/11/2026)**: «noi incassiamo le ore che risultano retribuite a cedolino, quindi il costo
+  va definito in base a quelle, mese per mese». Il **denominatore** del Costo orario «dai Riepiloghi»
+  non è più le ore rese ma le **ore a cedolino** = (monte del mese − assenze/permessi/festività
+  pagati − ore in meno) + supplementari, mese per mese (`oreCedolinoPeriodo`). Numeratore invariato.
+  A video: «ore retribuite a cedolino ammesse in rendicontazione» e due colonne nella tabella mese
+  per mese. Caso vero di ottobre: 101,5 rese → **98,34 a cedolino** (57,12 + 41,22). Effetto
+  collaterale giusto: le ore fuori dalle date del contratto non si contano più (una scheda passa da
+  6,63 a 19,78 €/h; quattro schede 2025 senza contratto diventano «non calcolabile»). Provato co171
+  13/0, nr153 6/0 (attesa aggiornata), batteria senza regressioni.
 - **Portato su `main`?** No: solo sul ramo di lavoro, in attesa del «porta su main» di Christian.
 
 ### 5.0-decies DIPENDENTI ver163 — TERZO REPORT A4 PAGHE: ORDINARIO/EXTRA GIORNALIERO (14/11/2026)
