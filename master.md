@@ -67,7 +67,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 6 · 08nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 20 · 14nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver180 · 15nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver181 · 15nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver138 · 15nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 17 · 12nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -221,7 +221,10 @@ Catena di richieste di Christian, è il cambio di motore più importante del per
   riquadro «Da inserire a cedolino» non sporge più dalla scheda e la targhetta «N giorni (no domeniche)» non va
   a capo a metà. Nessun calcolo toccato. Segnalati e non toccati: nomi dei file di alcuni export.
 - **Portato su `main`?** Sì: **ver171 → ver179 e USOINT ver138**, il 15/11/2026.
-  ⚠️ **La ver180 è solo sul ramo di lavoro**, non su `main`.
+- **ver181 (15/11/2026)**: i nomi dei file esportati seguono tutti la convenzione «… - ggmmmaa - verN - HH.MM»:
+  Query personale (con «Spazio Ireos» e « al » al posto del trattino basso), Anagrafica (con la versione),
+  Riepiloghi (nome suo, non più uguale all'Excel del mese), i tre .docx (versione e ora). Contenuti identici.
+- **Portato su `main`?** Sì: **ver180 e ver181**, il 15/11/2026 («porta su main»).
 - 🔎 **COLLAUDO GENERALE INTEGRATO del 15/11/2026** (Fogli ore rev 17 · Collaboratori rev 20 · Dipendenti
   ver179 · USOINT ver138 · pagina integrata rev 6, tutte su `main`). **Nessun codice toccato.** Livello A:
   FO 35 script 599 superati + regole Firestore 60/60 (emulatore) · Collaboratori 25 script 515 · Dipendenti
