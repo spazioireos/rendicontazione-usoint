@@ -216,6 +216,17 @@ Catena di richieste di Christian, è il cambio di motore più importante del per
   ver129). Accenti con l'apostrofo corretti nei testi a video, legenda senza «crimson #B22222»,
   suggerimento di ORE MESE senza «Banca ore», fascia del titolo fino al bordo. Provato 25/25 + 9/9.
 - **Portato su `main`?** Sì: **ver171 → ver179 e USOINT ver138**, il 15/11/2026.
+- 🔎 **COLLAUDO GENERALE INTEGRATO del 15/11/2026** (Fogli ore rev 17 · Collaboratori rev 20 · Dipendenti
+  ver179 · USOINT ver138 · pagina integrata rev 6, tutte su `main`). **Nessun codice toccato.** Livello A:
+  FO 35 script 599 superati + regole Firestore 60/60 (emulatore) · Collaboratori 25 script 515 · Dipendenti
+  42 script 1.090 · USOINT 38 script 644 · pagina integrata **pubblicata** 30/30 (ogni pulsante apre l'app
+  viva con `?v=` e la versione giusta). Livello B: 20 script di collegamento 405 superati + flusso completo
+  nuovo `coll178/e2e.cjs` **14/14** (FO scrive → Collaboratori «TS 4» → Dipendenti confronto 4,00 → 💾
+  cedOre + 📤 residuo → FO «Ti restano 652,17 h» → USOINT legge il cedOre → modifica in Dipendenti →
+  USOINT si aggiorna). **Zero falliti nuovi**: i 39 falliti della batteria sono tutti attese invecchiate
+  (targhette scritte a mano, controlli che documentavano difetti già chiusi, l'isolamento di Collaboratori
+  da prima della rev 18, il banco della pagina integrata che ora punta ai siti veri), verificati uno per
+  uno. Riservatezza: nessun cognome reale né codice fiscale nei quattro repository.
 
 ### 5.0-decies DIPENDENTI ver163 — TERZO REPORT A4 PAGHE: ORDINARIO/EXTRA GIORNALIERO (14/11/2026)
 
