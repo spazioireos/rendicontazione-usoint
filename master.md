@@ -67,7 +67,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 6 · 08nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 20 · 14nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver166 · 15nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver167 · 15nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver137 · 12nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 17 · 12nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -131,6 +131,15 @@ Catena di richieste di Christian, è il cambio di motore più importante del per
   `bancaMeseA` e Costo orario (supp 8,65 = 180 − 171,35) misurati dal vivo e coerenti; grafica
   badge/pillola **0 scritte sotto 12,5px**. Batteria: i falliti sono il cambio-straordinario
   atteso (da riallineare, non aggirare); nessuna regressione non-straordinario.
+- **ver167 (15/11/2026, prima del «main»)**: guardando il vero di una dipendente part-time su
+  **5 giorni** (sabati `AN`) è emerso che la ver166 **escludeva** AN e `--` dai giorni non domenicali,
+  abbassando la soglia **sotto il monte** (72,98 < 82,50) e gonfiando lo straordinario. Decisione di
+  Christian: «**I sabati AN contano fra i giorni non domenicali. Il sabato è lavorativo anche se
+  nell'effetto si fanno 0 ore**». Ora `giorniRetribuibiliInForza` conta **tutti** i giorni non
+  domenicali in forza (soglia 85,67 su 27 gg, indipendente dai codici del mese) e nel report ord/extra
+  il giorno AN copre la sua quota (ordinario esatto, nessun falso «ha lavorato meno»). Chi lavora su
+  6 giorni **non cambia**. Provato: report 38/0 jsPDF vero, riconteggio indipendente 9/9, dal vivo
+  11/0 con confronto sulla ver166 congelata; Costo orario coerente (41,22 h = straordinario 41,21).
 - **Portato su `main`?** No: solo sul ramo di lavoro, in attesa del «porta su main» di Christian.
 
 ### 5.0-decies DIPENDENTI ver163 — TERZO REPORT A4 PAGHE: ORDINARIO/EXTRA GIORNALIERO (14/11/2026)
