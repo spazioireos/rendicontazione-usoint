@@ -148,7 +148,7 @@ async function riga(loc) { return loc.evaluate(el => { let n = el; for (let i = 
     const f = path.join(__dirname, 'out-uso-a01.xlsx'); await dl.saveAs(f);
     const buf = fs.readFileSync(f); const wb = XLSX.read(buf, { type: 'buffer' });
     c('D34', 'export Excel vero .xlsx', 'firma PK, fogli Budget + anni', buf.slice(0, 2).toString() + ' · ' + wb.SheetNames.join(','), buf.slice(0, 2).toString() === 'PK' && wb.SheetNames[0] === 'Budget');
-    c('D35', 'nome del file', 'convenzione «… ggmmmaa - ver138 - HH.MM.xlsx»', dl.suggestedFilename(), /\d{2}[a-z]{3}\d{2} - ver138 - \d{2}\.\d{2}\.xlsx$/.test(dl.suggestedFilename()));
+    c('D35', 'nome del file', 'convenzione «… ggmmmaa - ' + L.VER + ' - HH.MM.xlsx»', dl.suggestedFilename(), new RegExp('\\d{2}[a-z]{3}\\d{2} - ' + L.VER + ' - \\d{2}\\.\\d{2}\\.xlsx$').test(dl.suggestedFilename()));
     const ws = wb.Sheets.Budget; const rows = XLSX.utils.sheet_to_json(ws, { header: 1 });
     const rA = rows.find(x => x[0] === 'ALFA PROVA') || [];
     c('D36', 'riga ALFA PROVA nel foglio Budget', 'ore 67,5 €/h 22,99 costo 1551,825', rA.slice(3, 7).join(' | '), rA[3] === 67.5 && rA[4] === 22.99 && Math.abs(rA[5] - 1551.825) < 0.001);

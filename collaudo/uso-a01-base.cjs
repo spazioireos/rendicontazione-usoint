@@ -19,7 +19,7 @@ const { c } = L;
     await T.page.waitForFunction(() => /I tuoi Progetti/.test(document.body.innerText), null, { timeout: 15000 }).catch(() => {});
     const t2 = await L.testo(T);
     c('B04', 'login giusto', 'Home «I tuoi Progetti»', /I tuoi Progetti/.test(t2), /I tuoi Progetti/.test(t2));
-    c('B05', 'targhetta Home', 'ver138 · 15nov26', (t2.match(/ver\d+ · \d+\w+/) || [''])[0], /ver138 · 15nov26/.test(t2));
+    c('B05', 'targhetta Home', L.TARGA, (t2.match(/ver\d+ · \d+\w+/) || [''])[0], t2.includes(L.TARGA));
     c('B06', 'home vuota', '«Nessun progetto ancora.»', /Nessun progetto ancora/.test(t2), /Nessun progetto ancora/.test(t2));
     await T.page.reload(); await L.aspetta(T, 1500);
     c('B07', 'sessione dopo ricarica', 'resta dentro', /I tuoi Progetti/.test(await L.testo(T)), /I tuoi Progetti/.test(await L.testo(T)));
@@ -49,7 +49,7 @@ const { c } = L;
     await T.page.waitForFunction(() => /BUDGET\/PREVENTIVO/.test(document.body.innerText), null, { timeout: 15000 }).catch(() => {});
     tw = await L.testo(T);
     c('B12', 'progetto creato e aperto', 'scheda con PROVA ALFA', /PROVA ALFA/.test(tw) && /BUDGET\/PREVENTIVO/.test(tw), /PROVA ALFA/.test(tw) && /BUDGET\/PREVENTIVO/.test(tw));
-    c('B13', 'targhetta scheda progetto', 'ver138 · 15nov26', /ver138 · 15nov26/.test(tw), /ver138 · 15nov26/.test(tw));
+    c('B13', 'targhetta scheda progetto', L.TARGA, tw.includes(L.TARGA), tw.includes(L.TARGA));
     const idx = JSON.parse(await L.ls(T, 'usoint-idx') || '[]');
     c('B14', 'indice con il progetto', '1 voce, vincolo true', JSON.stringify(idx.map(x => [x.title, x.vincolo, x.start, x.end])), idx.length === 1 && idx[0].vincolo === true);
     const pr = JSON.parse(await L.ls(T, 'usoint-p-' + idx[0].id) || '{}');
@@ -156,7 +156,7 @@ const { c } = L;
     // targhetta nel riepilogo
     await T.page.click('button:has-text("👥 Riepilogo operatori")'); await L.aspetta(T, 800);
     t = await L.testo(T);
-    c('C14', 'targhetta Riepilogo operatori', 'ver138 · 15nov26', (t.match(/ver\d+ · \d+\w+/) || ['nessuna'])[0], /ver138 · 15nov26/.test(t));
+    c('C14', 'targhetta Riepilogo operatori', L.TARGA, (t.match(/ver\d+ · \d+\w+/) || ['nessuna'])[0], t.includes(L.TARGA));
     await ctx.close();
   }
   L.fine('uso-a01-base'); await L.chiudi();

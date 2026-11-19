@@ -3,7 +3,7 @@
 // NODE_PATH=/opt/node-tools/node_modules node collaudo/int-a01-integrata.cjs [live]
 const { chromium } = require('playwright');
 const LIVE = process.argv[2] === 'live';
-const URL = LIVE ? 'https://spazioireos.github.io/rendicontazione-usoint/integrata/' : 'http://127.0.0.1:8340/integrata/index.html';
+const URL = LIVE ? 'https://spazioireos.github.io/rendicontazione-usoint/integrata/' : 'http://127.0.0.1:' + (process.env.PORTA || '8340') + '/integrata/index.html';
 const PRE = LIVE ? 'L' : 'B';
 const SEZ = LIVE ? [['btn-collaboratori', '/ore-e-importi-collaboratori/'], ['btn-dipendenti', '/ore-mensili-dipendenti/'], ['btn-rendicontazione', '/rendicontazione-usoint/?'], ['btn-fogliore', '/spazioireos-foglio-ore/']]
   : [['btn-collaboratori', '/col/'], ['btn-dipendenti', '/dip/'], ['btn-rendicontazione', '/uso/'], ['btn-fogliore', '/fo/']];

@@ -1,6 +1,11 @@
-// Collaudo individuale Livello A — USOINT ver138: funzioni comuni agli script uso-a01-*.cjs
+// Collaudo individuale Livello A — USOINT (dalla ver138; targhetta letta dal file): funzioni comuni agli script uso-a01-*.cjs
 // SOLO DATI INVENTATI (repository pubblico). Banco: collaudo/comune (finta Firebase), porta 8340.
 const { chromium } = require('playwright');
+/* targhetta letta dal file dell'app (non scritta a mano: non invecchia a ogni versione) */
+const SRC = require('fs').readFileSync(require('path').join(__dirname, '..', 'index.html'), 'utf8');
+const VER = (SRC.match(/const VER="(ver\d+)"/) || [])[1];
+const DATA = (SRC.match(/\{VER\} · (\d{2}[a-z]{3}\d{2})/) || [])[1];
+const TARGA = VER + ' · ' + DATA;
 const PORTA = process.env.PORTA || '8340';
 const BASE = 'http://127.0.0.1:' + PORTA + '/';
 const USO = 'rendicontazione-usoint', FO = 'spazio-ireos-foglio-ore';
@@ -78,4 +83,4 @@ async function apriProgetto(T, titolo) {
 }
 function err(T) { return T.errori; }
 
-module.exports = { c, fine, pers, bene, prog, kvDocs, contesto, pagina, apriUso, testo, ls, cloud, aspetta, cliccaTesto, apriProgetto, err, chiudi, browser, BASE, USO, FO, MAIL, PWD, UID, ADMIN, DUID, RIGHE, mesi, zeri };
+module.exports = { VER, DATA, TARGA, c, fine, pers, bene, prog, kvDocs, contesto, pagina, apriUso, testo, ls, cloud, aspetta, cliccaTesto, apriProgetto, err, chiudi, browser, BASE, USO, FO, MAIL, PWD, UID, ADMIN, DUID, RIGHE, mesi, zeri };

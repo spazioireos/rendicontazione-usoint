@@ -92,9 +92,9 @@ async function ripristina(T, contenuto) {
     const [dl] = await Promise.all([T.page.waitForEvent('download', { timeout: 8000 }), T.page.click('button:has-text("💾 Backup dati")')]);
     const f = path.join(__dirname, 'out-uso-a01-backup.json'); await dl.saveAs(f);
     const bk = JSON.parse(fs.readFileSync(f, 'utf8')); fs.unlinkSync(f);
-    c('K01', 'backup JSON', '__schema 1, __app USOINT, __ver ver138, chiavi usoint-*', [bk.__schema, bk.__app, bk.__ver, Object.keys(bk).filter(k => k.indexOf('usoint') === 0).join(',')].join(' · '), bk.__schema === 1 && bk.__app === 'USOINT' && bk.__ver === 'ver138' && bk['usoint-idx'] && bk['usoint-p-px']);
+    c('K01', 'backup JSON', '__schema 1, __app USOINT, __ver ' + L.VER + ', chiavi usoint-*', [bk.__schema, bk.__app, bk.__ver, Object.keys(bk).filter(k => k.indexOf('usoint') === 0).join(',')].join(' · '), bk.__schema === 1 && bk.__app === 'USOINT' && bk.__ver === L.VER && bk['usoint-idx'] && bk['usoint-p-px']);
     c('K02', 'chiavi di servizio fuori dal backup', 'niente uso-timbro / uso-sospese-cloud / uso-import-orig / __fakefb', Object.keys(bk).filter(k => !/^usoint|^__(schema|app|ver|creato)$/.test(k)).join(',') || 'nessuna', Object.keys(bk).filter(k => !/^usoint|^__(schema|app|ver|creato)$/.test(k)).length === 0);
-    c('K03', 'nome del file di backup', '«Spazio Ireos USOINT Backup ggmmmaa - ver138 - HH.MM.json»', dl.suggestedFilename(), /^Spazio Ireos USOINT Backup \d{2}[a-z]{3}\d{2} - ver138 - \d{2}\.\d{2}\.json$/.test(dl.suggestedFilename()));
+    c('K03', 'nome del file di backup', '«Spazio Ireos USOINT Backup ggmmmaa - ' + L.VER + ' - HH.MM.json»', dl.suggestedFilename(), new RegExp('^Spazio Ireos USOINT Backup \\d{2}[a-z]{3}\\d{2} - ' + L.VER + ' - \\d{2}\\.\\d{2}\\.json$').test(dl.suggestedFilename()));
     await L.aspetta(T, 1700);
     const cl0 = await dump(T), ls0 = await lsUso(T);
     const malfatti = [['non JSON', '{{{'], ['senza chiavi USOINT', '{"a":1}'], ['usoint-idx = "12345"', '{"usoint-idx":"12345"}'], ['usoint-idx elenco di numeri', '{"usoint-idx":"[1,2,3]"}'], ['usoint-idx voce senza id/titolo', '{"usoint-idx":"[{\\"x\\":1}]"}'], ['usoint-p-* non oggetto', '{"usoint-p-zz":"[1]"}'], ['usoint-orelav testo', '{"usoint-orelav":"\\"testo\\""}'], ['valore non JSON', '{"usoint-idx":"{rotto"}']];

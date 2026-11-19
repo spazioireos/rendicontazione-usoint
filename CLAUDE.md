@@ -36,7 +36,7 @@ USOINT sta per **"uso interno"**.
   `usoint-tariffe`, `usoint-simul`, **`usoint-codici`** (dalla ver136: codice operatore → riga).
   Accesso mail+password.
 - **Numero di revisione**: costante `const VER` (riga ~67), mostrata in **tre punti** (Home,
-  scheda progetto, Riepilogo operatori). **Attuale: ver138 · 15nov26.** `VER` finisce anche nei
+  scheda progetto, Riepilogo operatori). **Attuale: ver139 · 19nov26.** `VER` finisce anche nei
   nomi dei file esportati: incrementarla, non affiancarle un secondo numero.
 - **Strutture utili**: `usoint-orelav` = `{ [norm(nome)]: { [anno]: [12 numeri] } }` (ore
   lavorate, indice 0 = gennaio; `norm` = minuscolo, trim, spazi singoli).
@@ -76,6 +76,50 @@ USOINT sta per **"uso interno"**.
 - **Funzioni presenti**: import automatico (SOLA LETTURA) delle ore lavorate dal database dei
   Dipendenti tramite una **seconda app Firebase** chiamata "dip"; tabella compatta della scheda
   operatore (Lavorate | una colonna per progetto | Tot. rendicontate | Avanzo).
+- 🔄 **LA HOME E L'ELENCO NON RESTANO PIÙ INDIETRO DOPO RINOMINA E PROROGA** (ver139,
+  19/11/2026, Nu\* di Christian dopo il collaudo integrale del 19/11/2026: due difetti trovati da
+  `uso-a01-base` C15-C16 e `uso-a01-budget` D33/D39/D40).
+  - 🟠 **1 — dopo rinomina, 💾 e ← la Home mostrava il titolo VECCHIO**, e la prima operazione
+    sull'elenco (`sI`: nuovo, duplica, elimina…) riscriveva il titolo vecchio in `usoint-idx`,
+    **anche nel cloud**. Dalla ver133 `save` riallinea il titolo in `localStorage`, ma lo stato
+    React dell'elenco (`projects` di `App`) restava quello di prima. **Correzione**: `tornaHome`
+    in `App`, passata come `onBack` a `PV`: **tornando alla Home si rilegge `usoint-idx`** da
+    `localStorage`, poi `setAid(null)`.
+    - ⚠️ **Conseguenza dichiarata**: se nel frattempo un'altra scheda dello stesso browser ha
+      salvato l'elenco, tornando alla Home si vede il **suo** elenco. Il timbro della ver131
+      **avvisa lo stesso** alla prima operazione (misurato: nessun falso avviso con una scheda
+      sola, avviso giusto con due).
+  - 🟠 **2 — la 📅 Proroga non aggiornava l'elenco**: la data di fine cambiava nel lavoro ma non
+    in `usoint-idx`, e il **Riepilogo operatori** (che prende le date dall'elenco) non vedeva le
+    ore dell'anno aggiunto (misurato: le ore del 2028 mancavano). **Correzione**: `save` riallinea
+    in `usoint-idx` anche **`start` e `end`**, come il titolo dalla ver133. Cadenza, colore e
+    vincolo **restano quelli dell'elenco**. Se titolo e date coincidono l'elenco **non si
+    riscrive** (misurato: identico carattere per carattere).
+  - 🟡 **Segnalati e NON toccati** (fuori dalla richiesta):
+    1. il **vincolo** (🔒/🔓) si cambia dentro la scheda, ma l'elenco della Home lo legge da
+       `usoint-idx`, che resta col valore vecchio: il cartellino può dire «Libero» per un lavoro
+       vincolato (stessa famiglia di difetto, non corretto). Colore e cadenza invece no: il colore
+       la Home lo legge dal lavoro, la cadenza si cambia solo dalla ✏️ della Home, che scrive tutti
+       e due;
+    2. **Duplica annullata dal timbro** (preesistente dalla ver131): `dp` scrive il lavoro copiato
+       **prima** di chiedere e lo apre comunque, lasciando un `usoint-p-<id>` che l'elenco non
+       conosce (misurato su ver138 e ver139: 1 orfano). `cr` e `dl` chiedono prima, `dp` no.
+  - **Nessuna dicitura nuova.** Motore di rendicontazione ed export non toccati.
+  - **Provato in esecuzione** (`collaudo/uso-ver139.cjs`, **22 superati su 22** + 2 righe solo
+    segnalate, zero errori di pagina), col **confronto diretto** sulla copia della ver138: là il
+    titolo vecchio a video e riscritto in `localStorage` e nel cloud dopo una Duplica, e la fine
+    `2027-12-31` con il Riepilogo senza 2028; qui titolo nuovo ovunque, fine `2028-12-31` anche
+    nel cloud, 9 h di GEN 2028 nel Riepilogo. Non regressione: avviso titoli doppi, uscita con
+    modifiche non salvate, timbro fra due schede.
+  - **Batteria `collaudo/` rieseguita sulla ver139, ZERO falliti**: `uso-a01-base` **36/0** ·
+    `uso-a01-budget` **40/0** (+1 parziale già noto: `cofin` non arrotondato) · `uso-a01-riep`
+    **48/0** · `uso-a01-dati` **33/0** · `uso-a01-graf` **50/0** (nessuno scorrimento laterale) ·
+    `int-a01-integrata` **20/0** · `uso-ver139` **22/0**.
+    ⚠️ C15, C16, D33, D39, D40 **documentavano i due difetti** (erano scritti «come dovrebbe
+    essere» e fallivano sulla ver138): ora passano senza modifiche. ⚠️ Le **targhette** scritte a
+    mano («ver138 · 15nov26», `ver138` nei nomi dei file e nel backup) ora si leggono dal file
+    dell'app (`L.VER`, `L.TARGA` in `uso-a01-lib.cjs`). `int-a01-integrata` legge la porta da
+    `PORTA`. **Aggiornate, non aggirate.**
 - 🧾 **LE ORE LAVORATE DEI MENSILIZZATI SONO QUELLE PAGATE A CEDOLINO** (ver138, 15/11/2026,
   Christian: «**in usoint devono andare le ore pagate come da cedolino e quelle deve leggere.
   Lascia correre le retribuite erosive**»).
@@ -85,7 +129,8 @@ USOINT sta per **"uso interno"**.
     (non mensilizzati, mesi precedenti, Dipendenti non ancora risalvato). **Nessun motore copiato
     qui**: il conto resta uno solo, in Dipendenti.
   - **Esempio**: ottobre 2026, 82,50 h rese su 27 giorni senza assenze → «Lavorate» **79,33**
-    (prima 82,50); con le 8 malattie del caso vero (101,50 rese) → **98,34**.
+    (prima 82,50) — ⚠️ **superato: dalla ver182 di Dipendenti: 82,50, perché le ore sotto
+    l'orario non vengono trattenute**; con le 8 malattie del caso vero (101,50 rese) → **98,34**.
   - **A video**, accanto a «importate ✓»: «— per i mensilizzati da ottobre 2026 sono le ore pagate
     a cedolino (N mesi)». ⚠️ **Dicitura nuova, scritta da Claude.**
   - ⚠️ Le **erosive** non arrivano qui (decisione di Christian). ⚠️ I numeri vengono dall'**ultimo
