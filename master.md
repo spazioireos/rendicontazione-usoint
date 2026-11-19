@@ -66,10 +66,10 @@ in cache (problema realmente capitato).
 | App | Numero attuale | Dove si vede | Da dove viene |
 |---|---|---|---|
 | App integrata | `rev 6 · 08nov26` | barra in alto | scritto nel file |
-| Collaboratori | `rev 21 · 19nov26` (ramo, in anteprima; `main`: rev 20) | copertina + schermata PIN (`.revtag`) | scritto nel file |
+| Collaboratori | `rev 21 · 19nov26` (su `main` dal 19/11/2026) | copertina + schermata PIN (`.revtag`) | scritto nel file |
 | Dipendenti | `ver184 · 19nov26` (ramo, in anteprima; `main`: ver183) | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
-| Rendicontazione USOINT | `ver139 · 19nov26` (ramo, in anteprima; `main`: ver138) | Home, scheda progetto, Riepilogo operatori | costante `VER` |
-| Fogli ore | `rev 18 · 19nov26` (ramo, in anteprima; `main`: rev 17) | angolo in basso a destra, ogni schermata | scritto nel file |
+| Rendicontazione USOINT | `ver139 · 19nov26` (su `main` dal 19/11/2026) | Home, scheda progetto, Riepilogo operatori | costante `VER` |
+| Fogli ore | `rev 18 · 19nov26` (su `main` dal 19/11/2026) | angolo in basso a destra, ogni schermata | scritto nel file |
 
 **Criterio:** dove l'app aveva già una numerazione (USOINT `ver`, Dipendenti `APP_VER`) si usa e
 si incrementa **quella**; dove non c'era si è partiti da `rev 1`. **Mai due numerazioni nella
@@ -79,7 +79,7 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
 
 ## 5. Lavori fatti e attivi
 
-### 5.0-terdecies CORREZIONI DOPO IL COLLAUDO DEL 19/11/2026 — Fogli ore rev 18 · Collaboratori rev 21 · Dipendenti ver184 · USOINT ver139 (IN ANTEPRIMA sul ramo)
+### 5.0-terdecies CORREZIONI DOPO IL COLLAUDO DEL 19/11/2026 — Fogli ore rev 18 · Collaboratori rev 21 · Dipendenti ver184 · USOINT ver139 (Fogli ore, Collaboratori e USOINT su `main` il 19/11/2026 col «Main» di Christian; Dipendenti in attesa dei tre decimali)
 
 Decisioni di Christian del 19/11/2026: **1** ritenuta del totale = «la somma delle righe»; **rimborso** = «160 € (meno 20%)»
 ovunque; **3** accesso Fogli ore ↔ Dipendenti «va bene condiviso» (ma senza perdite silenziose); **4** «Nu*» per la ver184
