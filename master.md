@@ -231,6 +231,11 @@ Catena di richieste di Christian, è il cambio di motore più importante del per
   orario, cedOre per USOINT, massimale) — scelta 2a di Christian, sapendo che a ottobre le paghe hanno trattenuto
   ogni ora sotto le ore mese fisse. Nuovo «🖨️ Report PDF A4 conto per le paghe» con la legenda «Come si legge».
   Residui da ripubblicare con 📤. **Portato su `main`?** No, solo sul ramo di lavoro.
+- 💾 **19/11/2026 — regola nuova in tutti e quattro i CLAUDE.md (§11)**: il contenitore di lavoro è temporaneo
+  (fra il 15 e il 19/11 sono andati persi una versione non salvata, banco e script di collaudo). Da ora: commit e
+  push sul ramo di lavoro dopo ogni pezzo; script di prova con dati inventati in `collaudo/` di ogni repository
+  (Dipendenti: `prepara-banco.sh`, `rigenera.py`, `controlla-sintassi.js`, `ver182.cjs` 44/0); dati veri solo nel
+  repository PRIVATO di Christian (da creare: `dati-collaudo-privato`).
 - 🔎 **COLLAUDO GENERALE INTEGRATO del 15/11/2026** (Fogli ore rev 17 · Collaboratori rev 20 · Dipendenti
   ver179 · USOINT ver138 · pagina integrata rev 6, tutte su `main`). **Nessun codice toccato.** Livello A:
   FO 35 script 599 superati + regole Firestore 60/60 (emulatore) · Collaboratori 25 script 515 · Dipendenti
