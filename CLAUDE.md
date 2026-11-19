@@ -36,7 +36,7 @@ USOINT sta per **"uso interno"**.
   `usoint-tariffe`, `usoint-simul`, **`usoint-codici`** (dalla ver136: codice operatore → riga).
   Accesso mail+password.
 - **Numero di revisione**: costante `const VER` (riga ~67), mostrata in **tre punti** (Home,
-  scheda progetto, Riepilogo operatori). **Attuale: ver139 · 19nov26.** `VER` finisce anche nei
+  scheda progetto, Riepilogo operatori). **Attuale: ver140 · 19nov26.** `VER` finisce anche nei
   nomi dei file esportati: incrementarla, non affiancarle un secondo numero.
 - **Strutture utili**: `usoint-orelav` = `{ [norm(nome)]: { [anno]: [12 numeri] } }` (ore
   lavorate, indice 0 = gennaio; `norm` = minuscolo, trim, spazi singoli).
@@ -76,6 +76,34 @@ USOINT sta per **"uso interno"**.
 - **Funzioni presenti**: import automatico (SOLA LETTURA) delle ore lavorate dal database dei
   Dipendenti tramite una **seconda app Firebase** chiamata "dip"; tabella compatta della scheda
   operatore (Lavorate | una colonna per progetto | Tot. rendicontate | Avanzo).
+- 🔒 **IL VINCOLO SEGUE ANCHE L'ELENCO, E UNA DUPLICA ANNULLATA NON LASCIA ORFANI** (ver140,
+  19/11/2026, «Sì» di Christian ai due punti segnalati dalla ver139).
+  - 🟡 **1 — il vincolo 🔒/🔓.** Si cambia dentro la scheda (`upd`), ma il cartellino della Home lo
+    legge da `usoint-idx`: dopo il 💾 diceva ancora «Libero» per un lavoro vincolato (e viceversa).
+    **Correzione**: `save` riallinea in `usoint-idx` anche `vincolo`, come titolo (ver133) e date
+    (ver139). Se niente cambia l'elenco **non si riscrive** (misurato: identico carattere per
+    carattere). Cadenza e colore restano quelli dell'elenco.
+  - 🟡 **2 — Duplica annullata dal timbro.** `dp` scriveva `usoint-p-<nuovo id>` (anche nel cloud)
+    **prima** che `sI` chiedesse il timbro, e apriva la copia anche annullando: restava un lavoro
+    **orfano** che l'elenco non conosceva. **Correzione**: `dp` chiama `timbroControlla` **per
+    prima cosa**, come `cr` e `dl`; annullando non scrive niente e non apre niente. Confermando,
+    `timbroMio` prende il timbro nuovo e `sI` non chiede una seconda volta (misurato: un avviso).
+    ⚠️ **Conseguenza dichiarata, preesistente (ver131)**: confermando «sovrascrivi», l'elenco di
+    questa scheda sostituisce quello dell'altra, quindi una copia fatta **nell'altra scheda** esce
+    dall'elenco (il suo `usoint-p-` resta). È ciò che l'avviso del timbro dice; non è stato toccato.
+  - **Nessuna dicitura nuova.** Motore di rendicontazione ed export non toccati.
+  - **Provato in esecuzione** (`collaudo/uso-ver140.cjs`, **15 superati su 15** + 1 riga solo
+    segnalata, zero errori di pagina), col **confronto diretto** sulla ver139: là, dopo il 💾,
+    `vincolo` restava `false` nell'elenco e la Duplica annullata lasciava **1 orfano** in
+    `localStorage` e nel cloud con la copia aperta; qui `vincolo` `true` nell'elenco e nel cloud, il
+    cartellino dice «Vincolo» anche dopo il ricaricamento, torna «Libero» rimettendo LIBERO, e la
+    Duplica annullata non lascia **niente** (né in `localStorage` né nel cloud) e resta in Home.
+  - **Batteria rieseguita sulla ver140, ZERO falliti**: `uso-ver139` **23/0** · `uso-a01-base`
+    **36/0** · `uso-a01-budget` **40/0** (+1 parziale noto) · `uso-a01-riep` **48/0** ·
+    `uso-a01-dati` **33/0** · `uso-a01-graf` **50/0** · `int-a01-integrata` **20/0** ·
+    `uso-ver140` **15/0**. ⚠️ In `uso-ver139` il controllo **N06b** documentava il difetto chiuso
+    oggi (era solo «segnalato»): ora **pretende** nessun orfano e nessuna scheda aperta.
+    **Aggiornato, non aggirato.**
 - 🔄 **LA HOME E L'ELENCO NON RESTANO PIÙ INDIETRO DOPO RINOMINA E PROROGA** (ver139,
   19/11/2026, Nu\* di Christian dopo il collaudo integrale del 19/11/2026: due difetti trovati da
   `uso-a01-base` C15-C16 e `uso-a01-budget` D33/D39/D40).
@@ -95,7 +123,8 @@ USOINT sta per **"uso interno"**.
     in `usoint-idx` anche **`start` e `end`**, come il titolo dalla ver133. Cadenza, colore e
     vincolo **restano quelli dell'elenco**. Se titolo e date coincidono l'elenco **non si
     riscrive** (misurato: identico carattere per carattere).
-  - 🟡 **Segnalati e NON toccati** (fuori dalla richiesta):
+  - 🟡 **Segnalati e NON toccati** (fuori dalla richiesta) — ✅ **ENTRAMBI CHIUSI DALLA ver140**
+    (Christian: «Sì»), vedi la scheda 🔒 qui sopra:
     1. il **vincolo** (🔒/🔓) si cambia dentro la scheda, ma l'elenco della Home lo legge da
        `usoint-idx`, che resta col valore vecchio: il cartellino può dire «Libero» per un lavoro
        vincolato (stessa famiglia di difetto, non corretto). Colore e cadenza invece no: il colore

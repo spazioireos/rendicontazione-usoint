@@ -125,11 +125,12 @@ async function nonRegressione() {
   T.risposte.push({ re: /altra scheda ha salvato/, dismiss: true });
   await T.page.locator('button', { hasText: 'Duplica' }).first().click(); await L.aspetta(T, 500);
   c('N06', 'prima scheda duplica dopo l\'altra', 'avviso del timbro; annullando l\'elenco resta quello dell\'altra scheda', timbri(T) + ' avvisi · elenco identico ' + ((await L.ls(T, 'usoint-idx')) === dopoT2), timbri(T) === 1 && (await L.ls(T, 'usoint-idx')) === dopoT2);
-  // 3d-bis (SOLO SEGNALATO, preesistente dalla ver131): `dp` scrive il lavoro copiato PRIMA di chiedere il timbro e
+  // 3d-bis (preesistente dalla ver131, CHIUSO dalla ver140): `dp` scrive il lavoro copiato PRIMA di chiedere il timbro e
   //     apre la copia anche se si annulla; resta un usoint-p-<id> che l'elenco non conosce
   const orfani = async TT => { const ix = JSON.parse(await L.ls(TT, 'usoint-idx')).map(x => x.id); return TT.page.evaluate(ids => Object.keys(localStorage).filter(k => k.indexOf('usoint-p-') === 0 && ids.indexOf(k.slice(9)) < 0), ix); };
   const orf = await orfani(T), aperta = /BUDGET\/PREVENTIVO/.test(await L.testo(T));
-  c('N06b', 'Duplica annullata dal timbro (preesistente, NON corretto)', 'segnalato: lavoro copiato scritto e aperto lo stesso', 'orfani ' + JSON.stringify(orf) + ' · scheda aperta ' + aperta, true, 'SEGNALATO');
+  // ver140: il difetto qui sopra è CHIUSO (Christian «Sì»): il controllo, che prima era solo segnalato, ora lo pretende.
+  c('N06b', 'Duplica annullata dal timbro (chiuso dalla ver140)', 'nessun orfano, nessuna scheda aperta', 'orfani ' + JSON.stringify(orf) + ' · scheda aperta ' + aperta, orf.length === 0 && !aperta);
   if (aperta) { await indietro(T); await L.aspetta(T, 500); }
   // 3e: la prima scheda apre un lavoro e torna con ←: la Home rilegge l'elenco (vede la copia dell'altra
   //     scheda) e il timbro CONTINUA ad avvisare, perché l'altra scheda ha comunque salvato dopo

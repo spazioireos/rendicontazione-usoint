@@ -30,3 +30,10 @@ ver138, che va localizzata a parte in `comune/.banco/uso138/` (vedi l'intestazio
 più 2 righe solo segnalate. La porta si sceglie con `PORTA=…` (anche per `int-a01-integrata.cjs`); le targhette si
 leggono dal file dell'app (`L.VER`, `L.TARGA`). Sulla ver139: `base` 36/0 · `budget` 40/0 (+1 parziale) · `riep` 48/0 ·
 `dati` 33/0 · `graf` 50/0 · `int-a01` 20/0.
+
+## USOINT ver140 (19/11/2026)
+
+`uso-ver140.cjs`: vincolo riallineato nell'elenco e Duplica annullata dal timbro senza orfani, con confronto
+diretto sulla ver139 (localizzata in `comune/.banco/uso139/`, vedi l'intestazione). Esito: **15 / 0** più 1 riga
+solo segnalata. Sulla ver140: `uso-ver139` 23/0 (N06b ora pretende il difetto chiuso) · `base` 36/0 · `budget`
+40/0 (+1 parziale) · `riep` 48/0 · `dati` 33/0 · `graf` 50/0 · `int-a01` 20/0.

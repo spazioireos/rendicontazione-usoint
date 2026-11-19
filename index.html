@@ -227,7 +227,7 @@ function fbSync(uid){return fbDb.collection("users").doc(uid).collection("kv").g
 function fbPush(uid){var batch=fbDb.batch();var n=0;for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(k&&k.indexOf("usoint")===0){batch.set(fbDb.collection("users").doc(uid).collection("kv").doc(k),{v:localStorage.getItem(k)});n++}}if(n>0)return batch.commit().then(function(){return n});return Promise.resolve(0)}
 const MESI=["GEN","FEB","MAR","APR","MAG","GIU","LUG","AGO","SET","OTT","NOV","DIC"];
 const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
-const VER="ver139";const USO_SCHEMA=1;/* ver134: numero di schema dei dati, scritto nel backup (§10.1) */
+const VER="ver140";const USO_SCHEMA=1;/* ver134: numero di schema dei dati, scritto nel backup (§10.1) */
 function nomeFile(base,ext){var mm=["gen","feb","mar","apr","mag","giu","lug","ago","set","ott","nov","dic"];var d=new Date();var o={};try{new Intl.DateTimeFormat("en-GB",{timeZone:"Europe/Rome",year:"2-digit",month:"numeric",day:"2-digit",hour:"2-digit",minute:"2-digit",hour12:false}).formatToParts(d).forEach(function(p){o[p.type]=p.value})}catch(e){o={day:("0"+d.getDate()).slice(-2),month:String(d.getMonth()+1),year:String(d.getFullYear()).slice(-2),hour:("0"+d.getHours()).slice(-2),minute:("0"+d.getMinutes()).slice(-2)}}var gg=("0"+o.day).slice(-2),mmm=mm[(+o.month)-1]||"",aa=o.year,HH=("0"+o.hour).slice(-2),MM=("0"+o.minute).slice(-2);if(HH==="24")HH="00";return base+" "+gg+mmm+aa+" - "+VER+" - "+HH+"."+MM+"."+ext}
 function markSaved(ok){try{var t=document.getElementById("usoint-savetoast");if(!t){t=document.createElement("div");t.id="usoint-savetoast";t.style.cssText="position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:999999;background:#dc2626;color:#fff;padding:12px 20px;border-radius:10px;font-family:'Nunito','Segoe UI',sans-serif;font-weight:800;font-size:14px;line-height:1.35;box-shadow:0 6px 22px rgba(220,38,38,.5);max-width:92vw;text-align:center;cursor:pointer";t.onclick=function(){t.style.display="none"};document.body.appendChild(t)}if(ok){t.style.display="none"}else{t.textContent="⚠ SALVATAGGIO NON RIUSCITO — memoria piena o disattivata (es. navigazione privata). I dati NON sono stati salvati. (clic per chiudere)";t.style.display="block"}}catch(e){if(!ok){try{alert("SALVATAGGIO NON RIUSCITO: i dati NON sono stati salvati (memoria piena o navigazione privata).")}catch(_e){}}}return ok}
 const calcCY=(s,e)=>{if(!s||!e)return[];const sd=new Date(s),ed=new Date(e);if(isNaN(sd)||isNaN(ed)||ed<=sd)return[];const r=[];for(let y=sd.getFullYear();y<=ed.getFullYear();y++){const fm=y===sd.getFullYear()?sd.getMonth():0,lm=y===ed.getFullYear()?ed.getMonth():11,ms=[];for(let m=0;m<12;m++){ms.push({month:m,label:MESI[m],disabled:m<fm||m>lm})}r.push({year:y,months:ms,n:lm-fm+1,partial:(lm-fm+1)<12,fm:fm,lm:lm})}return r};
@@ -334,7 +334,10 @@ function App(){
     const gia=(projects||[]).filter(x=>String(x.title||"").trim().toLowerCase()===String(t||"").trim().toLowerCase()).length;
     if(gia>0){ if(!window.confirm("Esiste gi\u00e0 "+(gia===1?"un progetto":(gia+" progetti"))+" con questo titolo:\n\n"+t+"\n\nPuoi crearlo lo stesso, ma nell'elenco saranno difficili da distinguere.\n\nVuoi crearlo?")) return; }
     const id=uid(),nY=calcCY(s,e).length;LS.set("usoint-p-"+id,JSON.stringify({id,title:t,start:s,end:e,vincolo:v,colore:col||"#e3f0fc",cadMesi:cad||0,personnel:Array.from({length:nP},()=>mkP(nY)),beni:Array.from({length:nB},()=>mkB(nY)),fatture:[],propag:[]}));sI([...projects,{id,title:t,start:s,end:e,vincolo:v,cadMesi:cad||0}]);setAid(id)};
-  const dp=id=>{const r=LS.get("usoint-p-"+id);if(!r)return;const src=JSON.parse(r.value),nid=uid(),d={...src,id:nid,title:src.title+" (copia)"};LS.set("usoint-p-"+nid,JSON.stringify(d));sI([...projects,{id:nid,title:d.title,start:src.start,end:src.end,vincolo:src.vincolo,cadMesi:src.cadMesi||0}]);setAid(nid)};
+  /* ver140 (19/11/2026): la domanda del timbro va fatta PRIMA di scrivere la copia, come in
+     `cr` e `dl`. Prima si scriveva usoint-p-<nuovo id> (anche nel cloud) e si apriva la copia
+     anche annullando: restava un lavoro orfano che l'elenco non conosceva. */
+  const dp=id=>{if(!timbroControlla("l'elenco dei lavori"))return;const r=LS.get("usoint-p-"+id);if(!r)return;const src=JSON.parse(r.value),nid=uid(),d={...src,id:nid,title:src.title+" (copia)"};LS.set("usoint-p-"+nid,JSON.stringify(d));sI([...projects,{id:nid,title:d.title,start:src.start,end:src.end,vincolo:src.vincolo,cadMesi:src.cadMesi||0}]);setAid(nid)};
   /* ver134 (11/11/2026, risposta di Christian al punto 9: «si»). La conferma in riga non
    nominava il lavoro: due clic sullo stesso pulsante e spariva, senza dire QUALE. Ora, prima
    di cancellare, si chiede nominando titolo, periodo e che cosa si perde. ⚠️ La conferma in
@@ -676,7 +679,7 @@ function PV({pid,onBack}){
        ver139 (19/11/2026, Nu* di Christian dopo il collaudo integrale): la 📅 Proroga cambia la
        data di FINE del lavoro, ma l'elenco restava con quella vecchia, e il Riepilogo operatori
        (che legge le date dall'elenco) non vedeva le ore degli anni aggiunti. Ora si riallineano
-       anche le DATE (dal/al). Cadenza, colore e vincolo restano quelli dell'elenco. */
+       anche le DATE (dal/al) e, dalla ver140, il VINCOLO. Cadenza e colore restano quelli dell'elenco. */
     if(ok&&data){try{var ri=LS.get("usoint-idx");
       if(ri){var ix=JSON.parse(ri.value);var cam=false;
         var ix2=ix.map(function(p){ if(p.id!==pid)return p;
@@ -684,6 +687,10 @@ function PV({pid,onBack}){
           if(String(p.title||"")!==String(data.title||""))nv.title=data.title;
           if(data.start&&p.start!==data.start)nv.start=data.start;
           if(data.end&&p.end!==data.end)nv.end=data.end;
+          /* ver140 (19/11/2026, «Sì» di Christian): anche il vincolo 🔒/🔓 si cambia dentro la
+             scheda, ma il cartellino della Home lo legge dall'elenco: senza questa riga diceva
+             «Libero» per un lavoro vincolato. */
+          if(typeof data.vincolo==="boolean"&&!!p.vincolo!==data.vincolo)nv.vincolo=data.vincolo;
           if(Object.keys(nv).length){cam=true;return Object.assign({},p,nv)} return p });
         if(cam) LS.set("usoint-idx",JSON.stringify(ix2)); }
     }catch(ex){}}
