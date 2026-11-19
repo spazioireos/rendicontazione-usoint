@@ -66,9 +66,9 @@ in cache (problema realmente capitato).
 | App | Numero attuale | Dove si vede | Da dove viene |
 |---|---|---|---|
 | App integrata | `rev 6 · 08nov26` | barra in alto | scritto nel file |
-| Collaboratori | `rev 21 · 19nov26` (su `main` dal 19/11/2026) | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver184 · 19nov26` (ramo, in anteprima; `main`: ver183) | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
-| Rendicontazione USOINT | `ver140 · 19nov26` (su `main` dal 19/11/2026) | Home, scheda progetto, Riepilogo operatori | costante `VER` |
+| Collaboratori | `rev 22 · 19nov26` (ramo, in anteprima; `main`: rev 21) | copertina + schermata PIN (`.revtag`) | scritto nel file |
+| Dipendenti | `ver186 · 19nov26` (ramo, in anteprima: ver184-185-186; `main`: ver183) | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Rendicontazione USOINT | `ver141 · 19nov26` (ramo, in anteprima; `main`: ver140) | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 18 · 19nov26` (su `main` dal 19/11/2026) | angolo in basso a destra, ogni schermata | scritto nel file |
 
 **Criterio:** dove l'app aveva già una numerazione (USOINT `ver`, Dipendenti `APP_VER`) si usa e
@@ -78,6 +78,24 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
 ---
 
 ## 5. Lavori fatti e attivi
+
+### 5.0-quaterdecies ENTRANDO IN UNA CASELLA IL CONTENUTO SI SELEZIONA TUTTO — Dipendenti ver186 · USOINT ver141 · Collaboratori rev 22 (19/11/2026, IN ANTEPRIMA, da approvare)
+
+Richiesta di Christian: «consenti, quando entro in una cella per compilare le ore, che la precedente scritta si selezioni
+tutta e io ci scriva sopra»; app scelte: **USOINT, Dipendenti, Collaboratori** (Fogli ore no). Entrando con clic, tocco o
+Tab il contenuto è tutto selezionato e il primo tasto lo sostituisce; un **secondo clic** posiziona il cursore come prima;
+entrare e uscire senza scrivere non cambia niente; filtri esistenti (meno vietato, regola dei minuti, 13 ore, date
+impossibili, `data-ini`) identici. Nessuna dicitura nuova, nessun calcolo toccato.
+
+| app | caselle | prove |
+|---|---|---|
+| **Dipendenti ver186** (sopra la ver185 dei tre decimali e delle due diciture) | celle del Tabellone, «Ore dichiarate (uso interno)», ore del permesso orario (Compila veloce no: si apre vuota) | `ver186` 20/0; `ver185` 30/0; `a02` 49/1 (A02.35, permesso >13 h, identico alla ver185); `a07` 64/0 |
+| **USOINT ver141** | `NumIn`, `TarIn`, `LavIn`, `SimIn` (budget, mesi, tariffario, ore lavorate, simulatore) | `uso-ver141` 41/0; batteria `uso-a01-*`, `uso-ver139/140`, `int-a01` identica alla ver140 |
+| **Collaboratori rev 22** | tutte le caselle con `fcl` (ore, residuo, tariffe, liquidazioni, rettifica) + data della liquidazione | `col-rev22` 25/25; `col-a01-*` e `col-rev21` identiche alla rev 21 |
+
+⚠️ In tutte e tre la selezione si rifà dopo il ridisegno; il **primo tasto** arrivato prima della selezione rinviata non va
+perso (trovato dalle prove in Dipendenti e USOINT, poi in Collaboratori con il controllo T21). Non verificati: Safari/iOS e
+telefoni veri (solo Chromium, anche in modalità tocco).
 
 ### 5.0-terdecies CORREZIONI DOPO IL COLLAUDO DEL 19/11/2026 — Fogli ore rev 18 · Collaboratori rev 21 · Dipendenti ver184 · USOINT ver139 (Fogli ore, Collaboratori e USOINT su `main` il 19/11/2026 col «Main» di Christian; Dipendenti in attesa dei tre decimali)
 
