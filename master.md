@@ -67,7 +67,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 6 · 08nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 20 · 14nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver181 · 15nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver182 · 19nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver138 · 15nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 17 · 12nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -225,6 +225,12 @@ Catena di richieste di Christian, è il cambio di motore più importante del per
   Query personale (con «Spazio Ireos» e « al » al posto del trattino basso), Anagrafica (con la versione),
   Riepiloghi (nome suo, non più uguale all'Excel del mese), i tre .docx (versione e ora). Contenuti identici.
 - **Portato su `main`?** Sì: **ver180 e ver181**, il 15/11/2026 («porta su main»).
+- **ver182 (19/11/2026)**: quota del giorno = ore settimanali ÷ giorni a settimana (19 h → 3,167; ottobre 85,50 ore
+  previste) per assenze, ore corrette da dare e festività non godute; ORE MESE invariate. Nei mesi mensilizzati si
+  trattengono solo ASS.ING e ASP 0h (le altre ore sotto l'orario si mostrano, non si tolgono: box, LUL, Costo
+  orario, cedOre per USOINT, massimale) — scelta 2a di Christian, sapendo che a ottobre le paghe hanno trattenuto
+  ogni ora sotto le ore mese fisse. Nuovo «🖨️ Report PDF A4 conto per le paghe» con la legenda «Come si legge».
+  Residui da ripubblicare con 📤. **Portato su `main`?** No, solo sul ramo di lavoro.
 - 🔎 **COLLAUDO GENERALE INTEGRATO del 15/11/2026** (Fogli ore rev 17 · Collaboratori rev 20 · Dipendenti
   ver179 · USOINT ver138 · pagina integrata rev 6, tutte su `main`). **Nessun codice toccato.** Livello A:
   FO 35 script 599 superati + regole Firestore 60/60 (emulatore) · Collaboratori 25 script 515 · Dipendenti
