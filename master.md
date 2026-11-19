@@ -66,10 +66,10 @@ in cache (problema realmente capitato).
 | App | Numero attuale | Dove si vede | Da dove viene |
 |---|---|---|---|
 | App integrata | `rev 6 · 08nov26` | barra in alto | scritto nel file |
-| Collaboratori | `rev 20 · 14nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver183 · 19nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
-| Rendicontazione USOINT | `ver138 · 15nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
-| Fogli ore | `rev 17 · 12nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
+| Collaboratori | `rev 21 · 19nov26` (ramo, in anteprima; `main`: rev 20) | copertina + schermata PIN (`.revtag`) | scritto nel file |
+| Dipendenti | `ver184 · 19nov26` (ramo, in anteprima; `main`: ver183) | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Rendicontazione USOINT | `ver139 · 19nov26` (ramo, in anteprima; `main`: ver138) | Home, scheda progetto, Riepilogo operatori | costante `VER` |
+| Fogli ore | `rev 18 · 19nov26` (ramo, in anteprima; `main`: rev 17) | angolo in basso a destra, ogni schermata | scritto nel file |
 
 **Criterio:** dove l'app aveva già una numerazione (USOINT `ver`, Dipendenti `APP_VER`) si usa e
 si incrementa **quella**; dove non c'era si è partiti da `rev 1`. **Mai due numerazioni nella
@@ -78,6 +78,26 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
 ---
 
 ## 5. Lavori fatti e attivi
+
+### 5.0-terdecies CORREZIONI DOPO IL COLLAUDO DEL 19/11/2026 — Fogli ore rev 18 · Collaboratori rev 21 · Dipendenti ver184 · USOINT ver139 (IN ANTEPRIMA sul ramo)
+
+Decisioni di Christian del 19/11/2026: **1** ritenuta del totale = «la somma delle righe»; **rimborso** = «160 € (meno 20%)»
+ovunque; **3** accesso Fogli ore ↔ Dipendenti «va bene condiviso» (ma senza perdite silenziose); **4** «Nu*» per la ver184
+(regola dei minuti) e per le 🔴/🟠 del collaudo; ORE MESE nel TS: «Restano 65,13». Tutto sul ramo di lavoro, **non su `main`**,
+in attesa della sua approvazione delle anteprime. Dettagli, numeri e prove nei `CLAUDE.md` delle quattro app.
+
+| app | correzioni | prove |
+|---|---|---|
+| **Fogli ore rev 18** | Esci salva prima di uscire (e chiede se la linea è caduta); apostrofo nei nomi (`escJ`, 22 punti); «servizio NON salvato» se fallisce; orari impossibili rifiutati (formati storici intatti); scrittura solo dei giorni toccati (`update` + `FieldValue.delete()`), così due dispositivi non si cancellano i giorni; chiuso anche un difetto trovato strada facendo: togliere un'assenza non la toglieva dal database | `fo-rev18` 41/41; batteria 180/188 (rev 17: 171/188, falliti residui identici) |
+| **Collaboratori rev 21** | ritenuta del TOTALE = somma delle righe (350,87 → 350,89); rimborso netto 160 anche in Per data / Per mese / Excel; omonimi di account diversi → «TS ?»; import validato + prova di disegno con ripristino; date impossibili rifiutate; anno/mese testo letti nei TS | `col-rev21` 53/53 + 1 informativo; batteria migliorata, falliti residui identici alla rev 20 |
+| **Dipendenti ver184** | regola dei minuti (decimali ,00 ,17 ,25 ,33 ,50 ,67 ,75 ,83) in celle, Compila veloce e permesso (che ora legge «1,5» = 1,5 h); `parseHour` legge ,17/,33/,67/,83 come sesti esatti; celle storiche fuori griglia (12) segnalate e contate come sono; TS ricostruito al passo (`tsMese`, `distPassi`) con ORE MESE contrattuali intatte e scarto sull'ultima riga «†»; box, `cedOre`, Costo orario e Tetto sugli stessi numeri del TS; monte ore negativo rifiutato; valori comuni del Costo orario si svuotano davvero (`cMostraC`); Compila veloce salta i giorni rossi; import con schema > 4 rifiutato (`DIP_SCHEMA`); disconnessione da un'altra scheda: modifiche tenute in memoria, avviso e «⬇ Backup delle modifiche», al rientro tornano con il 💾 acceso | `ver184` 65/0; batteria a01-a08 + ver182/183 tutte superate salvo 2 difetti preesistenti non chiesti; **dati veri di ottobre: nessun numero cambia** (costi dei 16, `cedOre`, totali del TS identici alla ver183), TS con 0 celle fuori griglia su 290 |
+| **USOINT ver139** | la Home rilegge l'elenco tornando da un lavoro (titolo rinominato giusto, niente riscrittura del vecchio); il 💾 riallinea anche le date dopo una proroga (Riepilogo vede il nuovo anno); esempio 79,33 → 82,50 nel `CLAUDE.md` | `uso-ver139` 22/22; batteria uso-a01 + integrata tutte superate |
+
+Restano aperti (segnalati, non chiesti): Fogli ore — 24:00 ora rifiutato (fine turno a mezzanotte = 23:59, da confermare);
+USOINT — lucchetto 🔒/🔓 non riallineato nell'elenco, «Duplica» annullato lascia un lavoro orfano, cofinanziamento non arrotondato;
+Collaboratori — recupero d'emergenza da Drive senza validazione, «A DEBITO» per 0,01 €, autore/nomi dei file Excel, allineamento
+dei mesi della rev 20 senza effetto; Dipendenti — tetto 13 h sul permesso, ✕ senza conferma su trasformazioni/proroghe/monte
+ore/massimali. Non verificato: Firebase vero, due computer, Drive.
 
 ### 5.0-duodecies COLLAUDO INTEGRALE DEL 19/11/2026 — DUE LIVELLI (Dipendenti ver183 · Fogli ore rev 17 · Collaboratori rev 20 · USOINT ver138 · integrata rev 6)
 
