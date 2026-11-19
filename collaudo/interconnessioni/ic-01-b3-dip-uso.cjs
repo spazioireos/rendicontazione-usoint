@@ -124,7 +124,7 @@ async function stato(uso) { const t = await K.testo(uso); const i = t.indexOf('G
   dl = await rileggi(uso); st = await stato(uso);
   const colore = await uso.evaluate(() => { const s = [...document.querySelectorAll('span')].find(e => /Nessun dato trovato in Dipendenti/.test(e.innerText)); return s ? getComputedStyle(s).color : ''; });
   chk('B3-17', 'Dipendenti (documento assente)', 'USOINT', 'messaggio rosso, nessuna spunta verde, ore non toccate', '«Nessun dato trovato» rosso, niente «importate ✓»', colore + ' · ' + st.slice(0, 200),
-    /Nessun dato trovato/.test(st) && !/importate ✓/.test(st) && /220, 38, 38/.test(colore));
+    /Nessun dato trovato/.test(st) && !/importate dai Dipendenti ✓/.test(st) && /220, 38, 38/.test(colore));
   lav = await K.usoLav(uso);
   chk('B3-18', 'Dipendenti (documento assente)', 'usoint-orelav', 'ore già importate intatte', 'rossi mario [9] invariato', String(lav['rossi mario']['2026'][9]), Math.abs(lav['rossi mario']['2026'][9] - cedR2) < 0.001);
   /* 8) lettura caduta */

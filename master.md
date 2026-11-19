@@ -79,6 +79,27 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
 
 ## 5. Lavori fatti e attivi
 
+### 5.0-duodecies COLLAUDO INTEGRALE DEL 19/11/2026 — DUE LIVELLI (Dipendenti ver183 · Fogli ore rev 17 · Collaboratori rev 20 · USOINT ver138 · integrata rev 6)
+
+Batteria ricostruita da zero dopo la perdita del contenitore: banco comune con finta Firebase in
+`rendicontazione-usoint/collaudo/comune` (porta 8340, tutte le app sulla stessa origine), script di livello A
+in `collaudo/` di ogni repository, script di livello B in `rendicontazione-usoint/collaudo/interconnessioni`.
+Solo dati inventati; i controlli su dati veri sono stati fatti nello scratchpad.
+
+| | controlli | superati | falliti | parziali | non verificati |
+|---|--:|--:|--:|--:|--:|
+| A · Dipendenti ver183 | 333 (+ ver183.cjs 27/27) | 318 | 14 (5 attese invecchiate) | 3 | 5 aree |
+| A · Fogli ore rev 17 | 188 | 171 | 10 | 6 | 1 |
+| A · Collaboratori rev 20 | 206 | 187 | 16 | 2 | 1 |
+| A · USOINT ver138 + integrata rev 6 | 248 | 240 | 7 | 1 | — |
+| B · interconnessioni | 125 | 109 | 10 | 5 | 1 |
+| Regole Firestore (emulatore ufficiale) | 60 | 60 | 0 | — | — |
+
+Sito pubblicato identico byte per byte a `main` (5 pagine su 5). Zero errori di pagina. Nessuna anomalia
+introdotta dalle versioni del 15-19/11 tranne gli omonimi identici sommati nei «TS» di Collaboratori (rev 18).
+Elenco completo delle anomalie, delle priorità e delle decisioni chieste: nella chat del 19/11/2026 e negli
+esiti degli script. Nessuna correzione fatta: tutte in attesa del Nu* di Christian.
+
 ### 5.0-nonies COLLABORATORI rev 18→20 — SUGGERISCE LE ORE DAI FOGLI ORE, LIGHT COMPRESI (14/11/2026)
 
 Richiesta di Christian: «l'app collaboratori deve leggere le ore degli operatori **anche light
