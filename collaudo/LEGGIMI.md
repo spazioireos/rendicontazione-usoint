@@ -37,3 +37,11 @@ leggono dal file dell'app (`L.VER`, `L.TARGA`). Sulla ver139: `base` 36/0 · `bu
 diretto sulla ver139 (localizzata in `comune/.banco/uso139/`, vedi l'intestazione). Esito: **15 / 0** più 1 riga
 solo segnalata. Sulla ver140: `uso-ver139` 23/0 (N06b ora pretende il difetto chiuso) · `base` 36/0 · `budget`
 40/0 (+1 parziale) · `riep` 48/0 · `dati` 33/0 · `graf` 50/0 · `int-a01` 20/0.
+
+## USOINT ver141 (19/11/2026, in anteprima)
+
+`uso-ver141.cjs`: entrando in una casella numerica (NumIn, TarIn, LavIn, SimIn) il contenuto si seleziona tutto, con
+confronto diretto sulla ver140 (localizzata in `comune/.banco/uso140/`, vedi l'intestazione). Esito: **41 / 0**. Un
+argomento facoltativo (cartella) salva l'anteprima `casella-selezionata.png` a densità 2 (`contesto({dsf:2})`). Sulla
+ver141: `uso-ver139` 23/0 · `uso-ver140` 15/0 · `base` 36/0 · `budget` 40/0 (+1 parziale) · `riep` 48/0 · `dati` 33/0 ·
+`graf` 50/0 · `int-a01` 20/0.

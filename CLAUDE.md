@@ -36,7 +36,7 @@ USOINT sta per **"uso interno"**.
   `usoint-tariffe`, `usoint-simul`, **`usoint-codici`** (dalla ver136: codice operatore → riga).
   Accesso mail+password.
 - **Numero di revisione**: costante `const VER` (riga ~67), mostrata in **tre punti** (Home,
-  scheda progetto, Riepilogo operatori). **Attuale: ver140 · 19nov26.** `VER` finisce anche nei
+  scheda progetto, Riepilogo operatori). **Attuale: ver141 · 19nov26 (IN ANTEPRIMA, da approvare).** `VER` finisce anche nei
   nomi dei file esportati: incrementarla, non affiancarle un secondo numero.
 - **Strutture utili**: `usoint-orelav` = `{ [norm(nome)]: { [anno]: [12 numeri] } }` (ore
   lavorate, indice 0 = gennaio; `norm` = minuscolo, trim, spazi singoli).
@@ -76,6 +76,33 @@ USOINT sta per **"uso interno"**.
 - **Funzioni presenti**: import automatico (SOLA LETTURA) delle ore lavorate dal database dei
   Dipendenti tramite una **seconda app Firebase** chiamata "dip"; tabella compatta della scheda
   operatore (Lavorate | una colonna per progetto | Tot. rendicontate | Avanzo).
+- ✍️ **ENTRANDO IN UNA CASELLA DI ORE O IMPORTI, IL CONTENUTO SI SELEZIONA TUTTO** (ver141, 19/11/2026,
+  **IN ANTEPRIMA, da approvare**; richiesta di Christian: «consenti, quando entro in una cella per compilare le ore, che
+  la precedente scritta si selezioni tutta e io ci scriva sopra»).
+  - **Dove**: le quattro caselle numeriche — **`NumIn`** (budget: ore, €/ora, importi, vista MESI), **`TarIn`**
+    (Tariffario costi orari), **`LavIn`** (ore lavorate del Riepilogo operatori), **`SimIn`** (simulatore di
+    spalmatura). Entrando con **clic, tocco o Tab** il testo mostrato è tutto selezionato e il primo tasto lo sostituisce.
+    ⚠️ **Le caselle di testo** (titoli, nomi, mansioni) **non sono state toccate**.
+  - **Come**: funzione nuova **`selTutto(el)`** (sopra `NumIn`), chiamata alla fine dei quattro `onFocus`. La selezione
+    si fa **dopo il ridisegno** (`setTimeout 0` + `requestAnimationFrame`), perché `onFocus` cambia il testo mostrato
+    (da «120,00» a «120»); il **primo mouseup** dopo l'ingresso non la toglie (un **secondo clic** posiziona il cursore
+    come sempre); al **primo tasto** la selezione si fa subito e quelle rimandate si annullano, così **chi scrive subito
+    dopo il clic non perde caratteri** (trovato dalla misura: la prima stesura, con `Ctrl+A` e «10.5» battuti di
+    seguito, dava «0,50»).
+  - ⚠️ **Le guardie di prima sono identiche**: il segno meno non entra (né battuto né incollato), il «.» diventa «,»,
+    `onBlur` e il 💾 come prima. Entrare e uscire senza scrivere **non cambia niente**. **Nessuna dicitura nuova.**
+    Motore di rendicontazione ed export non toccati.
+  - **Provato in esecuzione** (`collaudo/uso-ver141.cjs`, **41 controlli su 41**, zero errori di pagina), col
+    **confronto diretto** sulla ver140: là il clic lasciava il cursore dentro il numero (es. «120» → «880», «21,75» →
+    «21,975»), qui per tutti e quattro i componenti: selezione completa al clic e col Tab, secondo clic che posiziona il
+    cursore, «34» battuto subito dopo il clic che entra intero, «-» rifiutato, `Ctrl+A` + «10.5» → «10,5», valore nuovo
+    salvato col 💾 (oreT 8 · tariffa 9 · lavorate FEB 7 · simulate FEB 5).
+    ⚠️ **Provato solo con Chromium** (l'unico motore nel contenitore): Safari, Firefox e i telefoni veri **non sono stati
+    provati**.
+  - **Batteria rieseguita sulla ver141, ZERO falliti**: `uso-a01-base` **36/0** · `uso-a01-budget` **40/0** (+1
+    parziale già noto) · `uso-a01-riep` **48/0** · `uso-a01-dati` **33/0** · `uso-a01-graf` **50/0** ·
+    `int-a01-integrata` **20/0** · `uso-ver139` **23/0** · `uso-ver140` **15/0** · `uso-ver141` **41/0**.
+    ⚠️ In `uso-a01-lib.cjs` `contesto()` accetta ora `dsf` (densità dei pixel, per le anteprime PNG): di serie 1, come prima.
 - 🔒 **IL VINCOLO SEGUE ANCHE L'ELENCO, E UNA DUPLICA ANNULLATA NON LASCIA ORFANI** (ver140,
   19/11/2026, «Sì» di Christian ai due punti segnalati dalla ver139).
   - 🟡 **1 — il vincolo 🔒/🔓.** Si cambia dentro la scheda (`upd`), ma il cartellino della Home lo
