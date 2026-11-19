@@ -68,7 +68,7 @@ in cache (problema realmente capitato).
 | App integrata | `rev 6 · 08nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 21 · 19nov26` (su `main` dal 19/11/2026) | copertina + schermata PIN (`.revtag`) | scritto nel file |
 | Dipendenti | `ver184 · 19nov26` (ramo, in anteprima; `main`: ver183) | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
-| Rendicontazione USOINT | `ver140 · 19nov26` (ramo, in anteprima; `main`: ver139) | Home, scheda progetto, Riepilogo operatori | costante `VER` |
+| Rendicontazione USOINT | `ver140 · 19nov26` (su `main` dal 19/11/2026) | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 18 · 19nov26` (su `main` dal 19/11/2026) | angolo in basso a destra, ogni schermata | scritto nel file |
 
 **Criterio:** dove l'app aveva già una numerazione (USOINT `ver`, Dipendenti `APP_VER`) si usa e
@@ -94,7 +94,7 @@ in attesa della sua approvazione delle anteprime. Dettagli, numeri e prove nei `
 | **USOINT ver139** | la Home rilegge l'elenco tornando da un lavoro (titolo rinominato giusto, niente riscrittura del vecchio); il 💾 riallinea anche le date dopo una proroga (Riepilogo vede il nuovo anno); esempio 79,33 → 82,50 nel `CLAUDE.md` | `uso-ver139` 22/22; batteria uso-a01 + integrata tutte superate |
 
 Restano aperti (segnalati, non chiesti): Fogli ore — 24:00 ora rifiutato (confermato da Christian: «Non ho mai turni entro le 24»);
-USOINT — cofinanziamento non arrotondato (lucchetto 🔒/🔓 e «Duplica» annullato chiusi dalla **ver140**, Christian: «Sì», in anteprima sul ramo);
+USOINT — cofinanziamento non arrotondato (lucchetto 🔒/🔓 e «Duplica» annullato chiusi dalla **ver140**, Christian: «Sì», su `main` col suo «main ver140»);
 Collaboratori — recupero d'emergenza da Drive senza validazione, «A DEBITO» per 0,01 €, autore/nomi dei file Excel, allineamento
 dei mesi della rev 20 senza effetto; Dipendenti — tetto 13 h sul permesso, ✕ senza conferma su trasformazioni/proroghe/monte
 ore/massimali. Non verificato: Firebase vero, due computer, Drive.
