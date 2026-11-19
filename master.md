@@ -67,7 +67,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 6 · 08nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 20 · 14nov26` | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver182 · 19nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver183 · 19nov26` | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver138 · 15nov26` | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 17 · 12nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
@@ -230,7 +230,12 @@ Catena di richieste di Christian, è il cambio di motore più importante del per
   trattengono solo ASS.ING e ASP 0h (le altre ore sotto l'orario si mostrano, non si tolgono: box, LUL, Costo
   orario, cedOre per USOINT, massimale) — scelta 2a di Christian, sapendo che a ottobre le paghe hanno trattenuto
   ogni ora sotto le ore mese fisse. Nuovo «🖨️ Report PDF A4 conto per le paghe» con la legenda «Come si legge».
-  Residui da ripubblicare con 📤. **Portato su `main`?** No, solo sul ramo di lavoro.
+  Residui da ripubblicare con 📤. **Portato su `main`?** Sì, insieme alla ver183 (19/11/2026, «Main e Nu*»).
+- **ver183 (19/11/2026)**: un solo report per le paghe, «🖨️ Report PDF A4 per le paghe»: per ogni mensilizzato, giorno
+  per giorno, Ordinarie · Supplementari · Assenze retribuite · Non retribuite (ASS.ING/ASP 0h), con i totali uguali alle
+  voci del cedolino (non le ore lavorate, che restano nel Tabellone e nel Report PDF A4). Tolti i pulsanti mensilizz.,
+  paghe e LUL, ord/extra e conto per le paghe. Collaudo 27/0, totali coerenti su 11 mensilizzati veri di ottobre.
+  **Portato su `main`?** Sì, il 19/11/2026.
 - 💾 **19/11/2026 — regola nuova in tutti e quattro i CLAUDE.md (§11)**: il contenitore di lavoro è temporaneo
   (fra il 15 e il 19/11 sono andati persi una versione non salvata, banco e script di collaudo). Da ora: commit e
   push sul ramo di lavoro dopo ogni pezzo; script di prova con dati inventati in `collaudo/` di ogni repository
