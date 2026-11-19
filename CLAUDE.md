@@ -36,7 +36,7 @@ USOINT sta per **"uso interno"**.
   `usoint-tariffe`, `usoint-simul`, **`usoint-codici`** (dalla ver136: codice operatore → riga).
   Accesso mail+password.
 - **Numero di revisione**: costante `const VER` (riga ~67), mostrata in **tre punti** (Home,
-  scheda progetto, Riepilogo operatori). **Attuale: ver141 · 19nov26 (IN ANTEPRIMA, da approvare).** `VER` finisce anche nei
+  scheda progetto, Riepilogo operatori). **Attuale: ver141 · 19nov26 (approvata da Christian e portata su `main` il 19/11/2026: «main per le tre app»).** `VER` finisce anche nei
   nomi dei file esportati: incrementarla, non affiancarle un secondo numero.
 - **Strutture utili**: `usoint-orelav` = `{ [norm(nome)]: { [anno]: [12 numeri] } }` (ore
   lavorate, indice 0 = gennaio; `norm` = minuscolo, trim, spazi singoli).
@@ -77,7 +77,7 @@ USOINT sta per **"uso interno"**.
   Dipendenti tramite una **seconda app Firebase** chiamata "dip"; tabella compatta della scheda
   operatore (Lavorate | una colonna per progetto | Tot. rendicontate | Avanzo).
 - ✍️ **ENTRANDO IN UNA CASELLA DI ORE O IMPORTI, IL CONTENUTO SI SELEZIONA TUTTO** (ver141, 19/11/2026,
-  **IN ANTEPRIMA, da approvare**; richiesta di Christian: «consenti, quando entro in una cella per compilare le ore, che
+  **approvata da Christian e portata su `main` il 19/11/2026: «main per le tre app»**; richiesta di Christian: «consenti, quando entro in una cella per compilare le ore, che
   la precedente scritta si selezioni tutta e io ci scriva sopra»).
   - **Dove**: le quattro caselle numeriche — **`NumIn`** (budget: ore, €/ora, importi, vista MESI), **`TarIn`**
     (Tariffario costi orari), **`LavIn`** (ore lavorate del Riepilogo operatori), **`SimIn`** (simulatore di

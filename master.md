@@ -66,9 +66,9 @@ in cache (problema realmente capitato).
 | App | Numero attuale | Dove si vede | Da dove viene |
 |---|---|---|---|
 | App integrata | `rev 6 · 08nov26` | barra in alto | scritto nel file |
-| Collaboratori | `rev 22 · 19nov26` (ramo, in anteprima; `main`: rev 21) | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver186 · 19nov26` (ramo, in anteprima: ver184-185-186; `main`: ver183) | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
-| Rendicontazione USOINT | `ver141 · 19nov26` (ramo, in anteprima; `main`: ver140) | Home, scheda progetto, Riepilogo operatori | costante `VER` |
+| Collaboratori | `rev 22 · 19nov26` (su `main` dal 19/11/2026) | copertina + schermata PIN (`.revtag`) | scritto nel file |
+| Dipendenti | `ver186 · 19nov26` (su `main` dal 19/11/2026, con ver184 e ver185) | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Rendicontazione USOINT | `ver141 · 19nov26` (su `main` dal 19/11/2026) | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 18 · 19nov26` (su `main` dal 19/11/2026) | angolo in basso a destra, ogni schermata | scritto nel file |
 
 **Criterio:** dove l'app aveva già una numerazione (USOINT `ver`, Dipendenti `APP_VER`) si usa e
@@ -79,7 +79,7 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
 
 ## 5. Lavori fatti e attivi
 
-### 5.0-quaterdecies ENTRANDO IN UNA CASELLA IL CONTENUTO SI SELEZIONA TUTTO — Dipendenti ver186 · USOINT ver141 · Collaboratori rev 22 (19/11/2026, IN ANTEPRIMA, da approvare)
+### 5.0-quaterdecies ENTRANDO IN UNA CASELLA IL CONTENUTO SI SELEZIONA TUTTO — Dipendenti ver186 · USOINT ver141 · Collaboratori rev 22 (19/11/2026, su `main` col «main per le tre app» di Christian; per Dipendenti anche ver184 e ver185)
 
 Richiesta di Christian: «consenti, quando entro in una cella per compilare le ore, che la precedente scritta si selezioni
 tutta e io ci scriva sopra»; app scelte: **USOINT, Dipendenti, Collaboratori** (Fogli ore no). Entrando con clic, tocco o
