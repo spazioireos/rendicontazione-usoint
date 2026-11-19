@@ -236,6 +236,9 @@ Catena di richieste di Christian, è il cambio di motore più importante del per
   push sul ramo di lavoro dopo ogni pezzo; script di prova con dati inventati in `collaudo/` di ogni repository
   (Dipendenti: `prepara-banco.sh`, `rigenera.py`, `controlla-sintassi.js`, `ver182.cjs` 44/0); dati veri solo nella
   cartella privata di Google Drive «Dati collaudo Spazio Ireos» (il repository privato non si poteva creare).
+  Nella sottocartella «Copie delle app» c'è una copia di ogni app (19/11/2026: Fogli ore rev 17, Collaboratori
+  rev 20, Dipendenti ver182 e ver181 pubblicata, USOINT ver138, integrata rev 6), da aggiornare a ogni versione:
+  è solo una seconda rete di sicurezza, da Drive le app non funzionano.
 - 🔎 **COLLAUDO GENERALE INTEGRATO del 15/11/2026** (Fogli ore rev 17 · Collaboratori rev 20 · Dipendenti
   ver179 · USOINT ver138 · pagina integrata rev 6, tutte su `main`). **Nessun codice toccato.** Livello A:
   FO 35 script 599 superati + regole Firestore 60/60 (emulatore) · Collaboratori 25 script 515 · Dipendenti
