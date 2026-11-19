@@ -172,7 +172,7 @@ const campi = x => x ? { wc: x.workerConfirmed, mc: x.meseChiuso, at: typeof x.m
   const P2 = await pastiglie(dip);
   await chiudiDip(dip);
   const coerente = vP ? P2['ROSSI MARIO'] === 'Mese non ancora chiuso in Fogli ore' : P2['ROSSI MARIO'] !== 'Mese non ancora chiuso in Fogli ore';
-  riga('B10-18', 'Fogli ore admin (riaperto SOLO il servizio 0 di 2)', 'Fogli ore (ROSSI) e Dipendenti (ROSSI)', 'le due app dicono la stessa cosa sul mese a metà riaperto? (osservazione)',
+  riga('B10-18', 'Fogli ore admin (riaperto SOLO il servizio 0 di 2)', 'Fogli ore (ROSSI) e Dipendenti (ROSSI)', 'le due app dicono la stessa cosa sul mese a metà riaperto? (allineato dalla correzione di Dipendenti ver187)',
     'se Fogli ore ripresenta il riquadro, Dipendenti dovrebbe dire «non ancora chiuso»',
     'Fogli ore: riquadro=' + vP + ' domanda=' + domP + ' · Dipendenti: «' + P2['ROSSI MARIO'] + '»', coerente ? 'SUPERATO' : 'PARZIALE');
   await entraFO(fo, ADMIN);

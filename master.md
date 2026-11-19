@@ -67,9 +67,9 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 6 · 08nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 22 · 19nov26` (su `main` dal 19/11/2026) | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver186 · 19nov26` (su `main` dal 19/11/2026, con ver184 e ver185) | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver187 · 19nov26` (ramo, in anteprima; `main`: ver186) | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver141 · 19nov26` (su `main` dal 19/11/2026) | Home, scheda progetto, Riepilogo operatori | costante `VER` |
-| Fogli ore | `rev 18 · 19nov26` (su `main` dal 19/11/2026) | angolo in basso a destra, ogni schermata | scritto nel file |
+| Fogli ore | `rev 19 · 19nov26` (ramo, in anteprima; `main`: rev 18) | angolo in basso a destra, ogni schermata | scritto nel file |
 
 **Criterio:** dove l'app aveva già una numerazione (USOINT `ver`, Dipendenti `APP_VER`) si usa e
 si incrementa **quella**; dove non c'era si è partiti da `rev 1`. **Mai due numerazioni nella
@@ -78,6 +78,27 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
 ---
 
 ## 5. Lavori fatti e attivi
+
+### 5.0-quindecies CHIUSURA OBBLIGATORIA DEL MESE E DOMANDA FERIE/PERMESSI — Fogli ore rev 19 · Dipendenti ver187 (19/11/2026, IN ANTEPRIMA, da approvare)
+
+Decisioni di Christian: la domanda è solo la sua frase, senza numeri; chiusura obbligatoria per tutti (A1), la domanda solo ai
+dipendenti; chi è dipendente lo dice Dipendenti col 📤 (B1); solo se il mese ha almeno un giorno compilato (C1); monito di
+rivedere il foglio; «dopo la chiusura riapre solo l'admin»; «Nu*» sull'anteprima.
+
+- **Fogli ore rev 19**: dal giorno 1 del mese dopo (data del dispositivo, dai mesi da novembre 2026: primo blocco l'1/12/2026)
+  worker ed editor con dati nel mese scorso vedono «🔒 Chiudi il mese di …» (monito, «👀 Rivedi», totali per servizio, domanda
+  per chi ha `residui/<uid>.dip===true`, spunta, «✔ Autorizzo le ore e chiudo …», «Esci»); il mese nuovo non si compila finché
+  il vecchio non è chiuso. La chiusura scrive su ogni foglio `workerConfirmed`, `meseChiuso`, `meseChiusoAt` e, per i dipendenti,
+  `completamento:"si"|"no"`. Mese chiuso = sola lettura; riapre solo l'admin (`adminReopenMonth` toglie anche chiusura e risposta).
+  Mese bloccato dall'admin (`locks`) = chiuso, nessuna domanda. Prove: `fo-rev19` 41/41; batteria 180/188 come la rev 18.
+- **Dipendenti ver187**: 📤 scrive `dip:true` nei `residui` dei dipendenti agganciati (`foUid`) non cessati prima del mese; chi
+  non ha massimale non perde il documento (resta `{dip:true}`). Nel Tabellone la pastiglia «📨 Chiede ferie/permessi a
+  completamento» / «Lascia così» / «Mese chiuso in Fogli ore» / «Mese non ancora chiuso in Fogli ore» (mese chiuso solo se lo è
+  ogni foglio con dati, come Fogli ore). Sola lettura di users/timesheets confermata. Prove: `ver187` 32/0.
+- **Prova integrata** `collaudo/interconnessioni/ic-01-b10-chiusura.cjs`: **26/0** (📤 → domanda in Fogli ore → risposta nel
+  Tabellone → riapertura admin → domanda di nuovo; zero scritture di Dipendenti fuori da `residui`). Ha trovato una divergenza
+  sulla riapertura di un solo servizio, corretta in Dipendenti prima della consegna.
+- ⚠️ Regole Firestore non toccate: il blocco e il «riapre solo l'admin» li impone l'app. Non verificato con Firebase vero.
 
 ### 5.0-quaterdecies ENTRANDO IN UNA CASELLA IL CONTENUTO SI SELEZIONA TUTTO — Dipendenti ver186 · USOINT ver141 · Collaboratori rev 22 (19/11/2026, su `main` col «main per le tre app» di Christian; per Dipendenti anche ver184 e ver185)
 
