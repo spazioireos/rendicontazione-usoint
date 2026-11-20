@@ -10,7 +10,7 @@ const RULES = path.join(__dirname, '../../../spazioireos-foglio-ore/regole-fires
 const B = 'http://127.0.0.1:' + PORT + '/v1/projects/' + PJ + '/databases/(default)/documents/';
 const b64 = o => Buffer.from(JSON.stringify(o)).toString('base64url');
 function tok(uid, email) { const n = Math.floor(Date.now() / 1000); return b64({ alg: 'none', typ: 'JWT' }) + '.' + b64({ iss: 'https://securetoken.google.com/' + PJ, aud: PJ, auth_time: n, user_id: uid, sub: uid, iat: n, exp: n + 3600, email, email_verified: true, firebase: { identities: { email: [email] }, sign_in_provider: 'password' } }) + '.'; }
-const campi = o => { const f = {}; for (const k in o) { const v = o[k]; f[k] = typeof v === 'number' ? { doubleValue: v } : { stringValue: String(v) }; } return { fields: f }; };
+const campi = o => { const f = {}; for (const k in o) { const v = o[k]; f[k] = typeof v === 'number' ? { doubleValue: v } : typeof v === 'boolean' ? { booleanValue: v } : { stringValue: String(v) }; } return { fields: f }; };
 async function op(metodo, perc, chi, corpo) {
   const h = { 'Content-Type': 'application/json' }; if (chi) h.Authorization = 'Bearer ' + (chi === 'owner' ? 'owner' : tok(chi.uid, chi.email));
   const r = await fetch(B + perc, { method: metodo, headers: h, body: corpo ? JSON.stringify(campi(corpo)) : undefined });
@@ -41,7 +41,14 @@ async function op(metodo, perc, chi, corpo) {
       ['B2b-07', 'Collaboratori (admin) legge lightsheets', 'GET', 'lightsheets/L1', ADM, null, 200],
       ['B2b-08', 'USOINT «dip» (admin) legge report-ore-mensile/ADMIN0001', 'GET', 'report-ore-mensile/ADMIN0001', ADM, null, 200],
       ['B2b-09', 'un operatore (W1) legge report-ore-mensile dell\'admin', 'GET', 'report-ore-mensile/ADMIN0001', W1, null, 403],
-      ['B2b-10', 'senza accesso: legge residui', 'GET', 'residui/W2', null, null, 403]
+      ['B2b-10', 'senza accesso: legge residui', 'GET', 'residui/W2', null, null, 403],
+      /* chiusura del mese (Fogli ore rev 19 · Dipendenti ver187, 20/11/2026) */
+      ['B2b-11', 'Dipendenti (admin) scrive residui/W1 con solo dip:true', 'PATCH', 'residui/W1', ADM, { dip: true, aggiornato: '2026-11-20' }, 200],
+      ['B2b-12', 'Fogli ore W1 legge il proprio residuo con dip:true', 'GET', 'residui/W1', W1, null, 200],
+      ['B2b-13', 'Fogli ore W1 chiude il proprio mese (meseChiuso, completamento)', 'PATCH', 'timesheets/W1__2026_10_0', W1, { workerUid: 'W1', year: 2026, month: 10, workerConfirmed: true, meseChiuso: true, meseChiusoAt: '2026-12-01T09:00:00Z', completamento: 'si' }, 200],
+      ['B2b-14', 'Fogli ore W2 chiude il mese di W1 (collega)', 'PATCH', 'timesheets/W1__2026_10_0', W2, { workerUid: 'W1', meseChiuso: true }, 403],
+      ['B2b-15', 'Fogli ore admin riapre il mese di W1', 'PATCH', 'timesheets/W1__2026_10_0', ADM, { workerUid: 'W1', year: 2026, month: 10, workerConfirmed: false, meseChiuso: false }, 200],
+      ['B2b-16', 'Fogli ore W2 legge il residuo (dip) di W1', 'GET', 'residui/W1', W2, null, 403]
     ];
     for (const [id, dato, met, perc, chi, corpo, att] of prove) {
       const st = await op(met, perc, chi, corpo);
