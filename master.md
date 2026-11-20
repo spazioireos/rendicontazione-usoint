@@ -67,9 +67,9 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 6 · 08nov26` | barra in alto | scritto nel file |
 | Collaboratori | `rev 22 · 19nov26` (su `main` dal 19/11/2026) | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver187 · 19nov26` (ramo, in anteprima; `main`: ver186) | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver187 · 19nov26` (su `main` dal 20/11/2026) | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver141 · 19nov26` (su `main` dal 19/11/2026) | Home, scheda progetto, Riepilogo operatori | costante `VER` |
-| Fogli ore | `rev 19 · 19nov26` (ramo, in anteprima; `main`: rev 18) | angolo in basso a destra, ogni schermata | scritto nel file |
+| Fogli ore | `rev 19 · 19nov26` (su `main` dal 20/11/2026) | angolo in basso a destra, ogni schermata | scritto nel file |
 
 **Criterio:** dove l'app aveva già una numerazione (USOINT `ver`, Dipendenti `APP_VER`) si usa e
 si incrementa **quella**; dove non c'era si è partiti da `rev 1`. **Mai due numerazioni nella
@@ -79,7 +79,7 @@ stessa app.** In USOINT e Dipendenti il numero finisce anche nei nomi dei file e
 
 ## 5. Lavori fatti e attivi
 
-### 5.0-quindecies CHIUSURA OBBLIGATORIA DEL MESE E DOMANDA FERIE/PERMESSI — Fogli ore rev 19 · Dipendenti ver187 (19/11/2026, IN ANTEPRIMA, da approvare)
+### 5.0-quindecies CHIUSURA OBBLIGATORIA DEL MESE E DOMANDA FERIE/PERMESSI — Fogli ore rev 19 · Dipendenti ver187 (19/11/2026; su `main` dal 20/11/2026; scelta «A»: partenza da novembre 2026, ottobre non chiesto)
 
 Decisioni di Christian: la domanda è solo la sua frase, senza numeri; chiusura obbligatoria per tutti (A1), la domanda solo ai
 dipendenti; chi è dipendente lo dice Dipendenti col 📤 (B1); solo se il mese ha almeno un giorno compilato (C1); monito di
