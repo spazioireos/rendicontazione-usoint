@@ -67,7 +67,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 7 · 20nov26` (su `main` dal 20/11/2026) | barra in alto | scritto nel file |
 | Collaboratori | `rev 23 · 20nov26` (su `main` dal 20/11/2026) | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver192 · 20nov26` (ramo, da approvare: un operatore che entra in Fogli ore non viene più buttato fuori; `main`: ver191, dal 20/11/2026) | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver192 · 20nov26` (su `main` dal 20/11/2026: un operatore che entra in Fogli ore non viene più buttato fuori) | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver142 · 20nov26` (su `main` dal 20/11/2026) | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 20 · 20nov26` (su `main` dal 20/11/2026) | angolo in basso a destra, ogni schermata | scritto nel file |
 
