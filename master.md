@@ -67,7 +67,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 7 · 20nov26` (ramo; `main`: rev 6) | barra in alto | scritto nel file |
 | Collaboratori | `rev 23 · 20nov26` (ramo: autore «Christian», nomi dei file, conferma «Annulla rettifica», mesi allineati; `main`: rev 22) | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver189 · 20nov26` (ramo, in anteprima: report paghe a tre per pagina in ore,minuti, tetto 13 h sul permesso, conferme sulle ✕, autore «Christian»; `main`: ver187) | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver190 · 20nov26` (ramo, in anteprima: report A4 in ore,minuti con i totali in centesimi, report paghe a tre per pagina, tetto 13 h sul permesso, conferme sulle ✕, autore «Christian»; `main`: ver187) | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver142 · 20nov26` (ramo: autore «Christian», cofin al centesimo, avviso sulle ore lavorate non salvate; `main`: ver141) | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 20 · 20nov26` (ramo: autore «Christian» nell'Excel light; `main`: rev 19, dal 20/11/2026) | angolo in basso a destra, ogni schermata | scritto nel file |
 
