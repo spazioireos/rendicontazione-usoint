@@ -67,7 +67,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 7 · 20nov26` (su `main` dal 20/11/2026) | barra in alto | scritto nel file |
 | Collaboratori | `rev 23 · 20nov26` (su `main` dal 20/11/2026) | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver195 · 20nov26` (sul ramo, da approvare: report A4 con le ore anche a parole, report paghe una persona per pagina e mai ore sui giorni AN; su `main` la ver193) | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver195 · 20nov26` (su `main` dal 20/11/2026: report A4 con le ore anche a parole, report paghe una persona per pagina e mai ore sui giorni AN) | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver142 · 20nov26` (su `main` dal 20/11/2026) | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 20 · 20nov26` (su `main` dal 20/11/2026) | angolo in basso a destra, ogni schermata | scritto nel file |
 
