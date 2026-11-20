@@ -68,3 +68,10 @@ Versioni: Fogli ore **rev 20** · Collaboratori **rev 23** · Dipendenti **ver18
 | Dipendenti `a01`…`a08`, `ver186`, `ver187`, `ver189` | 342/342 | A02.35 e A04.27 ora superati; `ver183`/`ver184` M22-M30/`ver185` R26-27 leggono il report vecchio: sostituiti da `ver189` |
 | USOINT `uso-a01-*`, `int-a01-integrata`, `uso-ver139/140/141` | 307/307 | D06c ora superato; B03 di `int-a01` legge la targhetta dal file |
 | Interconnessioni `ic-01-b1`…`b10` | 149/157 | **B5-04, B5-05, B5-11 ora superati**; B10 26/26 (targhe lette dai file); restano B2-08, B8-06, B9-04 e i parziali noti |
+
+### Dipendenti ver192 (20/11/2026, ramo): accesso condiviso con Fogli ore
+
+`interconnessioni/ic-02-b8b-sessione.cjs` (nuovo, **9/9**): l'operatore che entra in Fogli ore resta dentro anche con Dipendenti aperto
+(cambio diretto di account e Dipendenti aperto dopo); Dipendenti mostra «Accesso non consentito» senza chiudere l'accesso; rientrando
+come amministratore la modifica non salvata è ancora lì e non è nel cloud. `ic-01-b8` **11/11** (B8-06 ora superato), `b1` 14/16,
+`b2` 15/17, `b3` 20/21, `b5` 12/12, `b10` 26/26 (identici a prima).
