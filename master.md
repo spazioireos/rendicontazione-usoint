@@ -42,7 +42,7 @@ toccare): leggere quello prima di lavorarci.
 ## 3. L'APP INTEGRATA — attiva
 
 - **Link unico:** `https://spazioireos.github.io/rendicontazione-usoint/integrata/`
-- File `integrata/index.html` in questo repo, su `main`. **Revisione attuale: `rev 7 · 20nov26` sul ramo di lavoro (pulsante acceso solo quando la nuova app si è caricata); su `main` la `rev 6 · 08nov26`.**
+- File `integrata/index.html` in questo repo, su `main`. **Revisione attuale: `rev 7 · 20nov26` (su `main` dal 20/11/2026).**
 - **Quattro pulsanti**: 👥 Collaboratori · 🧑‍💼 Dipendenti · 📊 Rendicontazione progetti · 📋 Fogli ore.
 - **Apre i LINK LIVE** delle app, non copie: quando si aggiorna una app, la pagina integrata
   mostra la versione nuova **da sola**. Non va MAI aggiornata per questo motivo.
@@ -65,11 +65,11 @@ in cache (problema realmente capitato).
 
 | App | Numero attuale | Dove si vede | Da dove viene |
 |---|---|---|---|
-| App integrata | `rev 7 · 20nov26` (ramo; `main`: rev 6) | barra in alto | scritto nel file |
-| Collaboratori | `rev 23 · 20nov26` (ramo: autore «Christian», nomi dei file, conferma «Annulla rettifica», mesi allineati; `main`: rev 22) | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver190 · 20nov26` (ramo, in anteprima: report A4 in ore,minuti con i totali in centesimi, report paghe a tre per pagina, tetto 13 h sul permesso, conferme sulle ✕, autore «Christian»; `main`: ver187) | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
-| Rendicontazione USOINT | `ver142 · 20nov26` (ramo: autore «Christian», cofin al centesimo, avviso sulle ore lavorate non salvate; `main`: ver141) | Home, scheda progetto, Riepilogo operatori | costante `VER` |
-| Fogli ore | `rev 20 · 20nov26` (ramo: autore «Christian» nell'Excel light; `main`: rev 19, dal 20/11/2026) | angolo in basso a destra, ogni schermata | scritto nel file |
+| App integrata | `rev 7 · 20nov26` (su `main` dal 20/11/2026) | barra in alto | scritto nel file |
+| Collaboratori | `rev 23 · 20nov26` (su `main` dal 20/11/2026) | copertina + schermata PIN (`.revtag`) | scritto nel file |
+| Dipendenti | `ver191 · 20nov26` (su `main` dal 20/11/2026: report A4 in ore,minuti con i totali «centesimi (ore,minuti)», report paghe a tre per pagina, tetto 13 h sul permesso, conferme sulle ✕) | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Rendicontazione USOINT | `ver142 · 20nov26` (su `main` dal 20/11/2026) | Home, scheda progetto, Riepilogo operatori | costante `VER` |
+| Fogli ore | `rev 20 · 20nov26` (su `main` dal 20/11/2026) | angolo in basso a destra, ogni schermata | scritto nel file |
 
 **Criterio:** dove l'app aveva già una numerazione (USOINT `ver`, Dipendenti `APP_VER`) si usa e
 si incrementa **quella**; dove non c'era si è partiti da `rev 1`. **Mai due numerazioni nella
