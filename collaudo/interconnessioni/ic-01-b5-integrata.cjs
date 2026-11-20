@@ -60,7 +60,7 @@ async function sezione(page, btn, perc) {
   await f.waitForSelector('.app-header', { timeout: 40000 }); await K.attesa(800);
   await f.locator('.tabs .tab', { hasText: 'Ott' }).first().click(); await K.attesa(1500);
   const tDip = await f.evaluate(() => document.body.innerText);
-  chk('B5-06', 'Fogli ore (dati condivisi)', 'Dipendenti dentro l\'iframe', 'riga di confronto con le ore di Fogli ore', '5,00 h', (tDip.match(/ore sul foglio ore: [\d,]+ h/) || ['-'])[0], /ore sul foglio ore: 5,00 h/.test(tDip));
+  chk('B5-06', 'Fogli ore (dati condivisi)', 'Dipendenti dentro l\'iframe', 'riga di confronto con le ore di Fogli ore', '5,000 h', (tDip.match(/ore sul foglio ore: [\d,]+ h/) || ['-'])[0], /ore sul foglio ore: 5,000 h/.test(tDip));
   /* modifica non salvata in Dipendenti → cambio sezione */
   const cell = f.locator('.emp-card', { hasText: 'ROSSI MARIO' }).first().locator('input.cell-in').nth(1);
   await cell.click(); await cell.fill('6'); await cell.press('Tab'); await K.attesa(500);

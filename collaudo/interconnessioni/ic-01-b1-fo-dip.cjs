@@ -79,30 +79,30 @@ async function righeConfronto(page) {
   await K.aspettaTesto(dip, /Confronto con "Fogli ore"/, 15000);
   let r = await righeConfronto(dip);
   const rr = r['ROSSI MARIO'] || '';
-  chk('B1-03', 'Fogli ore', 'Dipendenti · Ott 2026', 'ore di ROSSI MARIO (2 servizi, formati 900/14.30/16h30/9)', '8,00 h', rr, /ore sul foglio ore: 8,00 h/.test(rr));
+  chk('B1-03', 'Fogli ore', 'Dipendenti · Ott 2026', 'ore di ROSSI MARIO (2 servizi, formati 900/14.30/16h30/9)', '8,000 h', rr, /ore sul foglio ore: 8,000 h/.test(rr));
   chk('B1-04', 'Fogli ore', 'Dipendenti · Ott 2026', 'assenza su 2 servizi contata una volta', 'FERIE 1 gg', rr, /FERIE 1 gg/.test(rr) && !/FERIE 2 gg/.test(rr));
   chk('B1-05', 'Fogli ore', 'Dipendenti · Ott 2026', 'totale discordante (Dipendenti 8 h celle = 5+3)', 'nessun «totale mese» (8 = 8)', rr, !/totale mese/.test(rr));
   const rf = r["FERRARE' LUCA"] || '';
-  chk('B1-06', 'Fogli ore (FERRARÈ LUCA)', 'Dipendenti (FERRARE\' LUCA)', 'abbinamento accento/apostrofo finale + formati storici 900/14.30/16h30/9-1030 + MALATTIA su 2 servizi', '8,50 h · MALATTIA 1 gg', rf,
-    /8,50 h/.test(rf) && /MALATTIA 1 gg/.test(rf));
+  chk('B1-06', 'Fogli ore (FERRARÈ LUCA)', 'Dipendenti (FERRARE\' LUCA)', 'abbinamento accento/apostrofo finale + formati storici 900/14.30/16h30/9-1030 + MALATTIA su 2 servizi', '8,500 h · MALATTIA 1 gg', rf,
+    /8,500 h/.test(rf) && /MALATTIA 1 gg/.test(rf));
   const ro = r['OMON:VERDI ANNA'] || '';
   chk('B1-07', 'Fogli ore (VERDI ANNA + VERDÌ ANNA)', 'Dipendenti', 'omonimi (account) → riquadro rosso, confronto sospeso', 'riquadro «Due persone» e nessuna riga di confronto', ro.slice(0, 160) + ' | riga: ' + !!r['VERDI ANNA'],
     /2 account/.test(ro) && !r['VERDI ANNA']);
   const rn = r['OMON:NERI CARLA'] || '';
   chk('B1-08', 'Dipendenti (2 schede NERI CARLA)', 'Dipendenti', 'omonimi (schede) → riquadro rosso', '«2 schede» e nessun confronto', rn.slice(0, 160) + ' | riga: ' + !!r['NERI CARLA'], /2 schede/.test(rn) && !r['NERI CARLA']);
   const rb = r['BIANCHI PAOLO'] || '';
-  chk('B1-09', 'Fogli ore', 'Dipendenti', 'BIANCHI PAOLO per nome', '5,00 h', rb, /5,00 h/.test(rb));
+  chk('B1-09', 'Fogli ore', 'Dipendenti', 'BIANCHI PAOLO per nome', '5,000 h', rb, /5,000 h/.test(rb));
 
   /* 3) modifica successiva in Fogli ore mentre Dipendenti è aperto */
   await dip.evaluate(p => window.__fakefb.seed(p, { 'timesheets/W1__2026_10_0': Object.assign({}, window.__fakefb.get(p, 'timesheets/W1__2026_10_0'), { days: Object.assign({}, window.__fakefb.get(p, 'timesheets/W1__2026_10_0').days, { '7': { t1f: '08:00', t1t: '10:00' } }) }) }), FO);
   await K.dipMese(dip, 'Set'); await K.dipMese(dip, 'Ott'); await K.attesa(1500);
   r = await righeConfronto(dip);
   const senzaRic = r['ROSSI MARIO'] || '';
-  riga('B1-10', 'Fogli ore (modifica +2 h)', 'Dipendenti già aperto', 'propagazione cambiando mese e tornando', '10,00 h (oppure dichiarato che serve ricaricare)', senzaRic,
-    /10,00 h/.test(senzaRic) ? 'SUPERATO' : 'PARZIALE');
+  riga('B1-10', 'Fogli ore (modifica +2 h)', 'Dipendenti già aperto', 'propagazione cambiando mese e tornando', '10,000 h (oppure dichiarato che serve ricaricare)', senzaRic,
+    /10,000 h/.test(senzaRic) ? 'SUPERATO' : 'PARZIALE');
   await dip.reload(); await dip.waitForSelector('.app-header', { timeout: 40000 }); await K.dipMese(dip, 'Ott'); await K.aspettaTesto(dip, /Confronto con/, 15000); await K.attesa(800);
   r = await righeConfronto(dip);
-  chk('B1-11', 'Fogli ore (modifica +2 h)', 'Dipendenti ricaricato', 'propagazione dopo ricarica', '10,00 h', r['ROSSI MARIO'] || '', /10,00 h/.test(r['ROSSI MARIO'] || ''));
+  chk('B1-11', 'Fogli ore (modifica +2 h)', 'Dipendenti ricaricato', 'propagazione dopo ricarica', '10,000 h', r['ROSSI MARIO'] || '', /10,000 h/.test(r['ROSSI MARIO'] || ''));
 
   /* 4) account agganciato (foUid) e cambio di nome in Fogli ore */
   dip.__risposte.push({ re: /Aggancio l'account/, ok: true });
@@ -119,7 +119,7 @@ async function righeConfronto(page) {
   await dip.evaluate(p => { const u = window.__fakefb.get(p, 'users/W5'); window.__fakefb.seed(p, { 'users/W5': Object.assign({}, u, { cognome: 'BIANCHI-SERRA', nome: 'PAOLO', name: 'BIANCHI-SERRA PAOLO' }) }); }, FO);
   await dip.reload(); await dip.waitForSelector('.app-header', { timeout: 40000 }); await K.dipMese(dip, 'Ott'); await K.aspettaTesto(dip, /Confronto con/, 15000); await K.attesa(800);
   r = await righeConfronto(dip);
-  chk('B1-13', 'Fogli ore (BIANCHI rinominato BIANCHI-SERRA)', 'Dipendenti (foUid W5)', 'il legame regge al cambio di nome', 'riga BIANCHI PAOLO 5,00 h', r['BIANCHI PAOLO'] || '(nessuna riga)', /5,00 h/.test(r['BIANCHI PAOLO'] || ''));
+  chk('B1-13', 'Fogli ore (BIANCHI rinominato BIANCHI-SERRA)', 'Dipendenti (foUid W5)', 'il legame regge al cambio di nome', 'riga BIANCHI PAOLO 5,000 h', r['BIANCHI PAOLO'] || '(nessuna riga)', /5,000 h/.test(r['BIANCHI PAOLO'] || ''));
 
   /* 5) zero scritture di Dipendenti su users/timesheets (log della finestra di Dipendenti) */
   const ops = await dip.evaluate(() => window.__fakefb.log);

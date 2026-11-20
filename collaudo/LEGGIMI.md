@@ -45,3 +45,14 @@ confronto diretto sulla ver140 (localizzata in `comune/.banco/uso140/`, vedi l'i
 argomento facoltativo (cartella) salva l'anteprima `casella-selezionata.png` a densità 2 (`contesto({dsf:2})`). Sulla
 ver141: `uso-ver139` 23/0 · `uso-ver140` 15/0 · `base` 36/0 · `budget` 40/0 (+1 parziale) · `riep` 48/0 · `dati` 33/0 ·
 `graf` 50/0 · `int-a01` 20/0.
+
+## Collaudo integrato del 20/11/2026 (versioni su main: Fogli ore rev 19 · Collaboratori rev 22 · Dipendenti ver187 · USOINT ver141 · integrata rev 6)
+
+Livello A rieseguito per intero: esiti **identici** a quelli registrati il 19/11 (vedi i LEGGIMI delle app). Livello B
+(`interconnessioni/`, banco comune 8340): b1 **14/16** (+2 parziali) · b2 14/17 · b2b **16/16** (6 controlli nuovi sulla
+chiusura del mese: `dip:true`, `meseChiuso`/`completamento`, riapertura dell'admin) · b3 20/21 · b4 **13/14** (B4-04 chiuso
+dalla rev 21 di Collaboratori) · b5 9/12 · b6 8/8 · b7 10/10 · b8 **10/11** (B8-04/05 chiusi dalla ver184 di Dipendenti) ·
+b9 **5/6** (B9-05 chiuso dalla rev 18 di Fogli ore) · b10 26/26.
+⚠️ Attese aggiornate, non aggirate: b1 e b5 leggevano le ore a 2 decimali (dalla ver185 sono a 3); b8 pretendeva che
+Dipendenti restasse dentro dopo «Esci» in Fogli ore, mentre dalla ver184 avvisa sulla schermata di accesso e conserva le
+modifiche (ora B8-04 controlla l'avviso, e il nuovo accesso preme «Entra» e non «⬇ Backup delle modifiche»).

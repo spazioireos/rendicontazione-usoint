@@ -38,8 +38,10 @@ const ls = { spazioireos_opoc: JSON.stringify([op('ROSSI MARIO')]), spazioireos_
   chk('B8-03', 'Dipendenti (admin collegato)', 'Fogli ore in un\'altra scheda', 'sessione [DEFAULT] condivisa: Fogli ore entra già come admin, senza password', 'entra (documentato)', 'già dentro come: ' + (fo2.__eraDentro || '(nessuno)'), fo2.__eraDentro === ADMIN);
   await fo2.locator('button', { hasText: 'Esci' }).first().click(); await K.attesa(1500);
   const loginDip = await dip.isVisible('.login-box input[type=password]').catch(() => false);
-  riga('B8-04', 'Fogli ore («Esci»)', 'Dipendenti nell\'altra scheda, con modifiche non salvate', 'uscire da Fogli ore fa uscire anche Dipendenti', 'Dipendenti resta dentro (o almeno avvisa)', loginDip ? 'Dipendenti è tornato alla schermata di accesso, senza nessun avviso' : 'Dipendenti è rimasto dentro', loginDip ? 'FALLITO' : 'SUPERATO');
-  if (loginDip) { const i = dip.locator('.login-box input'); await i.nth(0).fill(ADMIN); await i.nth(1).fill(PWD); await dip.click('.login-box button'); await dip.waitForSelector('.app-header', { timeout: 30000 }); await K.attesa(1000); await K.dipMese(dip, 'Ott'); }
+  /* dalla ver184 di Dipendenti: la schermata di accesso avvisa che le modifiche non salvate sono rimaste in memoria */
+  const avvisoDip = await dip.locator('.pendente-box').innerText().catch(() => '');
+  riga('B8-04', 'Fogli ore («Esci»)', 'Dipendenti nell\'altra scheda, con modifiche non salvate', 'uscire da Fogli ore fa uscire anche Dipendenti', 'Dipendenti resta dentro (o almeno avvisa)', loginDip ? ('schermata di accesso' + (avvisoDip ? ' CON avviso: ' + avvisoDip.replace(/\s+/g, ' ').slice(0, 140) : ', senza nessun avviso')) : 'resta dentro', (!loginDip || /disconnesso/.test(avvisoDip)) ? 'SUPERATO' : 'FALLITO');
+  if (loginDip) { const i = dip.locator('.login-box input'); await i.nth(0).fill(ADMIN); await i.nth(1).fill(PWD); await dip.locator('.login-box button', { hasText: 'Entra' }).click(); await dip.waitForSelector('.app-header', { timeout: 30000 }); await K.attesa(1000); await K.dipMese(dip, 'Ott'); }
   const val = await dip.locator('.emp-card').first().locator('input.cell-in').nth(1).inputValue().catch(() => '?');
   const btnSave = await dip.locator('button.btn-save').first().isDisabled().catch(() => null);
   riga('B8-05', 'Fogli ore («Esci»)', 'Dipendenti dopo il nuovo accesso', 'la modifica non salvata (2 ott = 7) c\'è ancora?', '7 (o un avviso prima di perderla)', 'cella 2 ott = «' + val + '» · 💾 ' + (btnSave ? 'spento' : 'acceso'), /^7/.test(val) ? 'SUPERATO' : 'FALLITO');
@@ -57,7 +59,7 @@ const ls = { spazioireos_opoc: JSON.stringify([op('ROSSI MARIO')]), spazioireos_
 
   /* 4) logout di Dipendenti non tocca la sessione «dip» di USOINT né «fogliore» di Collaboratori */
   { const altro = dip.locator('button', { hasText: 'Accedi con un altro account' }); if (await altro.count()) { await altro.first().click(); await K.attesa(500); } }
-  if (await dip.isVisible('.login-box input[type=password]').catch(() => false)) { const i = dip.locator('.login-box input'); await i.nth(0).fill(ADMIN); await i.nth(1).fill(PWD); await dip.click('.login-box button'); await dip.waitForSelector('.app-header', { timeout: 30000 }); }
+  if (await dip.isVisible('.login-box input[type=password]').catch(() => false)) { const i = dip.locator('.login-box input'); await i.nth(0).fill(ADMIN); await i.nth(1).fill(PWD); await dip.locator('.login-box button', { hasText: 'Entra' }).click(); await dip.waitForSelector('.app-header', { timeout: 30000 }); }
   const uso = await K.pagina(ctx); await K.loginUso(uso); await K.usoRiepilogo(uso);
   const col = await K.pagina(ctx); await K.loginCol(col); await K.colCollega(col);
   dip.__risposte.push({ re: /non salvate/, ok: true });
@@ -70,7 +72,7 @@ const ls = { spazioireos_opoc: JSON.stringify([op('ROSSI MARIO')]), spazioireos_
   chk('B8-08', 'Dipendenti (logout [DEFAULT])', 'Collaboratori «fogliore»', 'Collaboratori resta collegato', '«☁ Fogli ore ✓»', /Fogli ore ✓/.test(tC) ? 'collegato' : 'scollegato', /Fogli ore ✓/.test(tC));
   /* 5) logout di Collaboratori («fogliore») non tocca Dipendenti */
   const altro = dip.locator('button', { hasText: 'Accedi con un altro account' }); if (await altro.count()) { await altro.first().click(); await K.attesa(500); }
-  const i = dip.locator('.login-box input'); await i.nth(0).fill(ADMIN); await i.nth(1).fill(PWD); await dip.click('.login-box button'); await dip.waitForSelector('.app-header', { timeout: 30000 });
+  const i = dip.locator('.login-box input'); await i.nth(0).fill(ADMIN); await i.nth(1).fill(PWD); await dip.locator('.login-box button', { hasText: 'Entra' }).click(); await dip.waitForSelector('.app-header', { timeout: 30000 });
   await col.evaluate(() => foLogout()); await K.attesa(1200);
   const dipDentro = await dip.isVisible('.app-header');
   chk('B8-09', 'Collaboratori (scollega Fogli ore)', 'Dipendenti', 'Dipendenti resta dentro', 'dentro', dipDentro ? 'dentro' : 'fuori', dipDentro);
