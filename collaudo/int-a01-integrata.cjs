@@ -21,7 +21,8 @@ function c(id, f, a, e, cond) { const st = cond ? 'SUPERATO' : 'FALLITO'; cond ?
   const html = await (await ctx.request.get(URL)).text();
   c('02', 'iframe nel sorgente', 'src="about:blank"', (html.match(/<iframe[^>]*>/) || [''])[0], /<iframe id="app"[^>]*src="about:blank"/.test(html));
   const rev = await page.textContent('.rev');
-  c('03', 'targhetta', 'rev 6 · 08nov26', rev, /rev 6 · 08nov26/.test(rev));
+  const REVI = (require('fs').readFileSync(__dirname + '/../integrata/index.html', 'utf8').match(/rev \d+ · \d{2}[a-z]{3}\d{2}/) || [''])[0];   /* si legge dal file: non invecchia */
+  c('03', 'targhetta', REVI, rev, rev.indexOf(REVI) !== -1 && !!REVI);
   c('04', 'quattro pulsanti', '4', await page.locator('nav.pulsanti .btn').count(), await page.locator('nav.pulsanti .btn').count() === 4);
   const g = await page.evaluate(() => ({ barra: Math.round(document.querySelector('.barra').getBoundingClientRect().height), btn: Array.from(document.querySelectorAll('.btn')).map(x => Math.round(x.getBoundingClientRect().height)), rev: getComputedStyle(document.querySelector('.rev')).fontSize, tit: getComputedStyle(document.querySelector('.titolo')).fontSize, bf: getComputedStyle(document.querySelector('.btn')).fontSize, sw: document.documentElement.scrollWidth }));
   c('05', 'barra a 1280px', '62px', g.barra, g.barra === 62);

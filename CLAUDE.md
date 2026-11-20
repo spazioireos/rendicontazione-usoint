@@ -9,7 +9,7 @@ USOINT sta per **"uso interno"**.
 - **In questo repo c'è anche la PAGINA INTEGRATA**: `integrata/index.html`, il link unico
   `https://spazioireos.github.io/rendicontazione-usoint/integrata/` con i quattro pulsanti
   (Collaboratori, Dipendenti, Rendicontazione progetti, Fogli ore). **Apre i LINK LIVE**, non
-  copie: ha un suo numero di revisione (attuale `rev 6 · 08nov26`) nella barra.
+  copie: ha un suo numero di revisione (attuale `rev 7 · 20nov26`, sul ramo di lavoro; su `main` la rev 6) nella barra.
   🔄 **L'app arriva sempre fresca** (rev 5, 05/11/2026, scelta **A** di Christian dopo che aveva
   visto la ver90 quando su Pages c'era già la ver92). L'indirizzo dentro l'`iframe` era **sempre
   identico**, quindi il browser serviva la **copia in memoria**: si vedevano versioni vecchie per
@@ -36,7 +36,7 @@ USOINT sta per **"uso interno"**.
   `usoint-tariffe`, `usoint-simul`, **`usoint-codici`** (dalla ver136: codice operatore → riga).
   Accesso mail+password.
 - **Numero di revisione**: costante `const VER` (riga ~67), mostrata in **tre punti** (Home,
-  scheda progetto, Riepilogo operatori). **Attuale: ver141 · 19nov26 (approvata da Christian e portata su `main` il 19/11/2026: «main per le tre app»).** `VER` finisce anche nei
+  scheda progetto, Riepilogo operatori). **Attuale: ver142 · 20nov26, sul ramo di lavoro, da approvare** (su `main` c'è la ver141 · 19nov26). `VER` finisce anche nei
   nomi dei file esportati: incrementarla, non affiancarle un secondo numero.
 - **Strutture utili**: `usoint-orelav` = `{ [norm(nome)]: { [anno]: [12 numeri] } }` (ore
   lavorate, indice 0 = gennaio; `norm` = minuscolo, trim, spazi singoli).
@@ -76,6 +76,20 @@ USOINT sta per **"uso interno"**.
 - **Funzioni presenti**: import automatico (SOLA LETTURA) delle ore lavorate dal database dei
   Dipendenti tramite una **seconda app Firebase** chiamata "dip"; tabella compatta della scheda
   operatore (Lavorate | una colonna per progetto | Tot. rendicontate | Avanzo).
+- 🔧 **ver142 e pagina integrata rev 7 (20/11/2026, risposte di Christian al collaudo integrato: «2, Christian», «5, correggi»,
+  «6, correggi»)**:
+  1. **Autore «Christian»** (era «Christian Canonica») nei tre Excel e nei `meta` della pagina.
+  2. **Cofinanziamento per voce salvato al centesimo**: scrivendo il finanziato, `cofin = R2(max(0, importo − finanziato))` (prima
+     poteva restare 551,8249999…). Solo le due caselle «finanziato» di personale e beni; il motore non è toccato.
+  3. **Le ore lavorate non salvate del Riepilogo operatori fanno scattare l'avviso alla chiusura** (`window._lavNonSalvate`, letto
+     dal `beforeunload` accanto a `_dirtyKV`): così anche cambiando sezione nella pagina integrata compare la domanda del browser,
+     invece di perderle in silenzio (collaudo B5-11).
+  4. **Pagina integrata rev 7**: pulsante acceso, titolo e sezione ricordata si aggiornano **solo quando la nuova app si è caricata**
+     (`inArrivo`, `segna`, evento `load` dell'`iframe`). Rispondendo «Resta» all'avviso dell'app, il pulsante acceso resta quello
+     dell'app che si vede e ripremere la sezione scelta riprova davvero (collaudo B5-04/B5-05). Se l'app vecchia si ricarica da sé
+     dopo un «Resta», l'indirizzo letto (stesso sito) non è quello scelto e non si cambia niente. Il resto (indirizzo fresco,
+     nessun ricaricamento ripremendo la sezione aperta, nessuna altezza fissa) è identico.
+  **Nessuna dicitura nuova.** Provato: batteria `uso-a01-*`, `int-a01-integrata`, `uso-ver139/140/141`, interconnessioni `ic-01-b5`.
 - ✍️ **ENTRANDO IN UNA CASELLA DI ORE O IMPORTI, IL CONTENUTO SI SELEZIONA TUTTO** (ver141, 19/11/2026,
   **approvata da Christian e portata su `main` il 19/11/2026: «main per le tre app»**; richiesta di Christian: «consenti, quando entro in una cella per compilare le ore, che
   la precedente scritta si selezioni tutta e io ci scriva sopra»).
@@ -1107,7 +1121,7 @@ esplicitamente**: una valutazione teorica del codice non sostituisce una verific
 
 - Nome file: `[descrizione] - ggMMMaa - verN - HH.MM.ext` (mesi italiani minuscoli, ora di Roma,
   senza underscore).
-- Autore nei metadata sempre **"Christian Canonica"**; veri file Office, mai testo camuffato;
+- Autore nei metadata sempre **"Christian"** (decisione di Christian del 20/11/2026: «2, Christian»; prima qui c'era «Christian Canonica»); veri file Office, mai testo camuffato;
   elenchi nominativi in **STAMPATELLO**.
 - **Versioni sequenziali, mai saltate**, ognuna verificata. Prima di un cambiamento grosso
   Christian fornisce la versione attuale stabile come punto di salvataggio, per poter tornare

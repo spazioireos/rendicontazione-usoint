@@ -113,7 +113,7 @@
 <body>
   <header class="barra">
     <div class="titolo"><span class="pallino"></span>SPAZIO IREOS · Gestionale integrato</div>
-    <span class="rev" title="Revisione di questa pagina: serve a capire a colpo d'occhio se stai vedendo la versione aggiornata">rev 6 · 08nov26</span>
+    <span class="rev" title="Revisione di questa pagina: serve a capire a colpo d'occhio se stai vedendo la versione aggiornata">rev 7 · 20nov26</span>
     <nav class="pulsanti">
       <button class="btn" id="btn-collaboratori" type="button" onclick="apri('collaboratori')">
         <span class="ico">&#128101;</span> Collaboratori
@@ -156,15 +156,16 @@
     return url + (url.indexOf('?') >= 0 ? '&' : '?') + 'v=' + Date.now();
   }
 
-  function apri(nome){
+  /* rev 7 (20/11/2026, Christian: «correggi»). Cambiando sezione, l'app aperta puo' chiedere
+     «Vuoi uscire? Ci sono modifiche non salvate». Se si risponde «Resta» la finestra interna non
+     cambia, quindi pulsante acceso, titolo e sezione ricordata si aggiornano SOLO quando la nuova
+     app si e' davvero caricata (evento «load»). Cosi' il pulsante acceso e' sempre quello dell'app
+     che si vede, e ripremere la sezione scelta riprova davvero ad aprirla. */
+  var inArrivo = null;
+  function assoluto(u){ try { return new URL(u, location.href).href; } catch(e){ return u; } }
+
+  function segna(nome){
     var s = SEZIONI[nome] || SEZIONI.collaboratori;
-    var frame = document.getElementById('app');
-    /* Se si ripreme il pulsante della sezione gia' aperta NON si ricarica niente: dentro
-       l'app potrebbero esserci modifiche non ancora salvate con il 💾. */
-    if (frame.getAttribute('data-sezione') !== nome){
-      frame.src = fresco(s.url);
-      frame.setAttribute('data-sezione', nome);
-    }
     for (var k in SEZIONI){
       var b = document.getElementById(SEZIONI[k].btn);
       if (b) b.classList.toggle('attivo', k === nome);
@@ -172,6 +173,28 @@
     try { localStorage.setItem(CHIAVE, nome); } catch(e){}
     document.title = 'Spazio Ireos – ' + s.titolo;
   }
+
+  function apri(nome){
+    var s = SEZIONI[nome] || SEZIONI.collaboratori;
+    if (!SEZIONI[nome]) nome = 'collaboratori';
+    var frame = document.getElementById('app');
+    /* Se si ripreme il pulsante della sezione gia' aperta NON si ricarica niente: dentro
+       l'app potrebbero esserci modifiche non ancora salvate con il 💾. */
+    if (frame.getAttribute('data-sezione') === nome) { inArrivo = null; segna(nome); return; }
+    inArrivo = nome;
+    frame.src = fresco(s.url);
+  }
+
+  document.getElementById('app').addEventListener('load', function(){
+    if (!inArrivo) return;              /* un ricaricamento fatto dall'app stessa: niente da cambiare */
+    var nome = inArrivo; inArrivo = null;
+    /* se l'indirizzo si puo' leggere (stesso sito) e non e' quello della sezione scelta, e' l'app
+       vecchia che si e' ricaricata da se' dopo un «Resta»: non si cambia niente */
+    var dove = ''; try { dove = String(this.contentWindow.location.href); } catch(e){}
+    if (dove && dove !== 'about:blank' && dove.indexOf(assoluto(SEZIONI[nome].url)) !== 0) return;
+    this.setAttribute('data-sezione', nome);
+    segna(nome);
+  });
 
   (function(){
     var iniziale = 'collaboratori';

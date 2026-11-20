@@ -79,7 +79,8 @@ const campi = x => x ? { wc: x.workerConfirmed, mc: x.meseChiuso, at: typeof x.m
   /* ===== 1. Dipendenti: 📤 Pubblica i residui → dip:true ===== */
   let dip = await apriDip(ctx);
   const targa = await dip.locator('.app-rev').innerText().catch(() => '');
-  chk('B10-00a', '—', 'Dipendenti', 'versione servita dal banco', 'ver187', targa, /ver187/.test(targa));
+  const VD = (require('fs').readFileSync(require('path').join(__dirname, '../../../ore-mensili-dipendenti/index.html'), 'utf8').match(/const APP_VER = "(ver\d+)"/) || [])[1];
+  chk('B10-00a', '—', 'Dipendenti', 'versione servita dal banco (letta dal file)', VD, targa, new RegExp(VD).test(targa));
   const P0 = await pastiglie(dip);
   chk('B10-01', 'Fogli ore (ore di novembre, mese aperto)', 'Dipendenti · Tabellone nov 2026', 'pastiglia PRIMA della chiusura', 'tutti e tre «Mese non ancora chiuso in Fogli ore»', JSON.stringify(P0),
     ['ROSSI MARIO', 'BIANCHI ANNA', 'VERDI LUCA'].every(n => P0[n] === 'Mese non ancora chiuso in Fogli ore'));
@@ -100,7 +101,8 @@ const campi = x => x ? { wc: x.workerConfirmed, mc: x.meseChiuso, at: typeof x.m
   const fo = await apri(ctx);
   await entraFO(fo, 'rossi@prova.it');
   const targaFO = await fo.evaluate(() => (document.querySelector('.revtag') || {}).innerText || '');
-  chk('B10-00b', '—', 'Fogli ore', 'versione servita dal banco', 'rev 19', targaFO, /rev 19/.test(targaFO));
+  const VF = (require('fs').readFileSync(require('path').join(__dirname, '../../../spazioireos-foglio-ore/index.html'), 'utf8').match(/FO_REV="(rev \d+)/) || [])[1];
+  chk('B10-00b', '—', 'Fogli ore', 'versione servita dal banco (letta dal file)', VF, targaFO, targaFO.indexOf(VF) !== -1);
   const dataPag = await fo.evaluate(() => new Date().toISOString());
   let tv = await testoVelo(fo);
   chk('B10-06', 'residui/W1 dip:true', 'Fogli ore (ROSSI, 1/12/2026)', 'riquadro bloccante CON la domanda', TITOLO + ' + domanda + 2 scelte', 'data=' + dataPag + ' velo=' + await velo(fo) + ' titolo=' + (tv.indexOf(TITOLO) >= 0) + ' domanda=' + (tv.indexOf(DOMANDA) >= 0) + ' scelte=' + (await fo.$$('#chiu-box input[name=chiu-comp]')).length,

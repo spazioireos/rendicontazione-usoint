@@ -56,3 +56,15 @@ b9 **5/6** (B9-05 chiuso dalla rev 18 di Fogli ore) · b10 26/26.
 ⚠️ Attese aggiornate, non aggirate: b1 e b5 leggevano le ore a 2 decimali (dalla ver185 sono a 3); b8 pretendeva che
 Dipendenti restasse dentro dopo «Esci» in Fogli ore, mentre dalla ver184 avvisa sulla schermata di accesso e conserva le
 modifiche (ora B8-04 controlla l'avviso, e il nuovo accesso preme «Entra» e non «⬇ Backup delle modifiche»).
+
+## Correzioni del 20/11/2026 (risposte di Christian al collaudo integrato) — ramo di lavoro, da approvare
+
+Versioni: Fogli ore **rev 20** · Collaboratori **rev 23** · Dipendenti **ver189** · USOINT **ver142** · integrata **rev 7**.
+
+| batteria | esito | note |
+|---|---|---|
+| Fogli ore `fo-a01`…`a07`, `fo-rev18`, `fo-rev19` | 263/270 | C17 (autore) ora superato; restano A08, A14b, C18, C21b, D14a, D18, D21 come il 19/11 |
+| Collaboratori `col-a01-*`, `col-rev21`, `col-rev22` | 282/285 | R09, R10, K04, T11, F15, G-TSall ora superati; L05b aggiornato alla decisione (debito vero di 1 centesimo: resta); restano N19 parziale e X04 (Drive) |
+| Dipendenti `a01`…`a08`, `ver186`, `ver187`, `ver189` | 342/342 | A02.35 e A04.27 ora superati; `ver183`/`ver184` M22-M30/`ver185` R26-27 leggono il report vecchio: sostituiti da `ver189` |
+| USOINT `uso-a01-*`, `int-a01-integrata`, `uso-ver139/140/141` | 307/307 | D06c ora superato; B03 di `int-a01` legge la targhetta dal file |
+| Interconnessioni `ic-01-b1`…`b10` | 149/157 | **B5-04, B5-05, B5-11 ora superati**; B10 26/26 (targhe lette dai file); restano B2-08, B8-06, B9-04 e i parziali noti |

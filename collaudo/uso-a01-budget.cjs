@@ -152,7 +152,7 @@ async function riga(loc) { return loc.evaluate(el => { let n = el; for (let i = 
     const ws = wb.Sheets.Budget; const rows = XLSX.utils.sheet_to_json(ws, { header: 1 });
     const rA = rows.find(x => x[0] === 'ALFA PROVA') || [];
     c('D36', 'riga ALFA PROVA nel foglio Budget', 'ore 67,5 €/h 22,99 costo 1551,825', rA.slice(3, 7).join(' | '), rA[3] === 67.5 && rA[4] === 22.99 && Math.abs(rA[5] - 1551.825) < 0.001);
-    c('D37', 'autore nei metadati', 'Christian Canonica', (wb.Props || {}).Author, (wb.Props || {}).Author === 'Christian Canonica');
+    c('D37', 'autore nei metadati', 'Christian', (wb.Props || {}).Author, (wb.Props || {}).Author === 'Christian');
     fs.unlinkSync(f);
   } else c('D34', 'export Excel', 'download', 'nessun download', false);
   /* ore nell'anno aggiunto con la proroga: arrivano nel Riepilogo operatori? */
