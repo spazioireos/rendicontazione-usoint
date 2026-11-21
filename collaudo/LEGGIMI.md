@@ -100,3 +100,18 @@ Collaboratori: tutta la batteria `col-a01-*`, `col-rev21`, `col-rev22` senza fal
 USOINT: `uso-a01-*`, `uso-ver139/140/141`, `int-a01-integrata` senza falliti.
 Dipendenti: `a01`…`a08` (a07 61/3, i tre storici), `ver186`…`ver204` senza falliti nuovi (`ver187` 31/1: V29 storico), `a05` 28/0 (pastiglia nuova).
 Interconnessioni: b1 14/0 (+2 parziali noti) · b2 16/0 (B2-08 ora superato) · b2b 16/0 · b3 20/0 · b4 13/0 · b5 12/0 · b6 8/0 · b7 10/0 · b8 11/0 · b9 6/0 (B9-04 ora superato) · b10 26/0 · b8b 9/0.
+
+## Collaudo integrato del 21/11/2026, sera (versioni su main: Fogli ore rev 21 · Collaboratori rev 24 · Dipendenti ver205 · USOINT ver143 · integrata rev 8)
+
+Banchi rigenerati dopo il «Main» (comune 8340/8341/8344, Dipendenti 8300), tutte le batterie rieseguite. Versioni pubblicate su Pages
+controllate: coincidono con `main`.
+- **Livello A**: Fogli ore 270/270 (`fo-a01`…`a07`, `fo-rev18`, `fo-rev19`) · Collaboratori 283 superati + 1 non verificato + 1
+  informativo (`col-a01-*`, `col-rev21`, `col-rev22`; N19 nome lunghissimo a 1500 e 390px: pagina larga come lo schermo) ·
+  USOINT + integrata 307/307 (targhetta integrata 12,5px misurata) · Dipendenti 534 superati, 22 non superati **tutti attese
+  invecchiate**: `a07` 3 (testo della ver182), `ver187` V29 (numeri della ver186), `ver184` 18 (report sostituiti dalla ver188/194,
+  tre decimali della ver185, confronti con la ver183 cambiati di proposito dalle ver201/203/204). Da riallineare, non regressioni.
+- **Livello B** (interconnessioni): 161 superati, 0 falliti, 4 parziali noti (B1-10 e B4-09: si vede l'aggiornamento ricaricando;
+  B1-15 e B3-19: con la lettura caduta il messaggio dice «permessi»), 1 non verificato (B2-15: la finta Firebase non applica regole,
+  coperto da `b2b` sull'emulatore).
+- **Dati veri** (backup del 19/11, scratchpad): ver204 → ver205 C identico 217/217, Risultato 5 schede (≤ 0,003 h), Tetto 8, costo
+  orario 2026 151.094,99 → 151.095,03 €, `cedOre` identico, zero errori di pagina.
