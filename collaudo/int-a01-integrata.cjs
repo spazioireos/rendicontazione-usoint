@@ -35,6 +35,8 @@ function c(id, f, a, e, cond) { const st = cond ? 'SUPERATO' : 'FALLITO'; cond ?
   for (const [id, perc] of SEZ) {
     const n0 = docs.length;
     await page.click('#' + id); await page.waitForTimeout(LIVE ? 2500 : 900);
+    /* rev 7: il pulsante si accende quando l'app è caricata (evento load): sul sito vero può volerci più di 2,5 s */
+    if (LIVE) await page.waitForFunction(i => document.getElementById(i).classList.contains('attivo'), id, { timeout: 15000 }).catch(() => {});
     const src = await page.getAttribute('#app', 'src');
     const nuove = docs.slice(n0).filter(u => /\?v=\d+/.test(u));
     vs.push((src.match(/v=(\d+)/) || [])[1]);
