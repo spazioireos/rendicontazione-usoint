@@ -75,3 +75,18 @@ Versioni: Fogli ore **rev 20** · Collaboratori **rev 23** · Dipendenti **ver18
 (cambio diretto di account e Dipendenti aperto dopo); Dipendenti mostra «Accesso non consentito» senza chiudere l'accesso; rientrando
 come amministratore la modifica non salvata è ancora lì e non è nel cloud. `ic-01-b8` **11/11** (B8-06 ora superato), `b1` 14/16,
 `b2` 15/17, `b3` 20/21, `b5` 12/12, `b10` 26/26 (identici a prima).
+
+## Collaudo integrato del 21/11/2026 (versioni su main: Fogli ore rev 20 · Collaboratori rev 23 · Dipendenti ver203 · USOINT ver142 · integrata rev 7)
+
+Sito pubblicato identico byte per byte a `main` (5 pagine su 5). Regole Firestore (emulatore ufficiale, `prova-residui`) **60/60**.
+
+| livello | batteria | esito |
+|---|---|---|
+| A | Fogli ore `fo-a01`…`a07`, `fo-rev18`, `fo-rev19` | 263/270 (3 falliti, 4 parziali: A08, A14b, C18, C21b, D14a, D18, D21, come il 20/11) |
+| A | Collaboratori `col-a01-*`, `col-rev21`, `col-rev22` | 282/285 (N19 parziale, X04 non verificabile, 1 informativo) |
+| A | Dipendenti `a01`…`a08`, `ver186`, `ver194`…`ver203` | 432/435 (i 3 storici di `a07`); `ver182`-`ver185`, `ver187` V29, `ver189`, `ver200` hanno attese invecchiate dalle ver188-ver203 |
+| A | USOINT `uso-a01-*`, `uso-ver139/140/141`, `int-a01-integrata` | 307/307 · pagina vera 20/20 |
+| B | `ic-01-b1`…`b10`, `ic-02-b8b` | 159/166 (B2-08 e B9-04 falliti, 4 parziali, 1 non verificato: come il 20/11) |
+
+⚠️ `int-a01-integrata.cjs live`: L09 cadeva sul sito vero perché dalla rev 7 il pulsante si accende solo quando l'app è caricata
+(evento `load`) e lo script aspettava 2,5 s; ora aspetta fino a 15 s che si accenda. **Attesa aggiornata, non aggirata.**
