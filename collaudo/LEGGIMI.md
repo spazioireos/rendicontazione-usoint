@@ -91,7 +91,7 @@ Sito pubblicato identico byte per byte a `main` (5 pagine su 5). Regole Firestor
 ⚠️ `int-a01-integrata.cjs live`: L09 cadeva sul sito vero perché dalla rev 7 il pulsante si accende solo quando l'app è caricata
 (evento `load`) e lo script aspettava 2,5 s; ora aspetta fino a 15 s che si accenda. **Attesa aggiornata, non aggirata.**
 
-## Correzioni del 21/11/2026 sopra il collaudo integrato (Fogli ore rev 21 · Collaboratori rev 24 · Dipendenti ver205 · USOINT ver143 · integrata rev 8, tutte sul ramo)
+## Correzioni del 21/11/2026 sopra il collaudo integrato (Fogli ore rev 21 · Collaboratori rev 24 · Dipendenti ver205 · USOINT ver143 · integrata rev 8, su `main` dal 21/11/2026: «Main»)
 
 Batterie rieseguite sulle versioni nuove (banco comune rigenerato dopo ogni modifica):
 Fogli ore `fo-a01` 27/0 · `fo-a02` 33/0 · `fo-a03` 38/0 · `fo-a04` 50/0 · `fo-a05` 22/0 · `fo-a06` 10/0 · `fo-a07` 8/0 · `fo-rev18` 41/0 · `fo-rev19` 41/0

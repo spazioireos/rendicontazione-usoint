@@ -9,7 +9,7 @@ USOINT sta per **"uso interno"**.
 - **In questo repo c'è anche la PAGINA INTEGRATA**: `integrata/index.html`, il link unico
   `https://spazioireos.github.io/rendicontazione-usoint/integrata/` con i quattro pulsanti
   (Collaboratori, Dipendenti, Rendicontazione progetti, Fogli ore). **Apre i LINK LIVE**, non
-  copie: ha un suo numero di revisione (attuale sul ramo `rev 8 · 21nov26`, non ancora su `main`; su `main` la rev 7) nella barra.
+  copie: ha un suo numero di revisione (attuale `rev 8 · 21nov26`, su `main` dal 21/11/2026: «Main») nella barra.
   🔤 **rev 8 (21/11/2026, Christian: «5 sistema»)**: la targhetta passa da 12 a **12,5px** (§10.6). Nient'altro.
   🔄 **L'app arriva sempre fresca** (rev 5, 05/11/2026, scelta **A** di Christian dopo che aveva
   visto la ver90 quando su Pages c'era già la ver92). L'indirizzo dentro l'`iframe` era **sempre
@@ -37,7 +37,7 @@ USOINT sta per **"uso interno"**.
   `usoint-tariffe`, `usoint-simul`, **`usoint-codici`** (dalla ver136: codice operatore → riga).
   Accesso mail+password.
 - **Numero di revisione**: costante `const VER` (riga ~67), mostrata in **tre punti** (Home,
-  scheda progetto, Riepilogo operatori). **Attuale sul ramo di lavoro: ver143 · 21nov26 — NON ancora approvata, NON su `main`** (su `main` la ver142). `VER` finisce anche nei
+  scheda progetto, Riepilogo operatori). **Attuale: ver143 · 21nov26 — approvata da Christian e portata su `main` il 21/11/2026 («Main»)** (prima su `main` la ver142). `VER` finisce anche nei
   nomi dei file esportati: incrementarla, non affiancarle un secondo numero.
 - **Strutture utili**: `usoint-orelav` = `{ [norm(nome)]: { [anno]: [12 numeri] } }` (ore
   lavorate, indice 0 = gennaio; `norm` = minuscolo, trim, spazi singoli).
