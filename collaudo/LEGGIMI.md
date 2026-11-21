@@ -90,3 +90,13 @@ Sito pubblicato identico byte per byte a `main` (5 pagine su 5). Regole Firestor
 
 ⚠️ `int-a01-integrata.cjs live`: L09 cadeva sul sito vero perché dalla rev 7 il pulsante si accende solo quando l'app è caricata
 (evento `load`) e lo script aspettava 2,5 s; ora aspetta fino a 15 s che si accenda. **Attesa aggiornata, non aggirata.**
+
+## Correzioni del 21/11/2026 sopra il collaudo integrato (Fogli ore rev 21 · Collaboratori rev 24 · Dipendenti ver205 · USOINT ver143 · integrata rev 8, tutte sul ramo)
+
+Batterie rieseguite sulle versioni nuove (banco comune rigenerato dopo ogni modifica):
+Fogli ore `fo-a01` 27/0 · `fo-a02` 33/0 · `fo-a03` 38/0 · `fo-a04` 50/0 · `fo-a05` 22/0 · `fo-a06` 10/0 · `fo-a07` 8/0 · `fo-rev18` 41/0 · `fo-rev19` 41/0
+(A08, A14b, C18, C21b, D14a, D18, D21 ora superati; D18 accetta la frase italiana «Ore NON salvate»).
+Collaboratori: tutta la batteria `col-a01-*`, `col-rev21`, `col-rev22` senza falliti (N19 ora superato).
+USOINT: `uso-a01-*`, `uso-ver139/140/141`, `int-a01-integrata` senza falliti.
+Dipendenti: `a01`…`a08` (a07 61/3, i tre storici), `ver186`…`ver204` senza falliti nuovi (`ver187` 31/1: V29 storico), `a05` 28/0 (pastiglia nuova).
+Interconnessioni: b1 14/0 (+2 parziali noti) · b2 16/0 (B2-08 ora superato) · b2b 16/0 · b3 20/0 · b4 13/0 · b5 12/0 · b6 8/0 · b7 10/0 · b8 11/0 · b9 6/0 (B9-04 ora superato) · b10 26/0 · b8b 9/0.

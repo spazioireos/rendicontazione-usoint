@@ -9,7 +9,8 @@ USOINT sta per **"uso interno"**.
 - **In questo repo c'è anche la PAGINA INTEGRATA**: `integrata/index.html`, il link unico
   `https://spazioireos.github.io/rendicontazione-usoint/integrata/` con i quattro pulsanti
   (Collaboratori, Dipendenti, Rendicontazione progetti, Fogli ore). **Apre i LINK LIVE**, non
-  copie: ha un suo numero di revisione (attuale `rev 7 · 20nov26`, su `main` dal 20/11/2026) nella barra.
+  copie: ha un suo numero di revisione (attuale sul ramo `rev 8 · 21nov26`, non ancora su `main`; su `main` la rev 7) nella barra.
+  🔤 **rev 8 (21/11/2026, Christian: «5 sistema»)**: la targhetta passa da 12 a **12,5px** (§10.6). Nient'altro.
   🔄 **L'app arriva sempre fresca** (rev 5, 05/11/2026, scelta **A** di Christian dopo che aveva
   visto la ver90 quando su Pages c'era già la ver92). L'indirizzo dentro l'`iframe` era **sempre
   identico**, quindi il browser serviva la **copia in memoria**: si vedevano versioni vecchie per
@@ -36,7 +37,7 @@ USOINT sta per **"uso interno"**.
   `usoint-tariffe`, `usoint-simul`, **`usoint-codici`** (dalla ver136: codice operatore → riga).
   Accesso mail+password.
 - **Numero di revisione**: costante `const VER` (riga ~67), mostrata in **tre punti** (Home,
-  scheda progetto, Riepilogo operatori). **Attuale: ver142 · 20nov26 — approvata da Christian e portata su `main` il 20/11/2026** («Main per tutto»). `VER` finisce anche nei
+  scheda progetto, Riepilogo operatori). **Attuale sul ramo di lavoro: ver143 · 21nov26 — NON ancora approvata, NON su `main`** (su `main` la ver142). `VER` finisce anche nei
   nomi dei file esportati: incrementarla, non affiancarle un secondo numero.
 - **Strutture utili**: `usoint-orelav` = `{ [norm(nome)]: { [anno]: [12 numeri] } }` (ore
   lavorate, indice 0 = gennaio; `norm` = minuscolo, trim, spazi singoli).
@@ -76,6 +77,11 @@ USOINT sta per **"uso interno"**.
 - **Funzioni presenti**: import automatico (SOLA LETTURA) delle ore lavorate dal database dei
   Dipendenti tramite una **seconda app Firebase** chiamata "dip"; tabella compatta della scheda
   operatore (Lavorate | una colonna per progetto | Tot. rendicontate | Avanzo).
+- 🔐 **ver143 (21/11/2026, Christian: «1, Aggiungi avviso»; collaudo B9-04)**: il 💾 **«Salva ore lavorate»** del Riepilogo
+  operatori controlla il **timbro** della ver131 come gli altri salvataggi: con due schede aperte, la seconda non cancella più in
+  silenzio le ore lavorate salvate dalla prima (misurato prima: 21 → 11), ma chiede «Un'altra scheda ha salvato dopo di te … (le ore
+  lavorate del Riepilogo operatori)». Riuscito, scrive il timbro. ⚠️ Il timbro è **uno per tutta l'app**: dopo un salvataggio delle
+  ore lavorate, un'altra scheda che salva un lavoro riceve anche lei la domanda (prudente, voluto). Nient'altro cambia.
 - 🔧 **ver142 e pagina integrata rev 7 (20/11/2026, risposte di Christian al collaudo integrato: «2, Christian», «5, correggi»,
   «6, correggi»)**:
   1. **Autore «Christian»** (era «Christian Canonica») nei tre Excel e nei `meta` della pagina.
