@@ -67,7 +67,7 @@ in cache (problema realmente capitato).
 |---|---|---|---|
 | App integrata | `rev 7 · 20nov26` (su `main` dal 20/11/2026) | barra in alto | scritto nel file |
 | Collaboratori | `rev 23 · 20nov26` (su `main` dal 20/11/2026) | copertina + schermata PIN (`.revtag`) | scritto nel file |
-| Dipendenti | `ver197 · 20nov26` sul ramo di lavoro (ver196: ASS.ING e ASP 0h sempre a quota piena, senza compensazione; ver197: capsula «Devi riempire ancora per» e linguette E/NE dell'erosione; su `main` la ver195: report A4 con le ore anche a parole, una persona per pagina, mai ore sui giorni AN) | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
+| Dipendenti | `ver197 · 20nov26` (su `main` dal 21/11/2026 con la ver196; ver196: ASS.ING e ASP 0h sempre a quota piena, senza compensazione; ver197: capsula «Devi riempire ancora per» e linguette E/NE dell'erosione; su `main` la ver195: report A4 con le ore anche a parole, una persona per pagina, mai ore sui giorni AN) | testata, tutte le viste (`.app-rev`) | costanti `APP_VER` + `APP_DATA` |
 | Rendicontazione USOINT | `ver142 · 20nov26` (su `main` dal 20/11/2026) | Home, scheda progetto, Riepilogo operatori | costante `VER` |
 | Fogli ore | `rev 20 · 20nov26` (su `main` dal 20/11/2026) | angolo in basso a destra, ogni schermata | scritto nel file |
 
