@@ -132,9 +132,16 @@ async function righeConfronto(page) {
   await K.dipMese(dip, 'Nov'); await K.attesa(1500);
   const tNov = await K.testo(dip);
   const msgErr = (tNov.match(/confronto Fogli ore non disponibile[^\n]*/) || [''])[0];
-  riga('B1-15', 'Fogli ore (lettura caduta)', 'Dipendenti · Nov 2026', 'messaggio quando la lettura di timesheets cade', 'dice che il confronto non è disponibile e perché', msgErr || '(niente a video)',
-    msgErr ? (/permessi/.test(msgErr) ? 'PARZIALE' : 'SUPERATO') : 'FALLITO');
+  /* ver207: con la linea caduta dice che manca il collegamento, non i permessi */
+  chk('B1-15', 'Fogli ore (lettura caduta)', 'Dipendenti · Nov 2026', 'messaggio quando la lettura di timesheets cade', 'confronto non disponibile: non c\'è collegamento (niente «permessi»)', msgErr || '(niente a video)',
+    /non c'è collegamento/.test(msgErr) && !/permessi/.test(msgErr));
   await dip.evaluate(() => { window.__fakefb.failReads = false; });
+  /* ver207: con i permessi negati dice «permessi» */
+  await dip.evaluate(p => { window.__fakefb.deny = [{ project: p, coll: 'timesheets', op: 'read' }]; }, FO);
+  await K.dipMese(dip, 'Dic'); await K.attesa(1500);
+  const msgDen = ((await K.testo(dip)).match(/confronto Fogli ore non disponibile[^\n]*/) || [''])[0];
+  chk('B1-15b', 'Fogli ore (permessi negati)', 'Dipendenti · Dic 2026', 'messaggio quando le regole negano la lettura', 'confronto non disponibile (permessi)', msgDen || '(niente a video)', /\(permessi\)/.test(msgDen));
+  await dip.evaluate(() => { window.__fakefb.deny = []; });
   const errs = fo.__errori.concat(dip.__errori);
   chk('B1-16', '—', '—', 'errori di pagina in Fogli ore e Dipendenti', '0', errs.length + ' ' + errs.slice(0, 3).join(' | '), errs.filter(e => /pageerror/.test(e)).length === 0);
   K.riepilogo('ic-01-b1-fo-dip');

@@ -115,3 +115,11 @@ controllate: coincidono con `main`.
   coperto da `b2b` sull'emulatore).
 - **Dati veri** (backup del 19/11, scratchpad): ver204 → ver205 C identico 217/217, Risultato 5 schede (≤ 0,003 h), Tetto 8, costo
   orario 2026 151.094,99 → 151.095,03 €, `cedOre` identico, zero errori di pagina.
+
+## 22/11/2026 — Dipendenti ver207 · USOINT ver144 (messaggio della linea caduta) e prove riallineate
+
+Christian: «1,2,3 ok». Con la linea caduta Dipendenti e USOINT dicono «non c'è collegamento, riprova quando torna la linea»;
+«(permessi)» resta solo per `permission-denied`. Interconnessioni sul banco comune 8340: `b1` 16/0 (+1 parziale noto, B1-10;
+B1-15 superato, **B1-15b nuovo**), `b3` 22/0 (B3-19 superato, **B3-19b nuovo**), `b2` 16/0 (+1 NV noto), `b5` 12/0, `b6` 8/0,
+`b8` 11/0, `b10` 26/0. USOINT: `uso-a01-base` 36/0 · `budget` 41/0 · `riep` 48/0 · `dati` 33/0 · `graf` 50/0 · `int-a01` 20/0 ·
+`uso-ver139` 23/0 · `uso-ver140` 15/0 · `uso-ver141` 41/0. Dipendenti: vedi `ore-mensili-dipendenti/collaudo/LEGGIMI.md`.

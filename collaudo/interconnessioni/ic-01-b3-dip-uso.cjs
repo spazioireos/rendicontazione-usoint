@@ -131,9 +131,15 @@ async function stato(uso) { const t = await K.testo(uso); const i = t.indexOf('G
   await uso.evaluate(([p, u, d]) => window.__fakefb.seed(p, { ['report-ore-mensile/' + u]: d }), [FO, ADMIN_UID, docD]);
   await uso.evaluate(() => { window.__fakefb.failReads = true; });
   dl = await rileggi(uso); st = await stato(uso);
-  riga('B3-19', 'Dipendenti (lettura caduta)', 'USOINT', 'messaggio con la lettura caduta', 'dice che non è riuscito, senza attribuirlo ai permessi', (st.match(/Import non riuscito[^·]{0,40}/) || [st.slice(0, 120)])[0],
-    /Import non riuscito/.test(st) ? (/permessi/.test(st) ? 'PARZIALE' : 'SUPERATO') : 'FALLITO');
+  /* ver144: con la linea caduta dice che manca il collegamento, non i permessi */
+  chk('B3-19', 'Dipendenti (lettura caduta)', 'USOINT', 'messaggio con la lettura caduta', '«Import non riuscito: non c\'è collegamento…» (niente «permessi»)', (st.match(/Import non riuscito[^·↻]{0,80}/) || [st.slice(0, 120)])[0],
+    /Import non riuscito: non c'è collegamento/.test(st) && !/permessi/.test(st));
   await uso.evaluate(() => { window.__fakefb.failReads = false; });
+  /* ver144: con i permessi negati dice «permessi» */
+  await uso.evaluate(p => { window.__fakefb.deny = [{ project: p, coll: 'report-ore-mensile', op: 'read' }]; }, FO);
+  dl = await rileggi(uso); st = await stato(uso);
+  chk('B3-19b', 'Dipendenti (permessi negati)', 'USOINT', 'messaggio quando le regole negano la lettura', '«Import non riuscito (permessi)»', (st.match(/Import non riuscito[^·↻]{0,40}/) || [st.slice(0, 120)])[0], /Import non riuscito \(permessi\)/.test(st));
+  await uso.evaluate(() => { window.__fakefb.deny = []; });
   /* 9) USOINT non scrive mai nel progetto di Dipendenti */
   const ops = await uso.evaluate(() => window.__fakefb.log);
   const wFO = K.scritture(ops, o => o.project === FO);

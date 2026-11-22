@@ -37,7 +37,7 @@ USOINT sta per **"uso interno"**.
   `usoint-tariffe`, `usoint-simul`, **`usoint-codici`** (dalla ver136: codice operatore → riga).
   Accesso mail+password.
 - **Numero di revisione**: costante `const VER` (riga ~67), mostrata in **tre punti** (Home,
-  scheda progetto, Riepilogo operatori). **Attuale: ver143 · 21nov26 — approvata da Christian e portata su `main` il 21/11/2026 («Main»)** (prima su `main` la ver142). `VER` finisce anche nei
+  scheda progetto, Riepilogo operatori). **Attuale: ver144 · 22nov26 — sul ramo di lavoro, da approvare** (su `main` la ver143, approvata da Christian il 21/11/2026: «Main»; prima la ver142). `VER` finisce anche nei
   nomi dei file esportati: incrementarla, non affiancarle un secondo numero.
 - **Strutture utili**: `usoint-orelav` = `{ [norm(nome)]: { [anno]: [12 numeri] } }` (ore
   lavorate, indice 0 = gennaio; `norm` = minuscolo, trim, spazi singoli).
@@ -77,6 +77,11 @@ USOINT sta per **"uso interno"**.
 - **Funzioni presenti**: import automatico (SOLA LETTURA) delle ore lavorate dal database dei
   Dipendenti tramite una **seconda app Firebase** chiamata "dip"; tabella compatta della scheda
   operatore (Lavorate | una colonna per progetto | Tot. rendicontate | Avanzo).
+- 📶 **ver144 (22/11/2026, sul ramo di lavoro, Christian: «1,2,3 ok»; collaudo B3-19)**: l'import delle ore dai Dipendenti con la
+  linea caduta diceva «Import non riuscito (permessi)». Ora «(permessi)» solo se Firestore risponde `permission-denied`; con la linea
+  caduta (`unavailable`, `deadline-exceeded`, «offline») **«Import non riuscito: non c'è collegamento, riprova quando torna la
+  linea.»**; il resto «Import non riuscito». ⚠️ Dicitura adattata, scritta da Claude. Nient'altro cambia. **Provato**: `ic-01-b3` 22/0
+  (B3-19 superato, B3-19b nuovo coi permessi negati), batteria `uso-a01-*`, `int-a01`, `uso-ver139/140/141` tutte a zero falliti.
 - 🔐 **ver143 (21/11/2026, Christian: «1, Aggiungi avviso»; collaudo B9-04)**: il 💾 **«Salva ore lavorate»** del Riepilogo
   operatori controlla il **timbro** della ver131 come gli altri salvataggi: con due schede aperte, la seconda non cancella più in
   silenzio le ore lavorate salvate dalla prima (misurato prima: 21 → 11), ma chiede «Un'altra scheda ha salvato dopo di te … (le ore
