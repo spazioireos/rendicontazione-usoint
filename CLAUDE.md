@@ -37,7 +37,7 @@ USOINT sta per **"uso interno"**.
   `usoint-tariffe`, `usoint-simul`, **`usoint-codici`** (dalla ver136: codice operatore → riga).
   Accesso mail+password.
 - **Numero di revisione**: costante `const VER` (riga ~67), mostrata in **tre punti** (Home,
-  scheda progetto, Riepilogo operatori). **Attuale: ver144 · 22nov26 — approvata da Christian e portata su `main` il 22/11/2026 («Main»)** (prima su `main` la ver143, approvata da Christian il 21/11/2026: «Main»; prima la ver142). `VER` finisce anche nei
+  scheda progetto, Riepilogo operatori). **Attuale: ver145 · 23nov26 — sul ramo di lavoro, da approvare** (su `main` la ver144, approvata da Christian il 22/11/2026: «Main»; prima su `main` la ver143, approvata da Christian il 21/11/2026: «Main»; prima la ver142). `VER` finisce anche nei
   nomi dei file esportati: incrementarla, non affiancarle un secondo numero.
 - **Strutture utili**: `usoint-orelav` = `{ [norm(nome)]: { [anno]: [12 numeri] } }` (ore
   lavorate, indice 0 = gennaio; `norm` = minuscolo, trim, spazi singoli).
@@ -77,6 +77,13 @@ USOINT sta per **"uso interno"**.
 - **Funzioni presenti**: import automatico (SOLA LETTURA) delle ore lavorate dal database dei
   Dipendenti tramite una **seconda app Firebase** chiamata "dip"; tabella compatta della scheda
   operatore (Lavorate | una colonna per progetto | Tot. rendicontate | Avanzo).
+- 🕐 **ver145 (23/11/2026, analisi delle interconnessioni chiesta da Christian; sul ramo di lavoro)**: nel Riepilogo operatori,
+  accanto a «importate ✓ … ore pagate a cedolino (N mesi)», si dice ora **da quale salvataggio di Dipendenti** vengono:
+  «, dall'ultimo 💾 di Dipendenti del gg/mm/aaaa alle HH.MM» (letto da `cedOreAgg`, che Dipendenti scrive a ogni 💾 dalla ver176).
+  Serve a vedere se le ore a cedolino sono vecchie (Dipendenti le ricalcola solo al 💾). Senza `cedOreAgg` o con una data guasta la
+  frase resta quella di prima. ⚠️ **Dicitura nuova, scritta da Claude.** Nessun numero cambia. **Provato**: `collaudo/uso-ver145.cjs`
+  **9/0** (3 cicli di ↻ dopo un nuovo 💾, documento senza data, data guasta, 79,33 salvato come prima); batteria `uso-a01-*`,
+  `int-a01`, `uso-ver139/140/141`, interconnessioni b3 22/0, b5 12/0, b7 10/0, tutte senza falliti.
 - 📶 **ver144 (22/11/2026, su `main` dal 22/11/2026: «Main», Christian: «1,2,3 ok»; collaudo B3-19)**: l'import delle ore dai Dipendenti con la
   linea caduta diceva «Import non riuscito (permessi)». Ora «(permessi)» solo se Firestore risponde `permission-denied`; con la linea
   caduta (`unavailable`, `deadline-exceeded`, «offline») **«Import non riuscito: non c'è collegamento, riprova quando torna la

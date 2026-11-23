@@ -123,3 +123,7 @@ Christian: «1,2,3 ok». Con la linea caduta Dipendenti e USOINT dicono «non c'
 B1-15 superato, **B1-15b nuovo**), `b3` 22/0 (B3-19 superato, **B3-19b nuovo**), `b2` 16/0 (+1 NV noto), `b5` 12/0, `b6` 8/0,
 `b8` 11/0, `b10` 26/0. USOINT: `uso-a01-base` 36/0 · `budget` 41/0 · `riep` 48/0 · `dati` 33/0 · `graf` 50/0 · `int-a01` 20/0 ·
 `uso-ver139` 23/0 · `uso-ver140` 15/0 · `uso-ver141` 41/0. Dipendenti: vedi `ore-mensili-dipendenti/collaudo/LEGGIMI.md`.
+
+## ver145 (23/11/2026, sul ramo di lavoro)
+
+`uso-ver145.cjs` (banco comune 8340): la data dell'ultimo 💾 di Dipendenti accanto alle ore a cedolino. Esito **9/0**.
