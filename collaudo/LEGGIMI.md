@@ -127,3 +127,8 @@ B1-15 superato, **B1-15b nuovo**), `b3` 22/0 (B3-19 superato, **B3-19b nuovo**),
 ## ver145 (23/11/2026, sul ramo di lavoro)
 
 `uso-ver145.cjs` (banco comune 8340): la data dell'ultimo 💾 di Dipendenti accanto alle ore a cedolino. Esito **9/0**.
+
+## ver146 (23/11/2026, sul ramo di lavoro)
+
+`uso-ver146.cjs` (banco comune 8340; `USO_PNG=<cartella>` salva l'anteprima): suggerimenti dei nomi da Dipendenti e Collaboratori e
+⚠ sul nome non trovato. Esito **13/0**. `uso-ver145.cjs` ora legge la targhetta dal file (9/0).

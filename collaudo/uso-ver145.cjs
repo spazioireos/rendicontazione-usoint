@@ -20,7 +20,8 @@ const semina = (p, d) => p.evaluate(([fo, uid, dd]) => __fakefb.seed(fo, { ['rep
   const ctx = await K.contesto(browser, { seed });
   const uso = await K.pagina(ctx);
   await K.loginUso(uso); await K.usoRiepilogo(uso);
-  chk('U00', 'USOINT', 'targhetta', 'ver145', 'ver145', await uso.evaluate(() => (document.body.innerText.match(/ver\d+ · \d+[a-z]+\d+/) || [''])[0]), /ver145 · 23nov26/.test(await K.testo(uso)));
+  const VERF = (require('fs').readFileSync(__dirname + '/../index.html', 'utf8').match(/const VER="(ver\d+)"/) || [])[1];   /* letta dal file: non invecchia */
+  chk('U00', 'USOINT', 'targhetta', VERF, VERF, await uso.evaluate(() => (document.body.innerText.match(/ver\d+ · \d+[a-z]+\d+/) || [''])[0]), new RegExp(VERF + ' · ').test(await K.testo(uso)));
   let s = await stato(uso);
   chk('U01', 'Dipendenti → USOINT', 'riquadro dell\'import', 'dice la data del 💾 di Dipendenti', '23/11/2026 alle 08.41', s, /dall'ultimo 💾 di Dipendenti del 23\/11\/2026 alle 08\.41/.test(s));
   const date = [['2026-11-24T07:05:00', '24/11/2026 alle 07.05'], ['2026-12-01T18:30:00', '01/12/2026 alle 18.30'], ['2027-01-02T00:00:00', '02/01/2027 alle 00.00']];

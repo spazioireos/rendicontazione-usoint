@@ -37,7 +37,7 @@ USOINT sta per **"uso interno"**.
   `usoint-tariffe`, `usoint-simul`, **`usoint-codici`** (dalla ver136: codice operatore → riga).
   Accesso mail+password.
 - **Numero di revisione**: costante `const VER` (riga ~67), mostrata in **tre punti** (Home,
-  scheda progetto, Riepilogo operatori). **Attuale: ver145 · 23nov26 — approvata da Christian e portata su `main` il 23/11/2026 («main»)** (prima su `main` la ver144, approvata da Christian il 22/11/2026: «Main»; prima su `main` la ver143, approvata da Christian il 21/11/2026: «Main»; prima la ver142). `VER` finisce anche nei
+  scheda progetto, Riepilogo operatori). **Attuale: ver146 · 23nov26 — sul ramo di lavoro, da approvare** (su `main` la ver145, approvata da Christian il 23/11/2026: «main»; prima su `main` la ver144, approvata da Christian il 22/11/2026: «Main»; prima su `main` la ver143, approvata da Christian il 21/11/2026: «Main»; prima la ver142). `VER` finisce anche nei
   nomi dei file esportati: incrementarla, non affiancarle un secondo numero.
 - **Strutture utili**: `usoint-orelav` = `{ [norm(nome)]: { [anno]: [12 numeri] } }` (ore
   lavorate, indice 0 = gennaio; `norm` = minuscolo, trim, spazi singoli).
@@ -77,6 +77,19 @@ USOINT sta per **"uso interno"**.
 - **Funzioni presenti**: import automatico (SOLA LETTURA) delle ore lavorate dal database dei
   Dipendenti tramite una **seconda app Firebase** chiamata "dip"; tabella compatta della scheda
   operatore (Lavorate | una colonna per progetto | Tot. rendicontate | Avanzo).
+- 🔤 **ver146 (23/11/2026, proposta P4 dell'analisi delle interconnessioni, Christian: «p4 ok»; sul ramo di lavoro)**: nel budget,
+  la casella del **nome dell'operatore** suggerisce mentre si scrive i nomi già presenti nelle altre app (`<datalist id="uso-nomi-op">`,
+  prop nuova `list` di `In`) e, se il nome **non corrisponde a nessuno**, la casella diventa **tratteggiata arancio** con un **⚠** al
+  bordo destro (titolo «Nome non trovato: …»), così si vede subito un nome scritto diverso che nel Riepilogo operatori non si abbinerebbe.
+  Funzioni nuove `nomiNoti()` (memoria di 30 s) e `nomeNonTrovato(nome)`, confronto con `normA` (accenti e apostrofo finale si
+  equivalgono). **Fonti, tutte in SOLA LETTURA e nello stesso browser**: la copia locale di Dipendenti (`spazioireos_reportore_v1`),
+  i nomi del documento di Dipendenti letti dall'ultimo import del Riepilogo (chiave di servizio nuova `uso-nomi-dip`, che non comincia
+  per «usoint»: **fuori dal backup e dal cloud**) e Collaboratori (`spazioireos_opoc`). Niente si scrive nelle altre app. Se in questo
+  browser non c'è nessun nome, l'avviso **non compare**. ⚠️ La prima stesura metteva un'etichetta «⚠ nome non trovato» accanto alla
+  casella: allargava la cella e spostava il ruolo della stessa riga (visto nell'anteprima), sostituita prima del commit. ⚠️ **Dicitura
+  nuova, scritta da Claude** (il titolo del ⚠). **Provato**: `collaudo/uso-ver146.cjs` **13/0** (3 cicli di scrittura del nome, nome
+  aggiunto in Collaboratori, nome solo nel documento di Dipendenti, dati delle altre app identici, niente nel cloud); batteria
+  `uso-a01-*`, `int-a01`, `uso-ver139/140/141/145` (in `uso-ver145` la targhetta ora si legge dal file), interconnessioni b3 22/0, b7 10/0.
 - 🕐 **ver145 (23/11/2026, analisi delle interconnessioni chiesta da Christian; su `main` dal 23/11/2026: «main»)**: nel Riepilogo operatori,
   accanto a «importate ✓ … ore pagate a cedolino (N mesi)», si dice ora **da quale salvataggio di Dipendenti** vengono:
   «, dall'ultimo 💾 di Dipendenti del gg/mm/aaaa alle HH.MM» (letto da `cedOreAgg`, che Dipendenti scrive a ogni 💾 dalla ver176).
