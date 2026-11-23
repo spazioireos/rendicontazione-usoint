@@ -37,7 +37,7 @@ USOINT sta per **"uso interno"**.
   `usoint-tariffe`, `usoint-simul`, **`usoint-codici`** (dalla ver136: codice operatore → riga).
   Accesso mail+password.
 - **Numero di revisione**: costante `const VER` (riga ~67), mostrata in **tre punti** (Home,
-  scheda progetto, Riepilogo operatori). **Attuale: ver146 · 23nov26 — approvata da Christian e portata su `main` il 23/11/2026 («main per ver146»)** (prima su `main` la ver145, approvata da Christian il 23/11/2026: «main»; prima su `main` la ver144, approvata da Christian il 22/11/2026: «Main»; prima su `main` la ver143, approvata da Christian il 21/11/2026: «Main»; prima la ver142). `VER` finisce anche nei
+  scheda progetto, Riepilogo operatori). **Attuale: ver147 · 23nov26 — sul ramo di lavoro, da approvare** (su `main` la ver146, approvata da Christian il 23/11/2026: «main per ver146»; prima su `main` la ver145, approvata da Christian il 23/11/2026: «main»; prima su `main` la ver144, approvata da Christian il 22/11/2026: «Main»; prima su `main` la ver143, approvata da Christian il 21/11/2026: «Main»; prima la ver142). `VER` finisce anche nei
   nomi dei file esportati: incrementarla, non affiancarle un secondo numero.
 - **Strutture utili**: `usoint-orelav` = `{ [norm(nome)]: { [anno]: [12 numeri] } }` (ore
   lavorate, indice 0 = gennaio; `norm` = minuscolo, trim, spazi singoli).
@@ -77,6 +77,15 @@ USOINT sta per **"uso interno"**.
 - **Funzioni presenti**: import automatico (SOLA LETTURA) delle ore lavorate dal database dei
   Dipendenti tramite una **seconda app Firebase** chiamata "dip"; tabella compatta della scheda
   operatore (Lavorate | una colonna per progetto | Tot. rendicontate | Avanzo).
+- 📏 **ver147 (23/11/2026, Christian: «In USOINT dovremmo sistemare il dislivello grafico nelle pagine dei singoli anni … è una questione solo
+  grafica»; sul ramo di lavoro)**: nella vista MESI di un anno le colonne dei mesi dei **beni/servizi** non stavano sotto quelle del
+  **personale** (la riga marrone dopo APR spostata di 52px, perché le prime colonne sommavano 516px sopra e 464px sotto). Ora la prima
+  colonna dei beni («Voce di spesa») è larga **352** invece di 300: 352+88+76 = 516 come 200+52+82+82+52+48, e le colonne dopo DIC
+  sommavano già uguale (364), quindi le due tabelle hanno la stessa larghezza e restano allineate anche quando si allargano. **Una sola
+  misura toccata**: nessun dato, calcolo o dicitura. **Provato**: `collaudo/uso-ver147.cjs` **10/0** (confronto con la ver146 congelata in
+  `/uso146/`: GEN a 535 sopra e 483 sotto; ver147: le 13 colonne nella stessa posizione a 390 · 1280 · 1700 · 2400px e in un progetto che
+  parte ad aprile, nessuno scorrimento laterale nuovo, zero errori); `uso-a01-graf` 50/0, `uso-a01-budget` 41/0, `uso-a01-base` 36/0,
+  `uso-ver146` 13/0 (la targhetta ora si legge dal file).
 - 🔤 **ver146 (23/11/2026, proposta P4 dell'analisi delle interconnessioni, Christian: «p4 ok»; su `main` dal 23/11/2026: «main per ver146»)**: nel budget,
   la casella del **nome dell'operatore** suggerisce mentre si scrive i nomi già presenti nelle altre app (`<datalist id="uso-nomi-op">`,
   prop nuova `list` di `In`) e, se il nome **non corrisponde a nessuno**, la casella diventa **tratteggiata arancio** con un **⚠** al

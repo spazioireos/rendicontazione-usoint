@@ -33,7 +33,8 @@ const rinfresca = (p) => p.evaluate(() => { window._NOMI_T = 0; });
   const u = await K.pagina(ctx); await K.loginUso(u);
   const prima = await u.evaluate(() => [localStorage.getItem('spazioireos_reportore_v1'), localStorage.getItem('spazioireos_opoc')]);
   await apriProgetto(u);
-  chk('N01', 'USOINT', 'targhetta', 'ver146', 'ver146', (await K.testo(u)).match(/ver\d+ · \d+[a-z]+\d+/)?.[0] || '', /ver146 · 23nov26/.test(await K.testo(u)));
+  const VERF = (require('fs').readFileSync(__dirname + '/../index.html', 'utf8').match(/const VER="(ver\d+)"/) || [])[1];   /* letta dal file: non invecchia */
+  chk('N01', 'USOINT', 'targhetta', VERF, VERF, (await K.testo(u)).match(/ver\d+ · \d+[a-z]+\d+/)?.[0] || '', new RegExp(VERF + ' · ').test(await K.testo(u)));
   let o = await opzioni(u);
   chk('N02', 'Dipendenti + Collaboratori → USOINT', 'nomi suggeriti', 'i 3 nomi delle altre app, senza doppioni', "FERRARE' LUCA · ROSSI MARIO · VERDI GIULIA", o.join(' · '), o.length === 3 && o.includes('ROSSI MARIO') && o.includes('VERDI GIULIA') && o.includes("FERRARE' LUCA"));
   let a = await avvisi(u);
