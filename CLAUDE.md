@@ -74,6 +74,13 @@ USOINT sta per **"uso interno"**.
   numeri). ⚠️ Questa riga diceva «non ancora corrette»: **era rimasta indietro**, corretta con
   l'audit generale del 07/11/2026 (verificato: `R2` è definita in tutte e quattro le app e non
   resta nessun `Math.round(x*100)/100` su importi).
+- 📌 **PROMEMORIA PERMANENTE (Christian, 25/11/2026: «È perfetto così e ricordamelo ogni volta»)**: ogni volta che si parla
+  delle ore di USOINT, del Riepilogo operatori, dei Riepiloghi o del cedolino, **ricordare a Christian** che per i **mensilizzati
+  da ottobre 2026** USOINT legge le **ore pagate a cedolino** (ordinarie + supplementari, `cedOre`), calcolate da Dipendenti a
+  ogni 💾 con lo **stesso conto** dello schema del «🖨️ Report PDF A4 per le paghe» (non legge il PDF); per gli altri e per i mesi
+  prima di ottobre 2026 somma le celle del Tabellone. Dalla ver203 la differenza con le ore scritte è al più qualche minuto
+  (esempio di ottobre 2026: 80,49 contro 80,50). Decisione del 15/11/2026 («in usoint devono andare le ore pagate come da cedolino»),
+  **confermata il 25/11/2026: non cambiarla e non riproporla.**
 - **Funzioni presenti**: import automatico (SOLA LETTURA) delle ore lavorate dal database dei
   Dipendenti tramite una **seconda app Firebase** chiamata "dip"; tabella compatta della scheda
   operatore (Lavorate | una colonna per progetto | Tot. rendicontate | Avanzo).
