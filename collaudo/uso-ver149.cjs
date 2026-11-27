@@ -1,4 +1,5 @@
 // uso-ver149 — la data di subentro si sceglie nel riquadro «Riassegnazione residui di operatori cessati» (nel budget resta solo
+// ⚠️ dalla ver151 il primo select del riquadro è «Tipo di fine»: quello del subentrante è il secondo (nth(1)). Attesa aggiornata, non aggirata.
 // l'etichetta «SUB. gg/mm»); ogni trasferimento registra a chi e quanto e la riga resta sbiadita; «CESS.» su chi è già cessato
 // avvisa con data e subentrante; nel budget i subentranti rientrano (↳) e nome/ruolo sono al 90%. Confronto con la ver148 in /uso148/.
 // USO_PNG=cartella salva le anteprime. SOLO DATI INVENTATI.   NODE_PATH=/opt/node-tools/node_modules node collaudo/uso-ver149.cjs
@@ -39,7 +40,7 @@ const salva = async T => { await T.page.click('button:has-text("💾 Salva")'); 
   let t = await testoBox(T);
   c('X02', 'Riquadro: riga del subentro con la data proposta al giorno dopo la cessazione', '«↳ Subentra:» · 16/06/2026 · nessun subentrante', t.slice(0, 220), /↳ Subentra:/.test(t) && /nessun subentrante scelto/.test(t) && await box(T).locator('input[placeholder="gg/mm/aaaa"]').inputValue() === '16/06/2026');
   // imposta BETA
-  await box(T).locator('select').first().selectOption({ label: 'BETA PROVA' });
+  await box(T).locator('select').nth(1).selectOption({ label: 'BETA PROVA' });
   T.risposte.push({ re: /subentra a/ });
   await box(T).locator('button', { hasText: '✔ Imposta subentro' }).click(); await L.aspetta(T, 300);
   t = await testoBox(T);
@@ -61,7 +62,7 @@ const salva = async T => { await T.page.click('button:has-text("💾 Salva")'); 
   let P = await pers(T);
   c('X08', 'Col 💾: trasferimenti registrati e subentro salvati', '2 registrazioni · BETA subentro 2026-06-16 di ALFA', JSON.stringify(P[0].trasf) + ' · ' + P[1].subentro + ' ' + P[1].subentroDi, (P[0].trasf || []).length === 2 && P[0].trasf[0].a === 'BETA PROVA' && P[0].trasf[0].imp === 3800 && P[1].subentro === '2026-06-16' && P[1].subentroDi === 'ALFA PROVA');
   // cambio subentrante
-  await box(T).locator('select').first().selectOption({ label: 'GAMMA PROVA' });
+  await box(T).locator('select').nth(1).selectOption({ label: 'GAMMA PROVA' });
   await box(T).locator('input[placeholder="gg/mm/aaaa"]').fill('01/07/2026');
   T.risposte.push({ re: /subentra a/ });
   await box(T).locator('button', { hasText: '✔ Imposta subentro' }).click(); await L.aspetta(T, 300); await salva(T);
