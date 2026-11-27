@@ -140,13 +140,13 @@ B1-15 superato, **B1-15b nuovo**), `b3` 22/0 (B3-19 superato, **B3-19b nuovo**),
 cessazione resta compilabile), anno dopo tutto bloccato, ore già scritte dopo la cessazione escluse da totali, Excel («—») e
 Riepilogo operatori, cessazione tolta = riga di nuovo compilabile, data impossibile rifiutata, data salvata col 💾.
 
-## ver148 (27/11/2026, sul ramo di lavoro, in anteprima)
+## ver148 (27/11/2026, su `main` con la ver149)
 
 `uso-ver148.cjs` (banco comune 8340; confronto con la ver147 congelata in `/uso147/`; `USO_PNG=<cartella>` salva l'anteprima): nella
 vista MESI il nome di chi è cessato è barrato solo negli anni tutti dopo la cessazione, nell'anno della cessazione «CESS. gg/mm»; celle
 bloccate invariate. Esito **11/0**.
 
-## ver149 (27/11/2026, sul ramo di lavoro, in anteprima)
+## ver149 (27/11/2026, su `main` dal 27/11/2026)
 
 `uso-ver149.cjs` (banco comune 8340; confronto con la ver148 congelata in `/uso148/`; `USO_PNG=<cartella>` salva tre anteprime): subentro
 nel riquadro Riassegnazione (imposta, cambia, togli), etichetta «SUB.» nel budget, trasferimenti vincolati e liberi registrati e sbiaditi,

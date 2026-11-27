@@ -37,7 +37,7 @@ USOINT sta per **"uso interno"**.
   `usoint-tariffe`, `usoint-simul`, **`usoint-codici`** (dalla ver136: codice operatore → riga).
   Accesso mail+password.
 - **Numero di revisione**: costante `const VER` (riga ~67), mostrata in **tre punti** (Home,
-  scheda progetto, Riepilogo operatori). **Attuale su `main`: ver147 · 23nov26 — approvata da Christian e portata su `main` il 23/11/2026 («main»); sul ramo di lavoro, in anteprima, la ver149 · 27nov26 (con la ver148)** (prima su `main` la ver146, approvata da Christian il 23/11/2026: «main per ver146»; prima su `main` la ver145, approvata da Christian il 23/11/2026: «main»; prima su `main` la ver144, approvata da Christian il 22/11/2026: «Main»; prima su `main` la ver143, approvata da Christian il 21/11/2026: «Main»; prima la ver142). `VER` finisce anche nei
+  scheda progetto, Riepilogo operatori). **Attuale: ver149 · 27nov26 — approvata da Christian e portata su `main` il 27/11/2026 («Nu\* e main», insieme alla ver148)** (prima su `main` la ver147, approvata da Christian il 23/11/2026: «main») (prima su `main` la ver146, approvata da Christian il 23/11/2026: «main per ver146»; prima su `main` la ver145, approvata da Christian il 23/11/2026: «main»; prima su `main` la ver144, approvata da Christian il 22/11/2026: «Main»; prima su `main` la ver143, approvata da Christian il 21/11/2026: «Main»; prima la ver142). `VER` finisce anche nei
   nomi dei file esportati: incrementarla, non affiancarle un secondo numero.
 - **Strutture utili**: `usoint-orelav` = `{ [norm(nome)]: { [anno]: [12 numeri] } }` (ore
   lavorate, indice 0 = gennaio; `norm` = minuscolo, trim, spazi singoli).
@@ -88,7 +88,7 @@ USOINT sta per **"uso interno"**.
   scelto», «fai "rientrare" nella pagina del budget i subentranti … riduci il font stringendolo al 90%», «la data di subentro chiedimela nella
   sezione apposita … Riassegnazione residui di operatori cessati, non farmela mettere in PERSONALE — Budget», «se un importo è stato trasferito,
   segna a chi e sbiadisci la parte con nome e importo»; scelte: «Solo etichetta», «Dal subentrante», «nomi e disciplina afferente», «Avvisa e
-  chiede»; ⚠️ IN ANTEPRIMA sul ramo di lavoro, non su `main`)**:
+  chiede»; su `main` dal 27/11/2026: «Nu\* e main»)**:
   1. **Subentro nel riquadro «Riassegnazione residui di operatori cessati»**: per ogni cessato una riga «↳ Subentra: [operatore] dal [data]
      ✔ Imposta subentro», con la data proposta al giorno dopo la cessazione, «ora: NOME dal …» e «Togli». Campo nuovo nel subentrante
      **`subentroDi`** (nome del cessato), scritto insieme a `subentro` in una sola copia dello stato (anche da `proponiSubentro` dopo un
@@ -109,7 +109,7 @@ USOINT sta per **"uso interno"**.
   ⚠️ **Diciture nuove, scritte da Claude**: tutte le frasi qui sopra. **Provato**: `collaudo/uso-ver149.cjs` **22/0** (confronto con la ver148 in
   `/uso148/`); `uso-cess` aggiornato al nuovo «CESS.» (16/0).
 - ✂️ **ver148 (27/11/2026, Christian: «perchè me li presenti cancellati se per esempio in un anno hanno comunque lavorato anche qualche mese?
-  Vedi … totalmente cancellata nell'anno 2026» → «Nu\*»; ⚠️ IN ANTEPRIMA sul ramo di lavoro, non su `main`)**: nella vista MESI di un anno il
+  Vedi … totalmente cancellata nell'anno 2026» → «Nu\*»; su `main` dal 27/11/2026 insieme alla ver149)**: nella vista MESI di un anno il
   nome di chi è cessato si **barra** (fondo grigio, «CESS.») **solo negli anni interamente dopo la cessazione**; nell'anno della cessazione
   il nome resta normale con l'etichetta rossa **«CESS. gg/mm»** (suggerimento «Cessato il … : fino ad allora i mesi si compilano»).
   Funzione nuova `cessFase(cessato, anno)` (0 prima, 1 anno della cessazione, 2 dopo). **Le celle bloccate non cambiano** (dal mese dopo
