@@ -37,7 +37,7 @@ USOINT sta per **"uso interno"**.
   `usoint-tariffe`, `usoint-simul`, **`usoint-codici`** (dalla ver136: codice operatore → riga).
   Accesso mail+password.
 - **Numero di revisione**: costante `const VER` (riga ~67), mostrata in **tre punti** (Home,
-  scheda progetto, Riepilogo operatori). **Attuale: ver147 · 23nov26 — approvata da Christian e portata su `main` il 23/11/2026 («main»)** (prima su `main` la ver146, approvata da Christian il 23/11/2026: «main per ver146»; prima su `main` la ver145, approvata da Christian il 23/11/2026: «main»; prima su `main` la ver144, approvata da Christian il 22/11/2026: «Main»; prima su `main` la ver143, approvata da Christian il 21/11/2026: «Main»; prima la ver142). `VER` finisce anche nei
+  scheda progetto, Riepilogo operatori). **Attuale su `main`: ver147 · 23nov26 — approvata da Christian e portata su `main` il 23/11/2026 («main»); sul ramo di lavoro, in anteprima, la ver148 · 27nov26** (prima su `main` la ver146, approvata da Christian il 23/11/2026: «main per ver146»; prima su `main` la ver145, approvata da Christian il 23/11/2026: «main»; prima su `main` la ver144, approvata da Christian il 22/11/2026: «Main»; prima su `main` la ver143, approvata da Christian il 21/11/2026: «Main»; prima la ver142). `VER` finisce anche nei
   nomi dei file esportati: incrementarla, non affiancarle un secondo numero.
 - **Strutture utili**: `usoint-orelav` = `{ [norm(nome)]: { [anno]: [12 numeri] } }` (ore
   lavorate, indice 0 = gennaio; `norm` = minuscolo, trim, spazi singoli).
@@ -84,6 +84,13 @@ USOINT sta per **"uso interno"**.
 - **Funzioni presenti**: import automatico (SOLA LETTURA) delle ore lavorate dal database dei
   Dipendenti tramite una **seconda app Firebase** chiamata "dip"; tabella compatta della scheda
   operatore (Lavorate | una colonna per progetto | Tot. rendicontate | Avanzo).
+- ✂️ **ver148 (27/11/2026, Christian: «perchè me li presenti cancellati se per esempio in un anno hanno comunque lavorato anche qualche mese?
+  Vedi … totalmente cancellata nell'anno 2026» → «Nu\*»; ⚠️ IN ANTEPRIMA sul ramo di lavoro, non su `main`)**: nella vista MESI di un anno il
+  nome di chi è cessato si **barra** (fondo grigio, «CESS.») **solo negli anni interamente dopo la cessazione**; nell'anno della cessazione
+  il nome resta normale con l'etichetta rossa **«CESS. gg/mm»** (suggerimento «Cessato il … : fino ad allora i mesi si compilano»).
+  Funzione nuova `cessFase(cessato, anno)` (0 prima, 1 anno della cessazione, 2 dopo). **Le celle bloccate non cambiano** (dal mese dopo
+  la cessazione, `isMeseCessato`), né i totali, l'Excel o il budget. ⚠️ Dicitura nuova, scritta da Claude: il suggerimento dell'etichetta.
+  **Provato**: `collaudo/uso-ver148.cjs` **11/0** (confronto con la ver147 congelata in `/uso147/`, anni prima/durante/dopo).
 - 📏 **ver147 (23/11/2026, Christian: «In USOINT dovremmo sistemare il dislivello grafico nelle pagine dei singoli anni … è una questione solo
   grafica»; su `main` dal 23/11/2026: «main»)**: nella vista MESI di un anno le colonne dei mesi dei **beni/servizi** non stavano sotto quelle del
   **personale** (la riga marrone dopo APR spostata di 52px, perché le prime colonne sommavano 516px sopra e 464px sotto). Ora la prima

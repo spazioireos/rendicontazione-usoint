@@ -139,3 +139,9 @@ B1-15 superato, **B1-15b nuovo**), `b3` 22/0 (B3-19 superato, **B3-19b nuovo**),
 30/06/2026 in un progetto 2026-2027. Esito: **16/16** — vista MESI bloccata dal mese dopo la cessazione (il mese della
 cessazione resta compilabile), anno dopo tutto bloccato, ore già scritte dopo la cessazione escluse da totali, Excel («—») e
 Riepilogo operatori, cessazione tolta = riga di nuovo compilabile, data impossibile rifiutata, data salvata col 💾.
+
+## ver148 (27/11/2026, sul ramo di lavoro, in anteprima)
+
+`uso-ver148.cjs` (banco comune 8340; confronto con la ver147 congelata in `/uso147/`; `USO_PNG=<cartella>` salva l'anteprima): nella
+vista MESI il nome di chi è cessato è barrato solo negli anni tutti dopo la cessazione, nell'anno della cessazione «CESS. gg/mm»; celle
+bloccate invariate. Esito **11/0**.
