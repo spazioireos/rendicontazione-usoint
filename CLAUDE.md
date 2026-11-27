@@ -90,7 +90,7 @@ USOINT sta per **"uso interno"**.
   Dipendenti tramite una **seconda app Firebase** chiamata "dip"; tabella compatta della scheda
   operatore (Lavorate | una colonna per progetto | Tot. rendicontate | Avanzo).
 - ▭ **ver152 (27/11/2026, Christian: «le celle gialline ci sono! Mi ingannano e mi portano a scrivere» → «Ore tot. e € Finanz.»; ⚠️ IN
-  ANTEPRIMA solo in locale, NON spinta sul ramo perché Pages pubblica dal ramo)**: nel PERSONALE — Budget, per chi **subentra** (ha la data di
+  ANTEPRIMA: è nel commit `749b4c6` del ramo, ma l'`index.html` del ramo è stato rimesso alla ver151 nel commit successivo, perché Pages pubblica dal ramo; al Nu\* si riprende da `749b4c6`)**: nel PERSONALE — Budget, per chi **subentra** (ha la data di
   subentro o ha ricevuto un trasferimento) **«Ore tot.»** è una casella grigia non scrivibile con «da trasf.» o le ore ricevute («190,00 ric.»)
   e **«€ Finanz.»** è grigia «—»; il suggerimento spiega che le ore arrivano dal «Trasferisci» e che scritte lì si sommerebbero al budget.
   «€/ora» resta giallina (serve al trasferimento; dopo il trasferimento con Ore tot. a 0 resta il «—» di prima). Se in una di queste righe c'è
