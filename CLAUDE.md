@@ -37,7 +37,7 @@ USOINT sta per **"uso interno"**.
   `usoint-tariffe`, `usoint-simul`, **`usoint-codici`** (dalla ver136: codice operatore → riga).
   Accesso mail+password.
 - **Numero di revisione**: costante `const VER` (riga ~67), mostrata in **tre punti** (Home,
-  scheda progetto, Riepilogo operatori). **Attuale: ver149 · 27nov26 — approvata da Christian e portata su `main` il 27/11/2026 («Nu\* e main», insieme alla ver148)** (prima su `main` la ver147, approvata da Christian il 23/11/2026: «main») (prima su `main` la ver146, approvata da Christian il 23/11/2026: «main per ver146»; prima su `main` la ver145, approvata da Christian il 23/11/2026: «main»; prima su `main` la ver144, approvata da Christian il 22/11/2026: «Main»; prima su `main` la ver143, approvata da Christian il 21/11/2026: «Main»; prima la ver142). `VER` finisce anche nei
+  scheda progetto, Riepilogo operatori). **Attuale su `main`: ver149 · 27nov26 — approvata da Christian e portata su `main` il 27/11/2026 («Nu\* e main», insieme alla ver148); sul ramo di lavoro, in anteprima, la ver150 · 27nov26** (prima su `main` la ver147, approvata da Christian il 23/11/2026: «main») (prima su `main` la ver146, approvata da Christian il 23/11/2026: «main per ver146»; prima su `main` la ver145, approvata da Christian il 23/11/2026: «main»; prima su `main` la ver144, approvata da Christian il 22/11/2026: «Main»; prima su `main` la ver143, approvata da Christian il 21/11/2026: «Main»; prima la ver142). `VER` finisce anche nei
   nomi dei file esportati: incrementarla, non affiancarle un secondo numero.
 - **Strutture utili**: `usoint-orelav` = `{ [norm(nome)]: { [anno]: [12 numeri] } }` (ore
   lavorate, indice 0 = gennaio; `norm` = minuscolo, trim, spazi singoli).
@@ -84,6 +84,14 @@ USOINT sta per **"uso interno"**.
 - **Funzioni presenti**: import automatico (SOLA LETTURA) delle ore lavorate dal database dei
   Dipendenti tramite una **seconda app Firebase** chiamata "dip"; tabella compatta della scheda
   operatore (Lavorate | una colonna per progetto | Tot. rendicontate | Avanzo).
+- ↳ **ver150 (27/11/2026, Christian, di nuovo: «fai "rientrare" nella pagina del budget i subentranti, mentre i titolari dell'incarico iniziale
+  stiano a sinistra … riduci il font stringendolo al 90%»; ⚠️ IN ANTEPRIMA sul ramo di lavoro, non su `main`)**: nella ver149 il rientro non si
+  vedeva, anzi: la cella «Ruolo / Nominativo» è centrata (`Cell`, `justifyContent:center`) e la riga del subentrante, più lunga per le
+  etichette («+190,00 h @ …», «SUB. gg/mm»), finiva **a sinistra** del titolare (misurato: 48 contro 72px). Ora quella cella è **allineata a
+  sinistra** (`justifyContent:flex-start`, solo nel PERSONALE — Budget), al posto del ✓/! di budget c'è uno spazio fisso di 17px quando
+  manca (così tutti i titolari partono dallo stesso punto) e il ↳ dei subentranti è largo 28px (ruolo 204px, nome 127px). Misurato: titolari a
+  50px, subentranti a 76px, con o senza etichette. Ruolo senza la spaziatura fra le lettere (era 0,2px). **Nessun dato, calcolo o dicitura
+  toccati.** **Provato**: `collaudo/uso-ver150.cjs` **6/0** (confronto con la ver149 congelata in `/uso149/`).
 - 🔁 **ver149 (27/11/2026, Christian: «allertami quando magari cesso una persona già cessata, ricordandomi: data già inserita e subentrante
   scelto», «fai "rientrare" nella pagina del budget i subentranti … riduci il font stringendolo al 90%», «la data di subentro chiedimela nella
   sezione apposita … Riassegnazione residui di operatori cessati, non farmela mettere in PERSONALE — Budget», «se un importo è stato trasferito,

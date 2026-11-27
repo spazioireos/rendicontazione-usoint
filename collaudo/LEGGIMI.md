@@ -152,3 +152,9 @@ bloccate invariate. Esito **11/0**.
 nel riquadro Riassegnazione (imposta, cambia, togli), etichetta «SUB.» nel budget, trasferimenti vincolati e liberi registrati e sbiaditi,
 trasferimento di prima dedotto dal subentrante, avviso su «CESS.» di chi è già cessato (annulla, nuova data, togli), rientro e 90%, 390px.
 Esito **22/0**. `uso-cess.cjs` aggiornato: la cessazione si toglie rispondendo alle domande nuove (16/0).
+
+## ver150 (27/11/2026, sul ramo di lavoro, in anteprima)
+
+`uso-ver150.cjs` (banco comune 8340; confronto con la ver149 congelata in `/uso149/`; `USO_APP` cartella da provare, `USO_PNG` anteprima):
+titolari alla stessa x (anche col ✓ di budget raggiunto), subentranti rientrati dello stesso tanto con e senza etichette, nome/ruolo al 90%,
+390px. Esito **6/0**.
