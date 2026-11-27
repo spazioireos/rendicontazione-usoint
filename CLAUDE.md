@@ -89,6 +89,29 @@ USOINT sta per **"uso interno"**.
 - **Funzioni presenti**: import automatico (SOLA LETTURA) delle ore lavorate dal database dei
   Dipendenti tramite una **seconda app Firebase** chiamata "dip"; tabella compatta della scheda
   operatore (Lavorate | una colonna per progetto | Tot. rendicontate | Avanzo).
+- 📅 **ver157 (27/11/2026, audit delle formule A5 A6, Christian: «il cambio vale dal mese (più semplice)», «il Tariffario non tocca più i
+  mesi già lavorati prima del cambio. Meglio ancora, lo risolve A6»; «Ok ver156, procedi con ver157»; ⚠️ IN ATTESA DEL Nu\* per la pubblicazione)**:
+  1. **Costo orario che cambia dal mese** (dato nuovo nella riga del personale **`eurDal`** = `[{yi, m, eur}]`): vale dal mese `m` dell'anno
+     `yi` in poi, **anche negli anni dopo**, finché un anno non ha il suo costo scritto (`eurA`) o un cambio successivo. Funzione **`rateM(p,yi,m)`**
+     = costo del mese. Nella vista MESI, sotto «€/ora eff.»: pulsante **«⇢ dal mese…»** (chiede costo e mese, di serie il mese di oggi
+     nell'anno in corso) e l'elenco dei cambi dell'anno «dal LUG € 15,00 ✕» (la ✕ chiede conferma). Il doppio clic sulla casella grigia ora
+     apre la stessa domanda (prima metteva un costo per tutto l'anno). La casella grigia mostra il costo di gennaio, anche se arriva da un
+     cambio dell'anno prima. La casella gialla del costo dell'anno (`eurA`) resta com'era.
+  2. **Motore `cP`**: il costo dell'anno è la somma mese per mese (ore × `rateM`); il finanziamento si consuma in euro; le ore che restano
+     si contano col costo di fine anno (`rFine`); nell'anno `rM` (12 costi) e `mI` per mese. **Con un costo unico i numeri sono identici
+     alla ver156** (misurato: 3.000 casi casuali, zero differenze su ore, costi, finanziato, residui, sforato, totali).
+  3. **Tariffario** (A5): scrivendo un costo l'app chiede **da quale mese** vale (di serie il mese di oggi nell'anno in corso, gennaio negli
+     altri); si salva `{eur, dal}` (numero se vale da gennaio, come prima) e sotto la casella compare «dal SET»; nel progetto il lucchetto dice
+     «🔒 € 18,00 dal SET» e i mesi prima restano col costo di prima. Il cambio del Tariffario vale **solo per quell'anno** (`solo:true`). I
+     costi già scritti nel Tariffario (numeri) valgono tutto l'anno, come prima. Funzioni `tarV`, `tarDal`, `centralDal`.
+  4. **Le celle dei mesi** (costo € sotto le ore) e l'**Excel** usano il costo del mese. ⚠️ Corretto di conseguenza un difetto di prima: la
+     cella del mese **non** guardava il Tariffario (misurato sulla ver156: Tariffario 18 €/h, cella «€ 200,00» a 10 €/h mentre il riepilogo
+     contava 360). Nella colonna «Ore max» le «h da togliere» si contano dagli euro sforati ÷ costo di fine anno (con un costo unico è lo
+     stesso numero di prima).
+  ⚠️ Diciture nuove, scritte da Claude: «⇢ dal mese…», le due domande, gli avvisi, «dal ‹MES› € …», la frase aggiunta in cima al Tariffario.
+  **Provato**: `collaudo/uso-ver157.cjs` **19/0** (confronto con la ver156 in `/uso156/`); `audit-formule/motore.cjs` ora estrae anche
+  `rateM`, `tarV`, `tarDal`; `audit-formule/unit.cjs` tutti superati. ⚠️ **Attese aggiornate, non aggirate**: `uso-ver141` (il Tariffario chiede
+  il mese: si risponde 1) e `uso-ver155` E03 (il doppio clic sul costo grigio ora fa un cambio «dal mese»).
 - 💶 **ver156 (27/11/2026, audit delle formule A2 A3 A4 A7 A8, decisioni di Christian: «il «Previsto» resta sempre quello del budget
   approvato. Chi va via e chi arriva non lo cambia mai», «a Luca arrivano i 500 €. Le sue ore si calcolano quando scrivi il suo costo orario
   nella vista mesi», «l'allarme guarda gli euro», «ok l'avviso», «se io dico che Gino cessa al 30/06/26 e subentra Mario, Mario è assodato

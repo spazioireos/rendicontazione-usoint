@@ -194,3 +194,10 @@ sue ore di budget invariate, destinatario con `ricEur`/`ricBlk`), Previsto invar
 residuo e «sforato» in euro (vincolato e libero), data di subentro = giorno dopo la cessazione, avviso e «Allinea», cessazione spostata che
 sposta il subentro; senza trasferimenti riepilogo, saldo e quadro anno identici alla ver155. Usa `audit-formule/motore.cjs` per V08-V10.
 **21/0**.
+
+## ver157 (27/11/2026, in attesa del Nu*)
+
+`uso-ver157.cjs` (banco comune 8340; confronto con la ver156 in `/uso156/`; `USO_PNG` anteprima): costo orario «⇢ dal mese…» nella vista
+mesi (celle GEN-GIU 200 €, LUG-DIC 300 €, riepilogo 3.000 €, il cambio continua nel 2027, ✕ con conferma, doppio clic sulla casella grigia,
+valori non validi rifiutati), Tariffario con «da quale mese» (dal SET: GEN-AGO restano, riepilogo 3.040 €; non continua nel 2027), Tariffario
+di prima (numero) su tutto l'anno, senza cambi identico alla ver156. **19/0**. `audit-formule/motore.cjs` estrae anche `rateM`, `tarV`, `tarDal`.

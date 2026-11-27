@@ -5,6 +5,6 @@ function prendi(inizio){const i=src.indexOf(inizio);if(i<0)throw new Error('manc
 const MESI=["GEN","FEB","MAR","APR","MAG","GIU","LUG","AGO","SET","OTT","NOV","DIC"];
 const codice=['const MESI='+JSON.stringify(MESI)+';',
  'const calcCY='+prendi('const calcCY=').replace('const calcCY=','')+';',
- prendi('function isMeseCessato'),prendi('function isMesePreSubentro'),prendi('function applyTar'),prendi('function cP('),prendi('function cB(')].join('\n');
-const m={};new Function('m','norm',codice+';m.calcCY=calcCY;m.cP=cP;m.cB=cB;m.applyTar=applyTar;m.isMeseCessato=isMeseCessato;m.isMesePreSubentro=isMesePreSubentro;')(m,x=>String(x||'').toLowerCase().trim().replace(/\s+/g,' '));
+ prendi('function isMeseCessato'),prendi('function isMesePreSubentro'),...(src.indexOf('function rateM(')>=0?[prendi('function tarV'),prendi('function tarDal'),prendi('function rateM(')]:[]),prendi('function applyTar'),prendi('function cP('),prendi('function cB(')].join('\n');
+const m={};new Function('m','norm',codice+';m.calcCY=calcCY;m.cP=cP;m.cB=cB;m.applyTar=applyTar;m.rateM=(typeof rateM==="function")?rateM:null;m.isMeseCessato=isMeseCessato;m.isMesePreSubentro=isMesePreSubentro;')(m,x=>String(x||'').toLowerCase().trim().replace(/\s+/g,' '));
 module.exports=m;

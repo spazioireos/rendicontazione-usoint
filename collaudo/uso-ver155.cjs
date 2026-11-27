@@ -39,11 +39,11 @@ const grigi = (T, re) => T.page.evaluate(r => [...document.querySelectorAll('spa
     let g = await grigi(T, 'Costo orario preso dal budget'); c('E01', 'Vista mesi: €/ora eff. preso dal budget grigio (ALFA 20, GAMMA 18)', '20,00 · 18,00', JSON.stringify(g), g.length === 2 && g.includes('20,00') && g.includes('18,00'));
     const giallo = await T.page.evaluate(() => [...document.querySelectorAll('input')].filter(e => getComputedStyle(e).backgroundColor === 'rgb(255, 253, 231)' && e.closest('td') && /0,00/.test(e.value) && e.getBoundingClientRect().x < 700).length);
     c('E02', 'Il subentrante senza costo orario resta da compilare (giallo)', '≥1 casella gialla', giallo, giallo >= 1);
-    T.risposte.push({ re: /Costo orario di/, text: '25,5' });
+    T.risposte.push({ re: /Nuovo costo orario di/, text: '25,5' }, { re: /Da quale mese del 2026/, text: '1' }); /* ver157: il doppio clic chiede anche da quale mese */
     await T.page.locator('span[title^="Costo orario preso dal budget (€ 18"]').dblclick(); await L.aspetta(T, 400);
     g = await grigi(T, 'Costo orario preso dal budget'); await T.page.click('button:has-text("💾 Salva")'); await L.aspetta(T, 300);
     const P = JSON.parse(await L.ls(T, 'usoint-p-pg')).personnel;
-    c('E03', 'Doppio clic e 25,5: costo orario solo per il 2026, la casella torna scrivibile', 'eurA 2026 = 25,5', JSON.stringify(P[2].eurA) + ' · grigie ' + g.length, P[2].eurA[0] === 25.5 && P[2].eurA[1] === 0 && g.length === 1);
+    c('E03', 'Doppio clic e 25,5 dal mese 1 (ver157: cambio «dal mese», la casella resta grigia e mostra 25,50)', 'eurDal [{yi 0, m 0, eur 25,5}] · eurA invariato · grigia 25,50', JSON.stringify(P[2].eurDal) + ' · ' + JSON.stringify(P[2].eurA) + ' · ' + JSON.stringify(await T.page.locator('span[title*="da un cambio «dal mese»"]').allInnerTexts()), JSON.stringify(P[2].eurDal) === '[{"yi":0,"m":0,"eur":25.5}]' && P[2].eurA.every(x => !x) && (await T.page.locator('span[title*="da un cambio «dal mese»"]').allInnerTexts()).includes('25,50'));
     c('E04', 'Errori di pagina', '0', T.errori.length, T.errori.length === 0); await ctx.close(); }
   // 4. Lavorate importate (finta Firebase dei Dipendenti)
   const { FO, USO, ADMIN, PWD, ADMIN_UID } = K;

@@ -99,6 +99,7 @@ async function giro(dir) {
   await T.page.click('button:has-text("📋 Tariffario costi orari")'); await L.aspetta(T, 500);
   const tar = T.page.locator('input[style*="width: 82px"]');
   R.nTar = await tar.count();
+  for (let q = 0; q < 6; q++) T.risposte.unshift({ re: /Da quale mese del/, text: '1' }); /* ver157: il Tariffario chiede da quale mese (1 = tutto l'anno) */
   R.tar = await prova(T, tar.nth(0), null, '9');
   await T.page.locator('button', { hasText: '💾 Salva' }).first().click(); await L.aspetta(T, 300);
   R.tarSalvato = JSON.parse(await L.ls(T, 'usoint-tariffe'));
