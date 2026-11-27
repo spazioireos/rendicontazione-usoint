@@ -132,3 +132,10 @@ B1-15 superato, **B1-15b nuovo**), `b3` 22/0 (B3-19 superato, **B3-19b nuovo**),
 
 `uso-ver146.cjs` (banco comune 8340; `USO_PNG=<cartella>` salva l'anteprima): suggerimenti dei nomi da Dipendenti e Collaboratori e
 ⚠ sul nome non trovato. Esito **13/0**. `uso-ver145.cjs` ora legge la targhetta dal file (9/0).
+
+## Verifica del 27/11/2026: celle bloccate dopo la cessazione (ver147)
+
+`uso-cess.cjs` (solo verifica, nessuna modifica all'app): una persona cessata il 15/03/2026 e una voce dei beni cessata il
+30/06/2026 in un progetto 2026-2027. Esito: **16/16** — vista MESI bloccata dal mese dopo la cessazione (il mese della
+cessazione resta compilabile), anno dopo tutto bloccato, ore già scritte dopo la cessazione escluse da totali, Excel («—») e
+Riepilogo operatori, cessazione tolta = riga di nuovo compilabile, data impossibile rifiutata, data salvata col 💾.
