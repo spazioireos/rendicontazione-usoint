@@ -37,7 +37,7 @@ USOINT sta per **"uso interno"**.
   `usoint-tariffe`, `usoint-simul`, **`usoint-codici`** (dalla ver136: codice operatore → riga).
   Accesso mail+password.
 - **Numero di revisione**: costante `const VER` (riga ~67), mostrata in **tre punti** (Home,
-  scheda progetto, Riepilogo operatori). **Attuale su `main`: ver149 · 27nov26 — approvata da Christian e portata su `main` il 27/11/2026 («Nu\* e main», insieme alla ver148); sul ramo di lavoro, in anteprima, la ver150 e la ver151 · 27nov26** (prima su `main` la ver147, approvata da Christian il 23/11/2026: «main») (prima su `main` la ver146, approvata da Christian il 23/11/2026: «main per ver146»; prima su `main` la ver145, approvata da Christian il 23/11/2026: «main»; prima su `main` la ver144, approvata da Christian il 22/11/2026: «Main»; prima su `main` la ver143, approvata da Christian il 21/11/2026: «Main»; prima la ver142). `VER` finisce anche nei
+  scheda progetto, Riepilogo operatori). **Attuale su `main`: ver150 · 27nov26 — approvata da Christian e portata su `main` il 27/11/2026 («Sì, main»); sul ramo di lavoro, in anteprima, la ver151 · 27nov26** (prima su `main` la ver149, approvata il 27/11/2026: «Nu\* e main», insieme alla ver148) (prima su `main` la ver147, approvata da Christian il 23/11/2026: «main») (prima su `main` la ver146, approvata da Christian il 23/11/2026: «main per ver146»; prima su `main` la ver145, approvata da Christian il 23/11/2026: «main»; prima su `main` la ver144, approvata da Christian il 22/11/2026: «Main»; prima su `main` la ver143, approvata da Christian il 21/11/2026: «Main»; prima la ver142). `VER` finisce anche nei
   nomi dei file esportati: incrementarla, non affiancarle un secondo numero.
 - **Strutture utili**: `usoint-orelav` = `{ [norm(nome)]: { [anno]: [12 numeri] } }` (ore
   lavorate, indice 0 = gennaio; `norm` = minuscolo, trim, spazi singoli).
@@ -100,7 +100,7 @@ USOINT sta per **"uso interno"**.
   ⚠️ **Diciture**: le due di Christian; scritte da Claude la domanda del tipo, «Tipo di fine:», «— da scegliere —», il suggerimento e la domanda
   del lucchetto. **Provato**: `collaudo/uso-ver151.cjs` **22/0** (confronto con la ver150 in `/uso150/`).
 - ↳ **ver150 (27/11/2026, Christian, di nuovo: «fai "rientrare" nella pagina del budget i subentranti, mentre i titolari dell'incarico iniziale
-  stiano a sinistra … riduci il font stringendolo al 90%»; ⚠️ IN ANTEPRIMA sul ramo di lavoro, non su `main`)**: nella ver149 il rientro non si
+  stiano a sinistra … riduci il font stringendolo al 90%»; su `main` dal 27/11/2026: «Sì, main»)**: nella ver149 il rientro non si
   vedeva, anzi: la cella «Ruolo / Nominativo» è centrata (`Cell`, `justifyContent:center`) e la riga del subentrante, più lunga per le
   etichette («+190,00 h @ …», «SUB. gg/mm»), finiva **a sinistra** del titolare (misurato: 48 contro 72px). Ora quella cella è **allineata a
   sinistra** (`justifyContent:flex-start`, solo nel PERSONALE — Budget), al posto del ✓/! di budget c'è uno spazio fisso di 17px quando
