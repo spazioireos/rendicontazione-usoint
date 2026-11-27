@@ -42,7 +42,7 @@ USOINT sta per **"uso interno"**.
   `usoint-tariffe`, `usoint-simul`, **`usoint-codici`** (dalla ver136: codice operatore → riga).
   Accesso mail+password.
 - **Numero di revisione**: costante `const VER` (riga ~67), mostrata in **tre punti** (Home,
-  scheda progetto, Riepilogo operatori). **Attuale: ver151 · 27nov26 — approvata da Christian e portata su `main` il 27/11/2026 («Lascia ver151 online»)** (prima su `main` la ver150, approvata il 27/11/2026: «Sì, main») (prima su `main` la ver149, approvata il 27/11/2026: «Nu\* e main», insieme alla ver148) (prima su `main` la ver147, approvata da Christian il 23/11/2026: «main») (prima su `main` la ver146, approvata da Christian il 23/11/2026: «main per ver146»; prima su `main` la ver145, approvata da Christian il 23/11/2026: «main»; prima su `main` la ver144, approvata da Christian il 22/11/2026: «Main»; prima su `main` la ver143, approvata da Christian il 21/11/2026: «Main»; prima la ver142). `VER` finisce anche nei
+  scheda progetto, Riepilogo operatori). **Attuale: ver153 · 27nov26 — approvata da Christian e portata su `main` il 27/11/2026 («Nu\*», insieme alla ver152)** (prima su `main` la ver151, approvata il 27/11/2026: «Lascia ver151 online») (prima su `main` la ver150, approvata il 27/11/2026: «Sì, main») (prima su `main` la ver149, approvata il 27/11/2026: «Nu\* e main», insieme alla ver148) (prima su `main` la ver147, approvata da Christian il 23/11/2026: «main») (prima su `main` la ver146, approvata da Christian il 23/11/2026: «main per ver146»; prima su `main` la ver145, approvata da Christian il 23/11/2026: «main»; prima su `main` la ver144, approvata da Christian il 22/11/2026: «Main»; prima su `main` la ver143, approvata da Christian il 21/11/2026: «Main»; prima la ver142). `VER` finisce anche nei
   nomi dei file esportati: incrementarla, non affiancarle un secondo numero.
 - **Strutture utili**: `usoint-orelav` = `{ [norm(nome)]: { [anno]: [12 numeri] } }` (ore
   lavorate, indice 0 = gennaio; `norm` = minuscolo, trim, spazi singoli).
@@ -90,9 +90,9 @@ USOINT sta per **"uso interno"**.
   Dipendenti tramite una **seconda app Firebase** chiamata "dip"; tabella compatta della scheda
   operatore (Lavorate | una colonna per progetto | Tot. rendicontate | Avanzo).
 - ✋ **ver153 (27/11/2026, Christian: «se opto per la fine dell'incarico di una persona, mi si propone comunque la tendina con i possibili
-  subentranti, cosa non possibile, quindi ingannevole» e «Rendi grigie, per i subentranti, anche le caselle delle annualità»; ⚠️ IN ANTEPRIMA,
-  con la ver152: è nel commit del ramo marcato «ver153 IN ANTEPRIMA», mentre l'`index.html` del ramo resta alla ver151 perché Pages pubblica
-  dal ramo)**:
+  subentranti, cosa non possibile, quindi ingannevole» e «Rendi grigie, per i subentranti, anche le caselle delle annualità»; su `main` dal 27/11/2026
+  insieme alla ver152: «Nu\*»; la riga dei residui col «→ destinatario Trasferisci» resta, Christian: «Lasciarla: il residuo si può dare a
+  qualcun altro»)**:
   1. Riquadro Riassegnazione: con **«FINE INCARICO PER ESAURIM. €»** non c'è la riga «↳ Subentra: [tendina] dal …»; al suo posto «Nessun
      subentrante: l'incarico finisce per esaurimento degli importi.»; se un subentrante risulta ancora legato, «⚠ Risulta ancora un subentrante:
      NOME dal … [Togli]». Dopo «Trasferisci» `proponiSubentro` **non** chiede il subentro (`cessTipo==="esaur"`). Con «CESSAZ. CON SUBENTRO» o
@@ -101,8 +101,8 @@ USOINT sta per **"uso interno"**.
      **caselle delle annualità** sono grigie e non scrivibili, con le ore che vi ha scritto il trasferimento.
   ⚠️ Diciture nuove, scritte da Claude: le due frasi del punto 1 e il suggerimento delle annualità. **Provato**: `collaudo/uso-ver153.cjs`
   **13/0** (confronto con la ver152 in `/uso152/`).
-- ▭ **ver152 (27/11/2026, Christian: «le celle gialline ci sono! Mi ingannano e mi portano a scrivere» → «Ore tot. e € Finanz.»; ⚠️ IN
-  ANTEPRIMA: è nel commit `749b4c6` del ramo, ma l'`index.html` del ramo è stato rimesso alla ver151 nel commit successivo, perché Pages pubblica dal ramo; al Nu\* si riprende da `749b4c6`)**: nel PERSONALE — Budget, per chi **subentra** (ha la data di
+- ▭ **ver152 (27/11/2026, Christian: «le celle gialline ci sono! Mi ingannano e mi portano a scrivere» → «Ore tot. e € Finanz.»; su `main` dal
+  27/11/2026 insieme alla ver153: «Nu\*»)**: nel PERSONALE — Budget, per chi **subentra** (ha la data di
   subentro o ha ricevuto un trasferimento) **«Ore tot.»** è una casella grigia non scrivibile con «da trasf.» o le ore ricevute («190,00 ric.»)
   e **«€ Finanz.»** è grigia «—»; il suggerimento spiega che le ore arrivano dal «Trasferisci» e che scritte lì si sommerebbero al budget.
   «€/ora» resta giallina (serve al trasferimento; dopo il trasferimento con Ore tot. a 0 resta il «—» di prima). Se in una di queste righe c'è
