@@ -175,3 +175,9 @@ subentrante prima e dopo il trasferimento, titolari invariati, ⚠ con ore scrit
 `uso-ver153.cjs` (banco comune 8340; confronto con la ver152 in `/uso152/`, la ver153 va localizzata in `/uso153/` o servita in `/uso/`):
 fine per esaurimento senza tendina dei subentranti e senza domanda di subentro, ⚠ + Togli con un subentrante rimasto, subentro e dati di
 prima invariati, annualità grigie dei subentranti prima e dopo il trasferimento. Esito **13/0**.
+
+## ver154 (27/11/2026, in attesa del Nu*)
+
+`uso-ver154.cjs` (banco comune 8340; confronto con la ver153 in `/uso153/`; `USO_PNG` anteprima): il saldo del CONSUNTIVO FINALE
+non supera la quota del Committente; sotto il budget e a budget pari identico alla ver153. **8/0**.
+Audit delle formule: `audit-formule/` (vedi il suo LEGGIMI).

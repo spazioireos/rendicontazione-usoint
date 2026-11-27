@@ -89,6 +89,16 @@ USOINT sta per **"uso interno"**.
 - **Funzioni presenti**: import automatico (SOLA LETTURA) delle ore lavorate dal database dei
   Dipendenti tramite una **seconda app Firebase** chiamata "dip"; tabella compatta della scheda
   operatore (Lavorate | una colonna per progetto | Tot. rendicontate | Avanzo).
+- 💶 **ver154 (27/11/2026, audit delle formule, anomalia A1; Christian: «a1, è corretto perché il finanziatore non mette mai più
+  dell'impegnato»; ⚠️ IN ATTESA DEL Nu\* per la pubblicazione)**: nel riquadro **CONSUNTIVO FINALE** il «Finanziato che ti spetta» era
+  speso − tua quota **senza tetto**: con lo speso oltre il budget superava la quota del Committente (misurato: budget 2.000 €, Committente
+  1.600 €, speso 3.250 € → saldo **2.850 €**, mentre nella stessa pagina «Quota Committente», «Speso finanziato» e «Da fatturare ancora»
+  dicevano 1.600 €). Ora `finSpetta` si ferma a `finMaxCom` = totale progetto − quota tua prevista, e compare la riga rossa «⚠ Lo speso
+  supera il budget: il Committente non mette mai più dell'impegnato (€ …). La parte oltre (€ …) resta a tuo carico, insieme alla tua quota.»
+  Sotto il budget e a budget pari **nessun numero cambia** (misurato contro la ver153). Nessun altro calcolo toccato. ⚠️ Dicitura nuova,
+  scritta da Claude: la riga rossa. **Provato**: `collaudo/uso-ver154.cjs` **8/0** (confronto con la ver153 in `/uso153/`; con acconti:
+  1.600 − 500 = 1.100; fatturato 2.000 → «HAI GIÀ FATTURATO IN PIÙ» 400). Gli script dell'audit stanno in `collaudo/audit-formule/`.
+  ⚠️ L'anteprima delle **celle automatiche grigie** (commit `199a8c4`, allora chiamata ver154) diventerà la **ver155**.
 - ✋ **ver153 (27/11/2026, Christian: «se opto per la fine dell'incarico di una persona, mi si propone comunque la tendina con i possibili
   subentranti, cosa non possibile, quindi ingannevole» e «Rendi grigie, per i subentranti, anche le caselle delle annualità»; su `main` dal 27/11/2026
   insieme alla ver152: «Nu\*»; la riga dei residui col «→ destinatario Trasferisci» resta, Christian: «Lasciarla: il residuo si può dare a
