@@ -89,6 +89,18 @@ USOINT sta per **"uso interno"**.
 - **Funzioni presenti**: import automatico (SOLA LETTURA) delle ore lavorate dal database dei
   Dipendenti tramite una **seconda app Firebase** chiamata "dip"; tabella compatta della scheda
   operatore (Lavorate | una colonna per progetto | Tot. rendicontate | Avanzo).
+- ✋ **ver153 (27/11/2026, Christian: «se opto per la fine dell'incarico di una persona, mi si propone comunque la tendina con i possibili
+  subentranti, cosa non possibile, quindi ingannevole» e «Rendi grigie, per i subentranti, anche le caselle delle annualità»; ⚠️ IN ANTEPRIMA,
+  con la ver152: è nel commit del ramo marcato «ver153 IN ANTEPRIMA», mentre l'`index.html` del ramo resta alla ver151 perché Pages pubblica
+  dal ramo)**:
+  1. Riquadro Riassegnazione: con **«FINE INCARICO PER ESAURIM. €»** non c'è la riga «↳ Subentra: [tendina] dal …»; al suo posto «Nessun
+     subentrante: l'incarico finisce per esaurimento degli importi.»; se un subentrante risulta ancora legato, «⚠ Risulta ancora un subentrante:
+     NOME dal … [Togli]». Dopo «Trasferisci» `proponiSubentro` **non** chiede il subentro (`cessTipo==="esaur"`). Con «CESSAZ. CON SUBENTRO» o
+     senza tipo tutto come prima. ⚠️ Le righe dei residui col loro «→ [destinatario] Trasferisci» restano (in attesa di decisione).
+  2. Budget: per i subentranti (stessa regola della ver152: data di subentro o trasferimento ricevuto, senza ore proprie scritte a mano) anche le
+     **caselle delle annualità** sono grigie e non scrivibili, con le ore che vi ha scritto il trasferimento.
+  ⚠️ Diciture nuove, scritte da Claude: le due frasi del punto 1 e il suggerimento delle annualità. **Provato**: `collaudo/uso-ver153.cjs`
+  **13/0** (confronto con la ver152 in `/uso152/`).
 - ▭ **ver152 (27/11/2026, Christian: «le celle gialline ci sono! Mi ingannano e mi portano a scrivere» → «Ore tot. e € Finanz.»; ⚠️ IN
   ANTEPRIMA: è nel commit `749b4c6` del ramo, ma l'`index.html` del ramo è stato rimesso alla ver151 nel commit successivo, perché Pages pubblica dal ramo; al Nu\* si riprende da `749b4c6`)**: nel PERSONALE — Budget, per chi **subentra** (ha la data di
   subentro o ha ricevuto un trasferimento) **«Ore tot.»** è una casella grigia non scrivibile con «da trasf.» o le ore ricevute («190,00 ric.»)

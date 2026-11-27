@@ -169,3 +169,9 @@ nuova data, tolto con la cessazione, dati di prima con «CESS.», 390px. Esito *
 
 `uso-ver152.cjs` (banco comune 8340; confronto con la ver151 in `/uso151/`; `USO_PNG` anteprima): Ore tot. ed € Finanz. grigie per il
 subentrante prima e dopo il trasferimento, titolari invariati, ⚠ con ore scritte a mano, totale del budget invariato. Esito **10/0**.
+
+## ver153 (27/11/2026, in anteprima)
+
+`uso-ver153.cjs` (banco comune 8340; confronto con la ver152 in `/uso152/`, la ver153 va localizzata in `/uso153/` o servita in `/uso/`):
+fine per esaurimento senza tendina dei subentranti e senza domanda di subentro, ⚠ + Togli con un subentrante rimasto, subentro e dati di
+prima invariati, annualità grigie dei subentranti prima e dopo il trasferimento. Esito **13/0**.
