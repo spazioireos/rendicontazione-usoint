@@ -72,7 +72,7 @@ in cache (problema realmente capitato).
 
 > 📌 **Promemoria permanente (Christian, 25/11/2026: «È perfetto così e ricordamelo ogni volta»)**: USOINT, per i mensilizzati da ottobre 2026, legge le **ore pagate a cedolino** (ordinarie + supplementari) che Dipendenti calcola a ogni 💾 con lo stesso conto del report per le paghe; per gli altri somma le celle del Tabellone. Va ricordato a Christian ogni volta che si parla di queste ore. Decisione del 15/11, confermata il 25/11: non cambiarla.
 
-| Fogli ore | `rev 21 · 21nov26` su `main` dal 21/11/2026, «Main» (messaggi in italiano, nessun errore di pagina con la linea caduta o l'uscita da fuori, nome dell'Excel, date del ripristino); prima la `rev 20 · 20nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
+| Fogli ore | `rev 22 · 27nov26` sul ramo di lavoro, in anteprima, in attesa del Nu\* (Vista d'insieme: ogni servizio, mese per mese, con ordinarie, indirette, giorni lavorati, permessi e dove si svolge). Su `main` la `rev 21 · 21nov26` dal 21/11/2026, «Main» (messaggi in italiano, nessun errore di pagina con la linea caduta o l'uscita da fuori, nome dell'Excel, date del ripristino); prima la `rev 20 · 20nov26` | angolo in basso a destra, ogni schermata | scritto nel file |
 
 **Criterio:** dove l'app aveva già una numerazione (USOINT `ver`, Dipendenti `APP_VER`) si usa e
 si incrementa **quella**; dove non c'era si è partiti da `rev 1`. **Mai due numerazioni nella
