@@ -164,3 +164,8 @@ titolari alla stessa x (anche col ✓ di budget raggiunto), subentranti rientrat
 `uso-ver151.cjs` (banco comune 8340; confronto con la ver150 in `/uso150/`; `USO_APP`, `USO_PNG`): cella confermata a 0 bloccata e
 sbloccata col doppio clic (personale e beni, salvataggio e ricaricamento), tipo di fine scelto alla cessazione, cambiato nel riquadro e alla
 nuova data, tolto con la cessazione, dati di prima con «CESS.», 390px. Esito **22/0**.
+
+## ver152 (27/11/2026, in anteprima)
+
+`uso-ver152.cjs` (banco comune 8340; confronto con la ver151 in `/uso151/`; `USO_PNG` anteprima): Ore tot. ed € Finanz. grigie per il
+subentrante prima e dopo il trasferimento, titolari invariati, ⚠ con ore scritte a mano, totale del budget invariato. Esito **10/0**.

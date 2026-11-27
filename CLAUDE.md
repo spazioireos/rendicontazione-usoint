@@ -89,6 +89,14 @@ USOINT sta per **"uso interno"**.
 - **Funzioni presenti**: import automatico (SOLA LETTURA) delle ore lavorate dal database dei
   Dipendenti tramite una **seconda app Firebase** chiamata "dip"; tabella compatta della scheda
   operatore (Lavorate | una colonna per progetto | Tot. rendicontate | Avanzo).
+- ▭ **ver152 (27/11/2026, Christian: «le celle gialline ci sono! Mi ingannano e mi portano a scrivere» → «Ore tot. e € Finanz.»; ⚠️ IN
+  ANTEPRIMA solo in locale, NON spinta sul ramo perché Pages pubblica dal ramo)**: nel PERSONALE — Budget, per chi **subentra** (ha la data di
+  subentro o ha ricevuto un trasferimento) **«Ore tot.»** è una casella grigia non scrivibile con «da trasf.» o le ore ricevute («190,00 ric.»)
+  e **«€ Finanz.»** è grigia «—»; il suggerimento spiega che le ore arrivano dal «Trasferisci» e che scritte lì si sommerebbero al budget.
+  «€/ora» resta giallina (serve al trasferimento; dopo il trasferimento con Ore tot. a 0 resta il «—» di prima). Se in una di queste righe c'è
+  già un numero scritto a mano (Ore tot. > 0) la casella resta scrivibile con un **⚠**. Nessun dato o calcolo cambia (variabili `recS`,
+  `subOn`, `subG`, `subW`, `TIT_SUB`). ⚠️ Diciture nuove, scritte da Claude: «da trasf.», «… ric.», i due suggerimenti. **Provato**:
+  `collaudo/uso-ver152.cjs` **10/0** (confronto con la ver151 in `/uso151/`).
 - 🔒 **ver151 (27/11/2026; su `main` dal 27/11/2026: «Lascia ver151 online»)**, due richieste di Christian:
   1. **«nelle celle ore, se confermo una cella con lo 0,00 la stessa si blocca per evitare compilazioni sbagliate»** (scelte: «Vista mesi»,
      «Doppio clic e conferma»): nella vista MESI di un anno, una cella di ore del personale o di importo dei beni/servizi in cui si **scrive** 0
