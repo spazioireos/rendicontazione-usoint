@@ -51,7 +51,7 @@ const info = T => box(T).evaluate(b => ({ t: b.innerText.replace(/\s+/g, ' '), s
     T.risposte.push({ re: /Trasferire/ });
     await T.page.locator('button', { hasText: 'Trasferisci 2026' }).click(); await L.aspetta(T, 400);
     const ann2 = await T.page.evaluate(() => [...document.querySelectorAll('span[title^="Subentrante: le ore di questa annualità"]')].map(s => s.innerText));
-    c('E11', 'Dopo «Trasferisci 2026» la casella grigia 2026 mostra le ore ricevute', '190,00 · —', JSON.stringify(ann2), ann2[0] === '190,00' && ann2[1] === '—');
+    c('E11', 'Dopo «Trasferisci 2026» la casella grigia 2026 mostra gli euro ricevuti (ver156)', '€ 3.800,00 · —', JSON.stringify(ann2), ann2[0] === '€ 3.800,00' && ann2[1] === '—');
     const inp = await T.page.evaluate(() => document.querySelectorAll('input').length);
     c('E12', 'Titolari e DELTA (ore scritte a mano) restano scrivibili; errori di pagina 0', 'caselle presenti · 0 errori', inp + ' · ' + T.errori.length, inp > 10 && T.errori.length === 0);
     if (PNG) { await T.page.evaluate(() => { const d = [...document.querySelectorAll('div')].find(x => x.innerText === 'PERSONALE — Budget'); d.scrollIntoView(); }); await L.aspetta(T, 200);

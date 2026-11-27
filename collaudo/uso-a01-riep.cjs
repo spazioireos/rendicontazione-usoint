@@ -18,7 +18,10 @@ const DIP = {
   cedOre: { '2026-10': { d1: 79.33 } }
 };
 async function sel(T, label) { const s = T.page.locator('select').first(); const v = await s.evaluate((s, l) => { const o = Array.from(s.options).find(o => o.text === l); return o ? o.value : null; }, label); if (v) { await s.selectOption(v); await L.aspetta(T, 400); } return v; }
-async function lavVal(T, mi) { return T.page.locator('input[style*="width: 54px"]').nth(mi).inputValue(); }
+/* dalla ver155 le ore arrivate da Dipendenti sono grigie (span) e si correggono col doppio clic; le altre restano caselle */
+const lavTd = (T, mi) => T.page.locator('table:has(th:has-text("rendicontate")) tbody tr').nth(mi).locator('td').nth(1);
+async function lavVal(T, mi) { const td = lavTd(T, mi); if (await td.locator('input').count()) return td.locator('input').inputValue(); const t = (await td.innerText()).trim(); return t === '—' ? '' : t; }
+async function lavSet(T, mi, txt) { T.risposte.push({ re: /Ore lavorate di/, text: txt }); await lavTd(T, mi).locator('span').dblclick(); await L.aspetta(T, 200); }
 async function orelav(T) { return JSON.parse(await L.ls(T, 'usoint-orelav') || 'null'); }
 async function rileggi(T) { await T.page.click('button:has-text("↻ Rileggi le ore dai Dipendenti")'); await L.aspetta(T, 900); }
 async function riep(T) { await T.page.click('button:has-text("👥 Riepilogo operatori")'); await T.page.waitForFunction(() => /importate|Nessun dato|non contiene|Collega il gestionale|non riuscito/.test(document.body.innerText), null, { timeout: 10000 }).catch(() => {}); await L.aspetta(T, 400); }
@@ -77,10 +80,11 @@ async function riep(T) { await T.page.click('button:has-text("👥 Riepilogo ope
     await T.page.locator('select').nth(1).selectOption('*'); await L.aspetta(T, 300);
     c('R09', 'tolto il filtro', 'GIU torna 132,00, legenda originale', (await cellG().allInnerTexts()).includes('132,00') + ' ' + /Avanzo = lavorate − totale rendicontate\./.test(await L.testo(T)), (await cellG().allInnerTexts()).includes('132,00') && /Avanzo = lavorate − totale rendicontate\./.test(await L.testo(T)));
     /* ore lavorate a mano + negativi in LavIn */
-    const lv = T.page.locator('input[style*="width: 54px"]');
-    await lv.nth(1).click(); await lv.nth(1).pressSequentially('-7', { delay: 15 }); await lv.nth(1).press('Tab'); await L.aspetta(T, 150);
-    c('R10', 'LavIn: «-7» battuto (FEB)', '7 senza meno', await lv.nth(1).inputValue(), /^7,00$/.test(await lv.nth(1).inputValue()));
-    await lv.nth(0).click(); await lv.nth(0).press('Control+a'); await lv.nth(0).fill('99'); await lv.nth(0).press('Tab'); await L.aspetta(T, 150);
+    /* ver155: ore da Dipendenti grigie, doppio clic per correggerle (il meno si toglie) */
+    const gr = await lavTd(T, 1).locator('span').count();
+    await lavSet(T, 1, '-7');
+    c('R10', 'Lavorate da Dipendenti grigie (ver155); doppio clic e «-7» (FEB)', 'grigia · 7 senza meno', (gr ? 'grigia' : 'casella') + ' · ' + await lavVal(T, 1), gr === 1 && /^7,00$/.test(await lavVal(T, 1)));
+    await lavSet(T, 0, '99');
     t = await L.testo(T);
     c('R11', 'modifica a mano accende il 💾', 'pulsante «💾 Salva ore lavorate»', /💾 Salva ore lavorate/.test(t), /💾 Salva ore lavorate/.test(t));
     await T.page.locator('button', { hasText: '💾 Salva ore lavorate' }).last().click(); await L.aspetta(T, 300);

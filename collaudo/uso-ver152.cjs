@@ -37,12 +37,12 @@ const riga = (T, i) => T.page.evaluate(i => { const hc = [...document.querySelec
   T.risposte.push({ re: /Trasferire/ }, { re: /subentra/ });
   await T.page.locator('button', { hasText: 'Trasferisci 2026' }).click(); await L.aspetta(T, 500);
   b = await riga(T, 1);
-  c('S06', 'Dopo «Trasferisci 2026»: BETA mostra le ore ricevute («190,00 ric.») e resta grigia', '190,00 ric. · … · —', JSON.stringify(b), b && /^190,00 ric\./.test(b[0]) && b[2] === '—');
+  c('S06', 'Dopo «Trasferisci 2026»: BETA mostra gli euro ricevuti (ver156: «€ 3.800,00 ric.») e resta grigia', '€ 3.800,00 ric. · … · —', JSON.stringify(b), b && /^€ 3\.800,00 ric\./.test(b[0]) && b[2] === '—');
   const tot = await T.page.evaluate(() => { const r = [...document.querySelectorAll('div')].filter(d => /^TOTALI PERSONALE/.test((d.innerText || '').trim()) && d.innerText.length < 400).pop(); const blk = r ? r.parentElement.parentElement.innerText : document.body.innerText; return (blk.match(/€\s?[\d.]+,\d\d/g) || []).join(' '); });
   c('S07', 'Il totale del budget del personale non cambia col trasferimento', 'compare € 17.000,00 (500+300+50 ore × 20)', tot.slice(0, 120), /17\.000,00/.test(tot));
   await T.page.click('button:has-text("💾 Salva")'); await L.aspetta(T, 300);
   const P = JSON.parse(await L.ls(T, 'usoint-p-ps')).personnel;
-  c('S08', 'Dati: BETA oreT 0, ricevute 190', 'oreT 0 · ricevute 190', P[1].oreT + ' · ' + P[1].ricevute, P[1].oreT === 0 && P[1].ricevute === 190);
+  c('S08', 'Dati: BETA oreT 0, ricevuti 3.800 € (ver156: euro, non ore)', 'oreT 0 · ricevute 0 · ricEur 3800', P[1].oreT + ' · ' + P[1].ricevute + ' · ' + JSON.stringify(P[1].ricEur), P[1].oreT === 0 && P[1].ricevute === 0 && P[1].ricEur[0] === 3800);
   c('S09', 'Errori di pagina', '0', T.errori.length, T.errori.length === 0);
   await ctx.close(); await L.chiudi(); L.fine('uso-ver152');
 })();

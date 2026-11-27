@@ -181,3 +181,16 @@ prima invariati, annualità grigie dei subentranti prima e dopo il trasferimento
 `uso-ver154.cjs` (banco comune 8340; confronto con la ver153 in `/uso153/`; `USO_PNG` anteprima): il saldo del CONSUNTIVO FINALE
 non supera la quota del Committente; sotto il budget e a budget pari identico alla ver153. **8/0**.
 Audit delle formule: `audit-formule/` (vedi il suo LEGGIMI).
+
+## ver155 (27/11/2026, in attesa del Nu*)
+
+`uso-ver155.cjs` (banco comune 8340; confronto con la ver154 in `/uso154/`): celle automatiche grigie (Budget ric.€, € Finanz. col %
+unico, €/ora eff. preso dal budget, Lavorate da Dipendenti) e doppio clic per correggere. **12/0**.
+
+## ver156 (27/11/2026, in attesa del Nu*)
+
+`uso-ver156.cjs` (banco comune 8340; confronto con la ver155 in `/uso155/`; `USO_PNG` anteprima): il Trasferisci passa euro (cedente con le
+sue ore di budget invariate, destinatario con `ricEur`/`ricBlk`), Previsto invariato, ore del subentrante = euro ÷ suo costo orario,
+residuo e «sforato» in euro (vincolato e libero), data di subentro = giorno dopo la cessazione, avviso e «Allinea», cessazione spostata che
+sposta il subentro; senza trasferimenti riepilogo, saldo e quadro anno identici alla ver155. Usa `audit-formule/motore.cjs` per V08-V10.
+**21/0**.

@@ -89,6 +89,41 @@ USOINT sta per **"uso interno"**.
 - **Funzioni presenti**: import automatico (SOLA LETTURA) delle ore lavorate dal database dei
   Dipendenti tramite una **seconda app Firebase** chiamata "dip"; tabella compatta della scheda
   operatore (Lavorate | una colonna per progetto | Tot. rendicontate | Avanzo).
+- 💶 **ver156 (27/11/2026, audit delle formule A2 A3 A4 A7 A8, decisioni di Christian: «il «Previsto» resta sempre quello del budget
+  approvato. Chi va via e chi arriva non lo cambia mai», «a Luca arrivano i 500 €. Le sue ore si calcolano quando scrivi il suo costo orario
+  nella vista mesi», «l'allarme guarda gli euro», «ok l'avviso», «se io dico che Gino cessa al 30/06/26 e subentra Mario, Mario è assodato
+  che sia dal 1/7»; ⚠️ IN ATTESA DEL Nu\* per la pubblicazione)**:
+  1. **Il «Trasferisci» passa EURO, non ore** (`trasferisciEuro`): nel cedente si registra `trasf {k, a, imp, ore, il, eur:true}` e le sue ore
+     di budget (`aOre`) **non cambiano**; nel destinatario `ricEur[anno]` += euro e `ricBlk` [{imp, Iorig}] (la % di finanziamento del
+     cedente). Le ore del destinatario = euro ÷ **il suo** costo orario della vista mesi (`eurA`, poi `eur`); senza costo orario «riceve € …:
+     le ore si vedranno quando scrivi il suo costo orario nella vista mesi». Il **Previsto** dell'anno (quota Committente) non cambia più.
+  2. **Residui e «sforato» in euro** (motore `cP`): per anno `iAlloc` = ore di budget × costo di budget + euro ricevuti − euro ceduti; `avE` =
+     iAlloc + riporto (in euro); residuo `resE` = avE − speso; **sforato** se lo speso supera avE; le ore che restano = euro rimasti ÷ costo
+     orario dell'anno; tetto del finanziato `finMax`. Il riquadro Riassegnazione mostra il residuo in euro con le «ore non lavorate» come
+     indicazione. ⚠️ **Il finanziato, i costi e il consuntivo non cambiano** quando non ci sono trasferimenti né costi dell'anno diversi da
+     quelli di budget (misurato contro la ver155).
+  3. **Data di subentro automatica** (A8): è sempre il **giorno dopo la cessazione**, grigia; spostando la cessazione si sposta anche il
+     subentro (con avviso); a chi è già subentrante il «Trasferisci» non richiede il subentro. **A7**: se nei dati di prima la data non è il
+     giorno dopo, avviso «⚠ La data di subentro di … non è il giorno dopo la cessazione …» col pulsante **«Allinea»**.
+  ⚠️ **Trasferimenti fatti in ore prima della ver156** restano come sono (ore in `aOre`/`budgetRic` del destinatario). ⚠️ Diciture nuove,
+  scritte da Claude: i messaggi del Trasferisci, l'avviso A7, «Allinea», «+€ … @ …%», le note del riquadro. **Provato**:
+  `collaudo/uso-ver156.cjs` **21/0** (confronto con la ver155 in `/uso155/`). Batteria sulla ver156 a zero falliti: `uso-a01-base` 36 ·
+  `budget` 41 · `riep` 48 · `dati` 33 · `graf` 50 · `int-a01` 20 · `uso-cess` 16 · `uso-ver139…155`. ⚠️ **Attese aggiornate, non aggirate**:
+  `uso-a01-riep` (le ore da Dipendenti sono grigie dalla ver155: si correggono col doppio clic), `uso-ver149` (data di subentro automatica),
+  `uso-ver152`/`153`/`155` (il Trasferisci passa euro: «€ 3.800,00 ric.», `ricEur`, «+€ … @ …%»).
+- ▦ **ver155 (27/11/2026, Christian: «quando non devo compilare io ma le cose sono automatiche, non lasciare mai le celle gialline» e
+  «le cose che non sono da compilare non vanno mai in giallino, anche se potrei farlo»; ⚠️ IN ATTESA DEL Nu\* per la pubblicazione)**:
+  caselle con un valore messo dall'app **grigie** (funzione `grAuto`, stesso grigio della ver152):
+  1. **Budget ric.€** del subentrante (budget): grigia, mostra `budgetRic` oppure, se è 0, la somma degli importi `trasf` registrati dai
+     cedenti verso quel nome (`ricDaTrasf`, ver149); «—» per i trasferimenti di prima della ver149. Solo a video: il motore non cambia.
+  2. **€ Finanz.** di personale e beni: grigia col cofinanziamento «unico per tutte le voci» (`cofAttiva`); con «diverso per ogni voce»
+     resta scrivibile.
+  3. **€/ora eff.** della vista mesi: grigio quando è quello del budget (`eurA` dell'anno vuoto ed `eur` > 0); **doppio clic** → domanda
+     col costo dell'anno (`uPEA`). Il subentrante senza costo orario resta da compilare (giallo/rosso come prima).
+  4. **Lavorate** del Riepilogo operatori: grigie per chi è in Dipendenti (provenienza `uso-import-orig` dell'import, anche non salvata),
+     mesi vuoti compresi; restano gialle per chi non è in Dipendenti o dove c'è un numero scritto a mano; **doppio clic** per correggere.
+  ⚠️ Diciture nuove, scritte da Claude: i suggerimenti delle caselle grigie e le due domande del doppio clic. **Provato**:
+  `collaudo/uso-ver155.cjs` **12/0** (confronto con la ver154 in `/uso154/`).
 - 💶 **ver154 (27/11/2026, audit delle formule, anomalia A1; Christian: «a1, è corretto perché il finanziatore non mette mai più
   dell'impegnato»; ⚠️ IN ATTESA DEL Nu\* per la pubblicazione)**: nel riquadro **CONSUNTIVO FINALE** il «Finanziato che ti spetta» era
   speso − tua quota **senza tetto**: con lo speso oltre il budget superava la quota del Committente (misurato: budget 2.000 €, Committente
@@ -98,7 +133,6 @@ USOINT sta per **"uso interno"**.
   Sotto il budget e a budget pari **nessun numero cambia** (misurato contro la ver153). Nessun altro calcolo toccato. ⚠️ Dicitura nuova,
   scritta da Claude: la riga rossa. **Provato**: `collaudo/uso-ver154.cjs` **8/0** (confronto con la ver153 in `/uso153/`; con acconti:
   1.600 − 500 = 1.100; fatturato 2.000 → «HAI GIÀ FATTURATO IN PIÙ» 400). Gli script dell'audit stanno in `collaudo/audit-formule/`.
-  ⚠️ L'anteprima delle **celle automatiche grigie** (commit `199a8c4`, allora chiamata ver154) diventerà la **ver155**.
 - ✋ **ver153 (27/11/2026, Christian: «se opto per la fine dell'incarico di una persona, mi si propone comunque la tendina con i possibili
   subentranti, cosa non possibile, quindi ingannevole» e «Rendi grigie, per i subentranti, anche le caselle delle annualità»; su `main` dal 27/11/2026
   insieme alla ver152: «Nu\*»; la riga dei residui col «→ destinatario Trasferisci» resta, Christian: «Lasciarla: il residuo si può dare a

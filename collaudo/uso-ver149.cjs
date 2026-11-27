@@ -38,7 +38,7 @@ const salva = async T => { await T.page.click('button:has-text("💾 Salva")'); 
   const { ctx, T } = await apri('uso', progetto(true));
   c('X01', 'Budget: nessun pulsante «Sub.» da cliccare', '0', await T.page.locator('button[title="Imposta data di subentro (blocca i mesi precedenti)"]').count(), (await T.page.locator('button[title="Imposta data di subentro (blocca i mesi precedenti)"]').count()) === 0);
   let t = await testoBox(T);
-  c('X02', 'Riquadro: riga del subentro con la data proposta al giorno dopo la cessazione', '«↳ Subentra:» · 16/06/2026 · nessun subentrante', t.slice(0, 220), /↳ Subentra:/.test(t) && /nessun subentrante scelto/.test(t) && await box(T).locator('input[placeholder="gg/mm/aaaa"]').inputValue() === '16/06/2026');
+  c('X02', 'Riquadro: riga del subentro con la data proposta al giorno dopo la cessazione', '«↳ Subentra:» · 16/06/2026 · nessun subentrante', t.slice(0, 220), /↳ Subentra:/.test(t) && /nessun subentrante scelto/.test(t) && (await box(T).locator('span[title^="Giorno dopo la cessazione"], span[title*="giorno dopo la cessazione"]').allInnerTexts()).includes('16/06/2026') /* ver156: data automatica grigia */);
   // imposta BETA
   await box(T).locator('select').nth(1).selectOption({ label: 'BETA PROVA' });
   T.risposte.push({ re: /subentra a/ });
@@ -63,11 +63,11 @@ const salva = async T => { await T.page.click('button:has-text("💾 Salva")'); 
   c('X08', 'Col 💾: trasferimenti registrati e subentro salvati', '2 registrazioni · BETA subentro 2026-06-16 di ALFA', JSON.stringify(P[0].trasf) + ' · ' + P[1].subentro + ' ' + P[1].subentroDi, (P[0].trasf || []).length === 2 && P[0].trasf[0].a === 'BETA PROVA' && P[0].trasf[0].imp === 3800 && P[1].subentro === '2026-06-16' && P[1].subentroDi === 'ALFA PROVA');
   // cambio subentrante
   await box(T).locator('select').nth(1).selectOption({ label: 'GAMMA PROVA' });
-  await box(T).locator('input[placeholder="gg/mm/aaaa"]').fill('01/07/2026');
+  /* ver156 (A8): la data non si scrive più, è il giorno dopo la cessazione */
   T.risposte.push({ re: /subentra a/ });
   await box(T).locator('button', { hasText: '✔ Imposta subentro' }).click(); await L.aspetta(T, 300); await salva(T);
   P = await pers(T);
-  c('X09', 'Cambio subentrante: GAMMA dal 01/07/2026, BETA senza subentro', 'BETA «» · GAMMA 2026-07-01', 'BETA «' + P[1].subentro + '» · GAMMA ' + P[2].subentro, P[1].subentro === '' && P[2].subentro === '2026-07-01' && P[2].subentroDi === 'ALFA PROVA');
+  c('X09', 'Cambio subentrante: GAMMA dal 16/06/2026 (ver156: giorno dopo la cessazione), BETA senza subentro', 'BETA «» · GAMMA 2026-06-16', 'BETA «' + P[1].subentro + '» · GAMMA ' + P[2].subentro, P[1].subentro === '' && P[2].subentro === '2026-06-16' && P[2].subentroDi === 'ALFA PROVA');
   const dlg = T.dialoghi.filter(d => /subentra a/.test(d.msg)).pop();
   c('X10', 'La domanda dice che BETA non sarà più il subentrante', '«non sarà più il subentrante»', (dlg || {}).msg, /BETA PROVA» non sarà più il subentrante/.test((dlg || {}).msg || ''));
   // ri-cessazione: annulla
@@ -75,7 +75,7 @@ const salva = async T => { await T.page.click('button:has-text("💾 Salva")'); 
   T.risposte.push({ re: /già cessata/, dismiss: true });
   await T.page.locator('button[title^="Cessato il 15/06/2026"]').click(); await L.aspetta(T, 300);
   const d0 = (T.dialoghi[nd] || {}).msg || '';
-  c('X11', '«CESS.» su chi è già cessata: avviso con data e subentrante', 'già cessata il 15/06/2026 · Subentrante scelto: GAMMA PROVA (dal 01/07/2026)', d0.replace(/\n+/g, ' '), /già cessata il 15\/06\/2026/.test(d0) && /Subentrante scelto: GAMMA PROVA \(dal 01\/07\/2026\)/.test(d0));
+  c('X11', '«CESS.» su chi è già cessata: avviso con data e subentrante', 'già cessata il 15/06/2026 · Subentrante scelto: GAMMA PROVA (dal 16/06/2026)', d0.replace(/\n+/g, ' '), /già cessata il 15\/06\/2026/.test(d0) && /Subentrante scelto: GAMMA PROVA \(dal 16\/06\/2026\)/.test(d0));
   c('X12', 'Annullando non cambia niente', 'una sola domanda, cessazione ancora 15/06/2026', (T.dialoghi.length - nd) + ' · ' + await T.page.locator('button[title^="Cessato il 15/06/2026"]').count(), T.dialoghi.length - nd === 1 && await T.page.locator('button[title^="Cessato il 15/06/2026"]').count() === 1);
   // cambia data
   T.risposte.push({ re: /già cessata/ }, { re: /Nuova data/, text: '30/06/2026' }, { re: /Cessazione spostata/ });
