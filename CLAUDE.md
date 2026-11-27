@@ -37,7 +37,7 @@ USOINT sta per **"uso interno"**.
   `usoint-tariffe`, `usoint-simul`, **`usoint-codici`** (dalla ver136: codice operatore → riga).
   Accesso mail+password.
 - **Numero di revisione**: costante `const VER` (riga ~67), mostrata in **tre punti** (Home,
-  scheda progetto, Riepilogo operatori). **Attuale su `main`: ver149 · 27nov26 — approvata da Christian e portata su `main` il 27/11/2026 («Nu\* e main», insieme alla ver148); sul ramo di lavoro, in anteprima, la ver150 · 27nov26** (prima su `main` la ver147, approvata da Christian il 23/11/2026: «main») (prima su `main` la ver146, approvata da Christian il 23/11/2026: «main per ver146»; prima su `main` la ver145, approvata da Christian il 23/11/2026: «main»; prima su `main` la ver144, approvata da Christian il 22/11/2026: «Main»; prima su `main` la ver143, approvata da Christian il 21/11/2026: «Main»; prima la ver142). `VER` finisce anche nei
+  scheda progetto, Riepilogo operatori). **Attuale su `main`: ver149 · 27nov26 — approvata da Christian e portata su `main` il 27/11/2026 («Nu\* e main», insieme alla ver148); sul ramo di lavoro, in anteprima, la ver150 e la ver151 · 27nov26** (prima su `main` la ver147, approvata da Christian il 23/11/2026: «main») (prima su `main` la ver146, approvata da Christian il 23/11/2026: «main per ver146»; prima su `main` la ver145, approvata da Christian il 23/11/2026: «main»; prima su `main` la ver144, approvata da Christian il 22/11/2026: «Main»; prima su `main` la ver143, approvata da Christian il 21/11/2026: «Main»; prima la ver142). `VER` finisce anche nei
   nomi dei file esportati: incrementarla, non affiancarle un secondo numero.
 - **Strutture utili**: `usoint-orelav` = `{ [norm(nome)]: { [anno]: [12 numeri] } }` (ore
   lavorate, indice 0 = gennaio; `norm` = minuscolo, trim, spazi singoli).
@@ -84,6 +84,21 @@ USOINT sta per **"uso interno"**.
 - **Funzioni presenti**: import automatico (SOLA LETTURA) delle ore lavorate dal database dei
   Dipendenti tramite una **seconda app Firebase** chiamata "dip"; tabella compatta della scheda
   operatore (Lavorate | una colonna per progetto | Tot. rendicontate | Avanzo).
+- 🔒 **ver151 (27/11/2026; ⚠️ IN ANTEPRIMA sul ramo di lavoro, non su `main`)**, due richieste di Christian:
+  1. **«nelle celle ore, se confermo una cella con lo 0,00 la stessa si blocca per evitare compilazioni sbagliate»** (scelte: «Vista mesi»,
+     «Doppio clic e conferma»): nella vista MESI di un anno, una cella di ore del personale o di importo dei beni/servizi in cui si **scrive** 0
+     e si conferma diventa **«🔒 0,00»** grigia, non compilabile; **doppio clic** → «Sbloccare la cella di ‹MES› ‹anno› (‹nome›)? Era stata
+     confermata a 0,00 …» → torna compilabile. Entrare e uscire da una cella vuota senza scrivere **non** blocca; svuotare una cella neanche.
+     Dato nuovo nella riga: **`zero`** = `{ "‹anno-indice›-‹mese›": true }` (personale e beni), scritto da `zP`/`zB` insieme al valore; il
+     lucchetto si vede solo se il valore è 0. `NumIn` ha la prop facoltativa `onZero` (le altre caselle non la passano). Nessun calcolo cambia.
+  2. **Tipo di fine** («Diciamo: FINE INCARICO PER ESAURIM. € e CESSAZ. CON SUBENTRO», «Scelgo io ogni volta»): segnando la fine, dopo la data
+     l'app chiede «Che tipo di fine è? 1 = FINE INCARICO PER ESAURIM. € · 2 = CESSAZ. CON SUBENTRO» (altro → «Scrivi 1 oppure 2.», niente
+     cessazione). Campo nuovo **`cessTipo`** (`esaur` | `sub`), scritto insieme a `cessato`; si cambia anche nel riquadro Riassegnazione
+     («Tipo di fine:») e con la nuova data su «CESS.» di chi è già cessato; togliendo la cessazione si toglie anche il tipo. La scritta
+     (`cessEtich`) va sul pulsante del budget, nei mesi («… gg/mm» e negli anni dopo) e nel riquadro. **Dati di prima senza tipo: resta
+     «CESS.»** finché non lo si sceglie. Le voci dei **beni/servizi** non sono toccate. Il blocco delle celle dopo la data è lo stesso di prima.
+  ⚠️ **Diciture**: le due di Christian; scritte da Claude la domanda del tipo, «Tipo di fine:», «— da scegliere —», il suggerimento e la domanda
+  del lucchetto. **Provato**: `collaudo/uso-ver151.cjs` **22/0** (confronto con la ver150 in `/uso150/`).
 - ↳ **ver150 (27/11/2026, Christian, di nuovo: «fai "rientrare" nella pagina del budget i subentranti, mentre i titolari dell'incarico iniziale
   stiano a sinistra … riduci il font stringendolo al 90%»; ⚠️ IN ANTEPRIMA sul ramo di lavoro, non su `main`)**: nella ver149 il rientro non si
   vedeva, anzi: la cella «Ruolo / Nominativo» è centrata (`Cell`, `justifyContent:center`) e la riga del subentrante, più lunga per le
