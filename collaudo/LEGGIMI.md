@@ -145,3 +145,10 @@ Riepilogo operatori, cessazione tolta = riga di nuovo compilabile, data impossib
 `uso-ver148.cjs` (banco comune 8340; confronto con la ver147 congelata in `/uso147/`; `USO_PNG=<cartella>` salva l'anteprima): nella
 vista MESI il nome di chi è cessato è barrato solo negli anni tutti dopo la cessazione, nell'anno della cessazione «CESS. gg/mm»; celle
 bloccate invariate. Esito **11/0**.
+
+## ver149 (27/11/2026, sul ramo di lavoro, in anteprima)
+
+`uso-ver149.cjs` (banco comune 8340; confronto con la ver148 congelata in `/uso148/`; `USO_PNG=<cartella>` salva tre anteprime): subentro
+nel riquadro Riassegnazione (imposta, cambia, togli), etichetta «SUB.» nel budget, trasferimenti vincolati e liberi registrati e sbiaditi,
+trasferimento di prima dedotto dal subentrante, avviso su «CESS.» di chi è già cessato (annulla, nuova data, togli), rientro e 90%, 390px.
+Esito **22/0**. `uso-cess.cjs` aggiornato: la cessazione si toglie rispondendo alle domande nuove (16/0).

@@ -64,7 +64,8 @@ async function torna(T) { await T.page.click('button:has-text("Torna a budget")'
   } catch (e) { xl = null; }
   c('Z10', 'Excel dell\'anno 2026: ALFA con «—» da aprile', 'GEN 10 … APR «—»', xl ? JSON.stringify(xl.slice(4, 12)) : 'Excel non letto', xl ? xl.slice(4, 12).filter(v => v === '—').length >= 2 && xl[4] === 10 : 'NON VERIFICATO', xl ? undefined : 'NON VERIFICATO');
   /* riattivare e ricessare con il pulsante */
-  T.risposte.push({ re: /Data cessazione/, text: '31/02/2026' });
+  // dalla ver149 «CESS.» su chi è già cessato chiede: OK, casella vuota, conferma = cessazione tolta
+  T.risposte.push({ re: /già cessata/ }, { re: /Nuova data/, text: '' }, { re: /Togliere la cessazione/ }, { re: /Data cessazione/, text: '31/02/2026' });
   await T.page.locator('button[title^="Cessato il 15/03/2026"]').click(); await L.aspetta(T, 200);   // riattiva
   await apriMesi(T, 2026); a = await mesiRiga(T, 'ALFA');
   c('Z11', 'Togliendo la cessazione la riga torna compilabile (ore di prima ancora lì)', 'in×12', a && a.celle.join(' '), a && a.celle.filter(x => x === 'in').length === 12);

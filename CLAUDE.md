@@ -37,7 +37,7 @@ USOINT sta per **"uso interno"**.
   `usoint-tariffe`, `usoint-simul`, **`usoint-codici`** (dalla ver136: codice operatore → riga).
   Accesso mail+password.
 - **Numero di revisione**: costante `const VER` (riga ~67), mostrata in **tre punti** (Home,
-  scheda progetto, Riepilogo operatori). **Attuale su `main`: ver147 · 23nov26 — approvata da Christian e portata su `main` il 23/11/2026 («main»); sul ramo di lavoro, in anteprima, la ver148 · 27nov26** (prima su `main` la ver146, approvata da Christian il 23/11/2026: «main per ver146»; prima su `main` la ver145, approvata da Christian il 23/11/2026: «main»; prima su `main` la ver144, approvata da Christian il 22/11/2026: «Main»; prima su `main` la ver143, approvata da Christian il 21/11/2026: «Main»; prima la ver142). `VER` finisce anche nei
+  scheda progetto, Riepilogo operatori). **Attuale su `main`: ver147 · 23nov26 — approvata da Christian e portata su `main` il 23/11/2026 («main»); sul ramo di lavoro, in anteprima, la ver149 · 27nov26 (con la ver148)** (prima su `main` la ver146, approvata da Christian il 23/11/2026: «main per ver146»; prima su `main` la ver145, approvata da Christian il 23/11/2026: «main»; prima su `main` la ver144, approvata da Christian il 22/11/2026: «Main»; prima su `main` la ver143, approvata da Christian il 21/11/2026: «Main»; prima la ver142). `VER` finisce anche nei
   nomi dei file esportati: incrementarla, non affiancarle un secondo numero.
 - **Strutture utili**: `usoint-orelav` = `{ [norm(nome)]: { [anno]: [12 numeri] } }` (ore
   lavorate, indice 0 = gennaio; `norm` = minuscolo, trim, spazi singoli).
@@ -84,6 +84,30 @@ USOINT sta per **"uso interno"**.
 - **Funzioni presenti**: import automatico (SOLA LETTURA) delle ore lavorate dal database dei
   Dipendenti tramite una **seconda app Firebase** chiamata "dip"; tabella compatta della scheda
   operatore (Lavorate | una colonna per progetto | Tot. rendicontate | Avanzo).
+- 🔁 **ver149 (27/11/2026, Christian: «allertami quando magari cesso una persona già cessata, ricordandomi: data già inserita e subentrante
+  scelto», «fai "rientrare" nella pagina del budget i subentranti … riduci il font stringendolo al 90%», «la data di subentro chiedimela nella
+  sezione apposita … Riassegnazione residui di operatori cessati, non farmela mettere in PERSONALE — Budget», «se un importo è stato trasferito,
+  segna a chi e sbiadisci la parte con nome e importo»; scelte: «Solo etichetta», «Dal subentrante», «nomi e disciplina afferente», «Avvisa e
+  chiede»; ⚠️ IN ANTEPRIMA sul ramo di lavoro, non su `main`)**:
+  1. **Subentro nel riquadro «Riassegnazione residui di operatori cessati»**: per ogni cessato una riga «↳ Subentra: [operatore] dal [data]
+     ✔ Imposta subentro», con la data proposta al giorno dopo la cessazione, «ora: NOME dal …» e «Togli». Campo nuovo nel subentrante
+     **`subentroDi`** (nome del cessato), scritto insieme a `subentro` in una sola copia dello stato (anche da `proponiSubentro` dopo un
+     trasferimento). Cambiando subentrante, a quello di prima si toglie la data. Chi subentra a chi: `subentranteDi(P,i)` (prima `subentroDi`,
+     poi, per i dati di prima, la data di subentro al giorno dopo la cessazione). Nel **budget** il pulsante «Sub.» è **tolto**: resta
+     l'etichetta di sola lettura «SUB. gg/mm». ⚠️ Chi entra a progetto iniziato senza sostituire un cessato non ha più un modo per bloccare i
+     mesi prima (scelta di Christian); un subentro già scritto su chi non sostituisce nessuno resta, e si toglie solo dai dati.
+  2. **Trasferimenti registrati**: `trasferisciOre` e `trasferisciLibero` scrivono nel cessato **`trasf`** = `[{k: anno-indice | "glob", a: nome
+     del destinatario, imp, ore, il: data}]`. Il cessato resta nel riquadro anche a residui trasferiti: le righe fatte sono **sbiadite**
+     (opacità 0,5) con «✓ Trasferito € … a NOME il gg/mm/aaaa (N h)», e il nome con «✓ residui trasferiti». Per i trasferimenti fatti
+     prima della ver149: «✓ Trasferito a NOME (subentrante) — importo non registrato» se c'è il subentrante, altrimenti «(destinatario non
+     registrato)». ⚠️ Il conto dei residui e i trasferimenti **non cambiano**.
+  3. **«CESS.» su chi è già cessato**: ««NOME» è già cessata il gg/mm/aaaa. Subentrante scelto: … (dal …) / Nessun subentrante scelto. Vuoi
+     cambiare o togliere la data di cessazione?»; OK → nuova data (casella vuota = togliere, con un'altra conferma); se c'è un subentrante, un
+     avviso ricorda che la sua data di subentro resta. Prima il clic toglieva la cessazione senza domande.
+  4. **Budget**: i subentranti rientrano (↳, larghezze ridotte di 16px) e **nome** (10 → 9px) e **ruolo/disciplina** (10,5 → 9,45px) sono al 90%
+     per tutte le righe del personale.
+  ⚠️ **Diciture nuove, scritte da Claude**: tutte le frasi qui sopra. **Provato**: `collaudo/uso-ver149.cjs` **22/0** (confronto con la ver148 in
+  `/uso148/`); `uso-cess` aggiornato al nuovo «CESS.» (16/0).
 - ✂️ **ver148 (27/11/2026, Christian: «perchè me li presenti cancellati se per esempio in un anno hanno comunque lavorato anche qualche mese?
   Vedi … totalmente cancellata nell'anno 2026» → «Nu\*»; ⚠️ IN ANTEPRIMA sul ramo di lavoro, non su `main`)**: nella vista MESI di un anno il
   nome di chi è cessato si **barra** (fondo grigio, «CESS.») **solo negli anni interamente dopo la cessazione**; nell'anno della cessazione
