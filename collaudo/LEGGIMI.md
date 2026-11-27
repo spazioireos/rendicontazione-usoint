@@ -159,7 +159,7 @@ Esito **22/0**. `uso-cess.cjs` aggiornato: la cessazione si toglie rispondendo a
 titolari alla stessa x (anche col ✓ di budget raggiunto), subentranti rientrati dello stesso tanto con e senza etichette, nome/ruolo al 90%,
 390px. Esito **6/0**.
 
-## ver151 (27/11/2026, sul ramo di lavoro, in anteprima)
+## ver151 (27/11/2026, su `main` dal 27/11/2026)
 
 `uso-ver151.cjs` (banco comune 8340; confronto con la ver150 in `/uso150/`; `USO_APP`, `USO_PNG`): cella confermata a 0 bloccata e
 sbloccata col doppio clic (personale e beni, salvataggio e ricaricamento), tipo di fine scelto alla cessazione, cambiato nel riquadro e alla

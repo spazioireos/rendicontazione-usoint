@@ -32,12 +32,17 @@ USOINT sta per **"uso interno"**.
   Layout a colonna con flexbox e **nessuna altezza fissa**: la barra si adatta da sé se i
   pulsanti vanno a capo (con altezza fissa, su tablet la seconda riga di pulsanti finiva
   nascosta sotto l app).
+- 🌐 **ATTENZIONE: il sito pubblico di QUESTO repository (USOINT e pagina integrata) è pubblicato dal RAMO DI LAVORO
+  `claude/integrated-app-feasibility-8d1wg0`, non da `main`** (misurato il 27/11/2026 dalle esecuzioni «pages build and deployment»:
+  le ultime 100 su `main` si fermano al 28/10/2026, da lì in poi tutte dal ramo). Quindi **ogni push sul ramo va online subito**, anche
+  un'anteprima. Le altre tre app pubblicano da `main`. Finché la sorgente di Pages non torna su `main` (lo cambia Christian: Settings →
+  Pages → Branch), **non spingere sul ramo un `index.html` non approvato**: tenerlo in locale o su un altro ramo fino al Nu\*.
 - **Dati**: Firebase progetto `rendicontazione-usoint`, percorso `users/{uid}/kv/<chiave>`
   (specchio di localStorage). Chiavi: `usoint-idx`, `usoint-p-<id>`, `usoint-orelav`,
   `usoint-tariffe`, `usoint-simul`, **`usoint-codici`** (dalla ver136: codice operatore → riga).
   Accesso mail+password.
 - **Numero di revisione**: costante `const VER` (riga ~67), mostrata in **tre punti** (Home,
-  scheda progetto, Riepilogo operatori). **Attuale su `main`: ver150 · 27nov26 — approvata da Christian e portata su `main` il 27/11/2026 («Sì, main»); sul ramo di lavoro, in anteprima, la ver151 · 27nov26** (prima su `main` la ver149, approvata il 27/11/2026: «Nu\* e main», insieme alla ver148) (prima su `main` la ver147, approvata da Christian il 23/11/2026: «main») (prima su `main` la ver146, approvata da Christian il 23/11/2026: «main per ver146»; prima su `main` la ver145, approvata da Christian il 23/11/2026: «main»; prima su `main` la ver144, approvata da Christian il 22/11/2026: «Main»; prima su `main` la ver143, approvata da Christian il 21/11/2026: «Main»; prima la ver142). `VER` finisce anche nei
+  scheda progetto, Riepilogo operatori). **Attuale: ver151 · 27nov26 — approvata da Christian e portata su `main` il 27/11/2026 («Lascia ver151 online»)** (prima su `main` la ver150, approvata il 27/11/2026: «Sì, main») (prima su `main` la ver149, approvata il 27/11/2026: «Nu\* e main», insieme alla ver148) (prima su `main` la ver147, approvata da Christian il 23/11/2026: «main») (prima su `main` la ver146, approvata da Christian il 23/11/2026: «main per ver146»; prima su `main` la ver145, approvata da Christian il 23/11/2026: «main»; prima su `main` la ver144, approvata da Christian il 22/11/2026: «Main»; prima su `main` la ver143, approvata da Christian il 21/11/2026: «Main»; prima la ver142). `VER` finisce anche nei
   nomi dei file esportati: incrementarla, non affiancarle un secondo numero.
 - **Strutture utili**: `usoint-orelav` = `{ [norm(nome)]: { [anno]: [12 numeri] } }` (ore
   lavorate, indice 0 = gennaio; `norm` = minuscolo, trim, spazi singoli).
@@ -84,7 +89,7 @@ USOINT sta per **"uso interno"**.
 - **Funzioni presenti**: import automatico (SOLA LETTURA) delle ore lavorate dal database dei
   Dipendenti tramite una **seconda app Firebase** chiamata "dip"; tabella compatta della scheda
   operatore (Lavorate | una colonna per progetto | Tot. rendicontate | Avanzo).
-- 🔒 **ver151 (27/11/2026; ⚠️ IN ANTEPRIMA sul ramo di lavoro, non su `main`)**, due richieste di Christian:
+- 🔒 **ver151 (27/11/2026; su `main` dal 27/11/2026: «Lascia ver151 online»)**, due richieste di Christian:
   1. **«nelle celle ore, se confermo una cella con lo 0,00 la stessa si blocca per evitare compilazioni sbagliate»** (scelte: «Vista mesi»,
      «Doppio clic e conferma»): nella vista MESI di un anno, una cella di ore del personale o di importo dei beni/servizi in cui si **scrive** 0
      e si conferma diventa **«🔒 0,00»** grigia, non compilabile; **doppio clic** → «Sbloccare la cella di ‹MES› ‹anno› (‹nome›)? Era stata
