@@ -1,6 +1,6 @@
 // estrae dal file vero dell'app le funzioni del motore (non le riscrive)
 const fs=require('fs');
-const src=fs.readFileSync(process.env.APPF||'/home/user/rendicontazione-usoint/index.html','utf8');
+const src=fs.readFileSync(process.env.APPF||(__dirname+'/../../index.html'),'utf8');
 function prendi(inizio){const i=src.indexOf(inizio);if(i<0)throw new Error('manca '+inizio);let j=src.indexOf('{',i),d=0;for(;j<src.length;j++){if(src[j]==='{')d++;else if(src[j]==='}'){d--;if(d===0)break}}return src.slice(i,j+1)}
 const MESI=["GEN","FEB","MAR","APR","MAG","GIU","LUG","AGO","SET","OTT","NOV","DIC"];
 const codice=['const MESI='+JSON.stringify(MESI)+';',

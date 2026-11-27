@@ -1,4 +1,4 @@
-const L = require('/home/user/rendicontazione-usoint/collaudo/uso-a01-lib.cjs');
+const L = require('../uso-a01-lib.cjs');
 const m=require('./motore.cjs');
 const VINC=process.env.VINC==='1', SUB=process.env.SUB||'2026-06-01', BEUR=Number(process.env.BEUR||0), BEA=Number(process.env.BEA||25);
 const Z=()=>Array(12).fill(0);const r2=x=>Math.round(x*100)/100;
