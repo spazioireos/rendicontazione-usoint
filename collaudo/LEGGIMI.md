@@ -201,3 +201,10 @@ sposta il subentro; senza trasferimenti riepilogo, saldo e quadro anno identici 
 mesi (celle GEN-GIU 200 €, LUG-DIC 300 €, riepilogo 3.000 €, il cambio continua nel 2027, ✕ con conferma, doppio clic sulla casella grigia,
 valori non validi rifiutati), Tariffario con «da quale mese» (dal SET: GEN-AGO restano, riepilogo 3.040 €; non continua nel 2027), Tariffario
 di prima (numero) su tutto l'anno, senza cambi identico alla ver156. **19/0**. `audit-formule/motore.cjs` estrae anche `rateM`, `tarV`, `tarDal`.
+
+## ver158 (28/11/2026, in attesa del Nu*)
+
+`uso-ver158.cjs` (banco comune 8340; confronto con la ver157 in `/uso157/`): celle certificate ✓ bloccate (personale e beni; doppio clic con
+Annulla e con OK, 💾, nuova certificazione col ○), nome in grassetto, ore 13px, €/ora eff. e prev. 12px, nominativo incolonnato, simulatore
+di spalmatura col costo del mese (125 € contro i 100 € della ver157). **14/0**. Dalla ver158 la casella delle ore del mese è larga 58px:
+`uso-a01-budget` e `uso-ver139` aggiornati.

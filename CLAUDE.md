@@ -97,8 +97,19 @@ USOINT sta per **"uso interno"**.
   «Ore max»); celle dei mesi: € / f / c con interlinea 1 (era 1,2). Christian: «Aumenta … i punti del font nelle celle delle ore … e nelle celle che contengono
   l'importo orario»: ore dei mesi da 10 a **13px** (casella da 48 a 58px, così «120,50» ci sta), «€/ora eff.» (casella gialla e grigia) da 9 a **12px**, il lucchetto del Tariffario da 9 a
   **11px** (va a capo dentro la cella), «€/ora prev.» da 10 a **12px**. Misure dei caratteri, colori, diciture, dati e calcoli invariati.
-  Misurato: righe da 57-58 a 55-56px. **Provato**: `uso-a01-graf` 50/0, `uso-ver147` 10/0, `uso-ver148` 11/0, `uso-ver151` 22/0,
-  `uso-ver156` 21/0, `uso-ver157` 19/0, `uso-a01-budget` 41/0; anteprima a confronto con la ver157 (`/uso157/`).
+  Misurato: righe da 57-58 a 55-56px.
+  🔒 **Celle certificate ✓ bloccate** (Christian: «La cella certificata con la spunta deve essere difficilmente modificabile, per evitare
+  errori»): nella vista MESI una cella di ore (personale) o di importo (beni/servizi) con la ✓ non è più una casella: è grigia col bordo verde e
+  mostra il valore (`certBox`). **Doppio clic** → «La cella di ‹MES› ‹anno› (‹nome›) è certificata ✓ ed è bloccata per evitare errori. Per
+  correggerla devo togliere la certificazione ✓ (dopo la potrai rimettere). Procedo?» → OK toglie la ✓ (`togliCert`) e la cella torna
+  scrivibile col valore di prima; Annulla non cambia niente. Il clic sulla ✓ per toglierla chiedeva già conferma (invariato).
+  🧮 **Simulatore di spalmatura** (conseguenza della ver157): le ore simulate si valutano col costo del mese (`meta.rateM`, dai `rM` del
+  motore), anche nell'Excel del simulatore; con un costo unico è lo stesso numero di prima. Misurato: 5 h a GEN (10 €) + 5 h a LUG (15 € dal
+  LUG) = € 125,00 (ver157: € 100,00).
+  ⚠️ Diciture nuove, scritte da Claude: la domanda e il suggerimento della cella certificata. **Provato**: `collaudo/uso-ver158.cjs` **14/0**
+  (confronto con la ver157 in `/uso157/`); batteria USOINT sulla ver158 a zero falliti (`uso-a01-*`, `int-a01`, `uso-cess`, `uso-ver139…157`);
+  `audit-formule/unit.cjs` superati; motore identico alla ver156 senza cambi «dal mese» (3.000 casi). ⚠️ **Attese aggiornate, non aggirate**:
+  `uso-a01-budget` D19 e `uso-ver139` cercano la casella delle ore larga 58px (era 48).
 - 📅 **ver157 (27/11/2026, audit delle formule A5 A6, Christian: «il cambio vale dal mese (più semplice)», «il Tariffario non tocca più i
   mesi già lavorati prima del cambio. Meglio ancora, lo risolve A6»; «Ok ver156, procedi con ver157»; ⚠️ IN ATTESA DEL Nu\* per la pubblicazione)**:
   1. **Costo orario che cambia dal mese** (dato nuovo nella riga del personale **`eurDal`** = `[{yi, m, eur}]`): vale dal mese `m` dell'anno

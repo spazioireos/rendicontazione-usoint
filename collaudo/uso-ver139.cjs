@@ -71,7 +71,7 @@ async function proroga(dir) {
   T.risposte.push({ re: /Nuova data fine/, text: '31/12/2028' });
   await T.page.click('button:has-text("📅 Proroga")'); await L.aspetta(T, 300);
   await T.page.locator('button[title="Apri i mesi del 2028"]').click(); await L.aspetta(T, 400);
-  const cel = T.page.locator('input[style*="width: 48px"]').nth(0);
+  const cel = T.page.locator('input[style*="width: 48px"], input[style*="width: 58px"]').nth(0); /* 48px fino alla ver157, 58px dalla ver158 */
   await cel.click(); await cel.press('Control+a'); await cel.fill('9'); await cel.press('Tab'); await L.aspetta(T, 150);
   await T.page.click('button:has-text("💾 Salva")'); await L.aspetta(T, 300);
   const d = JSON.parse(await L.ls(T, 'usoint-p-p1'));

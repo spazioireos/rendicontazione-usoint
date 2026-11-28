@@ -92,7 +92,8 @@ async function riga(loc) { return loc.evaluate(el => { let n = el; for (let i = 
   await T.page.locator('button[title="Apri i mesi del 2026"]').click(); await L.aspetta(T, 400);
   t = await L.testo(T);
   c('D18', 'vista MESI 2026', 'tabella con GEN…DIC e «◄ Torna a budget»', /Torna a budget/.test(t) && /GEN/.test(t) && /DIC/.test(t), /Torna a budget/.test(t) && /GEN/.test(t));
-  const m48 = T.page.locator('input[style*="width: 48px"]');
+  /* dalla ver158 la casella delle ore del mese è larga 58px (era 48) */
+  const m48 = T.page.locator('input[style*="width: 58px"]');
   c('D19', 'caselle ore mensili personale', '2 righe × 12 = 24', await m48.count(), await m48.count() === 24);
   await scrivi(T, m48.nth(0), '10'); await scrivi(T, m48.nth(1), '7,5');
   await scrivi(T, m48.nth(2), '-4', true);
@@ -157,7 +158,7 @@ async function riga(loc) { return loc.evaluate(el => { let n = el; for (let i = 
   } else c('D34', 'export Excel', 'download', 'nessun download', false);
   /* ore nell'anno aggiunto con la proroga: arrivano nel Riepilogo operatori? */
   await T.page.locator('button[title="Apri i mesi del 2028"]').click(); await L.aspetta(T, 400);
-  await scrivi(T, T.page.locator('input[style*="width: 48px"]').nth(0), '9');
+  await scrivi(T, T.page.locator('input[style*="width: 58px"]').nth(0), '9');
   await T.page.click('button:has-text("💾 Salva")'); await L.aspetta(T, 300);
   d = JSON.parse(await L.ls(T, 'usoint-p-pb'));
   await T.page.locator('button', { hasText: '←' }).first().click(); await L.aspetta(T, 400);
