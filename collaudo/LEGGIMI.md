@@ -208,3 +208,5 @@ di prima (numero) su tutto l'anno, senza cambi identico alla ver156. **19/0**. `
 Annulla e con OK, 💾, nuova certificazione col ○), nome in grassetto, ore 13px, €/ora eff. e prev. 12px, nominativo incolonnato, simulatore
 di spalmatura col costo del mese (125 € contro i 100 € della ver157). **14/0**. Dalla ver158 la casella delle ore del mese è larga 58px:
 `uso-a01-budget` e `uso-ver139` aggiornati.
+
+- `uso-ver158b.cjs` (28/11/2026, Vm\* di Christian): le celle dei beni/servizi restano a 10px e 66px; 9.999,99, 1.234,56 e la cella certificata ✓ ci stanno; nel personale ore a 13px ed €/ora a 12px ci stanno (1500 e 390px). Un importo a 5 cifre sporge di 1px, come nella ver155. **8/0**.

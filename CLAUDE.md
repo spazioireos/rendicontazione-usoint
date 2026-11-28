@@ -42,7 +42,7 @@ USOINT sta per **"uso interno"**.
   `usoint-tariffe`, `usoint-simul`, **`usoint-codici`** (dalla ver136: codice operatore → riga).
   Accesso mail+password.
 - **Numero di revisione**: costante `const VER` (riga ~67), mostrata in **tre punti** (Home,
-  scheda progetto, Riepilogo operatori). **Attuale: ver153 · 27nov26 — approvata da Christian e portata su `main` il 27/11/2026 («Nu\*», insieme alla ver152)** (prima su `main` la ver151, approvata il 27/11/2026: «Lascia ver151 online») (prima su `main` la ver150, approvata il 27/11/2026: «Sì, main») (prima su `main` la ver149, approvata il 27/11/2026: «Nu\* e main», insieme alla ver148) (prima su `main` la ver147, approvata da Christian il 23/11/2026: «main») (prima su `main` la ver146, approvata da Christian il 23/11/2026: «main per ver146»; prima su `main` la ver145, approvata da Christian il 23/11/2026: «main»; prima su `main` la ver144, approvata da Christian il 22/11/2026: «Main»; prima su `main` la ver143, approvata da Christian il 21/11/2026: «Main»; prima la ver142). `VER` finisce anche nei
+  scheda progetto, Riepilogo operatori). **Attuale: ver158 · 28nov26 — approvata da Christian e portata su `main` il 28/11/2026 («Nu\* dalla ver154 alla ver158», insieme alle ver154-157)** (prima su `main` la ver153, approvata il 27/11/2026: «Nu\*», insieme alla ver152) (prima su `main` la ver151, approvata il 27/11/2026: «Lascia ver151 online») (prima su `main` la ver150, approvata il 27/11/2026: «Sì, main») (prima su `main` la ver149, approvata il 27/11/2026: «Nu\* e main», insieme alla ver148) (prima su `main` la ver147, approvata da Christian il 23/11/2026: «main») (prima su `main` la ver146, approvata da Christian il 23/11/2026: «main per ver146»; prima su `main` la ver145, approvata da Christian il 23/11/2026: «main»; prima su `main` la ver144, approvata da Christian il 22/11/2026: «Main»; prima su `main` la ver143, approvata da Christian il 21/11/2026: «Main»; prima la ver142). `VER` finisce anche nei
   nomi dei file esportati: incrementarla, non affiancarle un secondo numero.
 - **Strutture utili**: `usoint-orelav` = `{ [norm(nome)]: { [anno]: [12 numeri] } }` (ore
   lavorate, indice 0 = gennaio; `norm` = minuscolo, trim, spazi singoli).
@@ -90,7 +90,7 @@ USOINT sta per **"uso interno"**.
   Dipendenti tramite una **seconda app Firebase** chiamata "dip"; tabella compatta della scheda
   operatore (Lavorate | una colonna per progetto | Tot. rendicontate | Avanzo).
 - ↕️ **ver158 (28/11/2026, Christian: «Graficamente, nella vista mesi, ove vi sono i nominativi, incolonna le scritte interne alla cella,
-  abbassando notevolmente l'interlinea»; ⚠️ IN ATTESA DEL Nu\* per la pubblicazione)**: solo aspetto, righe del personale della vista MESI.
+  abbassando notevolmente l'interlinea»; su `main` dal 28/11/2026 con le ver154-158: «Nu\* dalla ver154 alla ver158»)**: solo aspetto, righe del personale della vista MESI.
   Nominativo: nome, etichetta della cessazione («CESSAZ. CON SUBENTRO 31/05») e ruolo **uno sotto l'altro** (prima l'etichetta stava accanto
   al nome) con interlinea 1, e il **nome in grassetto** (Christian: «Graficamente metti i nomi in grassetto»; peso 800, era 600); «Ore max»: numero, «−X h» e «da togliere» su righe proprie dentro la cella (prima uscivano a destra sulla
   colonna dopo); «€/ora eff.»: i cambi «dal mese» e il pulsante «⇢ dal mese…» sotto la casella (nella ver157 il pulsante si sovrapponeva a
@@ -113,12 +113,17 @@ USOINT sta per **"uso interno"**.
   3.000 casi) e l'Excel scrive in «Res.€» lo stesso residuo della vista mesi (`resEuroCalc`). Prove dell'audit in `collaudo/audit-formule/`:
   `prop158.cjs` (motore contro ricalcolo indipendente `indip.cjs` + proprietà, ~5.000 casi, 0 differenze; tre mutazioni del motore scoperte),
   `e2e158.cjs` (30 progetti casuali aperti nell'app: riepilogo per anno, previsto, consuntivo, saldo, 720/720), `excel158.cjs` (8/0).
+  📏 **Vm\* di Christian prima del «main»** («nel box materiali non sono mai scritti importi orari … lì gli importi arrivano anche a 4 cifre
+  più due decimali»): le misure più grandi (ore 13px, €/ora 12px) valgono **solo per il personale**; le celle dei **beni/servizi** restano a
+  10px, larghe 66px, come nella ver153. Misurato con `collaudo/uso-ver158b.cjs` **8/0** a 1500 e 390px: 9.999,99, 1.234,56 e la cella
+  certificata ✓ stanno nella cella; nel personale 150,50 · 999,99 · 88,25 (13px) e 123,45 €/ora (12px) pure. ⚠️ Un importo a **5 cifre**
+  (99.999,99 in un mese) sporge di 1px: **identico alla ver155**, non toccato.
   ⚠️ Diciture nuove, scritte da Claude: la domanda e il suggerimento della cella certificata. **Provato**: `collaudo/uso-ver158.cjs` **14/0**
   (confronto con la ver157 in `/uso157/`); batteria USOINT sulla ver158 a zero falliti (`uso-a01-*`, `int-a01`, `uso-cess`, `uso-ver139…157`);
   `audit-formule/unit.cjs` superati; motore identico alla ver156 senza cambi «dal mese» (3.000 casi). ⚠️ **Attese aggiornate, non aggirate**:
   `uso-a01-budget` D19 e `uso-ver139` cercano la casella delle ore larga 58px (era 48).
 - 📅 **ver157 (27/11/2026, audit delle formule A5 A6, Christian: «il cambio vale dal mese (più semplice)», «il Tariffario non tocca più i
-  mesi già lavorati prima del cambio. Meglio ancora, lo risolve A6»; «Ok ver156, procedi con ver157»; ⚠️ IN ATTESA DEL Nu\* per la pubblicazione)**:
+  mesi già lavorati prima del cambio. Meglio ancora, lo risolve A6»; «Ok ver156, procedi con ver157»; su `main` dal 28/11/2026 con le ver154-158: «Nu\* dalla ver154 alla ver158»)**:
   1. **Costo orario che cambia dal mese** (dato nuovo nella riga del personale **`eurDal`** = `[{yi, m, eur}]`): vale dal mese `m` dell'anno
      `yi` in poi, **anche negli anni dopo**, finché un anno non ha il suo costo scritto (`eurA`) o un cambio successivo. Funzione **`rateM(p,yi,m)`**
      = costo del mese. Nella vista MESI, sotto «€/ora eff.»: pulsante **«⇢ dal mese…»** (chiede costo e mese, di serie il mese di oggi
@@ -143,7 +148,7 @@ USOINT sta per **"uso interno"**.
 - 💶 **ver156 (27/11/2026, audit delle formule A2 A3 A4 A7 A8, decisioni di Christian: «il «Previsto» resta sempre quello del budget
   approvato. Chi va via e chi arriva non lo cambia mai», «a Luca arrivano i 500 €. Le sue ore si calcolano quando scrivi il suo costo orario
   nella vista mesi», «l'allarme guarda gli euro», «ok l'avviso», «se io dico che Gino cessa al 30/06/26 e subentra Mario, Mario è assodato
-  che sia dal 1/7»; ⚠️ IN ATTESA DEL Nu\* per la pubblicazione)**:
+  che sia dal 1/7»; su `main` dal 28/11/2026 con le ver154-158: «Nu\* dalla ver154 alla ver158»)**:
   1. **Il «Trasferisci» passa EURO, non ore** (`trasferisciEuro`): nel cedente si registra `trasf {k, a, imp, ore, il, eur:true}` e le sue ore
      di budget (`aOre`) **non cambiano**; nel destinatario `ricEur[anno]` += euro e `ricBlk` [{imp, Iorig}] (la % di finanziamento del
      cedente). Le ore del destinatario = euro ÷ **il suo** costo orario della vista mesi (`eurA`, poi `eur`); senza costo orario «riceve € …:
@@ -163,7 +168,7 @@ USOINT sta per **"uso interno"**.
   `uso-a01-riep` (le ore da Dipendenti sono grigie dalla ver155: si correggono col doppio clic), `uso-ver149` (data di subentro automatica),
   `uso-ver152`/`153`/`155` (il Trasferisci passa euro: «€ 3.800,00 ric.», `ricEur`, «+€ … @ …%»).
 - ▦ **ver155 (27/11/2026, Christian: «quando non devo compilare io ma le cose sono automatiche, non lasciare mai le celle gialline» e
-  «le cose che non sono da compilare non vanno mai in giallino, anche se potrei farlo»; ⚠️ IN ATTESA DEL Nu\* per la pubblicazione)**:
+  «le cose che non sono da compilare non vanno mai in giallino, anche se potrei farlo»; su `main` dal 28/11/2026 con le ver154-158: «Nu\* dalla ver154 alla ver158»)**:
   caselle con un valore messo dall'app **grigie** (funzione `grAuto`, stesso grigio della ver152):
   1. **Budget ric.€** del subentrante (budget): grigia, mostra `budgetRic` oppure, se è 0, la somma degli importi `trasf` registrati dai
      cedenti verso quel nome (`ricDaTrasf`, ver149); «—» per i trasferimenti di prima della ver149. Solo a video: il motore non cambia.
@@ -176,7 +181,7 @@ USOINT sta per **"uso interno"**.
   ⚠️ Diciture nuove, scritte da Claude: i suggerimenti delle caselle grigie e le due domande del doppio clic. **Provato**:
   `collaudo/uso-ver155.cjs` **12/0** (confronto con la ver154 in `/uso154/`).
 - 💶 **ver154 (27/11/2026, audit delle formule, anomalia A1; Christian: «a1, è corretto perché il finanziatore non mette mai più
-  dell'impegnato»; ⚠️ IN ATTESA DEL Nu\* per la pubblicazione)**: nel riquadro **CONSUNTIVO FINALE** il «Finanziato che ti spetta» era
+  dell'impegnato»; su `main` dal 28/11/2026 con le ver154-158: «Nu\* dalla ver154 alla ver158»)**: nel riquadro **CONSUNTIVO FINALE** il «Finanziato che ti spetta» era
   speso − tua quota **senza tetto**: con lo speso oltre il budget superava la quota del Committente (misurato: budget 2.000 €, Committente
   1.600 €, speso 3.250 € → saldo **2.850 €**, mentre nella stessa pagina «Quota Committente», «Speso finanziato» e «Da fatturare ancora»
   dicevano 1.600 €). Ora `finSpetta` si ferma a `finMaxCom` = totale progetto − quota tua prevista, e compare la riga rossa «⚠ Lo speso
