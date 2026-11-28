@@ -42,7 +42,7 @@ USOINT sta per **"uso interno"**.
   `usoint-tariffe`, `usoint-simul`, **`usoint-codici`** (dalla ver136: codice operatore → riga).
   Accesso mail+password.
 - **Numero di revisione**: costante `const VER` (riga ~67), mostrata in **tre punti** (Home,
-  scheda progetto, Riepilogo operatori). **Attuale su `main`: ver158 · 28nov26 — approvata da Christian e portata su `main` il 28/11/2026 («Nu\* dalla ver154 alla ver158», insieme alle ver154-157); ver159 e ver160 in anteprima, in attesa del Nu\*** (prima su `main` la ver153, approvata il 27/11/2026: «Nu\*», insieme alla ver152) (prima su `main` la ver151, approvata il 27/11/2026: «Lascia ver151 online») (prima su `main` la ver150, approvata il 27/11/2026: «Sì, main») (prima su `main` la ver149, approvata il 27/11/2026: «Nu\* e main», insieme alla ver148) (prima su `main` la ver147, approvata da Christian il 23/11/2026: «main») (prima su `main` la ver146, approvata da Christian il 23/11/2026: «main per ver146»; prima su `main` la ver145, approvata da Christian il 23/11/2026: «main»; prima su `main` la ver144, approvata da Christian il 22/11/2026: «Main»; prima su `main` la ver143, approvata da Christian il 21/11/2026: «Main»; prima la ver142). `VER` finisce anche nei
+  scheda progetto, Riepilogo operatori). **Attuale: ver160 · 28nov26 — approvata da Christian e portata su `main` il 28/11/2026 («Nu\* per pubblicare ver159 e ver160 sul sito e su main», insieme alla ver159)** (prima su `main` la ver158, approvata il 28/11/2026: «Nu\* dalla ver154 alla ver158») (prima su `main` la ver153, approvata il 27/11/2026: «Nu\*», insieme alla ver152) (prima su `main` la ver151, approvata il 27/11/2026: «Lascia ver151 online») (prima su `main` la ver150, approvata il 27/11/2026: «Sì, main») (prima su `main` la ver149, approvata il 27/11/2026: «Nu\* e main», insieme alla ver148) (prima su `main` la ver147, approvata da Christian il 23/11/2026: «main») (prima su `main` la ver146, approvata da Christian il 23/11/2026: «main per ver146»; prima su `main` la ver145, approvata da Christian il 23/11/2026: «main»; prima su `main` la ver144, approvata da Christian il 22/11/2026: «Main»; prima su `main` la ver143, approvata da Christian il 21/11/2026: «Main»; prima la ver142). `VER` finisce anche nei
   nomi dei file esportati: incrementarla, non affiancarle un secondo numero.
 - **Strutture utili**: `usoint-orelav` = `{ [norm(nome)]: { [anno]: [12 numeri] } }` (ore
   lavorate, indice 0 = gennaio; `norm` = minuscolo, trim, spazi singoli).
@@ -90,7 +90,7 @@ USOINT sta per **"uso interno"**.
   Dipendenti tramite una **seconda app Firebase** chiamata "dip"; tabella compatta della scheda
   operatore (Lavorate | una colonna per progetto | Tot. rendicontate | Avanzo).
 - 📅 **ver160 (28/11/2026, Christian: «quando tutte le annualità di una riga sono vuote, il totale vale come se fosse scritto sulla prima annualità,
-  e lo mostra in grigio» e «l'allarme «sforato» scatta sempre»; ⚠️ IN ATTESA DEL Nu\* per la pubblicazione, insieme alla ver159)**:
+  e lo mostra in grigio» e «l'allarme «sforato» scatta sempre»; su `main` dal 28/11/2026 insieme alla ver159: «Nu\* per pubblicare ver159 e ver160 sul sito e su main»)**:
   1. **Annualità vuote = totale sulla prima annualità.** Funzioni nuove `annVuote`, `annAutoP(p)` (riga NON cessata, Ore tot. > 0, annualità tutte 0),
      `annAutoB(b)` (beni: Importo > 0), `annPrima`. Il motore (`cP`, `cB`) usa il totale sulla prima annualità per quelle righe (vale anche fuori dalla
      scheda, es. Riepilogo operatori); aprendo il lavoro il totale si scrive sulla prima annualità col segno `aAuto:true` (resta in memoria finché non si
@@ -110,7 +110,7 @@ USOINT sta per **"uso interno"**.
   ⚠️ Dicitura nuova, scritta da Claude: il suggerimento della cella automatica. **Provato**: `collaudo/uso-ver160.cjs` (confronto con la ver159 in
   `/uso159/`); `uso-ver159.cjs` V13 aggiornato (0,47 € oltre = ⛔); `audit-formule/indip.cjs` con la regola delle annualità vuote; dati veri 252/252.
 - 🔁 **ver159 (28/11/2026, V Formule App sui dati veri e risposte di Christian «voglio un sistema uniforme» → «1 sì, 2 libero, 3 LOMB, 4b,
-  5 sì, 6 sì», e «quando imposto il subentro sbiadisci la cella»; ⚠️ IN ATTESA DEL Nu\* per la pubblicazione)**:
+  5 sì, 6 sì», e «quando imposto il subentro sbiadisci la cella»; su `main` dal 28/11/2026 insieme alla ver160)**:
   1. **Passaggi di ore del sistema vecchio portati nel sistema nuovo** (una regola sola per tutti i progetti: chi cede tiene le sue ore di budget,
      chi subentra riceve euro e li spende al proprio costo orario). Prima della ver149 il passaggio spostava ORE: il cedente perdeva annualità e il
      subentrante riceveva ore in `aOre` con `recBlk` (ore + % d'origine) e `budgetRic`, spesso con €/ora di budget 0. Dalla ver156 quelle ore valevano
