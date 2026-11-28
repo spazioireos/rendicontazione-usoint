@@ -18,3 +18,12 @@
 - `e2e158.cjs [N]` (banco comune 8340): progetti casuali aperti nell'app; RIEPILOGO PER ANNO (personale, beni, TOTALE), Quota Committente
   prevista, CONSUNTIVO FINALE e saldo letti a video e confrontati col ricalcolo, arrotondati come `R2`.
 - `excel158.cjs` (banco comune 8340): foglio dell'anno dell'Excel contro video e ricalcolo (€ dei mesi, Tot.€, € fin., Res.€).
+
+## Prove sui DATI VERI (28/11/2026)
+
+Gli script `reale-*.cjs` **non contengono dati**: leggono un backup JSON di USOINT passato come argomento. Il backup vero sta **solo** nella
+cartella privata del Drive «Dati collaudo Spazio Ireos»; si scarica nello scratchpad della sessione e non si copia mai qui.
+- `reale-motore-reale.cjs <backup> <index ver nuova> <index ver vecchia>`: per ogni riga, motore contro ricalcolo indipendente e versione vecchia contro nuova.
+- `reale-integrita.cjs <backup> <index>`: elenco e lavoro discordanti, annualità, ore non contate (fuori periodo, dopo la cessazione, prima del subentro), rendicontate > lavorate, trasferimenti e subentri a sé stessi.
+- `reale-e2e-reale.cjs <backup> <index>` (banco comune 8340): ogni lavoro aperto nell'app, riepilogo per anno e consuntivo contro il ricalcolo (comprese le rettifiche finAnno/rettFin).
+- `reale-prev.cjs <backup> <index>`: Previsto del Committente, somma degli anni contro il totale del progetto.
