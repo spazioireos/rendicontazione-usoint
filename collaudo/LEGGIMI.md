@@ -219,3 +219,6 @@ di spalmatura col costo del mese (125 € contro i 100 € della ver157). **14/0
 - `uso-ver159b.cjs`: subentro già impostato sbiadito nel riquadro Riassegnazione.
 - `audit-formule/rett159.cjs <file>`: scrive un backup INVENTATO con anticipo del Committente e Tariffario diverso; poi `reale-e2e-reale.cjs <file>`.
 - `audit-formule/reale-conversione.cjs <backup>`: conversione sul backup vero (costi e finanziato prima/dopo, Previsto per anno, residui).
+- `uso-ver160.cjs` (ver160): annualità vuote = totale sulla prima annualità, cella grigia, segue le Ore tot., doppio clic per scriverla a mano, righe
+  cessate escluse (confronto con la ver159 in `/uso159/`). `uso-ver159.cjs` V13: dalla ver160 anche 0,47 € oltre fanno ⛔.
+- `uso-ver160b.cjs` (ver160): stessa persona cessata su due voci, due subentranti dallo stesso giorno: ognuna trova il subentrante della sua voce.
