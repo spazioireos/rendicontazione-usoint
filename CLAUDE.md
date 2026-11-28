@@ -94,7 +94,9 @@ USOINT sta per **"uso interno"**.
   Nominativo: nome, etichetta della cessazione («CESSAZ. CON SUBENTRO 31/05») e ruolo **uno sotto l'altro** (prima l'etichetta stava accanto
   al nome) con interlinea 1, e il **nome in grassetto** (Christian: «Graficamente metti i nomi in grassetto»; peso 800, era 600); «Ore max»: numero, «−X h» e «da togliere» su righe proprie dentro la cella (prima uscivano a destra sulla
   colonna dopo); «€/ora eff.»: i cambi «dal mese» e il pulsante «⇢ dal mese…» sotto la casella (nella ver157 il pulsante si sovrapponeva a
-  «Ore max»); celle dei mesi: € / f / c con interlinea 1 (era 1,2). Misure dei caratteri, colori, diciture, dati e calcoli invariati.
+  «Ore max»); celle dei mesi: € / f / c con interlinea 1 (era 1,2). Christian: «Aumenta … i punti del font nelle celle delle ore … e nelle celle che contengono
+  l'importo orario»: ore dei mesi da 10 a **13px** (casella da 48 a 58px, così «120,50» ci sta), «€/ora eff.» (casella gialla e grigia) da 9 a **12px**, il lucchetto del Tariffario da 9 a
+  **11px** (va a capo dentro la cella), «€/ora prev.» da 10 a **12px**. Misure dei caratteri, colori, diciture, dati e calcoli invariati.
   Misurato: righe da 57-58 a 55-56px. **Provato**: `uso-a01-graf` 50/0, `uso-ver147` 10/0, `uso-ver148` 11/0, `uso-ver151` 22/0,
   `uso-ver156` 21/0, `uso-ver157` 19/0, `uso-a01-budget` 41/0; anteprima a confronto con la ver157 (`/uso157/`).
 - 📅 **ver157 (27/11/2026, audit delle formule A5 A6, Christian: «il cambio vale dal mese (più semplice)», «il Tariffario non tocca più i
