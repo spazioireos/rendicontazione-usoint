@@ -106,6 +106,13 @@ USOINT sta per **"uso interno"**.
   🧮 **Simulatore di spalmatura** (conseguenza della ver157): le ore simulate si valutano col costo del mese (`meta.rateM`, dai `rM` del
   motore), anche nell'Excel del simulatore; con un costo unico è lo stesso numero di prima. Misurato: 5 h a GEN (10 €) + 5 h a LUG (15 € dal
   LUG) = € 125,00 (ver157: € 100,00).
+  🔎 **V Formule App (28/11/2026, Christian: «Sulla webapp Usoint … U v formule app*»)**: trovato e corretto **un** difetto, nato con la ver157.
+  Con un costo che cambia «dal mese», le **ore che restano** (`oR` del motore) si contavano sulle ore (disponibile ÷ costo di fine anno − ore
+  fatte) e non sugli euro: nell'**Excel dell'anno** la colonna «Res.€» (`oR × costo`) diceva **−1.200 €** mentre a video il residuo era
+  **−600 €**. Ora `oR = euro rimasti ÷ costo di fine anno` (decisione A4 di Christian; con un costo unico è lo stesso numero di prima, misurato su
+  3.000 casi) e l'Excel scrive in «Res.€» lo stesso residuo della vista mesi (`resEuroCalc`). Prove dell'audit in `collaudo/audit-formule/`:
+  `prop158.cjs` (motore contro ricalcolo indipendente `indip.cjs` + proprietà, ~5.000 casi, 0 differenze; tre mutazioni del motore scoperte),
+  `e2e158.cjs` (30 progetti casuali aperti nell'app: riepilogo per anno, previsto, consuntivo, saldo, 720/720), `excel158.cjs` (8/0).
   ⚠️ Diciture nuove, scritte da Claude: la domanda e il suggerimento della cella certificata. **Provato**: `collaudo/uso-ver158.cjs` **14/0**
   (confronto con la ver157 in `/uso157/`); batteria USOINT sulla ver158 a zero falliti (`uso-a01-*`, `int-a01`, `uso-cess`, `uso-ver139…157`);
   `audit-formule/unit.cjs` superati; motore identico alla ver156 senza cambi «dal mese» (3.000 casi). ⚠️ **Attese aggiornate, non aggirate**:

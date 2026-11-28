@@ -6,3 +6,15 @@
 - `avv.cjs` (banco comune 8340) prova gli avvicendamenti nell'app: cessazione, «Trasferisci», subentrante con o senza costo orario,
   periodo vacante (`SUB=2026-09-01`), libero (`VINC=0`) e vincolato (`VINC=1`); stampa previsto, finanziato, saldo da fatturare.
   `VINC=1 BEUR=0 NODE_PATH=/opt/node-tools/node_modules node collaudo/audit-formule/avv.cjs`
+
+## V Formule App sulla ver158 (28/11/2026)
+
+- `indip.cjs`: ricalcolo INDIPENDENTE (dalla specifica, non dal codice) di personale e beni: mesi attivi (cessazione, subentro), costo del mese
+  («dal mese», costo dell'anno, Tariffario), disponibile in euro, residuo, ore che restano, sforato, finanziato (capitale proprio, blocchi in
+  ore, blocchi in euro), tetto del finanziato.
+- `prop158.cjs [N]`: confronto motore/indipendente su N casi casuali più proprietà (finanziato fra 0 e costo, cof = costo − fin, totali =
+  somma degli anni, finanziato complessivo = min(I × speso, G), residuo + speso = assegnato) e 9 casi a mano di `rateM`. Con `APPF=<file>`
+  si prova un'altra copia dell'app (es. una mutazione: deve trovare differenze).
+- `e2e158.cjs [N]` (banco comune 8340): progetti casuali aperti nell'app; RIEPILOGO PER ANNO (personale, beni, TOTALE), Quota Committente
+  prevista, CONSUNTIVO FINALE e saldo letti a video e confrontati col ricalcolo, arrotondati come `R2`.
+- `excel158.cjs` (banco comune 8340): foglio dell'anno dell'Excel contro video e ricalcolo (€ dei mesi, Tot.€, € fin., Res.€).
