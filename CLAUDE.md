@@ -42,7 +42,7 @@ USOINT sta per **"uso interno"**.
   `usoint-tariffe`, `usoint-simul`, **`usoint-codici`** (dalla ver136: codice operatore → riga).
   Accesso mail+password.
 - **Numero di revisione**: costante `const VER` (riga ~67), mostrata in **tre punti** (Home,
-  scheda progetto, Riepilogo operatori). **Attuale: ver160 · 28nov26 — approvata da Christian e portata su `main` il 28/11/2026 («Nu\* per pubblicare ver159 e ver160 sul sito e su main», insieme alla ver159)** (prima su `main` la ver158, approvata il 28/11/2026: «Nu\* dalla ver154 alla ver158») (prima su `main` la ver153, approvata il 27/11/2026: «Nu\*», insieme alla ver152) (prima su `main` la ver151, approvata il 27/11/2026: «Lascia ver151 online») (prima su `main` la ver150, approvata il 27/11/2026: «Sì, main») (prima su `main` la ver149, approvata il 27/11/2026: «Nu\* e main», insieme alla ver148) (prima su `main` la ver147, approvata da Christian il 23/11/2026: «main») (prima su `main` la ver146, approvata da Christian il 23/11/2026: «main per ver146»; prima su `main` la ver145, approvata da Christian il 23/11/2026: «main»; prima su `main` la ver144, approvata da Christian il 22/11/2026: «Main»; prima su `main` la ver143, approvata da Christian il 21/11/2026: «Main»; prima la ver142). `VER` finisce anche nei
+  scheda progetto, Riepilogo operatori). **Attuale: ver161 · 28nov26 — approvata da Christian e portata su `main` il 28/11/2026 («Nu\* per mettere la ver161 online e su main»)** (prima su `main` la ver160, approvata il 28/11/2026 insieme alla ver159: «Nu\* per pubblicare ver159 e ver160 sul sito e su main») (prima su `main` la ver158, approvata il 28/11/2026: «Nu\* dalla ver154 alla ver158») (prima su `main` la ver153, approvata il 27/11/2026: «Nu\*», insieme alla ver152) (prima su `main` la ver151, approvata il 27/11/2026: «Lascia ver151 online») (prima su `main` la ver150, approvata il 27/11/2026: «Sì, main») (prima su `main` la ver149, approvata il 27/11/2026: «Nu\* e main», insieme alla ver148) (prima su `main` la ver147, approvata da Christian il 23/11/2026: «main») (prima su `main` la ver146, approvata da Christian il 23/11/2026: «main per ver146»; prima su `main` la ver145, approvata da Christian il 23/11/2026: «main»; prima su `main` la ver144, approvata da Christian il 22/11/2026: «Main»; prima su `main` la ver143, approvata da Christian il 21/11/2026: «Main»; prima la ver142). `VER` finisce anche nei
   nomi dei file esportati: incrementarla, non affiancarle un secondo numero.
 - **Strutture utili**: `usoint-orelav` = `{ [norm(nome)]: { [anno]: [12 numeri] } }` (ore
   lavorate, indice 0 = gennaio; `norm` = minuscolo, trim, spazi singoli).
@@ -89,6 +89,13 @@ USOINT sta per **"uso interno"**.
 - **Funzioni presenti**: import automatico (SOLA LETTURA) delle ore lavorate dal database dei
   Dipendenti tramite una **seconda app Firebase** chiamata "dip"; tabella compatta della scheda
   operatore (Lavorate | una colonna per progetto | Tot. rendicontate | Avanzo).
+- ⛔ **ver161 (28/11/2026, Christian: «3, scatti!» sull'allarme «sforato» negli anni senza budget; su `main` dal 28/11/2026: «Nu\* per mettere la ver161
+  online e su main»)**: nel lavoro **vincolato** il ⛔ scatta anche quando si spende in un anno che non ha budget (né ore/importo nell'annualità né euro
+  ricevuti) e non resta niente dall'anno prima. Motore: `cP` `ov=vin&&(oA>0||ricY>0||oE>0.005)&&…`, `cB` `ov=vin&&(iA>0||iE>0.005)&&iE>iD`. Il riquadro
+  «Stato» della vista mesi (`StsP`, `StsB`) mostrava solo «R: …» grigio negli anni senza budget: ora mostra il ⛔ quando c'è (`(yc.oA<=0&&!yc.ov)`).
+  ⚠️ Se l'anno prima avanza qualcosa, il riporto copre la spesa e il ⛔ non compare (giusto). Nel **libero** niente cambia. **Sui dati veri nessun numero
+  e nessun ⛔ cambia.** **Provato**: `collaudo/uso-ver161.cjs` **10/0** (confronto con la ver160 in `/uso160/`); batteria USOINT 30 gruppi a zero falliti;
+  `audit-formule/prop158.cjs` (ricalcolo indipendente `indip.cjs` aggiornato) 0 differenze; dati veri 0 differenze.
 - 📅 **ver160 (28/11/2026, Christian: «quando tutte le annualità di una riga sono vuote, il totale vale come se fosse scritto sulla prima annualità,
   e lo mostra in grigio» e «l'allarme «sforato» scatta sempre»; su `main` dal 28/11/2026 insieme alla ver159: «Nu\* per pubblicare ver159 e ver160 sul sito e su main»)**:
   1. **Annualità vuote = totale sulla prima annualità.** Funzioni nuove `annVuote`, `annAutoP(p)` (riga NON cessata, Ore tot. > 0, annualità tutte 0),

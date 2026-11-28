@@ -221,4 +221,6 @@ di spalmatura col costo del mese (125 € contro i 100 € della ver157). **14/0
 - `audit-formule/reale-conversione.cjs <backup>`: conversione sul backup vero (costi e finanziato prima/dopo, Previsto per anno, residui).
 - `uso-ver160.cjs` (ver160): annualità vuote = totale sulla prima annualità, cella grigia, segue le Ore tot., doppio clic per scriverla a mano, righe
   cessate escluse (confronto con la ver159 in `/uso159/`). `uso-ver159.cjs` V13: dalla ver160 anche 0,47 € oltre fanno ⛔.
+- `uso-ver161.cjs` (ver161): vincolato, spesa in un anno senza budget e senza riporto → ⛔ sul personale e sui beni; libero, anno senza spesa e anno
+  coperto dal riporto → nessun ⛔ (confronto con la ver160 in `/uso160/`).
 - `uso-ver160b.cjs` (ver160): stessa persona cessata su due voci, due subentranti dallo stesso giorno: ognuna trova il subentrante della sua voce.
