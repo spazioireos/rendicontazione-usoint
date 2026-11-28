@@ -24,7 +24,7 @@ function indipP(p, cy, vin) {
     c.months.forEach(mo => { if (!attivo(p, c.year, mo.month, mo.disabled)) return; const h = p.md[yi][mo.month] || 0; ore += h; costo += h * costoMese(p, yi, mo.month); });
     const rB = p.eur > 0 ? p.eur : base, ric = (p.ricEur || [])[yi] || 0, alloc = (p.aOre[yi] || 0) * rB + ric - (ceduti[yi] || 0), disp = alloc + carry;
     const rFine = costoMese(p, yi, 11), rD = rFine > 0 ? rFine : rB, oreDisp = rD > 0 ? disp / rD : (p.aOre[yi] || 0), res = disp - costo, oreRes = rD > 0 ? res / rD : oreDisp - ore; // «le ore che restano = euro rimasti ÷ costo orario» (A4)
-    const sfor = vin && ((p.aOre[yi] || 0) > 0 || ric > 0) && (rD > 0 ? costo > disp + 0.005 : ore > oreDisp);
+    const sfor = vin && ((p.aOre[yi] || 0) > 0 || ric > 0 || ore > 0.005) && (rD > 0 ? costo > disp + 0.005 : ore > oreDisp);
     // finanziamento: prima il capitale proprio (cumulato I×speso, al massimo G), poi i blocchi in ore (costo medio), poi i blocchi in euro
     const media = ore > 0 ? costo / ore : base; let restE = costo, restH = ore, fin = 0;
     const own = Math.min(ownLeft, restE); if (own > 0) { cumOwn += own; const nf = Math.min(I * cumOwn, G); fin += Math.max(0, nf - cumFin); cumFin = nf; ownLeft -= own; restE -= own; restH -= media > 0 ? own / media : 0; }
@@ -42,5 +42,5 @@ function indipB(b, cy, vin) { if (!b.cessato && b.forf > 0 && !(b.aImp || []).so
     const disp = (b.aImp[yi] || 0) + carry, res = disp - spesa; let rest = spesa, fin = 0; const own = Math.min(ownLeft, rest);
     if (own > 0) { cumOwn += own; const nf = Math.min(I * cumOwn, G); fin += Math.max(0, nf - cumFin); cumFin = nf; ownLeft -= own; rest -= own; }
     for (const x of blk) { if (rest <= 0.0001) break; if (x.e <= 0.0001) continue; const s = Math.min(x.e, rest); fin += s * x.I; x.e -= s; rest -= s; }
-    fin = Math.min(Math.max(fin, 0), spesa); carry = res - (b.aElim[yi] || 0); return { spesa, disp, res, fin, sfor: vin && (b.aImp[yi] || 0) > 0 && spesa > disp }; }); }
+    fin = Math.min(Math.max(fin, 0), spesa); carry = res - (b.aElim[yi] || 0); return { spesa, disp, res, fin, sfor: vin && ((b.aImp[yi] || 0) > 0 || spesa > 0.005) && spesa > disp }; }); }
 module.exports = { attivo, costoMese, tariffa, indipP, indipB };
