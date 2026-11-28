@@ -17,11 +17,11 @@ const P = async T => JSON.parse(await L.ls(T, 'usoint-p-pa'));
   { const { ctx, T } = await apri('uso159'); const a = await auto(T), q = await prev(T); c('A00', 'ver159 (confronto): nessuna annualità automatica, Previsto 2026 = 0', 'nessuna · —', a.length + ' · ' + (q ? q[1] : '?'), a.length === 0 && q && /^(—|€ 0,00)$/.test(q[1])); await ctx.close(); }
   const { ctx, T } = await apri(APP);
   let a = await auto(T);
-  c('A01', 'Prima annualità grigia col totale: ALFA 60,00 h e MATERIALI € 334,40 (non la riga cessata)', '2 celle grigie', JSON.stringify(a), a.length === 2 && a.some(x => /^60,00@rgb\(241, 245, 249\)/.test(x)) && a.some(x => /^€ 334,40@/.test(x)));
-  const q = await prev(T); c('A02', 'Quota Committente: Previsto 2026 = 60 × 20 + 334,40 − 85 = 1.449,40 (la riga cessata con annualità vuote resta fuori dagli anni: progetto 2.249,40)', '€ 1.449,40 · € 2.249,40', q ? q[1] + ' · ' + q[7] : 'riga assente', q && q[1] === '€ 1.449,40' && q[7] === '€ 2.249,40');
+  c('A01', 'Prima annualità grigia col totale: ALFA 60,00 h, MATERIALI € 334,40 e, dalla ver162, anche la riga cessata BETA 40,00 h (nessun passaggio vecchio)', '3 celle grigie', JSON.stringify(a), a.length === 3 && a.some(x => /^40,00@/.test(x)) && a.some(x => /^60,00@rgb\(241, 245, 249\)/.test(x)) && a.some(x => /^€ 334,40@/.test(x)));
+  const q = await prev(T); c('A02', 'Quota Committente: Previsto 2026 = 60 × 20 + 40 × 20 + 334,40 − 85 = 2.249,40 = progetto (dalla ver162 la riga cessata senza passaggi entra)', '€ 2.249,40 · € 2.249,40', q ? q[1] + ' · ' + q[7] : 'riga assente', q && q[1] === '€ 2.249,40' && q[7] === '€ 2.249,40');
   let d = await P(T); c('A03', 'Senza 💾 i dati salvati non cambiano', 'aOre ancora [0,0]', JSON.stringify(d.personnel[0].aOre), d.personnel[0].aOre[0] === 0 && !d.personnel[0].aAuto);
   await T.page.click('button:has-text("💾 Salva")'); await L.aspetta(T, 300); d = await P(T);
-  c('A04', 'Col 💾: prima annualità 60 segnata automatica; la riga cessata resta a 0', 'ALFA [60,0] aAuto · BETA [0,0] · beni [334.4,0]', JSON.stringify([d.personnel[0].aOre, d.personnel[0].aAuto, d.personnel[1].aOre, d.beni[0].aImp, d.beni[0].aAuto]), d.personnel[0].aOre[0] === 60 && d.personnel[0].aAuto === true && d.personnel[1].aOre[0] === 0 && !d.personnel[1].aAuto && d.beni[0].aImp[0] === 334.4 && d.beni[0].aAuto === true);
+  c('A04', 'Col 💾: prima annualità 60 segnata automatica; dalla ver162 anche la riga cessata BETA [40,0]', 'ALFA [60,0] aAuto · BETA [40,0] aAuto · beni [334.4,0]', JSON.stringify([d.personnel[0].aOre, d.personnel[0].aAuto, d.personnel[1].aOre, d.beni[0].aImp, d.beni[0].aAuto]), d.personnel[0].aOre[0] === 60 && d.personnel[0].aAuto === true && d.personnel[1].aOre[0] === 40 && d.personnel[1].aAuto === true && d.beni[0].aImp[0] === 334.4 && d.beni[0].aAuto === true);
   // cambiando le Ore tot. la prima annualità automatica segue
   const ot = T.page.locator('input').filter({ has: T.page.locator('xpath=.') }); // segnaposto
   await T.page.evaluate(() => { const i = [...document.querySelectorAll('input')].find(x => x.value === '60' || x.value === '60,00'); if (i) { i.focus(); } });
@@ -29,7 +29,7 @@ const P = async T => JSON.parse(await L.ls(T, 'usoint-p-pa'));
   a = await auto(T); c('A05', 'Ore tot. da 60 a 80: la prima annualità grigia segue (80,00)', '80,00', JSON.stringify(a), a.some(x => /^80,00@/.test(x)));
   // doppio clic: diventa scrivibile, col valore di prima
   await T.page.locator('span[title^="Automatico"]').first().dblclick(); await L.aspetta(T, 300); a = await auto(T);
-  c('A06', 'Doppio clic: la cella torna scrivibile (resta solo quella dei beni grigia)', '1 cella grigia', JSON.stringify(a), a.length === 1 && /^€ 334,40/.test(a[0]));
+  c('A06', 'Doppio clic: la cella di ALFA torna scrivibile (restano grigie BETA e i beni)', '2 celle grigie', JSON.stringify(a), a.length === 2 && a.some(x => /^€ 334,40/.test(x)) && !a.some(x => /^80,00@/.test(x)));
   await T.page.click('button:has-text("💾 Salva")'); await L.aspetta(T, 300); d = await P(T);
   c('A07', 'Col 💾: ALFA [80,0] scritta a mano (non più automatica)', '[80,0] · false', JSON.stringify([d.personnel[0].aOre, d.personnel[0].aAuto]), d.personnel[0].aOre[0] === 80 && d.personnel[0].aAuto === false);
   c('A08', 'Errori di pagina', '0', T.errori.length, T.errori.length === 0); await ctx.close();
