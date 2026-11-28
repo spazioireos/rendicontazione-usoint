@@ -89,6 +89,14 @@ USOINT sta per **"uso interno"**.
 - **Funzioni presenti**: import automatico (SOLA LETTURA) delle ore lavorate dal database dei
   Dipendenti tramite una **seconda app Firebase** chiamata "dip"; tabella compatta della scheda
   operatore (Lavorate | una colonna per progetto | Tot. rendicontate | Avanzo).
+- ↕️ **ver158 (28/11/2026, Christian: «Graficamente, nella vista mesi, ove vi sono i nominativi, incolonna le scritte interne alla cella,
+  abbassando notevolmente l'interlinea»; ⚠️ IN ATTESA DEL Nu\* per la pubblicazione)**: solo aspetto, righe del personale della vista MESI.
+  Nominativo: nome, etichetta della cessazione («CESSAZ. CON SUBENTRO 31/05») e ruolo **uno sotto l'altro** (prima l'etichetta stava accanto
+  al nome) con interlinea 1; «Ore max»: numero, «−X h» e «da togliere» su righe proprie dentro la cella (prima uscivano a destra sulla
+  colonna dopo); «€/ora eff.»: i cambi «dal mese» e il pulsante «⇢ dal mese…» sotto la casella (nella ver157 il pulsante si sovrapponeva a
+  «Ore max»); celle dei mesi: € / f / c con interlinea 1 (era 1,2). Misure dei caratteri, colori, diciture, dati e calcoli invariati.
+  Misurato: righe da 57-58 a 55-56px. **Provato**: `uso-a01-graf` 50/0, `uso-ver147` 10/0, `uso-ver148` 11/0, `uso-ver151` 22/0,
+  `uso-ver156` 21/0, `uso-ver157` 19/0, `uso-a01-budget` 41/0; anteprima a confronto con la ver157 (`/uso157/`).
 - 📅 **ver157 (27/11/2026, audit delle formule A5 A6, Christian: «il cambio vale dal mese (più semplice)», «il Tariffario non tocca più i
   mesi già lavorati prima del cambio. Meglio ancora, lo risolve A6»; «Ok ver156, procedi con ver157»; ⚠️ IN ATTESA DEL Nu\* per la pubblicazione)**:
   1. **Costo orario che cambia dal mese** (dato nuovo nella riga del personale **`eurDal`** = `[{yi, m, eur}]`): vale dal mese `m` dell'anno
