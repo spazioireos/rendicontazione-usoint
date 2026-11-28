@@ -104,6 +104,9 @@ USOINT sta per **"uso interno"**.
      primo subentrante col nome del cessato (`subentroDi`) o, per i dati di prima, con la data del giorno dopo; con la stessa persona cessata su due voci
      e due subentranti dallo stesso giorno, tutte e due le righe prendevano il primo. Ora, a parità, vale la stessa voce. **Provato**:
      `collaudo/uso-ver160b.cjs` (confronto con la ver159).
+  4. **«⇥ spalma» su un'annualità automatica non chiede conferma** (le ore le aveva messe l'app, non l'utente): trovato da `uso-a01-budget` D15.
+  **Batteria sulla ver160**: `uso-a01-*`, `int-a01`, `uso-cess`, `uso-ver139…160`, `uso-ver158b`, `uso-ver159b`, `uso-ver160b` a zero falliti;
+  `audit-formule/prop158.cjs` 0 differenze; dati veri 252/252.
   ⚠️ Dicitura nuova, scritta da Claude: il suggerimento della cella automatica. **Provato**: `collaudo/uso-ver160.cjs` (confronto con la ver159 in
   `/uso159/`); `uso-ver159.cjs` V13 aggiornato (0,47 € oltre = ⛔); `audit-formule/indip.cjs` con la regola delle annualità vuote; dati veri 252/252.
 - 🔁 **ver159 (28/11/2026, V Formule App sui dati veri e risposte di Christian «voglio un sistema uniforme» → «1 sì, 2 libero, 3 LOMB, 4b,
