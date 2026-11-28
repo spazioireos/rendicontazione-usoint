@@ -13,8 +13,8 @@ const fit = (p, cy, ks) => { const q = JSON.parse(JSON.stringify(p)); ks.forEach
     const P = JSON.parse(BK['usoint-p-' + it.id]); const cy = m.calcCY(P.start, P.end), vin = P.vincolo, nY = cy.length;
     const PP = (P.personnel || []).map(p => fit(p, cy, ['aOre', 'aElim', 'eurA'])), BB = (P.beni || []).map(b => fit(b, cy, ['aImp', 'aElim']));
     // rettifiche (specifica: anticipo del Committente = finanziato per cassa − competenza, in parti uguali sulle voci cofinanziate con spesa, senza superare il loro cofinanziato;
-    // rettifica positiva + riporto assorbiti in proporzione al finanziato delle stesse voci, al centesimo). Le voci si valutano SENZA Tariffario (come le calcola l'app).
-    const X0 = PP.map(p => indipP(p, cy, vin)), Y0 = BB.map(b => indipB(b, cy, vin));
+    // rettifica positiva + riporto assorbiti in proporzione al finanziato delle stesse voci, al centesimo). Dalla ver159 le voci si valutano col Tariffario.
+    const X0 = PP.map(p => indipP(tariffa(p, cy, tar), cy, vin)), Y0 = BB.map(b => indipB(b, cy, vin)); // dalla ver159 anche le rettifiche col Tariffario («6 sì»)
     const adjP = PP.map(() => Array(nY).fill(0)), adjB = BB.map(() => Array(nY).fill(0)); let carry = 0; const fa = P.finAnno || [], rf = P.rettFin || [];
     for (let yi = 0; yi < nY; yi++) {
       const eP = PP.map((p, i) => i).filter(i => ((PP[i].cofin || 0) > 0 || (PP[i].recBlk || []).some(b => b.Iorig < 100)) && X0[i][yi].costo > 0);
@@ -29,12 +29,12 @@ const fit = (p, cy, ks) => { const q = JSON.parse(JSON.stringify(p)); ks.forEach
     const att = {}; cy.forEach((c, yi) => { att['P ore ' + c.year] = S(XP, x => x[yi].ore); att['P tot ' + c.year] = S(XP, x => x[yi].costo); att['P fin ' + c.year] = S(XP, x => x[yi].fin); att['P cof ' + c.year] = S(XP, x => x[yi].costo - x[yi].fin);
       att['B tot ' + c.year] = S(XB, x => x[yi].spesa); att['B fin ' + c.year] = S(XB, x => x[yi].fin); att['B cof ' + c.year] = S(XB, x => x[yi].spesa - x[yi].fin);
       att['T tot ' + c.year] = att['P tot ' + c.year] + att['B tot ' + c.year]; att['T fin ' + c.year] = att['P fin ' + c.year] + att['B fin ' + c.year];
-      att['Prev com ' + c.year] = S(PP, p => { const F = p.oreT * p.eur, rb = p.recBlk || [], h = S(rb, b => b.ore); const Ip = F ? (F - p.cofin) / F : (h > 0 ? S(rb, b => b.ore * b.Iorig) / h / 100 : 0); const rB = p.eur > 0 ? p.eur : ((p.eurA[yi] || 0) > 0 ? p.eurA[yi] : p.eur); return (p.aOre[yi] || 0) * rB * Ip; }) + S(BB, b => (b.aImp[yi] || 0) * (b.forf ? (b.forf - b.cofin) / b.forf : 0)); });
+      att['Prev com ' + c.year] = S(PP, p => { const F = p.oreT * p.eur, rb = p.recBlk || [], h = S(rb, b => b.ore); const Ip = F ? (F - p.cofin) / F : (h > 0 ? S(rb, b => b.ore * b.Iorig) / h / 100 : 0); return (p.aOre[yi] || 0) * p.eur * Ip; }) /* Previsto: ore di budget dell'anno × €/ora di budget × % finanziata */ + S(BB, b => (b.aImp[yi] || 0) * (b.forf ? (b.forf - b.cofin) / b.forf : 0)); });
     const budTot = S(PP, p => p.oreT * p.eur) + S(BB, b => b.forf), budCof = S(PP, p => p.cofin) + S(BB, b => b.cofin);
     const speso = S(XP, x => S(x, y => y.costo)) + S(XB, x => S(x, y => y.spesa)); const cofR = speso < budTot ? speso * budCof / budTot : budCof; const finSp = Math.min(speso - cofR, budTot - budCof);
     att['speso'] = speso; att['tua quota'] = cofR; att['finanziato'] = finSp; att['saldo'] = finSp - S(P.fatture || [], f => f.importo);
     const { ctx } = await L.contesto({ kv }); const T = await L.pagina(ctx); await T.page.setViewportSize({ width: 1500, height: 900 });
-    await T.page.goto(L.BASE + 'uso/index.html'); await T.page.waitForFunction(() => /I tuoi Progetti/.test(document.body.innerText), null, { timeout: 30000 });
+    await T.page.goto(L.BASE + (process.env.USO_APP || 'uso') + '/index.html'); await T.page.waitForFunction(() => /I tuoi Progetti/.test(document.body.innerText), null, { timeout: 30000 });
     await T.page.evaluate(tt => { const el = [...document.querySelectorAll('div')].filter(x => getComputedStyle(x).cursor === 'pointer' && x.innerText.includes(tt)); el[el.length - 1].click(); }, it.title); await L.aspetta(T, 1000);
     const v = await T.page.evaluate(() => { const riga = re => { const tr = [...document.querySelectorAll('tr')].find(x => x.cells && x.cells[0] && re.test(x.cells[0].innerText.trim())); return tr ? [...tr.cells].map(c => c.innerText.trim()) : null; };
       const hdr = [...document.querySelectorAll('tr')].find(x => x.cells && x.cells[0] && /^Personale$/.test(x.cells[0].innerText.trim())); const head = hdr ? [...hdr.closest('table').querySelectorAll('tr')][0].innerText : '';

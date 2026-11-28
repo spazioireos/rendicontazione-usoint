@@ -38,7 +38,7 @@ async function chiudi() { if (BROWSER) await BROWSER.close(); }
 async function contesto(opz) {
   opz = opz || {};
   const b = await browser();
-  const ctx = await b.newContext({ viewport: opz.viewport || { width: 1280, height: 900 }, acceptDownloads: true, deviceScaleFactor: opz.dsf || 1 });
+  const ctx = await b.newContext(Object.assign({ viewport: opz.viewport || { width: 1280, height: 900 }, acceptDownloads: true, deviceScaleFactor: opz.dsf || 1 }, opz.tz ? { timezoneId: opz.tz } : {}));
   const esterni = [];
   await ctx.route('**/*', r => { const u = r.request().url(); if (u.startsWith(BASE) || u.startsWith('data:') || u.startsWith('blob:') || u === 'about:blank') return r.continue(); esterni.push(u); return r.abort(); });
   const seed = { id: opz.id || ('s' + Date.now() + Math.random()) };

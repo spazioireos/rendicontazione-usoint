@@ -210,3 +210,12 @@ di spalmatura col costo del mese (125 € contro i 100 € della ver157). **14/0
 `uso-a01-budget` e `uso-ver139` aggiornati.
 
 - `uso-ver158b.cjs` (28/11/2026, Vm\* di Christian): le celle dei beni/servizi restano a 10px e 66px; 9.999,99, 1.234,56 e la cella certificata ✓ ci stanno; nel personale ore a 13px ed €/ora a 12px ci stanno (1500 e 390px). Un importo a 5 cifre sporge di 1px, come nella ver155. **8/0**.
+
+## ver159 (28/11/2026, IN ATTESA DEL Nu\*)
+
+- `uso-ver159.cjs`: passaggi di ore del sistema vecchio (riquadro, Annulla, Converti, 💾, ricaricamento, riepilogo per anno identico), «sforato» che
+  ignora gli scarti sotto 1 € (confronto con la ver158 in `/uso158/`), fuso orario di New York (mesi compilabili uguali a Roma; la ver158 apriva aprile).
+  Il fuso si sceglie con `L.contesto({ tz: 'America/New_York' })` (opzione nuova di `uso-a01-lib.cjs`).
+- `uso-ver159b.cjs`: subentro già impostato sbiadito nel riquadro Riassegnazione.
+- `audit-formule/rett159.cjs <file>`: scrive un backup INVENTATO con anticipo del Committente e Tariffario diverso; poi `reale-e2e-reale.cjs <file>`.
+- `audit-formule/reale-conversione.cjs <backup>`: conversione sul backup vero (costi e finanziato prima/dopo, Previsto per anno, residui).

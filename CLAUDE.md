@@ -42,7 +42,7 @@ USOINT sta per **"uso interno"**.
   `usoint-tariffe`, `usoint-simul`, **`usoint-codici`** (dalla ver136: codice operatore → riga).
   Accesso mail+password.
 - **Numero di revisione**: costante `const VER` (riga ~67), mostrata in **tre punti** (Home,
-  scheda progetto, Riepilogo operatori). **Attuale: ver158 · 28nov26 — approvata da Christian e portata su `main` il 28/11/2026 («Nu\* dalla ver154 alla ver158», insieme alle ver154-157)** (prima su `main` la ver153, approvata il 27/11/2026: «Nu\*», insieme alla ver152) (prima su `main` la ver151, approvata il 27/11/2026: «Lascia ver151 online») (prima su `main` la ver150, approvata il 27/11/2026: «Sì, main») (prima su `main` la ver149, approvata il 27/11/2026: «Nu\* e main», insieme alla ver148) (prima su `main` la ver147, approvata da Christian il 23/11/2026: «main») (prima su `main` la ver146, approvata da Christian il 23/11/2026: «main per ver146»; prima su `main` la ver145, approvata da Christian il 23/11/2026: «main»; prima su `main` la ver144, approvata da Christian il 22/11/2026: «Main»; prima su `main` la ver143, approvata da Christian il 21/11/2026: «Main»; prima la ver142). `VER` finisce anche nei
+  scheda progetto, Riepilogo operatori). **Attuale su `main`: ver158 · 28nov26 — approvata da Christian e portata su `main` il 28/11/2026 («Nu\* dalla ver154 alla ver158», insieme alle ver154-157); ver159 in anteprima, in attesa del Nu\*** (prima su `main` la ver153, approvata il 27/11/2026: «Nu\*», insieme alla ver152) (prima su `main` la ver151, approvata il 27/11/2026: «Lascia ver151 online») (prima su `main` la ver150, approvata il 27/11/2026: «Sì, main») (prima su `main` la ver149, approvata il 27/11/2026: «Nu\* e main», insieme alla ver148) (prima su `main` la ver147, approvata da Christian il 23/11/2026: «main») (prima su `main` la ver146, approvata da Christian il 23/11/2026: «main per ver146»; prima su `main` la ver145, approvata da Christian il 23/11/2026: «main»; prima su `main` la ver144, approvata da Christian il 22/11/2026: «Main»; prima su `main` la ver143, approvata da Christian il 21/11/2026: «Main»; prima la ver142). `VER` finisce anche nei
   nomi dei file esportati: incrementarla, non affiancarle un secondo numero.
 - **Strutture utili**: `usoint-orelav` = `{ [norm(nome)]: { [anno]: [12 numeri] } }` (ore
   lavorate, indice 0 = gennaio; `norm` = minuscolo, trim, spazi singoli).
@@ -89,6 +89,33 @@ USOINT sta per **"uso interno"**.
 - **Funzioni presenti**: import automatico (SOLA LETTURA) delle ore lavorate dal database dei
   Dipendenti tramite una **seconda app Firebase** chiamata "dip"; tabella compatta della scheda
   operatore (Lavorate | una colonna per progetto | Tot. rendicontate | Avanzo).
+- 🔁 **ver159 (28/11/2026, V Formule App sui dati veri e risposte di Christian «voglio un sistema uniforme» → «1 sì, 2 libero, 3 LOMB, 4b,
+  5 sì, 6 sì», e «quando imposto il subentro sbiadisci la cella»; ⚠️ IN ATTESA DEL Nu\* per la pubblicazione)**:
+  1. **Passaggi di ore del sistema vecchio portati nel sistema nuovo** (una regola sola per tutti i progetti: chi cede tiene le sue ore di budget,
+     chi subentra riceve euro e li spende al proprio costo orario). Prima della ver149 il passaggio spostava ORE: il cedente perdeva annualità e il
+     subentrante riceveva ore in `aOre` con `recBlk` (ore + % d'origine) e `budgetRic`, spesso con €/ora di budget 0. Dalla ver156 quelle ore valevano
+     0 € (residui negativi) e il Previsto per anno perdeva il loro valore (in un lavoro vero la somma degli anni era 6.470,74 € sotto il totale; questo
+     c'era già nella ver153). Funzioni nuove `vecchiPassaggi(P)` (si converte solo se UN cessato dello stesso lavoro torna esatto: euro ricevuti = ore ×
+     suo €/ora entro 5 centesimi, a parità la stessa voce, e sue annualità + ore = sue Ore tot. entro 0,01 h; altrimenti «Da sistemare a mano» col
+     motivo) e `convertiPassaggi(d)` (al cedente: ore rimesse nelle annualità e `trasf {k, a, imp, ore, il:"", eur:true, conv:true}`; al subentrante:
+     `aOre` a 0, `ricEur[anno]`, `ricBlk [{imp, Iorig}]` con la % calcolata come `trasferisciEuro`, `recBlk []`, `ricevute 0`, `budgetRic 0`,
+     `subentroDi`). Nel riquadro «Riassegnazione residui» c'è «🔁 Passaggi di ore fatti col sistema vecchio» con l'elenco e il pulsante
+     **«🔁 Converti nel sistema di oggi»** (conferma che elenca i passaggi; definitiva solo col 💾). **Sui dati veri** (backup del 28/11, nel Drive):
+     6 passaggi convertibili in 3 lavori, 4 righe da sistemare a mano; costi e finanziato **identici** in tutte le righe; Previsto per anno = Previsto
+     del progetto nei tre lavori; un residuo passa da −48,75 h a +84,69 h.
+  2. **«Sforato» ignora gli scarti sotto 1 €** (4b): `cP` `iE>avE+0.995`, `cB` `iE>iD+0.995`, «−X h da togliere» solo oltre 0,995 € (con costo
+     orario), `sforatoR` delle righe vecchie uguale. Caso vero: 0,47 € oltre (Tariffario 22,99 contro budget 22,98) → non più ⛔.
+  3. **Date nel fuso locale** (5): funzione `dLoc` per «AAAA-MM-GG» in `calcCY`, `cessFase`, `isMeseCessato`, `isMesePreSubentro` e nelle date della
+     Home. Prima `new Date("2024-05-01")` era in ora UTC: con un fuso americano un lavoro da maggio apriva aprile e la cessazione slittava di un mese.
+  4. **Rettifiche del finanziamento col Tariffario** (6): `debtAdj` e il pulsante dell'anticipo valutano le voci con `applyTar`, come il resto
+     dell'app (prima senza: con un Tariffario diverso dal costo dell'anno l'anticipo era sbagliato; sui dati veri non cambiava niente).
+  5. **Subentro già impostato sbiadito** nel riquadro Riassegnazione (tendina, «dal», data e «✔ Imposta subentro» a opacità 0,45; scegliendo un
+     altro nome torna normale).
+  ⚠️ Diciture nuove, scritte da Claude: il riquadro dei passaggi vecchi, il pulsante, la domanda, i motivi «da sistemare a mano», il suggerimento
+  della tendina sbiadita. **Provato**: `collaudo/uso-ver159.cjs` (confronto con la ver158 in `/uso158/`); `audit-formule/reale-conversione.cjs` e
+  `reale-e2e-reale.cjs` sul backup vero (252/252, anche dopo la conversione); `rett159.cjs` (anticipo col Tariffario: ver159 24/24, ver158 3 diversi).
+  **Risposte 2 e 3**: per due lavori l'elenco della Home era rimasto indietro rispetto al lavoro (vincolo e titolo); i valori giusti sono quelli del
+  lavoro, e l'elenco si riallinea aprendo il lavoro e premendo 💾 (lo fa `save` dalla ver139/140).
 - ↕️ **ver158 (28/11/2026, Christian: «Graficamente, nella vista mesi, ove vi sono i nominativi, incolonna le scritte interne alla cella,
   abbassando notevolmente l'interlinea»; su `main` dal 28/11/2026 con le ver154-158: «Nu\* dalla ver154 alla ver158»)**: solo aspetto, righe del personale della vista MESI.
   Nominativo: nome, etichetta della cessazione («CESSAZ. CON SUBENTRO 31/05») e ruolo **uno sotto l'altro** (prima l'etichetta stava accanto
