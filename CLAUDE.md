@@ -42,7 +42,7 @@ USOINT sta per **"uso interno"**.
   `usoint-tariffe`, `usoint-simul`, **`usoint-codici`** (dalla ver136: codice operatore → riga).
   Accesso mail+password.
 - **Numero di revisione**: costante `const VER` (riga ~67), mostrata in **tre punti** (Home,
-  scheda progetto, Riepilogo operatori). **Attuale: ver161 · 28nov26 — approvata da Christian e portata su `main` il 28/11/2026 («Nu\* per mettere la ver161 online e su main»)** (prima su `main` la ver160, approvata il 28/11/2026 insieme alla ver159: «Nu\* per pubblicare ver159 e ver160 sul sito e su main») (prima su `main` la ver158, approvata il 28/11/2026: «Nu\* dalla ver154 alla ver158») (prima su `main` la ver153, approvata il 27/11/2026: «Nu\*», insieme alla ver152) (prima su `main` la ver151, approvata il 27/11/2026: «Lascia ver151 online») (prima su `main` la ver150, approvata il 27/11/2026: «Sì, main») (prima su `main` la ver149, approvata il 27/11/2026: «Nu\* e main», insieme alla ver148) (prima su `main` la ver147, approvata da Christian il 23/11/2026: «main») (prima su `main` la ver146, approvata da Christian il 23/11/2026: «main per ver146»; prima su `main` la ver145, approvata da Christian il 23/11/2026: «main»; prima su `main` la ver144, approvata da Christian il 22/11/2026: «Main»; prima su `main` la ver143, approvata da Christian il 21/11/2026: «Main»; prima la ver142). `VER` finisce anche nei
+  scheda progetto, Riepilogo operatori). **Attuale: ver162 · 28nov26 — approvata da Christian e portata su `main` il 28/11/2026 («Nu\*»)** (prima su `main` la ver161, approvata il 28/11/2026: «Nu\* per mettere la ver161 online e su main») (prima su `main` la ver160, approvata il 28/11/2026 insieme alla ver159: «Nu\* per pubblicare ver159 e ver160 sul sito e su main») (prima su `main` la ver158, approvata il 28/11/2026: «Nu\* dalla ver154 alla ver158») (prima su `main` la ver153, approvata il 27/11/2026: «Nu\*», insieme alla ver152) (prima su `main` la ver151, approvata il 27/11/2026: «Lascia ver151 online») (prima su `main` la ver150, approvata il 27/11/2026: «Sì, main») (prima su `main` la ver149, approvata il 27/11/2026: «Nu\* e main», insieme alla ver148) (prima su `main` la ver147, approvata da Christian il 23/11/2026: «main») (prima su `main` la ver146, approvata da Christian il 23/11/2026: «main per ver146»; prima su `main` la ver145, approvata da Christian il 23/11/2026: «main»; prima su `main` la ver144, approvata da Christian il 22/11/2026: «Main»; prima su `main` la ver143, approvata da Christian il 21/11/2026: «Main»; prima la ver142). `VER` finisce anche nei
   nomi dei file esportati: incrementarla, non affiancarle un secondo numero.
 - **Strutture utili**: `usoint-orelav` = `{ [norm(nome)]: { [anno]: [12 numeri] } }` (ore
   lavorate, indice 0 = gennaio; `norm` = minuscolo, trim, spazi singoli).
@@ -89,6 +89,16 @@ USOINT sta per **"uso interno"**.
 - **Funzioni presenti**: import automatico (SOLA LETTURA) delle ore lavorate dal database dei
   Dipendenti tramite una **seconda app Firebase** chiamata "dip"; tabella compatta della scheda
   operatore (Lavorate | una colonna per progetto | Tot. rendicontate | Avanzo).
+- 🗂️ **ver162 (28/11/2026, Christian: «2b» dopo l'esempio VERDI/ROSSI; su `main` dal 28/11/2026: «Nu\*»)**: le annualità vuote = totale sulla prima annualità
+  (ver160) valgono anche per le righe **cessate** (personale e beni/servizi), purché non abbiano passato ore col sistema vecchio. Funzione nuova
+  **`cessLibero(r, L)`**: vero se la riga non è cessata, oppure se non ha nessun `trasf` senza `eur` (trasferimento in ore registrato) e nessun'altra riga
+  della stessa sezione (`L`) ha `recBlk` (ore/importi ricevuti col sistema vecchio). `annAutoP(p,P)` / `annAutoB(b,B)` prendono un secondo argomento
+  facoltativo (la sezione); senza, un cessato entra solo col segno `_annOk:true` (lo mette il Riepilogo operatori su una copia, mai salvato). Usate al
+  caricamento del lavoro, in `uP`/`uB` (Ore tot./Importo che cambiano) e nel Riepilogo operatori. Il caso ROSSI (ore passate col sistema vecchio) resta
+  escluso: le ore non contano due volte. **Sui dati veri nessun numero cambia** (nessuno degli 11 cessati ha le annualità vuote; e2e 252/252).
+  **Provato**: `collaudo/uso-ver162.cjs` **8/0** (confronto con la ver161 in `/uso161/`); `uso-ver160` A01-A06 aggiornati (la riga cessata BETA,
+  senza passaggi, ora entra); batteria USOINT 31 gruppi a zero falliti; `audit-formule` 0 differenze. ⚠️ Non provato a video il Riepilogo operatori
+  con un cessato a annualità vuote mai salvato (caso assente nei dati veri).
 - ⛔ **ver161 (28/11/2026, Christian: «3, scatti!» sull'allarme «sforato» negli anni senza budget; su `main` dal 28/11/2026: «Nu\* per mettere la ver161
   online e su main»)**: nel lavoro **vincolato** il ⛔ scatta anche quando si spende in un anno che non ha budget (né ore/importo nell'annualità né euro
   ricevuti) e non resta niente dall'anno prima. Motore: `cP` `ov=vin&&(oA>0||ricY>0||oE>0.005)&&…`, `cB` `ov=vin&&(iA>0||iE>0.005)&&iE>iD`. Il riquadro
